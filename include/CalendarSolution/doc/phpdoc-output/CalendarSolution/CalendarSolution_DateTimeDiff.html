@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CalendarSolution_DateTimeDiff</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class CalendarSolution_DateTimeDiff</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides DateTime::diff() functionality because of a bug in PHP &lt; 5.3.3</p>
+<p class="description"><p>Only support years, months and days</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Daniel Convissor &lt;<a href="mailto:danielc@analysisandsolutions.com">danielc@analysisandsolutions.com</a>&gt;</li>
+				<li><span class="field">copyright:</span> The Analysis and Solutions Company, 2009-2010</li>
+				<li><span class="field">license:</span> <a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_include---CalendarSolution---DateTime.php.html">/include/CalendarSolution/DateTime.php</a> (line <span class="field">25</span>)
+		</p>
+		
+				
+		<pre>DateTime
+   |
+   --CalendarSolution_DateTimeDiff</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_DateTime52.html">CalendarSolution_DateTime52</a></td>
+					<td>
+											Provides DateTime::add(), DateTime::sub() and DateTime::modify()  methods for versions of PHP before 5.3
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-consts">Constants</a>
+							
+									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																						
+				<div class="method-definition">
+											<span class="method-result"><a href="../CalendarSolution/DateInterval.html">DateInterval</a></span>
+										<a href="#diff" title="details" class="method-name">diff</a>
+											(<span class="var-type">DateTime</span>&nbsp;<span class="var-name">$datetime</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$absolute</span> = <span class="var-default">false</span>])
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-consts">Constants</a>
+							
+										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methoddiff" id="diff"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">diff</span> (line <span class="line-number">41</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fixes PHP bug 49081</p>
+<p class="description"><p>Our version only supports years, months and days</p><p>Generally, $this is the earlier date while the $datetime parameter  is the later date.</p><p>Ported from ext/date/lib/interval.c 272370 2008-12-31 11:15:49Z</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../CalendarSolution/DateInterval.html">DateInterval</a></span>
+		<span class="method-name">
+			diff
+		</span>
+					(<span class="var-type">DateTime</span>&nbsp;<span class="var-name">$datetime</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$absolute</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">DateTime</span>
+				<span class="var-name">$datetime</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$absolute</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">DateTime (Internal Class)</span></p>
+					<blockquote>
+													<span class="method-name">constructor __construct (  )</span><br>
+													<span class="method-name">format (  )</span><br>
+													<span class="method-name">getOffset (  )</span><br>
+													<span class="method-name">getTimezone (  )</span><br>
+													<span class="method-name">modify (  )</span><br>
+													<span class="method-name">setDate (  )</span><br>
+													<span class="method-name">setISODate (  )</span><br>
+													<span class="method-name">setTime (  )</span><br>
+													<span class="method-name">setTimezone (  )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname">DateTime (Internal Class)</span></p>
+					<blockquote>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ATOM = 'Y-m-d\\TH:i:sP'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">COOKIE = 'l, d-M-y H:i:s T'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ISO8601 = 'Y-m-d\\TH:i:sO'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RFC822 = 'D, d M y H:i:s O'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RFC850 = 'l, d-M-y H:i:s T'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RFC1036 = 'D, d M y H:i:s O'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RFC1123 = 'D, d M Y H:i:s O'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RFC2822 = 'D, d M Y H:i:s O'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RFC3339 = 'Y-m-d\\TH:i:sP'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">RSS = 'D, d M Y H:i:s O'</span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">W3C = 'Y-m-d\\TH:i:sP'</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 06 Jan 2010 16:26:27 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

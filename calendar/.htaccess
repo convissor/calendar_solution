@@ -1,0 +1,13 @@
+DirectoryIndex calendar.php
+
+<Files *htaccess>
+Deny from all
+</Files>
+
+<Files *htpasswd>
+Deny from all
+</Files>
+
+<Files *inc>
+Deny from all
+</Files>

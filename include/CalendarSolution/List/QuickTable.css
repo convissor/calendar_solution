@@ -1,0 +1,15 @@
+table.cs_list_quicktable,
+table.cs_list_quicktable th,
+table.cs_list_quicktable td {
+ border: thin solid black;
+ border-collapse: collapse;
+}
+
+table.cs_list_quicktable td {
+ padding: 0.25em;
+ vertical-align: top;
+}
+
+td.day {
+ white-space: nowrap;
+}

@@ -1,0 +1,16 @@
+table.cs_detail_html {
+ border: none;
+}
+td.cs_label,
+td.cs_value {
+ vertical-align: top;
+ padding: 0.3em;
+}
+
+p.cs_view_all {
+}
+
+p.cs_credit {
+ margin-top: 4em;
+ font-size: 9pt;
+}

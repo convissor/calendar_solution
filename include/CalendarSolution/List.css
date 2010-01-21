@@ -1,0 +1,147 @@
+/*
+ * CALENDAR
+ */
+
+table.cs_list_calendar {
+ border-top: thin solid #004300;
+ border-right: thin solid #004300;
+ margin-bottom: 0.5em;
+ width: 100%;
+ border-collapse: collapse;
+}
+
+table.cs_list_calendar caption,
+table.cs_list_calendar th,
+table.cs_list_calendar td {
+ color: #004300;
+ background-color: #FFFFFF;
+}
+
+table.cs_list_calendar th,
+table.cs_list_calendar td {
+ color: #004300;
+ background-color: #FFFFFF;
+ border-left: thin solid #004300;
+ border-bottom: thin solid #004300;
+ border-collapse: collapse;
+ padding-left: 0.3em;
+ width: 14%;
+ vertical-align: top;
+ font-size: 8pt;
+}
+
+table.cs_list_calendar caption {
+ margin-top: 0.5em;
+ margin-bottom: 0.1em;
+ font-size: 170%;
+ font-weight: bold;
+}
+
+table.cs_list_calendar td {
+ height: 50px;
+}
+
+table.cs_list_calendar div.itemN {
+ margin-top: 0em;
+ margin-bottom: 0.5em;
+}
+
+table.cs_list_calendar div.itemY {
+ margin-top: 0em;
+ margin-bottom: 0.5em;
+ background-color: #FFCC66;
+}
+
+
+/*
+ * LIST
+ */
+
+table.cs_list_list {
+ border-style: none;
+}
+
+table.cs_list_list td.month {
+ color: #004300;
+ background-color: #FFFFFF;
+ border-style: solid none none none;
+ border-top: thick solid #FFFFFF;
+ font-size: 130%;
+}
+
+table.cs_list_list tr.N0 {
+ background-color: #99CCCC;
+}
+
+table.cs_list_list tr.N1 {
+ background-color: #99CC99;
+}
+
+table.cs_list_list tr.Y0,
+table.cs_list_list tr.Y1 {
+ background-color: #FFCC66;
+}
+
+table.cs_list_list td.title,
+table.cs_list_list td.day,
+table.cs_list_list td.time,
+table.cs_list_list td.location,
+table.cs_list_list td.summary {
+ color: #004300;
+ font-size: 85%;
+ border-style: solid none none none;
+ border-top: thin solid #FFFFFF;
+ vertical-align: top;
+ padding: 0.2em;
+}
+
+table.cs_list_list td.summary {
+ border-style: none;
+ padding-left: 1em;
+}
+
+table.cs_list_list td.day,
+table.cs_list_list td.time {
+ white-space: nowrap;
+}
+
+
+/*
+ * NAVIGATION AND LIMIT FORM
+ */
+
+table.cs_nav td {
+ font-size: 9pt;
+}
+
+form.cs_limit table {
+ margin-top: 0.7em;
+ border-style: solid;
+ width: 100%;
+ border: thin solid black;
+ padding: 0.5em;
+}
+form.cs_limit small,
+form.cs_limit input,
+form.cs_limit select,
+form.cs_limit option {
+ font-size: 9pt;
+}
+form.cs_limit p.instructions {
+ margin-top: 0em;
+ margin-bottom: 0em;
+}
+form.cs_limit p.date {
+ margin-top: 0.3em;
+ margin-bottom: 0.3em;
+}
+form.cs_limit p.bottom {
+ margin-top: 0.3em;
+ margin-bottom: 0em;
+}
+
+p.cs_credit {
+ margin-top: 2em;
+ font-size: 9pt;
+ text-align: center;
+}

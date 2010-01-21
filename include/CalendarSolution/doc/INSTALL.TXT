@@ -1,0 +1,190 @@
+REQUIREMENTS
+------------
+* Apache httpd web server.  (You can get it to run on other
+  servers by porting the .htaccess and .htpasswd files.  If
+  you do, please send them to me so they can be included in
+  a future version.)
+* PHP 5.2 or greater
+* Access to one of the following database systems:
+  + MySQL
+  + PostgreSQL
+  + SQLite, version 2
+* The PHP extension matching the database system:
+  + mysql
+  + mysqli
+  + pgsql
+  + sqlite
+
+
+NOTE
+----
+When this document places something between "<" and ">", that
+indicates a place holder that you need to replace with the actual
+value relevant to your situation.  The "<" and ">" need to be
+replaced as well.  For example, you would turn
+"<database_admin_user_name>" into "root".
+
+
+INSTALLATION STEPS
+------------------
+* Create a database if necessary.  Calendar Solution's tables can
+be added to an existing database (the table names are prefixed with
+"cs_") or put into a new database.  If you do want to create a new
+database, here are some rough examples of how to do so.
+  + MySQL
+    mysql -u <database_admin_user_name> -p
+
+    CREATE DATABASE <database_name>;
+    GRANT INSERT, SELECT, UPDATE, DELETE
+      ON <database_name>.* TO <database_user_name>@localhost
+      IDENTIFIED BY '<password>';
+    FLUSH PRIVILEGES;
+    exit
+
+  + PostgreSQL
+    sudo -u postgres psql
+
+    CREATE USER <database_name> PASSWORD '<password>';
+    CREATE DATABASE <database_name>;
+    GRANT CONNECT ON DATABASE <database_name> TO <database_user_name>;
+    \q
+
+  + SQLite
+    Calendar Solution comes with a pre-created SQLite database that
+    is ready to use.  Skip to the "Personalize the system tables"
+    step.
+
+* Load the installation SQL script into your database system.
+  + MySQL:
+    mysql -u <database_admin_user_name> -p <database_name> \
+      < include/CalendarSolution/sql/install-2.1-mysql.sql
+
+  + PostgreSQL
+    sudo -u postgres psql <database_name> \
+      < include/CalendarSolution/sql/install-2.1-postgresql.sql
+
+    sudo -u postgres psql <database_name>
+
+    GRANT INSERT, SELECT, UPDATE, DELETE ON
+      cs_status,
+      cs_list_link_goes_to,
+      cs_power_of_two,
+      cs_feature_on_page,
+      cs_frequent_event,
+      cs_calendar
+      TO <database_user_name>;
+    GRANT SELECT, UPDATE ON
+      cs_frequent_event_frequent_event_id_seq,
+      cs_calendar_calendar_id_seq
+      TO <database_user_name>;
+    \q
+
+* Personalize the system tables, if so desired.
+NOTE: the INSERT statements here are ONLY EXAMPLES.
+
+  + Log into the database, if you have not already:
+    - MySQL:
+      mysql -u <database_admin_user_name> -p <database_name>
+    - PostgreSQL:
+      sudo -u postgres psql <database_name>
+    - SQLite
+      sqlite include/CalendarSolution/sqlite/calendar_solution.sqlite2
+
+  + Insert your Frequent Events, if any:
+      INSERT INTO cs_frequent_event
+        (frequent_event, frequent_event_uri) VALUES
+        ('Ride to Nowhere', 'http://example.org/nowhere.php');
+      INSERT INTO cs_frequent_event
+        (frequent_event, frequent_event_uri) VALUES
+        ('Ride to Somewhere', NULL);
+
+  + Insert your Featured Pages, if any.
+    NOTE: feature_on_page_id must be a power of 2 to allow an event
+    to be featured on multiple pages using bitwise math.
+    So, each new id is two times the prior one.  For example:
+      INSERT INTO cs_feature_on_page
+        (feature_on_page_id, feature_on_page) VALUES
+        (2, 'Rides Page');
+      INSERT INTO cs_feature_on_page
+        (feature_on_page_id, feature_on_page) VALUES
+        (4, 'Meetings Page');
+      INSERT INTO cs_feature_on_page
+        (feature_on_page_id, feature_on_page) VALUES
+        (8, 'Movies Page');
+
+  + Exit the database:
+    - MySQL:
+      exit
+    - PostgreSQL:
+      \q
+    - SQLite:
+      .quit
+
+* Adjust permissions on the files.  Rework the examples to suit
+the environment you are running in.
+  + cd into the "calendar_solution-2.1" directory, which is the root
+  directory created by extracting our .tar.bz2 file.
+  + chown -R root:www-data .
+  + find . -type d -exec chmod 750 {} \;
+  + find . -type f -exec chmod 640 {} \;
+  + chmod 755 include/CalendarSolution/doc/compile_phpdoc.sh
+  + chmod 760 include/CalendarSolution/sqlite/calendar_solution.sqlite2
+
+* Edit the "dbms" settings in:
+  + calendar/directory.inc
+  + calendar/Admin/directory.inc
+
+* If you move the "include" directory relative to the "calendar"
+directory, or if you change its name, you will need to change the
+"IncludeDir" settings in:
+  + calendar/directory.inc
+  + calendar/Admin/directory.inc
+
+* (If you are using SQLite, skip this step.)
+Put your database authentication information into the one
+SQL Solution user class file matching your database system:
+  + sql-my-user.inc  (for PHP's mysql extension)
+  + sql-myi-user.inc  (for PHP's mysqli extension)
+  + sql-pg-user.inc  (for PostgreSQL)
+
+* Put the "calendar" and "include" directories in a location
+accessible by your web server.
+
+* In a command line terminal, cd into our "calendar/Admin"
+directory.  Follow the instructions in both of the following
+files:
+  + .htaccess
+  + .htpasswd
+
+* Point your web browser at your web server and navigate to the
+"calendar/Admin" directory.  The web server will produce a prompt
+asking for the user name and password you generated in the prior
+step.
+
+* You should see a calendar with no events in it.
+
+* Click the "Add a New Event" link, enter the data for an event
+then click the "Add" button at the bottom.
+
+* Click the "View All Events" link at the top and your event
+should show up in the calendar, though the calendar shows only
+three months by default, so you may need to navigate ahead
+via the "See Later Events" link to get to the right time frame
+in the display.
+
+* If at any point you receive the "A Database Problem Occurred"
+message, the full error message can be obtained by editing the
+"include/sql-common.inc" file.  At the end of the file is a
+"debug tool ->" comment.  Move the "echo"... command down one
+line so it becomes uncommented, save the file and retry the
+request in your web browser.  Once you get the message, make
+sure to undo your change to avoid revealing server information
+to the public.
+
+* Integrate your HTML layout into the "calendar/calendar.php"
+and "calendar/calendar-detail.php" files.
+
+* If you want to include lists of particular events inside other
+pages, take a look at the examples inside the following files:
+  + Frequent Events: "calendar/example-quicktable.php"
+  + Featured Events: "calendar/example-title.php"
