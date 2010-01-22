@@ -24,7 +24,7 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The means to output collections of events formatted as a bullet list  of the date and name of each event</p>
+<p class="short-description">The means to output collections of events formatted as a list  of the date and name of each event</p>
 <p class="description"><p>Intended for use to display Featured Events on Home Pages or other top  level pages.</p></p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Daniel Convissor &lt;<a href="mailto:danielc@analysisandsolutions.com">danielc@analysisandsolutions.com</a>&gt;</li>
@@ -123,7 +123,7 @@
 				<div class="method-definition">
 											<span class="method-result">string</span>
 										<a href="#get_row_open" title="details" class="method-name">get_row_open</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$class</span>)
+										()
 									</div>
 											</div>
 		</div>
@@ -197,6 +197,9 @@
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$prior_to">CalendarSolution_List::$prior_to</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$show_cancelled">CalendarSolution_List::$show_cancelled</a></span><br>
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$show_summary">CalendarSolution_List::$show_summary</a></span><br>
@@ -350,7 +353,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_rendering</span> (line <span class="line-number">104</span>)
+		<span class="method-title">get_rendering</span> (line <span class="line-number">106</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -358,14 +361,16 @@
 	<ul class="tags">
 				<li><span class="field">return:</span> the complete HTML of the events and the related interface</li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_list_open">CalendarSolution_List_Title::get_list_open()</a> - to open the set</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_row_close">CalendarSolution_List_Title::get_row_close()</a> - to close the element</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_row_open">CalendarSolution_List_Title::get_row_open()</a> - to open the element</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_list_open">CalendarSolution_List_Title::get_list_open()</a> - to open the set</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_list_close">CalendarSolution_List_Title::get_list_close()</a> - to close the set</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_from">CalendarSolution_List::set_from()</a> - to default the date to today</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_page_id">CalendarSolution_List::set_page_id()</a> - if $page_id is passed</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_event_formatted">CalendarSolution_List_Title::get_event_formatted()</a> - to format
        each event</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_from">CalendarSolution_List::set_from()</a> - to default the date to today</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_page_id">CalendarSolution_List::set_page_id()</a> - if $page_id is passed</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_cancelled">CalendarSolution_List::set_show_cancelled()</a> - to drop cancelled
+       events from the display</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> - to obtain the data</li>
 			</ul>
 	
@@ -389,7 +394,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_row_close</span> (line <span class="line-number">141</span>)
+		<span class="method-title">get_row_close</span> (line <span class="line-number">138</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -414,7 +419,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_row_open</span> (line <span class="line-number">149</span>)
+		<span class="method-title">get_row_open</span> (line <span class="line-number">145</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -429,14 +434,9 @@
 		<span class="method-name">
 			get_row_open
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$class</span>)
+				()
 			</div>
 	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$class</span><span class="var-description">: the CSS class name for this row</span>			</li>
-				</ul>
 		
 			
 	</div>
@@ -459,6 +459,7 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_limit">CalendarSolution_List::set_limit()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_page_id">CalendarSolution_List::set_page_id()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_prior_and_next_dates">CalendarSolution_List::set_prior_and_next_dates()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_cancelled">CalendarSolution_List::set_show_cancelled()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_summary">CalendarSolution_List::set_show_summary()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_to">CalendarSolution_List::set_to()</a></span><br>
 											</blockquote>
@@ -534,13 +535,25 @@
 							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constLINK_TO_NONE">CalendarSolution::LINK_TO_NONE</a></span><br>
 							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constSTATUS_CANCELLED">CalendarSolution::STATUS_CANCELLED</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constSTATUS_FULL">CalendarSolution::STATUS_FULL</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constSTATUS_OPEN">CalendarSolution::STATUS_OPEN</a></span><br>
+							</span>
 											</blockquote> 
 										
 		</div>
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 06 Jan 2010 16:26:28 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 22 Jan 2010 01:18:24 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

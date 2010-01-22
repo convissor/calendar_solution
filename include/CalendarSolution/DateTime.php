@@ -13,7 +13,7 @@
  */
 
 /**
- * Provides DateTime::diff() functionality because of a bug in PHP < 5.3.3
+ * Provides DateTime::diff() functionality because of bug 49081 in PHP
  *
  * Only support years, months and days
  *
@@ -90,7 +90,7 @@ class CalendarSolution_DateTimeDiff extends DateTime {
     /**
      * Ported from ext/date/lib/tm2unixtime.c 279799 2009-05-03 18:22:40Z
      *
-     * Changes from the original: fixes PHP bug 49081
+     * Resolves PHP bug 49081 by removing the days_next_month functionality.
      */
     private function do_range_limit_days_relative(&$base_y, &$base_m, &$y, &$m, &$d) {
         //                           dec  jan  feb  mrt  apr  may  jun  jul  aug  sep  oct  nov  dec
@@ -102,25 +102,9 @@ class CalendarSolution_DateTimeDiff extends DateTime {
         $leapyear = $this->timelib_is_leap($base_y);
         $days_this_month = $leapyear ? $days_in_month_leap[$base_m] : $days_in_month[$base_m];
 
-        $next_month = ($base_m) + 1;
-
-        if ($next_month > 12) {
-            $next_month -= 12;
-            $next_year = ($base_y) + 1;
-        } else {
-            $next_year = ($base_y);
-        }
-        $leapyear = $this->timelib_is_leap($next_year);
-        $days_next_month = $leapyear ? $days_in_month_leap[$next_month] : $days_in_month[$next_month];
-
         if ($d < 0) {
             $d += $days_this_month;
             $m--;
-            return 1;
-        }
-        if ($d > $days_next_month && $d > $days_this_month) {
-            $d -= $days_next_month;
-            $m++;
             return 1;
         }
         return 0;

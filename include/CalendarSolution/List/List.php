@@ -63,10 +63,18 @@ class CalendarSolution_List_List extends CalendarSolution_List {
              . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
              . "</td>\n";
 
+        $out .= '  <td class="status">' . $event['status'];
+        if ($event['changed'] == 'Y'
+            && $event['status_id'] != self::STATUS_CANCELLED)
+        {
+            $out .= ' &amp; Changed';
+        }
+        $out .= "</td>\n";
+
         if ($event['summary'] != '' && $this->show_summary) {
             $out .= $this->get_row_close()
                  . $this->get_row_open($class)
-                 . '  <td class="summary" colspan="4">'
+                 . '  <td class="summary" colspan="5">'
                  . $event['summary'] . "</td>\n";
         }
 
@@ -163,12 +171,14 @@ class CalendarSolution_List_List extends CalendarSolution_List {
             $event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
                 array('calendar_uri', 'frequent_event_uri'));
 
-            if ($event['changed'] == 'Y') {
-                $event['title'] = 'CHANGED: ' . $event['title'];
-                $class = 'Y' . ($counter % 2);
+            if ($event['status_id'] == self::STATUS_CANCELLED) {
+                $class = 'X';
+            } elseif ($event['changed'] == 'Y') {
+                $class = 'Y';
             } else {
-                $class = 'N' . ($counter % 2);
+                $class = 'N';
             }
+            $class .= ($counter % 2);
 
             $event_month = substr($event['date_start'], 0, 7);
             if ($prior_event_month != $event_month) {

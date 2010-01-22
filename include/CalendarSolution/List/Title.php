@@ -2,7 +2,7 @@
 
 /**
  * Calendar Solution's means to output collections of events formatted as a
- * bullet list of the date and name of each event
+ * list of the date and name of each event
  *
  * Intended for use to display Featured Events on Home Pages or other top
  * level pages.
@@ -21,7 +21,7 @@ require_once $GLOBALS['IncludeDir'] . '/CalendarSolution/List.php';
 
 
 /**
- * The means to output collections of events formatted as a bullet list
+ * The means to output collections of events formatted as a list
  * of the date and name of each event
  *
  * Intended for use to display Featured Events on Home Pages or other top
@@ -62,10 +62,10 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
          * so there is no need to do it here.
          */
 
-        $out =  '<span class="day">'
+        $out =  '<td class="day">'
             . $this->format_date($event['date_start'], self::DATE_FORMAT_SHORT)
-            . '</span> '
-            . '<span class="title">' . $this->get_link($event) . '</span>';
+            . '</td> '
+            . '<td class="title">' . $this->get_link($event) . '</td>';
 
         return $out;
     }
@@ -74,14 +74,14 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
      * @return string  the HTML for closing a list
      */
     protected function get_list_close() {
-        return "</ul>\n";
+        return "</table>\n";
     }
 
     /**
      * @return string  the HTML for opening a list
      */
     protected function get_list_open() {
-        return '<ul class="cs_list_title">' . "\n";
+        return '<table class="cs_list_title">' . "\n";
     }
 
     /**
@@ -93,6 +93,8 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
      *
      * @uses CalendarSolution_List::set_page_id()  if $page_id is passed
      * @uses CalendarSolution_List::set_from()  to default the date to today
+     * @uses CalendarSolution_List::set_show_cancelled()  to drop cancelled
+     *       events from the display
      * @uses CalendarSolution_List::run_query()  to obtain the data
      * @uses CalendarSolution_List_Title::get_list_open()  to open the set
      * @uses CalendarSolution_List_Title::get_row_open()  to open the element
@@ -110,6 +112,8 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
             $this->set_from();
         }
 
+        $this->set_show_cancelled(false);
+
         $this->run_query();
 
         $out = $this->get_list_open();
@@ -118,14 +122,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
             $event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
                 array('calendar_uri', 'frequent_event_uri'));
 
-            if ($event['changed'] == 'Y') {
-                $event['title'] = 'CHANGED: ' . $event['title'];
-                $class = 'Y' . ($counter % 2);
-            } else {
-                $class = 'N' . ($counter % 2);
-            }
-
-            $out .= $this->get_row_open($class);
+            $out .= $this->get_row_open();
             $out .= $this->get_event_formatted($event);
             $out .= $this->get_row_close();
         }
@@ -139,14 +136,13 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
      * @return string  the HTML for closing a row
      */
     protected function get_row_close() {
-        return "</li>\n";
+        return "</tr>\n";
     }
 
     /**
-     * @param string $class  the CSS class name for this row
      * @return string  the HTML for opening a row
      */
-    protected function get_row_open($class) {
-        return ' <li class="' . $class . '">';
+    protected function get_row_open() {
+        return ' <tr>';
     }
 }

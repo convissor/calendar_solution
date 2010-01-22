@@ -60,11 +60,21 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
          * so there is no need to do it here.
          */
 
-        if ($event['changed'] == 'Y') {
+        if ($event['status_id'] == self::STATUS_CANCELLED) {
+            $event['title'] = 'CANCELLED: ' . $event['title'];
+            $class = 'X';
+        } elseif ($event['changed'] == 'Y') {
             $event['title'] = 'CHANGED: ' . $event['title'];
+            $class = 'Y';
+        } else {
+            $class = 'N';
         }
 
-        $out = '<div class="item' . $event['changed'] . '">';
+        if ($event['status_id'] == self::STATUS_FULL) {
+            $event['title'] = 'FULL: ' . $event['title'];
+        }
+
+        $out = '<div class="item' . $class . '">';
         $out .= '<span class="title">' . $this->get_link($event) . '</span>';
 
         $out .= ($event['time_start'] ?

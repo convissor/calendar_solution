@@ -41,14 +41,16 @@ table.cs_list_calendar td {
  height: 50px;
 }
 
-table.cs_list_calendar div.itemN {
+/* N = normal, Y = changed, X = cancelled */
+table.cs_list_calendar div.itemN,
+table.cs_list_calendar div.itemY,
+table.cs_list_calendar div.itemX {
  margin-top: 0em;
  margin-bottom: 0.5em;
 }
 
-table.cs_list_calendar div.itemY {
- margin-top: 0em;
- margin-bottom: 0.5em;
+table.cs_list_calendar div.itemY,
+table.cs_list_calendar div.itemX {
  background-color: #FFCC66;
 }
 
@@ -69,6 +71,7 @@ table.cs_list_list td.month {
  font-size: 130%;
 }
 
+/* N = normal, Y = changed, X = cancelled */
 table.cs_list_list tr.N0 {
  background-color: #99CCCC;
 }
@@ -78,15 +81,16 @@ table.cs_list_list tr.N1 {
 }
 
 table.cs_list_list tr.Y0,
-table.cs_list_list tr.Y1 {
- background-color: #FFCC66;
+table.cs_list_list tr.X0 {
+ background-color: #FFCC99;
 }
 
-table.cs_list_list td.title,
-table.cs_list_list td.day,
-table.cs_list_list td.time,
-table.cs_list_list td.location,
-table.cs_list_list td.summary {
+table.cs_list_list tr.Y1,
+table.cs_list_list tr.X1 {
+ background-color: #FFCC00;
+}
+
+table.cs_list_list td {
  color: #004300;
  font-size: 85%;
  border-style: solid none none none;

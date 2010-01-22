@@ -86,6 +86,20 @@ class CalendarSolution_Detail_Html extends CalendarSolution_Detail {
         }
         $out .= "</td></tr>\n";
 
+        $out .= ' <tr><td scope="row" class="cs_label">Status:</td>'
+             . '<td class="cs_value">';
+        if ($this->data['status_id'] == self::STATUS_OPEN) {
+            $out .= $this->data['status'];
+        } else {
+            $out .= '<em>' . $this->data['status'] . '</em>';
+        }
+        $out .= "</td></tr>\n";
+
+        if ($this->data['changed'] == 'Y') {
+            $out .= ' <tr><td scope="row" class="cs_label">Changed:</td>'
+                 . '<td class="cs_value"><em>NOTICE: changes have been made to this event since it was first posted.</em></td></tr>' . "\n";
+        }
+
         $out .= ' <tr><td scope="row" class="cs_label">Date:</td>'
              . '<td class="cs_value">'
              . $this->format_date($this->data['date_start'], self::DATE_FORMAT_FULL)

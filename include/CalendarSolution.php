@@ -20,25 +20,43 @@ require $GLOBALS['IncludeDir'] . '/CalendarSolution/Exception.php';
 if (class_exists('DateInterval')) {
     // PHP 5.3
 
-    if (version_compare(phpversion(), '5.3.3', '<')) {
+    if (version_compare(phpversion(), '5.3.3', '>=')) {
+        // Do a test in case PHP bug 49081 isn't resolved by 5.3.3's release.
+
+        $d = new DateTime('2010-01-01');
+        $i = $d->diff(new DateTime('2010-01-31'));
+        if ($i->format('%d') == '30') {
+            /**
+             * Version of PHP is cool, so just stub out the real DateTime class
+             * @ignore
+             * @package CalendarSolution
+             */
+            class CalendarSolution_DateTime extends DateTime {}
+        } else {
+            /**
+             * Use our own date class so we can provide forward compatibility
+             */
+            require $GLOBALS['IncludeDir'] . '/CalendarSolution/DateTime.php';
+
+            /**
+             * Bug 49081 still afflicts PHP's DateTime::diff() method
+             * @ignore
+             * @package CalendarSolution
+             */
+            class CalendarSolution_DateTime extends CalendarSolution_DateTimeDiff {}
+        }
+    } else {
         /**
          * Use our own date class so we can provide forward compatibility
          */
         require $GLOBALS['IncludeDir'] . '/CalendarSolution/DateTime.php';
 
         /**
-         * PHP before 5.3.3 has bugs in the diff() method
+         * Bug 49081 afflicts PHP's DateTime::diff() method
          * @ignore
          * @package CalendarSolution
          */
         class CalendarSolution_DateTime extends CalendarSolution_DateTimeDiff {}
-    } else {
-        /**
-         * PHP 5.3.3 should be cool, so just stub out the real DateTime class
-         * @ignore
-         * @package CalendarSolution
-         */
-        class CalendarSolution_DateTime extends DateTime {}
     }
 } else {
     // PHP 5.2
@@ -90,6 +108,14 @@ class CalendarSolution {
     const LINK_TO_DETAIL_PAGE = 2;
     const LINK_TO_FREQUENT_EVENT_URI = 3;
     const LINK_TO_CALENDAR_URI = 4;
+    /**#@-*/
+
+    /**#@+
+     * Status ID numbers used by the status_id field
+     */
+    const STATUS_OPEN = 1;
+    const STATUS_FULL = 2;
+    const STATUS_CANCELLED = 3;
     /**#@-*/
 
     /**

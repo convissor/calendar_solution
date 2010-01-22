@@ -139,11 +139,19 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
             $event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
                 array('calendar_uri', 'frequent_event_uri'));
 
-            if ($event['changed'] == 'Y') {
-                $event['title'] = 'CHANGED: ' . $event['title'];
-                $class = 'Y' . ($counter % 2);
+            if ($event['status_id'] == self::STATUS_CANCELLED) {
+                $event['note'] = 'CANCELLED. ' . $event['note'];
+                $class = 'X';
+            } elseif ($event['changed'] == 'Y') {
+                $event['note'] = 'CHANGED. ' . $event['note'];
+                $class = 'Y';
             } else {
-                $class = 'N' . ($counter % 2);
+                $class = 'N';
+            }
+            $class .= ($counter % 2);
+
+            if ($event['status_id'] == self::STATUS_FULL) {
+                $event['note'] = 'FULL. ' . $event['note'];
             }
 
             $out .= $this->get_row_open($class);

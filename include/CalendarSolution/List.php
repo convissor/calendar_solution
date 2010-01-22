@@ -84,6 +84,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
     protected $prior_to;
 
     /**
+     * Should cancelled events be shown or not?
+     * @var bool
+     */
+    protected $show_cancelled = true;
+
+    /**
      * Should the Summary field be shown or not when viewing "List" mode?
      * @var bool
      */
@@ -415,6 +421,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
             }
         }
 
+        if (!$this->show_cancelled) {
+            $where[] = "cs_calendar.status_id <> "
+                . $this->sql->Escape(__FILE__, __LINE__, self::STATUS_CANCELLED);
+        }
+
 
         /*
          * Construct the SQL string.
@@ -431,7 +442,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
             location_start,
             note,
             status,
-            cs_calendar.status_id,
+            cs_calendar.status_id AS status_id,
             summary,
             time_end,
             time_start,
@@ -585,6 +596,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
         $this->next_to = new CalendarSolution_DateTime($this->next_from->format('Y-m-d'));
         $this->next_to->add($this->interval_singleton());
         $this->next_to->modify('last day of the month');
+    }
+
+    /**
+     * Should cancelled events be shown or not?
+     *
+     * @param bool $in  set it to FALSE to leave out cancelled events
+     *
+     * @return void
+     *
+     * @uses CalendarSolution_List_List::$show_cancelled  to store the decision
+     */
+    public function set_show_cancelled($in) {
+        $this->show_cancelled = $in;
     }
 
     /**

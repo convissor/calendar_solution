@@ -1,3 +1,11 @@
-ul.cs_list_title {
-  padding-left: 1em;
+table.cs_list_title {
+ border: none;
+}
+
+table.cs_list_title td.day {
+ text-align: right;
+}
+
+table.cs_list_title td.title {
+ padding-left: 0.5em;
 }

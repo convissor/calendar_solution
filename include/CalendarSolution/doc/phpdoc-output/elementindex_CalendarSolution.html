@@ -149,7 +149,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_DateTimeDiff.html">CalendarSolution_DateTimeDiff</a> in DateTime.php</div>
-							<div class="index-item-description">Provides DateTime::diff() functionality because of a bug in PHP &lt; 5.3.3</div>
+							<div class="index-item-description">Provides DateTime::diff() functionality because of bug 49081 in PHP</div>
 					</dd>
 			<dt class="field">
 						CalendarSolution_Detail
@@ -212,7 +212,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html">CalendarSolution_List_Title</a> in Title.php</div>
-							<div class="index-item-description">The means to output collections of events formatted as a bullet list  of the date and name of each event</div>
+							<div class="index-item-description">The means to output collections of events formatted as a list  of the date and name of each event</div>
 					</dd>
 			<dt class="field">
 						<span class="include-title">Calendar.php</span>
@@ -1013,11 +1013,11 @@
 	</div>
 	<dl>
 			<dt class="field">
-						<span class="var-title">$show_summary</span>
+						<span class="var-title">$show_cancelled</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$show_summary">CalendarSolution_List::$show_summary</a> in List.php</div>
-							<div class="index-item-description">Should the Summary field be shown or not when viewing &quot;List&quot; mode?</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$show_cancelled">CalendarSolution_List::$show_cancelled</a> in List.php</div>
+							<div class="index-item-description">Should cancelled events be shown or not?</div>
 					</dd>
 			<dt class="field">
 						<span class="var-title">$show_summary</span>
@@ -1025,6 +1025,13 @@
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#var$show_summary">CalendarSolution_List_QuickTable::$show_summary</a> in QuickTable.php</div>
 							<div class="index-item-description">Should the Summary field be shown or not?</div>
+					</dd>
+			<dt class="field">
+						<span class="var-title">$show_summary</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$show_summary">CalendarSolution_List::$show_summary</a> in List.php</div>
+							<div class="index-item-description">Should the Summary field be shown or not when viewing &quot;List&quot; mode?</div>
 					</dd>
 			<dt class="field">
 						<span class="var-title">$sql</span>
@@ -1096,6 +1103,13 @@
 							<div class="index-item-description">Sets the properties used later when generating the navigation elements  for getting to earlier and later events</div>
 					</dd>
 			<dt class="field">
+						<span class="method-title">set_show_cancelled</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_show_cancelled">CalendarSolution_List::set_show_cancelled()</a> in List.php</div>
+							<div class="index-item-description">Should cancelled events be shown or not?</div>
+					</dd>
+			<dt class="field">
 						<span class="method-title">set_show_summary</span>
 					</dt>
 		<dd class="index-item-body">
@@ -1108,6 +1122,27 @@
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_to">CalendarSolution_List::set_to()</a> in List.php</div>
 							<div class="index-item-description">Sets the &quot;to&quot; property (defaults to the last day of the month  occurring $interval_spec months from today)</div>
+					</dd>
+			<dt class="field">
+						STATUS_CANCELLED
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#constSTATUS_CANCELLED">CalendarSolution::STATUS_CANCELLED</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Status ID numbers used by the status_id field</div>
+					</dd>
+			<dt class="field">
+						STATUS_FULL
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#constSTATUS_FULL">CalendarSolution::STATUS_FULL</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Status ID numbers used by the status_id field</div>
+					</dd>
+			<dt class="field">
+						STATUS_OPEN
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#constSTATUS_OPEN">CalendarSolution::STATUS_OPEN</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Status ID numbers used by the status_id field</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">sub</span>

@@ -13,3 +13,11 @@ table.cs_list_quicktable td {
 td.day {
  white-space: nowrap;
 }
+
+/* N = normal, Y = changed, X = cancelled */
+table.cs_list_quicktable tr.Y0,
+table.cs_list_quicktable tr.Y1,
+table.cs_list_quicktable tr.X0,
+table.cs_list_quicktable tr.X1 {
+ background-color: #FFCC66;
+}
