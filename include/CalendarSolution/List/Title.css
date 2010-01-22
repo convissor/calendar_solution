@@ -4,6 +4,7 @@ table.cs_list_title {
 
 table.cs_list_title td.day {
  text-align: right;
+ vertical-align: top;
 }
 
 table.cs_list_title td.title {
