@@ -31,7 +31,7 @@ class CalendarSolution_DateTimeDiff extends DateTime {
      * Generally, $this is the earlier date while the $datetime parameter
      * is the later date.
      *
-     * Ported from ext/date/lib/interval.c 272370 2008-12-31 11:15:49Z
+     * Ported from ext/date/lib/interval.c 298973 2010-05-04 15:11:41Z
      *
      * @param DateTime $datetime
      * @param bool $absolute
@@ -49,24 +49,24 @@ class CalendarSolution_DateTimeDiff extends DateTime {
         $two->m = $datetime->format('n');
         $two->d = $datetime->format('j');
 
-        $invert = false;
+        $rt = new StdClass;
+        $rt->invert = false;
         if ($this->format('U') > $datetime->format('U')) {
-            $invert = true;
             $swp = $two;
             $two = $one;
             $one = $swp;
+            $rt->invert = true;
         }
 
-        $rt = new StdClass;
         $rt->y = $two->y - $one->y;
         $rt->m = $two->m - $one->m;
         $rt->d = $two->d - $one->d;
 
-        $this->timelib_do_rel_normalize($one, $rt);
+        $this->timelib_do_rel_normalize($rt->invert ? $one : $two, $rt);
 
         $interval_spec = 'P' . $rt->y . 'Y' . $rt->m . 'M' . $rt->d . 'D';
         $interval = new DateInterval($interval_spec);
-        if ($invert) {
+        if ($rt->invert) {
             $interval->invert = 1;
         }
         return $interval;
@@ -88,35 +88,70 @@ class CalendarSolution_DateTimeDiff extends DateTime {
     }
 
     /**
-     * Ported from ext/date/lib/tm2unixtime.c 279799 2009-05-03 18:22:40Z
-     *
-     * Resolves PHP bug 49081 by removing the days_next_month functionality.
+     * Ported from ext/date/lib/tm2unixtime.c 298973 2010-05-04 15:11:41Z
      */
-    private function do_range_limit_days_relative(&$base_y, &$base_m, &$y, &$m, &$d) {
+    private function inc_month(&$y, &$m) {
+        $m++;
+        if ($m > 12) {
+            $m -= 12;
+            $y++;
+        }
+    }
+
+    /**
+     * Ported from ext/date/lib/tm2unixtime.c 298973 2010-05-04 15:11:41Z
+     */
+    private function dec_month(&$y, &$m) {
+        $m--;
+        if ($m < 1) {
+            $m += 12;
+            $y--;
+        }
+    }
+
+    /**
+     * Resolves PHP bug 49081 by using changes in revision 298973.
+     *
+     * Ported from ext/date/lib/tm2unixtime.c 298973 2010-05-04 15:11:41Z
+     */
+    private function do_range_limit_days_relative(&$base_y, &$base_m, &$y, &$m, &$d, $invert) {
         //                           dec  jan  feb  mrt  apr  may  jun  jul  aug  sep  oct  nov  dec
         $days_in_month_leap = array(  31,  31,  29,  31,  30,  31,  30,  31,  31,  30,  31,  30,  31);
         $days_in_month      = array(  31,  31,  28,  31,  30,  31,  30,  31,  31,  30,  31,  30,  31);
 
         $this->do_range_limit(1, 13, 12, $base_m, $base_y);
 
-        $leapyear = $this->timelib_is_leap($base_y);
-        $days_this_month = $leapyear ? $days_in_month_leap[$base_m] : $days_in_month[$base_m];
+        $year = $base_y;
+        $month = $base_m;
 
-        if ($d < 0) {
-            $d += $days_this_month;
-            $m--;
-            return 1;
+        if (!$invert) {
+            while ($d < 0) {
+                $this->dec_month($year, $month);
+                $leapyear = $this->timelib_is_leap($year);
+                $days = $leapyear ? $days_in_month_leap[$month] : $days_in_month[$month];
+
+                $d += $days;
+                $m--;
+            }
+        } else {
+            while ($d < 0) {
+                $leapyear = $this->timelib_is_leap($year);
+                $days = $leapyear ? $days_in_month_leap[$month] : $days_in_month[$month];
+
+                $d += $days;
+                $m--;
+                $this->inc_month($year, $month);
+            }
         }
-        return 0;
     }
 
     /**
-     * Ported from ext/date/lib/tm2unixtime.c 279799 2009-05-03 18:22:40Z
+     * Ported from ext/date/lib/tm2unixtime.c 298973 2010-05-04 15:11:41Z
      */
     private function timelib_do_rel_normalize($base, $rt) {
         while ($this->do_range_limit(0, 12, 12, $rt->m, $rt->y));
 
-        while ($this->do_range_limit_days_relative($base->y, $base->m, $rt->y, $rt->m, $rt->d));
+        $this->do_range_limit_days_relative($base->y, $base->m, $rt->y, $rt->m, $rt->d, $rt->invert);
         while ($this->do_range_limit(0, 12, 12, $rt->m, $rt->y));
     }
 
