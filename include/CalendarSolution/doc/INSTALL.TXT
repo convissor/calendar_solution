@@ -54,7 +54,7 @@ database, here are some rough examples of how to do so.
   + MySQL
     mysql -u <database_admin_user_name> -p
 
-    CREATE DATABASE <database_name>;
+    CREATE DATABASE <database_name> CHARSET utf8 COLLATE utf8_bin;
     GRANT INSERT, SELECT, UPDATE, DELETE
       ON <database_name>.* TO <database_user_name>@localhost
       IDENTIFIED BY '<password>';
@@ -65,7 +65,7 @@ database, here are some rough examples of how to do so.
     sudo -u postgres psql
 
     CREATE USER <database_name> PASSWORD '<password>';
-    CREATE DATABASE <database_name>;
+    CREATE DATABASE <database_name> WITH ENCODING 'UTF8';
     GRANT CONNECT ON DATABASE <database_name> TO <database_user_name>;
     \q
 
