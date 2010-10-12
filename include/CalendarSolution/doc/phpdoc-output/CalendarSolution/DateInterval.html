@@ -53,9 +53,17 @@
 								</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																																								<div class="var-title">
+																																																																																<div class="var-title">
 					<span class="var-type">int</span>
 					<a href="#$d" title="details" class="var-name">$d</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">int</span>
+					<a href="#$h" title="details" class="var-name">$h</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">int</span>
+					<a href="#$i" title="details" class="var-name">$i</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">string</span>
@@ -68,6 +76,10 @@
 																<div class="var-title">
 					<span class="var-type">int</span>
 					<a href="#$m" title="details" class="var-name">$m</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">int</span>
+					<a href="#$s" title="details" class="var-name">$s</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">int</span>
@@ -120,7 +132,7 @@
 		<div class="info-box-body">
 			
 <a name="var$d" id="$d"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -142,8 +154,54 @@
 		
 
 </div>
-<a name="var$interval_spec" id="$interval_spec"><!-- --></A>
+<a name="var$h" id="$h"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">int</span>
+			<span class="var-name">$h</span>
+			 = <span class="var-default"> 0</span>			(line <span class="line-number">39</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Date components</p>
+<p class="description"><p>Make public to improve efficiency by reducing calls to format().</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$i" id="$i"><!-- --></A>
 <div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">int</span>
+			<span class="var-name">$i</span>
+			 = <span class="var-default"> 0</span>			(line <span class="line-number">40</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Date components</p>
+<p class="description"><p>Make public to improve efficiency by reducing calls to format().</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$interval_spec" id="$interval_spec"><!-- --></A>
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -165,13 +223,13 @@
 
 </div>
 <a name="var$invert" id="$invert"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">int</span>
 			<span class="var-name">$invert</span>
-			 = <span class="var-default"> 0</span>			(line <span class="line-number">47</span>)
+			 = <span class="var-default"> 0</span>			(line <span class="line-number">50</span>)
 		</span>
 	</div>
 
@@ -188,13 +246,36 @@
 
 </div>
 <a name="var$m" id="$m"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">int</span>
 			<span class="var-name">$m</span>
 			 = <span class="var-default"> 0</span>			(line <span class="line-number">37</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Date components</p>
+<p class="description"><p>Make public to improve efficiency by reducing calls to format().</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$s" id="$s"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">int</span>
+			<span class="var-name">$s</span>
+			 = <span class="var-default"> 0</span>			(line <span class="line-number">41</span>)
 		</span>
 	</div>
 
@@ -252,11 +333,11 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">65</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">68</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Our version only supports years, months and days</p>
+<p class="short-description">Creates a DateInterval object</p>
 	<ul class="tags">
 				<li><span class="field">link:</span> <a href="http://php.net/dateinterval.construct">http://php.net/dateinterval.construct</a></li>
 				<li><span class="field">access:</span> public</li>
@@ -273,7 +354,7 @@
 			<ul class="parameters">
 					<li>
 				<span class="var-type">string</span>
-				<span class="var-name">$interval_spec</span><span class="var-description">: example: &quot;P0Y2M1D&quot;</span>			</li>
+				<span class="var-name">$interval_spec</span><span class="var-description">: example: &quot;P0Y2M1DT10H5M20S&quot;</span>			</li>
 				</ul>
 		
 			
@@ -282,7 +363,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">format</span> (line <span class="line-number">82</span>)
+		<span class="method-title">format</span> (line <span class="line-number">88</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -302,7 +383,7 @@
 			<ul class="parameters">
 					<li>
 				<span class="var-type">string</span>
-				<span class="var-name">$format</span><span class="var-description">: &quot;%y&quot;, &quot;%m&quot;, &quot;%d&quot;, &quot;%R&quot;, &quot;%r&quot;</span>			</li>
+				<span class="var-name">$format</span><span class="var-description">: supports any combination of                         &quot;%y&quot;, &quot;%m&quot;, &quot;%d&quot;, &quot;%h&quot;, &quot;%i&quot;, &quot;%s&quot;, &quot;%R&quot;, &quot;%r&quot;</span>			</li>
 				</ul>
 		
 			
@@ -313,7 +394,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 22 Jan 2010 01:18:21 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 12 Oct 2010 12:35:32 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

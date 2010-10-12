@@ -28,7 +28,7 @@
 <p class="short-description">The parent class for displaying collections of events</p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Daniel Convissor &lt;<a href="mailto:danielc@analysisandsolutions.com">danielc@analysisandsolutions.com</a>&gt;</li>
-				<li><span class="field">copyright:</span> The Analysis and Solutions Company, 2002-2009</li>
+				<li><span class="field">copyright:</span> The Analysis and Solutions Company, 2002-2010</li>
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">license:</span> <a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a></li>
 			</ul>
@@ -69,12 +69,6 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_List.html">CalendarSolution_List_List</a></td>
-					<td>
-											The means to output collections of events formatted as a table with  significant info about each event
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_QuickTable.html">CalendarSolution_List_QuickTable</a></td>
 					<td>
 											The means to output collections of events formatted as a table with  brief info about each entry
@@ -84,6 +78,12 @@
 					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_Title.html">CalendarSolution_List_Title</a></td>
 					<td>
 											The means to output collections of events formatted as a list  of the date and name of each event
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_List.html">CalendarSolution_List_List</a></td>
+					<td>
+											The means to output collections of events formatted as a table with  significant info about each event
 										</td>
 				</tr>
 							</table>
@@ -910,9 +910,9 @@
 	<ul class="tags">
 				<li><span class="field">throws:</span> CalendarSolution_Exception if to is later than from</li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a></li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to obtain the data</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to obtain the data</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a></li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a></li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the start of the date range</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$to">CalendarSolution_List::$to</a> - to know the end of the date range</li>
@@ -944,9 +944,9 @@
 <p class="short-description">Sets the &quot;frequent_event_id&quot; property to the appropriate value</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a></li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - if
        $frequent_event_id is passed</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a></li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a></li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a> - to determine the
        user's intention</li>
@@ -980,9 +980,9 @@
 <p class="short-description">Sets the &quot;from&quot; property (defaults to today)</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to default the date to today</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to default the date to today</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a></li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to default the date to today</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodset_from">CalendarSolution_List_Calendar::set_from()</a> - to determine the
        user's intention and perform the initial setting</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to store the data</li>
@@ -1300,7 +1300,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 22 Jan 2010 01:18:23 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 12 Oct 2010 12:35:33 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
