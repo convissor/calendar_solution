@@ -248,26 +248,26 @@ class CalendarSolution_DateTime52 extends CalendarSolution_DateTimeDiff {
      *                        Supported values include:
      *                         + "+<integer> <units>" (eg: "+2 days")
      *                         + "-<integer> <units>" (eg: "-2 days")
-     *                         + "first day of the month"
-     *                         + "last day of the month"
-     *                         + "<week_number_word> <day_name> of the month"
-     *                           (eg: "second sunday of the month",
-     *                           "last friday of the month", etc)
+     *                         + "first day of this month"
+     *                         + "last day of this month"
+     *                         + "<week_number_word> <day_name> of this month"
+     *                           (eg: "second sunday of this month",
+     *                           "last friday of this month", etc)
      * @return DateTime
      */
     public function modify($modify) {
         static $regex;
 
-        if ($modify == 'first day of the month') {
+        if ($modify == 'first day of this month') {
             $this->setDate($this->format('Y'), $this->format('m'), 1);
-        } elseif ($modify == 'last day of the month') {
+        } elseif ($modify == 'last day of this month') {
             $this->setDate($this->format('Y'), $this->format('m'), $this->format('t'));
         } else {
             if (!isset($regex)) {
                 $regex = '/^';
                 $regex .= '(' . implode('|' , array_keys($this->weeks)) . ') ';
                 $regex .= '(' . implode('|' , array_keys($this->days)) . ') ';
-                $regex .= 'of the month$/i';
+                $regex .= 'of this month$/i';
             }
 
             if (preg_match($regex, $modify, $match)) {
@@ -281,7 +281,7 @@ class CalendarSolution_DateTime52 extends CalendarSolution_DateTimeDiff {
 
     /**
      * Changes the date to the given week and day of the present month
-     * (such as the "second saturday of the month")
+     * (such as the "second saturday of this month")
      *
      * This is necessary because PHP's DateTime::modify() doesn't handle
      * this syntax correctly in PHP 5.2.

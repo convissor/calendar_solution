@@ -591,11 +591,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
         $this->prior_from = new CalendarSolution_DateTime($this->prior_to->format('Y-m-d'));
         $this->prior_from->sub($this->interval_singleton());
-        $this->prior_from->modify('first day of the month');
+        $this->prior_from->modify('first day of this month');
 
         $this->next_to = new CalendarSolution_DateTime($this->next_from->format('Y-m-d'));
         $this->next_to->add($this->interval_singleton());
-        $this->next_to->modify('last day of the month');
+        $this->next_to->modify('last day of this month');
     }
 
     /**
@@ -671,7 +671,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
         if ($add_months) {
             $this->to->add($this->interval_singleton());
-            $this->to->modify('last day of the month');
+            $this->to->modify('last day of this month');
         }
     }
 }

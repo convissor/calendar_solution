@@ -128,7 +128,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
             if ($this->data['week_of_month'] == 'end') {
                 // Last day of the month.
-                $date->modify('first day of the month');
+                $date->modify('first day of this month');
                 for ($i = 1; $i < $this->data['span']; $i++) {
                     $date->add($interval);
                     $date_starts[] = $date->format('Y-m-t');
@@ -137,9 +137,9 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
                 $day = $date->format('l');
                 $week = $this->data['week_of_month'];
                 for ($i = 1; $i < $this->data['span']; $i++) {
-                    $date->modify('first day of the month');
+                    $date->modify('first day of this month');
                     $date->add($interval);
-                    $date->modify("$week $day of the month");
+                    $date->modify("$week $day of this month");
                     $date_starts[] = $date->format('Y-m-d');
                 }
             }

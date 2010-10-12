@@ -90,7 +90,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
     }
 
     /**
-     * @return string  the HTML of the month header
+     * @return string  the HTML for the month header
      */
     protected function get_month_open(DateTime $current_date_time) {
         $out = '<table class="cs_list_calendar">' . "\n"
@@ -139,7 +139,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
     }
 
     /**
-     * @param int $w  the number in the week of the first day of the month
+     * @param int $w  the number in the week of the first day of the given month
      * @return string  the HTML for filling blanks at the start of a calendar
      * @uses CalendarSolution_List_Calendar::get_pad()
      */
@@ -148,7 +148,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
     }
 
     /**
-     * @param int $w  the number in the week of the last day of the month
+     * @param int $w  the number in the week of the last day of the given month
      * @return string  the HTML for filling blanks at the end of a calendar
      * @uses CalendarSolution_List_Calendar::get_pad()
      */
@@ -257,7 +257,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
     public function set_from($in = null) {
         parent::set_from($in);
         if ($this->from) {
-            $this->from->modify('first day of the month');
+            $this->from->modify('first day of this month');
         }
     }
 }
