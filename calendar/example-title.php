@@ -39,6 +39,7 @@ try {
 <html>
 <head>
 <title>Calendar Solution Example: Title List format for Home Pages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 
 <?php echo $calendar->get_css(); ?>
