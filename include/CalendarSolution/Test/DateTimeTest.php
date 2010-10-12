@@ -152,7 +152,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         $this->examine_diff('2007-02-08', '2000-02-07', 'P+7Y0M1DT0H0M0S');
     }
     public function test_diff_years_positive__6_shy_1_day() {
-        $this->examine_diff('2007-02-06', '2000-02-07', 'P+6Y11M28DT0H0M0S');
+        $this->examine_diff('2007-02-06', '2000-02-07', 'P+6Y11M30DT0H0M0S');
     }
     public function test_diff_years_positive__7_by_1_month() {
         $this->examine_diff('2007-03-07', '2000-02-07', 'P+7Y1M0DT0H0M0S');
@@ -230,19 +230,19 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         $this->examine_diff('2010-03-01', '2010-01-01', 'P+0Y2M0DT0H0M0S');
     }
     public function test_diff_bug_49081__20() {
-        $this->examine_diff('2010-03-01', '2010-01-31', 'P+0Y1M1DT0H0M0S');
+        $this->examine_diff('2010-03-01', '2010-01-31', 'P+0Y0M29DT0H0M0S');
     }
     public function test_diff_bug_49081__21() {
-        $this->examine_diff('2010-03-27', '2010-01-31', 'P+0Y1M27DT0H0M0S');
+        $this->examine_diff('2010-03-27', '2010-01-31', 'P+0Y1M24DT0H0M0S');
     }
     public function test_diff_bug_49081__22() {
-        $this->examine_diff('2010-03-28', '2010-01-31', 'P+0Y1M28DT0H0M0S');
+        $this->examine_diff('2010-03-28', '2010-01-31', 'P+0Y1M25DT0H0M0S');
     }
     public function test_diff_bug_49081__23() {
-        $this->examine_diff('2010-03-29', '2010-01-31', 'P+0Y1M29DT0H0M0S');
+        $this->examine_diff('2010-03-29', '2010-01-31', 'P+0Y1M26DT0H0M0S');
     }
     public function test_diff_bug_49081__24() {
-        $this->examine_diff('2010-03-30', '2010-01-31', 'P+0Y1M30DT0H0M0S');
+        $this->examine_diff('2010-03-30', '2010-01-31', 'P+0Y1M27DT0H0M0S');
     }
     public function test_diff_bug_49081__25() {
         $this->examine_diff('2010-03-31', '2010-01-31', 'P+0Y2M0DT0H0M0S');
