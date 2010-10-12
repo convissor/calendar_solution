@@ -202,7 +202,7 @@ class CalendarSolution_DateTime52 extends CalendarSolution_DateTimeDiff {
     );
 
     /**
-     * Our version only supports years, months and days
+     * Subtracts the specified quantity of time to this object
      *
      * @param DateInterval $interval
      *
@@ -218,11 +218,20 @@ class CalendarSolution_DateTime52 extends CalendarSolution_DateTimeDiff {
         if ($interval->d) {
             parent::modify("+$interval->d day");
         }
+        if ($interval->h) {
+            parent::modify("+$interval->h hour");
+        }
+        if ($interval->i) {
+            parent::modify("+$interval->i minute");
+        }
+        if ($interval->s) {
+            parent::modify("+$interval->s second");
+        }
         return $this;
     }
 
     /**
-     * Our version only supports years, months and days
+     * Subtracts the specified quantity of time from this object
      *
      * @param DateInterval $interval
      *
@@ -237,6 +246,15 @@ class CalendarSolution_DateTime52 extends CalendarSolution_DateTimeDiff {
         }
         if ($interval->d) {
             parent::modify("-$interval->d day");
+        }
+        if ($interval->h) {
+            parent::modify("-$interval->h hour");
+        }
+        if ($interval->i) {
+            parent::modify("-$interval->i minute");
+        }
+        if ($interval->s) {
+            parent::modify("-$interval->s second");
         }
         return $this;
     }
