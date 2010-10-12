@@ -3,7 +3,7 @@ CREATE TABLE cs_status (
   status VARCHAR(60) NOT NULL DEFAULT '',
   PRIMARY KEY (status_id),
   UNIQUE (status)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 INSERT INTO cs_status (status_id, status)
   VALUES (1, 'Open');
 INSERT INTO cs_status (status_id, status)
@@ -16,7 +16,7 @@ CREATE TABLE cs_list_link_goes_to (
   list_link_goes_to VARCHAR(60) NOT NULL DEFAULT '',
   PRIMARY KEY (list_link_goes_to_id),
   UNIQUE (list_link_goes_to)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (1, 'No Link');
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
@@ -29,7 +29,7 @@ INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
 CREATE TABLE cs_power_of_two (
   power_of_two_id INT NOT NULL,
   PRIMARY KEY (power_of_two_id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (1);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (2);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (4);
@@ -53,7 +53,7 @@ CREATE TABLE cs_feature_on_page (
   UNIQUE (feature_on_page),
   CONSTRAINT feature_on_page_id_fk FOREIGN KEY (feature_on_page_id)
     REFERENCES cs_power_of_two (power_of_two_id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 INSERT INTO cs_feature_on_page (feature_on_page_id, feature_on_page)
   VALUES (1, 'Home Page');
 
@@ -62,7 +62,7 @@ CREATE TABLE cs_frequent_event (
   frequent_event VARCHAR(60) NOT NULL DEFAULT '',
   frequent_event_uri VARCHAR(250) DEFAULT NULL,
   UNIQUE (frequent_event)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cs_calendar (
   calendar_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -89,5 +89,5 @@ CREATE TABLE cs_calendar (
   CONSTRAINT status_id_fk FOREIGN KEY (status_id)
     REFERENCES cs_status (status_id)
     ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 CREATE INDEX date_start_idx ON cs_calendar (date_start);
