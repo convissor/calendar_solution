@@ -9,7 +9,7 @@
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2009
+ * @copyright The Analysis and Solutions Company, 2002-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
@@ -29,7 +29,7 @@ require_once $GLOBALS['IncludeDir'] . '/CalendarSolution/List.php';
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2009
+ * @copyright The Analysis and Solutions Company, 2002-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution_List_Title extends CalendarSolution_List {
