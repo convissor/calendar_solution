@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SQL Solution's MySQL connection information
+ * SQL Solution's ODBC connection information
  *
  * @package SQLSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -12,19 +12,19 @@
  */
 
 /**
- * SQL Solution's MySQL connection information
+ * SQL Solution's ODBC connection information
  *
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2001-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
  */
-class SQLSolution_MySQLUser extends SQLSolution_MySQLSpecifics {
+class SQLSolution_ODBCUser extends SQLSolution_ODBCSpecifics {
 	/**
-	 * The host name or IP address (and port, if desired) of the database server
+	 * Must be a system DSN.
 	 * @var string
 	 */
-	public $SQLHost = '';
+	public $SQLDSN = '';
 
 	/**
 	 * The user name for logging in to the database
@@ -39,33 +39,15 @@ class SQLSolution_MySQLUser extends SQLSolution_MySQLSpecifics {
 	public $SQLPassword = '';
 
 	/**
-	 * The name of the database
-	 * @var string
-	 */
-	public $SQLDbName = '';
-
-	/**
-	 * Should calling connect with the same host/username/password
-	 * combination cause a new link to be created?
+	 * The type of cursor to be used with this connection.
 	 *
-	 * If false, the existing link is returned.  If true, a new connection
-	 * is formed.
+	 * This is optional.  Use 0 for none or one of the following constants:
+	 * SQL_CUR_USE_IF_NEEDED, SQL_CUR_USE_ODBC, SQL_CUR_USE_DRIVER
+	 * or SQL_CUR_DEFAULT
 	 *
-	 * @var boolean
-	 */
-	public $SQLNewLink = false;
-
-	/**
-	 * MySQL configuration options
-	 *
-	 * This is optional.  Use 0 for none or any combination of the following
-	 * bitwised constants: MYSQL_CLIENT_COMPRESS, MYSQL_CLIENT_IGNORE_SPACE
-	 * or MYSQL_CLIENT_INTERACTIVE.
-	 *
-	 * @link http://php.net/ref.mysql
 	 * @var integer
 	 */
-	public $SQLClientFlags = 0;
+	public $SQLCursor = 0;
 
 
 	/**

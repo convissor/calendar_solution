@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SQL Solution's SQLite specific code
+ * SQL Solution's ODBC specific code
  *
  * @package SQLSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -12,14 +12,14 @@
  */
 
 /**
- * SQL Solution's SQLite specific methods
+ * SQL Solution's ODBC specific methods
  *
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2001-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
  */
-class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
+class SQLSolution_ODBCSpecifics extends SQLSolution_Customizations {
 
 	/*
 	 * C O N N E C T I O N      S E C T I O N
@@ -30,15 +30,19 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 *
 	 * @return void
 	 *
-	 * @uses SQLSolution_SQLiteUser  for the authentication information
+	 * @uses SQLSolution_ODBCUser  for the authentication information
 	 * @link http://www.SqlSolution.info/sql-man.htm#Connect
 	 */
 	public function Connect($FileName, $FileLine) {
 		ini_set('track_errors', 1);
 		$php_errormsg = '';
 
-		$this->SQLConnection = @sqlite_open($this->SQLDbName, $this->SQLPermissions)
-				or die ($this->KillQuery($FileName, $FileLine, $php_errormsg));
+		$this->SQLConnection = @odbc_connect(
+			$this->SQLDSN,
+			$this->SQLUser,
+			$this->SQLPassword,
+			$this->SQLCursor
+		) or die ($this->KillQuery($FileName, $FileLine, $php_errormsg));
 	}
 
 	/**
@@ -46,16 +50,19 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 *
 	 * @return void
 	 *
-	 * @uses SQLSolution_SQLiteUser  for the authentication information
-	 *
+	 * @uses SQLSolution_ODBCUser  for the authentication information
 	 * @link http://www.SqlSolution.info/sql-man.htm#PersistentConnect
 	 */
 	public function PersistentConnect($FileName, $FileLine) {
 		ini_set('track_errors', 1);
 		$php_errormsg = '';
 
-		$this->SQLConnection = @sqlite_popen($this->SQLDbName, $this->SQLPermissions)
-				or die ($this->KillQuery($FileName, $FileLine, $php_errormsg));
+		$this->SQLConnection = @odbc_pconnect(
+			$this->SQLDSN,
+			$this->SQLUser,
+			$this->SQLPassword,
+			$this->SQLCursor
+		) or die ($this->KillQuery($FileName, $FileLine, $php_errormsg));
 	}
 
 	/**
@@ -79,7 +86,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 */
 	public function Disconnect($FileName, $FileLine) {
 		if ($this->CheckConnection()) {
-			@sqlite_close($this->SQLConnection);
+			@odbc_close($this->SQLConnection);
 		}
 		$this->SQLConnection = null;
 	}
@@ -93,7 +100,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 */
 	public function CheckConnection() {
 		if (is_resource($this->SQLConnection)
-			&& get_resource_type($this->SQLConnection) == 'sqlite database')
+			&& strpos(get_resource_type($this->SQLConnection), 'odbc link') !== false)
 		{
 			return true;
 		} else {
@@ -126,21 +133,39 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 		}
 
 		$php_errormsg = '';
+		$this->SQLRecordSetFieldCount = 0;
+		$this->SQLRecordSetRowCount = 0;
 
-		$this->SQLRecordSet = @sqlite_query($this->SQLConnection,
-				$this->SQLQueryString);
-
+		$this->SQLRecordSet = @odbc_exec($this->SQLConnection, $this->SQLQueryString);
 		if ($this->SQLRecordSet) {
-			if (!$this->SQLRecordSetFieldCount =
-					@sqlite_num_fields($this->SQLRecordSet))
-			{
-				$this->SQLRecordSetFieldCount = 0;
-			}
+			$this->SQLRecordSetFieldCount =
+					@odbc_num_fields($this->SQLRecordSet);
 
-			if (!$this->SQLRecordSetRowCount =
-					@sqlite_num_rows($this->SQLRecordSet))
-			{
-				$this->SQLRecordSetRowCount = 0;
+			if ($this->SQLRecordSetFieldCount) {
+				$Rows = @odbc_num_rows($this->SQLRecordSet);
+			} else {
+				$Rows = 0;
+			}
+			if ($Rows == -1) {
+				/*
+				 * The ODBC Driver being used is so stupid that it doesn't
+				 * handle num_rows.  So, manually count the rows instead.
+				 */
+				if (@odbc_fetch_row($this->SQLRecordSet)) {
+					$Counter = 1;
+
+					while (@odbc_fetch_row($this->SQLRecordSet)) {
+						$Counter++;
+					}
+
+					@odbc_fetch_row($this->SQLRecordSet, 0);
+
+					$this->SQLRecordSetRowCount = $Counter;
+				} else {
+					$this->SQLRecordSetRowCount = 0;
+				}
+			} else {
+				$this->SQLRecordSetRowCount = $Rows;
 			}
 		} else {
 			$this->KillQuery($FileName, $FileLine, $php_errormsg);
@@ -170,13 +195,13 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 		$this->SQLRecordSetFieldCount = 0;
 		$this->SQLRecordSetRowCount = 0;
 
-		$this->SQLRecordSet = @sqlite_query($this->SQLConnection,
-				$this->SQLQueryString);
-
+		$this->SQLRecordSet = @odbc_exec($this->SQLConnection, $this->SQLQueryString);
 		if ($this->SQLRecordSet) {
+			$this->SQLRecordSetFieldCount = 0;
+			$this->SQLRecordSetRowCount = 0;
 			return 1;
 		} else {
-			if (strpos($php_errormsg, 'unique') === false) {
+			if (stripos($php_errormsg, 'duplicate') === false) {
 				$this->KillQuery($FileName, $FileLine, $php_errormsg);
 			}
 		}
@@ -190,6 +215,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#ReleaseRecordSet
 	 */
 	public function ReleaseRecordSet($FileName, $FileLine) {
+		@odbc_free_result($this->SQLRecordSet);
 		$this->SQLRecordSet = null;
 	}
 
@@ -210,7 +236,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	public function FieldName($FileName, $FileLine, $FieldNumber) {
 		$php_errormsg = '';
 
-		$Output = @sqlite_field_name($this->SQLRecordSet, $FieldNumber);
+		$Output = @odbc_field_name($this->SQLRecordSet, $FieldNumber + 1);
 		if ($Output) {
 			return $Output;
 		} else {
@@ -219,21 +245,41 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	}
 
 	/**
-	 * This extension does not have this capability
+	 * Returns the data type of the column at the specified offset in the
+	 * current result set
+	 *
+	 * @return string  the column's data type
 	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#FieldType
 	 */
 	public function FieldType($FileName, $FileLine, $FieldNumber) {
-		$this->KillQuery($FileName, $FileLine, 'DBMS not capable');
+		$php_errormsg = '';
+
+		$Output = @odbc_field_type($this->SQLRecordSet, $FieldNumber + 1);
+		if ($Output) {
+			return $Output;
+		} else {
+			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+		}
 	}
 
 	/**
-	 * This extension does not have this capability
+	 * Returns the size of the column at the specified offset in the
+	 * current result set
+	 *
+	 * @return string  the column's size
 	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#FieldLength
 	 */
 	public function FieldLength($FileName, $FileLine, $FieldNumber) {
-		$this->KillQuery($FileName, $FileLine, 'DBMS not capable');
+		$php_errormsg = '';
+
+		$Output = @odbc_field_len($this->SQLRecordSet, $FieldNumber + 1);
+		if ($Output) {
+			return $Output;
+		} else {
+			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+		}
 	}
 
 
@@ -248,7 +294,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @param array $SkipSafeMarkup  an array of field names to not parse
 	 *                               safe markup on
 	 *
-	 * @return array  an associative array containing the current record's data
+	 * @return array  an associative array containing the record's data
 	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#RecordAsAssocArray
 	 */
@@ -259,11 +305,24 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 
 		$php_errormsg = '';
 
-		$Row = @sqlite_fetch_array($this->SQLRecordSet, SQLITE_ASSOC);
-		if ($Row) {
-			return $this->processRow($Row, $SkipSafeMarkup);
-		} elseif ($php_errormsg != '') {
+		if (!@odbc_fetch_into($this->SQLRecordSet, $Row)) {
+			if ($php_errormsg == ''
+				|| stripos($php_errormsg, 'No tuples available'))
+			{
+				return null;
+			}
 			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+		}
+
+		$Output = array();
+		foreach ($Row as $Key => $Val) {
+			$FieldName = $this->FieldName('FieldName() had error when RAAA() '
+					. "was called by $FileName", "$FileLine", $Key);
+			$Output[$FieldName] = $Val;
+		}
+
+		if (!empty($Output)) {
+			return $this->processRow($Output, $SkipSafeMarkup);
 		}
 	}
 
@@ -284,11 +343,17 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 
 		$php_errormsg = '';
 
-		$Row = @sqlite_fetch_array($this->SQLRecordSet, SQLITE_NUM);
-		if ($Row) {
-			return $this->processRow($Row, $SkipSafeMarkup);
-		} elseif ($php_errormsg != '') {
+		if (!@odbc_fetch_into($this->SQLRecordSet, $Row)) {
+			if ($php_errormsg == ''
+				|| stripos($php_errormsg, 'No tuples available'))
+			{
+				return null;
+			}
 			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+		}
+
+		if (!empty($Row)) {
+			return $this->processRow($Row, $SkipSafeMarkup);
 		}
 	}
 
@@ -302,18 +367,15 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	public function InsertID($FileName, $FileLine, $Table = '', $Field = '',
 			$Where = '', $Sequence = '')
 	{
-		$php_errormsg = '';
-
-		$Output = @sqlite_last_insert_rowid($this->SQLConnection);
-		if ($Output) {
-			return $Output;
-		} elseif ($php_errormsg == '') {
-			$this->KillQuery($FileName, $FileLine, 'No auto_increment id. '
-					. 'This query does not generate one or this table does '
-					. 'not have one.');
-		} else {
-			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+		$this->SQLQueryString = "SELECT $Field FROM $Table WHERE $Where";
+		$this->RunQuery(__FILE__,__LINE__);
+		if ($this->SQLRecordSetRowCount != 1) {
+			$this->KillQuery($FileName, $FileLine,
+				'The terms specified returned either no Insert ID or too '
+				. "many Insert ID's.");
 		}
+		list($Val) = $this->RecordAsEnumArray(__FILE__, __LINE__);
+		return $Val;
 	}
 
 	/**
@@ -324,7 +386,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#GoToRecord
 	 */
 	public function GoToRecord($FileName, $FileLine, $Row = 0) {
-		@sqlite_seek($this->SQLRecordSet, $Row);
+		@odbc_fetch_row($this->SQLRecordSet, $Row);
 	}
 
 	/**
@@ -338,10 +400,22 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @return string  the escaped string
 	 */
 	public function Escape($FileName, $FileLine, $Value) {
+		static $search, $replace;
+
+		if (!isset($search)) {
+			if (preg_match('/mysql|postgres|pgsql/i', $this->SQLDSN)) {
+				$search = array("'", '\\');
+				$replace = array("''", '\\\\');
+			} else {
+				$search = array("'");
+				$replace = array("''");
+			}
+		}
+
 		if ($Value === null) {
 			return 'NULL';
 		} else {
-			return "'" . sqlite_escape_string($Value) . "'";
+			return "'" . str_replace($search, $replace, $Value) . "'";
 		}
 	}
 }

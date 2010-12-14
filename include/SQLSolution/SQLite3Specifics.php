@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SQL Solution's SQLite specific code
+ * SQL Solution's SQLite3 specific code
  *
  * @package SQLSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -12,14 +12,15 @@
  */
 
 /**
- * SQL Solution's SQLite specific methods
+ * SQL Solution's SQLite3 specific methods
  *
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2001-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
+ * @since Class available since release 7.0
  */
-class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
+class SQLSolution_SQLite3Specifics extends SQLSolution_Customizations {
 
 	/*
 	 * C O N N E C T I O N      S E C T I O N
@@ -30,32 +31,32 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 *
 	 * @return void
 	 *
-	 * @uses SQLSolution_SQLiteUser  for the authentication information
+	 * @uses SQLSolution_SQLite3User  for the authentication information
 	 * @link http://www.SqlSolution.info/sql-man.htm#Connect
 	 */
 	public function Connect($FileName, $FileLine) {
 		ini_set('track_errors', 1);
-		$php_errormsg = '';
 
-		$this->SQLConnection = @sqlite_open($this->SQLDbName, $this->SQLPermissions)
-				or die ($this->KillQuery($FileName, $FileLine, $php_errormsg));
+		try {
+			$this->SQLConnection = new SQLite3(
+				$this->SQLDbName,
+				$this->SQLFlags,
+				$this->SQLEncryptionKey
+			);
+		} catch (Exception $e) {
+			$this->KillQuery($FileName, $FileLine, $e->getMessage());
+		}
 	}
 
 	/**
-	 * Establishes a persistent connection to the database server
+	 * This extension doesn't have persistent connections; calls are
+	 * forwarded to Connect()
 	 *
 	 * @return void
-	 *
-	 * @uses SQLSolution_SQLiteUser  for the authentication information
-	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#PersistentConnect
 	 */
 	public function PersistentConnect($FileName, $FileLine) {
-		ini_set('track_errors', 1);
-		$php_errormsg = '';
-
-		$this->SQLConnection = @sqlite_popen($this->SQLDbName, $this->SQLPermissions)
-				or die ($this->KillQuery($FileName, $FileLine, $php_errormsg));
+		$this->Connect($FileName, $FileLine);
 	}
 
 	/**
@@ -63,7 +64,6 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * forwarded to Connect()
 	 *
 	 * @return void
-	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#ObtainHandle
 	 */
 	public function ObtainHandle($FileName, $FileLine) {
@@ -79,7 +79,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 */
 	public function Disconnect($FileName, $FileLine) {
 		if ($this->CheckConnection()) {
-			@sqlite_close($this->SQLConnection);
+			@$this->SQLConnection->close();
 		}
 		$this->SQLConnection = null;
 	}
@@ -92,13 +92,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @since Method available since release 7.0
 	 */
 	public function CheckConnection() {
-		if (is_resource($this->SQLConnection)
-			&& get_resource_type($this->SQLConnection) == 'sqlite database')
-		{
-			return true;
-		} else {
-			return false;
-		}
+		return is_a($this->SQLConnection, 'SQLite3');
 	}
 
 
@@ -125,25 +119,22 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 			$this->Connect($FileName, $FileLine);
 		}
 
-		$php_errormsg = '';
+		$this->SQLRecordSet = null;
+		$this->SQLRecordSetFieldCount = 0;
+		$this->SQLRecordSetRowCount = 0;
 
-		$this->SQLRecordSet = @sqlite_query($this->SQLConnection,
-				$this->SQLQueryString);
-
+		$this->SQLRecordSet = @$this->SQLConnection->query($this->SQLQueryString);
 		if ($this->SQLRecordSet) {
-			if (!$this->SQLRecordSetFieldCount =
-					@sqlite_num_fields($this->SQLRecordSet))
-			{
-				$this->SQLRecordSetFieldCount = 0;
-			}
-
-			if (!$this->SQLRecordSetRowCount =
-					@sqlite_num_rows($this->SQLRecordSet))
-			{
-				$this->SQLRecordSetRowCount = 0;
+			if (is_object($this->SQLRecordSet) && $this->SQLRecordSet->numColumns()) {
+				$this->SQLRecordSetFieldCount = $this->SQLRecordSet->numColumns();
+				while ($this->SQLRecordSet->fetchArray(SQLITE3_NUM)) {
+					$this->SQLRecordSetRowCount++;
+				}
+				$this->SQLRecordSet->reset();
 			}
 		} else {
-			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+			$this->KillQuery($FileName, $FileLine,
+					@$this->SQLConnection->lastErrorMsg());
 		}
 	}
 
@@ -166,18 +157,30 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 			$this->Connect($FileName, $FileLine);
 		}
 
-		$php_errormsg = '';
+		$this->SQLRecordSet = null;
 		$this->SQLRecordSetFieldCount = 0;
 		$this->SQLRecordSetRowCount = 0;
 
-		$this->SQLRecordSet = @sqlite_query($this->SQLConnection,
-				$this->SQLQueryString);
-
+		$this->SQLRecordSet = @$this->SQLConnection->query($this->SQLQueryString);
 		if ($this->SQLRecordSet) {
+			if (is_object($this->SQLRecordSet) && $this->SQLRecordSet->numColumns()) {
+				$this->SQLRecordSetFieldCount = $this->SQLRecordSet->numColumns();
+				while ($this->SQLRecordSet->fetchArray(SQLITE3_NUM)) {
+					$this->SQLRecordSetRowCount++;
+				}
+				$this->SQLRecordSet->reset();
+			}
 			return 1;
 		} else {
-			if (strpos($php_errormsg, 'unique') === false) {
-				$this->KillQuery($FileName, $FileLine, $php_errormsg);
+			switch (@$this->SQLConnection->lastErrorCode()) {
+				case 19:
+					// Couldn't insert/update record due to duplicate key.
+					break;
+
+				default:
+					// Some other database error.  Trap it.
+					$this->KillQuery($FileName, $FileLine,
+							@$this->SQLConnection->lastErrorMsg());
 			}
 		}
 	}
@@ -190,6 +193,9 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#ReleaseRecordSet
 	 */
 	public function ReleaseRecordSet($FileName, $FileLine) {
+		if (is_object($this->SQLRecordSet)) {
+			@$this->SQLRecordSet->finalize();
+		}
 		$this->SQLRecordSet = null;
 	}
 
@@ -208,23 +214,35 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#FieldName
 	 */
 	public function FieldName($FileName, $FileLine, $FieldNumber) {
-		$php_errormsg = '';
+		if (!is_object($this->SQLRecordSet)) {
+			$this->KillQuery($FileName, $FileLine, 'SQLRecordSet is not set.');
+		}
 
-		$Output = @sqlite_field_name($this->SQLRecordSet, $FieldNumber);
+		// Avoid segfault (http://bugs.php.net/bug.php?id=53464).
+		if ($FieldNumber >= $this->SQLRecordSetFieldCount) {
+			$this->KillQuery($FileName, $FileLine, 'Invalid field number');
+		}
+
+		$Output = @$this->SQLRecordSet->columnName($FieldNumber);
 		if ($Output) {
 			return $Output;
 		} else {
-			$this->KillQuery($FileName, $FileLine, $php_errormsg);
+			$this->KillQuery($FileName, $FileLine,
+					$this->SQLConnection->lastErrorMsg());
 		}
 	}
 
 	/**
 	 * This extension does not have this capability
 	 *
+	 * Disabling this because PHP's extension works on the data contained in a
+	 * given row, not column definitions.
+	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#FieldType
 	 */
 	public function FieldType($FileName, $FileLine, $FieldNumber) {
-		$this->KillQuery($FileName, $FileLine, 'DBMS not capable');
+		$this->KillQuery($FileName, $FileLine,
+				'SQLite3 does not provide FieldLength.');
 	}
 
 	/**
@@ -233,7 +251,8 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#FieldLength
 	 */
 	public function FieldLength($FileName, $FileLine, $FieldNumber) {
-		$this->KillQuery($FileName, $FileLine, 'DBMS not capable');
+		$this->KillQuery($FileName, $FileLine,
+				'SQLite3 does not provide FieldLength.');
 	}
 
 
@@ -248,18 +267,18 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @param array $SkipSafeMarkup  an array of field names to not parse
 	 *                               safe markup on
 	 *
-	 * @return array  an associative array containing the current record's data
+	 * @return array  an associative array containing the record's data
 	 *
 	 * @link http://www.SqlSolution.info/sql-man.htm#RecordAsAssocArray
 	 */
 	public function RecordAsAssocArray($FileName, $FileLine, $SkipSafeMarkup = array()) {
-		if (empty($this->SQLRecordSet)) {
+		if (!is_object($this->SQLRecordSet) || !$this->SQLRecordSetRowCount) {
 			return null;
 		}
 
 		$php_errormsg = '';
 
-		$Row = @sqlite_fetch_array($this->SQLRecordSet, SQLITE_ASSOC);
+		$Row = @$this->SQLRecordSet->fetchArray(SQLITE3_ASSOC);
 		if ($Row) {
 			return $this->processRow($Row, $SkipSafeMarkup);
 		} elseif ($php_errormsg != '') {
@@ -278,13 +297,13 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#RecordAsEnumArray
 	 */
 	public function RecordAsEnumArray($FileName, $FileLine, $SkipSafeMarkup = array()) {
-		if (empty($this->SQLRecordSet)) {
+		if (!is_object($this->SQLRecordSet) || !$this->SQLRecordSetRowCount) {
 			return null;
 		}
 
 		$php_errormsg = '';
 
-		$Row = @sqlite_fetch_array($this->SQLRecordSet, SQLITE_NUM);
+		$Row = @$this->SQLRecordSet->fetchArray(SQLITE3_NUM);
 		if ($Row) {
 			return $this->processRow($Row, $SkipSafeMarkup);
 		} elseif ($php_errormsg != '') {
@@ -302,17 +321,17 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	public function InsertID($FileName, $FileLine, $Table = '', $Field = '',
 			$Where = '', $Sequence = '')
 	{
-		$php_errormsg = '';
+		if (!$this->CheckConnection()) {
+			$this->KillQuery($FileName, $FileLine, 'Not connected.');
+		}
 
-		$Output = @sqlite_last_insert_rowid($this->SQLConnection);
+		$Output = $this->SQLConnection->lastInsertRowID();
 		if ($Output) {
 			return $Output;
-		} elseif ($php_errormsg == '') {
+		} else {
 			$this->KillQuery($FileName, $FileLine, 'No auto_increment id. '
 					. 'This query does not generate one or this table does '
 					. 'not have one.');
-		} else {
-			$this->KillQuery($FileName, $FileLine, $php_errormsg);
 		}
 	}
 
@@ -324,7 +343,15 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 	 * @link http://www.SqlSolution.info/sql-man.htm#GoToRecord
 	 */
 	public function GoToRecord($FileName, $FileLine, $Row = 0) {
-		@sqlite_seek($this->SQLRecordSet, $Row);
+		if (!is_object($this->SQLRecordSet)) {
+			return;
+		}
+		if ($Row) {
+			$this->KillQuery($FileName, $FileLine,
+					'SQLite3 only supports going to $Row 0.');
+		} else {
+			@$this->SQLRecordSet->reset();
+		}
 	}
 
 	/**
@@ -341,7 +368,7 @@ class SQLSolution_SQLiteSpecifics extends SQLSolution_Customizations {
 		if ($Value === null) {
 			return 'NULL';
 		} else {
-			return "'" . sqlite_escape_string($Value) . "'";
+			return "'" . SQLite3::escapeString($Value) . "'";
 		}
 	}
 }
