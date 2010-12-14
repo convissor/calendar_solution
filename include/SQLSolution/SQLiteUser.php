@@ -22,9 +22,13 @@
 class SQLSolution_SQLiteUser extends SQLSolution_SQLiteSpecifics {
 	/**
 	 * Local path and name of the database file
+	 *
+	 * NOTE: Calendar Solution automatically adds $IncludeDir
+	 * to the front of the name.
+	 *
 	 * @var string
 	 */
-	public $SQLDbName = '';
+	public $SQLDbName = '/CalendarSolution/sqlite/calendar_solution.sqlite2';
 
 	/**
 	 * Octal chmod permissions for the database file
