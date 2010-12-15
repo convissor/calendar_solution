@@ -23,13 +23,13 @@ class SQLSolution_SQLite3User extends SQLSolution_SQLite3Specifics {
 	/**
 	 * Local path and name of the database file
 	 *
-	 * NOTE: Calendar Solution automatically adds $IncludeDir
-	 * to the front of the name.
+	 * NOTE: if set to "default", Calendar Solution automatically uses its
+	 * default database, found in the include/CalendarSolution/sqlite directory.
 	 *
 	 * @var string
 	 * @link http://php.net/sqlite3.construct
 	 */
-	public $SQLDbName = '/CalendarSolution/sqlite/calendar_solution.sqlite3';
+	public $SQLDbName = 'default';
 
 	/**
 	 * Optional flags used to determine how to open the SQLite database

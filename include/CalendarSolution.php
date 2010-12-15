@@ -93,13 +93,13 @@ class CalendarSolution {
      *
      * @param string $dbms  "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
      *
-     * @uses $GLOBALS['IncludeDir']  to know where SQLite databases reside
      * @uses CalendarSolution_View::$sql  the SQL Solution object for the
      *       database system specified by the $dbms parameter
      *
      * @throws CalendarSolution_Exception if the $dbms parameter is improper
      */
     public function __construct($dbms) {
+        $extension = '';
         switch ($dbms) {
             case 'mysql':
                 $class = 'SQLSolution_MySQLUser';
@@ -112,9 +112,11 @@ class CalendarSolution {
                 break;
             case 'sqlite':
                 $class = 'SQLSolution_SQLiteUser';
+                $extension = 'sqlite2';
                 break;
             case 'sqlite3':
                 $class = 'SQLSolution_SQLite3User';
+                $extension = 'sqlite3';
                 break;
             case 'test':
                 return;
@@ -124,8 +126,9 @@ class CalendarSolution {
 
         $this->sql = new $class('Y', 'Y');
 
-        if ($dbms == 'sqlite' || $dbms == 'sqlite3') {
-            $this->sql->SQLDbName = TAASC_DIR_INCLUDE . $this->sql->SQLDbName;
+        if ($extension && $this->sql->SQLDbName == 'default') {
+            $this->sql->SQLDbName = dirname(__FILE__)
+                . '/CalendarSolution/sqlite/calendar_solution.' . $extension;
         }
     }
 
