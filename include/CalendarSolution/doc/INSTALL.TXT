@@ -169,17 +169,18 @@ remove the "require taasc_autoload.php" commands from:
   + calendar/directory.inc
   + calendar/Admin/directory.inc
 
-* (If you are using SQLite, skip this step.)
-Put your database authentication information into the
-SQL Solution user class file matching your database system.
-The files are in the include/SQLSolution directory:
+* (If using the default SQLite database that comes with the Calendar Solution,
+skip this step.)  Put the database authentication information into the
+SQL Solution user class file matching your database system.  The files are
+in the include/SQLSolution directory:
   + MySQLUser.php  (for PHP's mysql extension)
   + MySQLiUser.php  (for PHP's mysqli extension)
   + PostgreSQLUser.php  (for PostgreSQL)
+  + SQLiteUser.php  (for PHP's sqlite extension)
+  + SQLite3User.php  (for PHP's sqlite3 extension)
 
 * In a command line terminal, cd into our "calendar/Admin"
-directory.  Follow the instructions in both of the following
-files:
+directory.  Follow the instructions in both of the following files:
   + .htaccess
   + .htpasswd
 
