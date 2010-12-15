@@ -1,18 +1,6 @@
 <?php /** @package CalendarSolution_Test */
 
 /**
- * Gather the PHPUnit Framework
- */
-require_once 'PHPUnit/Framework.php';
-
-/**#@+
- * Gather the test files in this directory
- */
-require_once $GLOBALS['IncludeDir'] . '/CalendarSolution/Test/Detail/FormTest.php';
-/**#@-*/
-
-
-/**
  * Runs all Calendar Solution Detial sub-class tests
  *
  * Usage:  phpunit Detail_AllTests

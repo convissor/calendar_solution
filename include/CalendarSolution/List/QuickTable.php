@@ -13,13 +13,6 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
-
-/**
- * Gather the parent class
- */
-require_once $GLOBALS['IncludeDir'] . '/CalendarSolution/List.php';
-
-
 /**
  * The means to output collections of events formatted as a table with
  * brief info about each entry
@@ -50,11 +43,9 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
      * Provides the path and name of the needed Cascading Style Sheet file
      *
      * @return string  the path and name of the CSS file
-     *
-     * @uses $GLOBALS['IncludeDir']  to know where include files reside
      */
     public function get_css_name() {
-        return $GLOBALS['IncludeDir'] . '/CalendarSolution/List/QuickTable.css';
+        return dirname(__FILE__) . '/QuickTable.css';
     }
 
     /**

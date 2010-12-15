@@ -9,13 +9,6 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
-
-/**
- * Gather the parent class
- */
-require_once $GLOBALS['IncludeDir'] . '/CalendarSolution.php';
-
-
 /**
  * The parent class for displaying collections of events
  *
@@ -130,8 +123,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
      * @param integer $months  how many months should be shown at once
      *
      * @return CalendarSolution_List_Calendar|CalendarSolution_List_List
-     *
-     * @uses $GLOBALS['IncludeDir']  to know where the include files reside
      */
     public static function factory_chosen_view($dbms, $months = 3) {
         $set_cookie = false;
@@ -166,8 +157,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
             setcookie('CalendarSolution', $view, 2147483647, '/');
         }
 
-        require $GLOBALS['IncludeDir'] . '/CalendarSolution/List/'
-                . $view . '.php';
         $class = __CLASS__ . '_' . $view;
         return new $class($dbms, $months);
     }
@@ -189,11 +178,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
      * Provides the path and name of the needed Cascading Style Sheet file
      *
      * @return string  the path and name of the CSS file
-     *
-     * @uses $GLOBALS['IncludeDir']  to know where the include files reside
      */
     public function get_css_name() {
-        return $GLOBALS['IncludeDir'] . '/CalendarSolution/List.css';
+        return dirname(__FILE__) . '/List.css';
     }
 
     /**

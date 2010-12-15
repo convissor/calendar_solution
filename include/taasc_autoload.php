@@ -3,7 +3,8 @@
 /**
  * An example of how to set up an autoloader
  *
- * NOTE: Use your own function that's set up for your environment instead.
+ * NOTE: If your system already has an autoloader, integrate the concepts in
+ * our autoload function into yours and then remove this one.
  *
  * @package SQLSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -28,6 +29,9 @@ if (!defined('TAASC_DIR_INCLUDE')) {
  *
  * Checks the current directory and subdirectories thereof first,
  * then tries via the include_path.
+ *
+ * NOTE: If your system already has an autoloader, integrate the concepts in
+ * our autoload function into yours and then remove this one.
  *
  * @return void
  */

@@ -9,13 +9,6 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
-
-/**
- * Gather the base calendar class
- */
-require $GLOBALS['IncludeDir'] . '/CalendarSolution/Detail.php';
-
-
 /**
  * The means to edit a specific event via an HTML form
  *
@@ -71,11 +64,9 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
      * Provides the path and name of the needed Cascading Style Sheet file
      *
      * @return string  the path and name of the CSS file
-     *
-     * @uses $GLOBALS['IncludeDir']  to know where include files reside
      */
     public function get_css_name() {
-        return $GLOBALS['IncludeDir'] . '/CalendarSolution/Detail/Form.css';
+        return dirname(__FILE__) . '/Form.css';
     }
 
     /**

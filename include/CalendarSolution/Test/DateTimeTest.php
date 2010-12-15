@@ -1,17 +1,6 @@
 <?php /** @package CalendarSolution_Test */
 
 /**
- * Gather the PHPUnit Framework
- */
-require_once 'PHPUnit/Framework.php';
-
-/**
- * Gather the class these tests work on
- */
-require_once $GLOBALS['IncludeDir'] . '/CalendarSolution.php';
-
-
-/**
  * Tests the CalendarSolution_DateTime class
  *
  * Usage:  phpunit DateTimeTest

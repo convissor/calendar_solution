@@ -1,16 +1,6 @@
 <?php /** @package CalendarSolution_Test */
 
 /**
- * Gather the PHPUnit Framework
- */
-require_once 'PHPUnit/Framework.php';
-
-/**
- * Gather the class these tests work on
- */
-require_once $GLOBALS['IncludeDir'] . '/CalendarSolution/Detail/Form.php';
-
-/**
  * Extend the class to be tested so we can have access to protected elements
  * @package CalendarSolution_Test
  */

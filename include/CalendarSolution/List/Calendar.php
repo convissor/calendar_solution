@@ -10,13 +10,6 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
-
-/**
- * Gather the parent class
- */
-require_once $GLOBALS['IncludeDir'] . '/CalendarSolution/List.php';
-
-
 /**
  * The means to output collections of events formatted as a calendar with
  * brief info about each event

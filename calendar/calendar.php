@@ -9,17 +9,12 @@
  */
 
 /**
- * Set $IncludeDir and $dbms
+ * Gather the include directory, desired database system and autoloader
  *
- * Use dirname(__FILE__) because "./" can be stripped by PHP's safety
+ * Uses dirname(__FILE__) because "./" can be stripped by PHP's safety
  * settings and __DIR__ was introduced in PHP 5.3.
  */
 require dirname(__FILE__) . '/directory.inc';
-
-/**
- * Gather the calendar class
- */
-require $GLOBALS['IncludeDir'] . '/CalendarSolution/List.php';
 
 /*
  * Instantiate the calendar class appropriate for the view the user wants.

@@ -11,12 +11,6 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
-
-/**
- * Gather the exception class
- */
-require $GLOBALS['IncludeDir'] . '/CalendarSolution/Exception.php';
-
 if (class_exists('DateInterval')) {
     // PHP 5.3
 
@@ -30,10 +24,7 @@ if (class_exists('DateInterval')) {
     } else {
         /**
          * Use our own date class so we can provide forward compatibility
-         */
-        require $GLOBALS['IncludeDir'] . '/CalendarSolution/DateTime.php';
-
-        /**
+		 *
          * Bug 49081 afflicts PHP's DateTime::diff() method
          * @ignore
          * @package CalendarSolution
@@ -42,16 +33,6 @@ if (class_exists('DateInterval')) {
     }
 } else {
     // PHP 5.2
-
-    /**
-     * Use our own interval class so we can provide forward compatibility
-     */
-    require $GLOBALS['IncludeDir'] . '/CalendarSolution/DateInterval.php';
-
-    /**
-     * Use our own date class so we can provide forward compatibility
-     */
-    require $GLOBALS['IncludeDir'] . '/CalendarSolution/DateTime.php';
 
     /**
      * PHP 5.2 needs all of our date mojo
@@ -112,7 +93,7 @@ class CalendarSolution {
      *
      * @param string $dbms  "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
      *
-     * @uses $GLOBALS['IncludeDir']  to know where the include files reside
+     * @uses $GLOBALS['IncludeDir']  to know where SQLite databases reside
      * @uses CalendarSolution_View::$sql  the SQL Solution object for the
      *       database system specified by the $dbms parameter
      *
@@ -122,24 +103,18 @@ class CalendarSolution {
         switch ($dbms) {
             case 'mysql':
                 $class = 'SQLSolution_MySQLUser';
-                $file = 'sql-my-user.inc';
                 break;
             case 'mysqli':
                 $class = 'SQLSolution_MySQLiUser';
-                $file = 'sql-myi-user.inc';
                 break;
             case 'pgsql':
                 $class = 'SQLSolution_PostgreSQLUser';
-                $file = 'sql-pg-user.inc';
                 break;
             case 'sqlite':
                 $class = 'SQLSolution_SQLiteUser';
-                $file = 'sql-lite-user.inc';
                 break;
             case 'sqlite3':
-                throw new CalendarSolution_Exception('SQLite3 support disabled temporarily due to oddities in the PHP extension.');
                 $class = 'SQLSolution_SQLite3User';
-                $file = 'sql-lite3-user.inc';
                 break;
             case 'test':
                 return;
@@ -147,16 +122,10 @@ class CalendarSolution {
                 throw new CalendarSolution_Exception('Improper dbms');
         }
 
-        if (!class_exists($class)) {
-            // Need globals so var exists inside SQL Solution files.
-            global $IncludeDir;
-            require $IncludeDir . '/' . $file;
-        }
-
         $this->sql = new $class('Y', 'Y');
 
         if ($dbms == 'sqlite' || $dbms == 'sqlite3') {
-            $this->sql->SQLDbName = $IncludeDir . $this->sql->SQLDbName;
+            $this->sql->SQLDbName = TAASC_DIR_INCLUDE . $this->sql->SQLDbName;
         }
     }
 

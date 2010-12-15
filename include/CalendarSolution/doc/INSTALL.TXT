@@ -4,16 +4,16 @@ REQUIREMENTS
   servers by porting the .htaccess and .htpasswd files.  If
   you do, please send them to me so they can be included in
   a future version.)
-* PHP 5.2 or greater
 * Access to one of the following database systems:
   + MySQL
   + PostgreSQL
-  + SQLite, version 2
-* The PHP extension matching the database system:
+  + SQLite, version 2 or 3
+* The PHP 5.2 or later with the extension for the database system being used:
   + mysql
   + mysqli
   + pgsql
   + sqlite
+  + sqlite3
 
 
 NOTE
@@ -32,13 +32,13 @@ a) Find and download the tar tar ball at
 http://www.analysisandsolutions.com/software/download/
 
 b) Or, use Git to obtain the source code directly.  The current
-stable branch is 2.1.  Development happens in master.  The nice
+stable branch is 3.  Development happens in master.  The nice
 thing about this route is it permits easy integration of any
 enhancements we make with the changes you need to make to the
 settings and CSS files.
   + git clone git://github.com/convissor/calendar_solution.git
   + cd calendar_solution
-  + git checkout --track -b 2.1 origin/2.1
+  + git checkout --track -b 3 origin/3
   + Edit the configuration files, as discussed below.
   + git commit -a -m 'Local configuration changes.'
   + Any time in the future you want to obtain our latest code, you
@@ -77,11 +77,11 @@ database, here are some rough examples of how to do so.
 * Load the installation SQL script into your database system.
   + MySQL:
     mysql -u <database_admin_user_name> -p <database_name> \
-      < include/CalendarSolution/sql/install-2.1-mysql.sql
+      < include/CalendarSolution/sql/install-3-mysql.sql
 
   + PostgreSQL
     sudo -u postgres psql <database_name> \
-      < include/CalendarSolution/sql/install-2.1-postgresql.sql
+      < include/CalendarSolution/sql/install-3-postgresql.sql
 
     sudo -u postgres psql <database_name>
 
@@ -107,8 +107,10 @@ NOTE: the INSERT statements here are ONLY EXAMPLES.
       mysql -u <database_admin_user_name> -p <database_name>
     - PostgreSQL:
       sudo -u postgres psql <database_name>
-    - SQLite
+    - SQLite 2
       sqlite include/CalendarSolution/sqlite/calendar_solution.sqlite2
+    - SQLite 3
+      sqlite3 include/CalendarSolution/sqlite/calendar_solution.sqlite3
 
   + Insert your Frequent Events, if any:
       INSERT INTO cs_frequent_event
@@ -148,7 +150,7 @@ the environment you are running in.
   + find . -type d -exec chmod 750 {} \;
   + find . -type f -exec chmod 640 {} \;
   + chmod 755 include/CalendarSolution/doc/compile_phpdoc.sh
-  + chmod 760 include/CalendarSolution/sqlite/calendar_solution.sqlite2
+  + chmod 760 include/CalendarSolution/sqlite/calendar_solution*
 
 * Edit the "dbms" settings in:
   + calendar/directory.inc
@@ -156,16 +158,24 @@ the environment you are running in.
 
 * If you move the "include" directory relative to the "calendar"
 directory, or if you change its name, you will need to change the
-"IncludeDir" settings in:
+TAASC_DIR_INCLUDE settings in:
+  + calendar/directory.inc
+  + calendar/Admin/directory.inc
+
+* This package depends on PHP's autoload functionality and ships with such a
+function in include/taasc_autoload.php.  If your system already has an
+autoloader, integrate the concepts in our autoload function into yours then
+remove the "require taasc_autoload.php" commands from:
   + calendar/directory.inc
   + calendar/Admin/directory.inc
 
 * (If you are using SQLite, skip this step.)
-Put your database authentication information into the one
-SQL Solution user class file matching your database system:
-  + sql-my-user.inc  (for PHP's mysql extension)
-  + sql-myi-user.inc  (for PHP's mysqli extension)
-  + sql-pg-user.inc  (for PostgreSQL)
+Put your database authentication information into the
+SQL Solution user class file matching your database system.
+The files are in the include/SQLSolution directory:
+  + MySQLUser.php  (for PHP's mysql extension)
+  + MySQLiUser.php  (for PHP's mysqli extension)
+  + PostgreSQLUser.php  (for PostgreSQL)
 
 * In a command line terminal, cd into our "calendar/Admin"
 directory.  Follow the instructions in both of the following
@@ -204,7 +214,7 @@ in the display.
 
 * If at any point you receive the "A Database Problem Occurred"
 message, the full error message can be obtained by editing the
-"include/sql-common.inc" file.  At the end of the file is a
+"include/SQLSolution/General.php" file.  At the end of the file is a
 "debug tool ->" comment.  Move the "echo"... command down one
 line so it becomes uncommented, save the file and retry the
 request in your web browser.  Once you get the message, make
