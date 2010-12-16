@@ -101,7 +101,7 @@ class CalendarSolution {
      * @throws CalendarSolution_Exception if the $dbms parameter is improper
      */
     public function __construct($dbms = CALENDAR_SOLUTION_DBMS) {
-        $extension = '';
+        $file = '';
         switch ($dbms) {
             case 'mysql':
                 $class = 'SQLSolution_MySQLUser';
@@ -114,11 +114,11 @@ class CalendarSolution {
                 break;
             case 'sqlite':
                 $class = 'SQLSolution_SQLiteUser';
-                $extension = 'sqlite2';
+                $file = 'calendar_solution.sqlite2';
                 break;
             case 'sqlite3':
                 $class = 'SQLSolution_SQLite3User';
-                $extension = 'sqlite3';
+                $file = 'calendar_solution.sqlite3';
                 break;
             case 'test':
                 return;
@@ -128,9 +128,9 @@ class CalendarSolution {
 
         $this->sql = new $class('Y', 'Y');
 
-        if ($extension && $this->sql->SQLDbName == 'default') {
+        if ($file && $this->sql->SQLDbName == 'default') {
             $this->sql->SQLDbName = dirname(__FILE__)
-                . '/CalendarSolution/sqlite/calendar_solution.' . $extension;
+                . '/CalendarSolution/sqlite/' . $file;
         }
     }
 
