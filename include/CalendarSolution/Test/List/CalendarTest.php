@@ -4,7 +4,7 @@
  * Extend the class to be tested so we can have access to protected elements
  * @package CalendarSolution_Test
  */
-class CalendarSolution_List_CalendarTest extends CalendarSolution_List_Calendar {
+class CalendarSolution_Test_List_Calendar extends CalendarSolution_List_Calendar {
     public function __call($method, $args) {
         return call_user_func_array(array($this, $method), $args);
     }
@@ -24,7 +24,7 @@ class CalendarSolution_List_CalendarTest extends CalendarSolution_List_Calendar 
  *
  * @package CalendarSolution_Test
  */
-class List_CalendarTest extends PHPUnit_Framework_TestCase {
+class CalendarSolution_Test_List_CalendarTest extends PHPUnit_Framework_TestCase {
     /**
      * The calendar class to test
      * @var CalendarSolution_List_Calendar
@@ -37,7 +37,7 @@ class List_CalendarTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         parent::setUp();
-        $this->calendar = new CalendarSolution_List_CalendarTest('test');
+        $this->calendar = new CalendarSolution_Test_List_Calendar;
     }
 
     /**#@+

@@ -7,11 +7,11 @@
  *
  * @package CalendarSolution_Test
  */
-class Detail_AllTests {
+class CalendarSolution_Test_Detail_AllTests {
     public static function suite() {
         $suite = new PHPUnit_Framework_TestSuite('Calendar Solution Detail sub-class Unit Tests');
 
-        $suite->addTestSuite('Detail_FormTest');
+        $suite->addTestSuite('CalendarSolution_Test_Detail_FormTest');
 
         return $suite;
     }

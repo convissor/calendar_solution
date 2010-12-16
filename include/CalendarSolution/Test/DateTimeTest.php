@@ -7,7 +7,7 @@
  *
  * @package CalendarSolution_Test
  */
-class DateTimeTest extends PHPUnit_Framework_TestCase {
+class CalendarSolution_Test_DateTimeTest extends PHPUnit_Framework_TestCase {
     /**
      * Provides a consistent interface for executing date diff tests
      */

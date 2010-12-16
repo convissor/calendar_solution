@@ -13,3 +13,9 @@
  * settings and __DIR__ was introduced in PHP 5.3.
  */
 require dirname(__FILE__) . '/../../calendar_solution_setup.php';
+
+/**
+ * Load the Calendar Solution class file now because it includes our DateTime
+ * class wich won't be found by autoloader
+ */
+require dirname(__FILE__) . '/../../CalendarSolution.php';
