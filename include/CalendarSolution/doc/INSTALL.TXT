@@ -152,22 +152,13 @@ the environment you are running in.
   + chmod 755 include/CalendarSolution/doc/compile_phpdoc.sh
   + chmod 760 include/CalendarSolution/sqlite/calendar_solution*
 
-* Edit the "dbms" settings in:
-  + calendar/directory.inc
-  + calendar/Admin/directory.inc
-
-* If you move the "include" directory relative to the "calendar"
-directory, or if you change its name, you will need to change the
-TAASC_DIR_INCLUDE settings in:
-  + calendar/directory.inc
-  + calendar/Admin/directory.inc
+* Edit the "CALENDAR_SOLUTION_DBMS" setting in
+"include/calendar_solution_setup.php".
 
 * This package depends on PHP's autoload functionality and ships with such a
-function in include/taasc_autoload.php.  If your system already has an
-autoloader, integrate the concepts in our autoload function into yours then
-remove the "require taasc_autoload.php" commands from:
-  + calendar/directory.inc
-  + calendar/Admin/directory.inc
+function in "include/calendar_solution_setup.php".  If your system already has
+an autoloader, feel free to integrate the concepts in our autoload function
+into yours and then comment out our call to "spl_autoload_register()".
 
 * (If using the default SQLite database that comes with the Calendar Solution,
 skip this step.)  Put the database authentication information into the
@@ -194,8 +185,11 @@ prevent future updates from corrupting your database:
 their changes now:
   + git commit -a -m 'Local configuration changes.'
 
-* Put the "calendar" and "include" directories in a location
-accessible by your web server.
+* Put the "calendar" and "include" directories in a location accessible
+by the web server.  This package assumes both of these directories will
+be put in the same location.  If they are not, the path used for the
+"include calendar_solution_setup.php" calls in each of the *.php files in
+the "calendar" directory must be adjusted.
 
 * Point your web browser at your web server and navigate to the
 "calendar/Admin" directory.  The web server will produce a prompt

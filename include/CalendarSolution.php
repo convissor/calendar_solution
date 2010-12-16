@@ -88,17 +88,19 @@ class CalendarSolution {
 
 
     /**
-     * Instantiates the database class corresponding to the $dbms parameter
-     * and stores it in the $sql property
+     * Instantiates the database class and stores it in the $sql property
      *
-     * @param string $dbms  "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
+     * @param string $dbms  optional override of the database extension setting
+     *                      in CALENDAR_SOLUTION_DBMS.  Values can be
+     *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
      *
+     * @uses CALENDAR_SOLUTION_DBMS  to know which database extension to use
      * @uses CalendarSolution_View::$sql  the SQL Solution object for the
      *       database system specified by the $dbms parameter
      *
      * @throws CalendarSolution_Exception if the $dbms parameter is improper
      */
-    public function __construct($dbms) {
+    public function __construct($dbms = CALENDAR_SOLUTION_DBMS) {
         $extension = '';
         switch ($dbms) {
             case 'mysql':

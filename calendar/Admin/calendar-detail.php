@@ -9,15 +9,15 @@
  */
 
 /**
- * Gather the include directory, desired database system and autoloader
+ * Obtain the Calendar Solution's settings and autoload function
  *
  * Uses dirname(__FILE__) because "./" can be stripped by PHP's safety
  * settings and __DIR__ was introduced in PHP 5.3.
  */
-require dirname(__FILE__) . '/directory.inc';
+require dirname(__FILE__) . '/../../include/calendar_solution_setup.php';
 
 try {
-    $calendar = new CalendarSolution_Detail_Form($dbms);
+    $calendar = new CalendarSolution_Detail_Form;
 } catch (Exception $e) {
     die('EXCEPTION: ' . $e->getMessage());
 }

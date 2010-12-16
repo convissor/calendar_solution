@@ -98,15 +98,17 @@ abstract class CalendarSolution_List extends CalendarSolution {
     /**
      * Calls the parent constructor then populates the $interval_spec property
      *
-     * @param string $dbms  "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
      * @param integer $months  how many months should be shown at once
+     * @param string $dbms  optional override of the database extension setting
+     *                      in CALENDAR_SOLUTION_DBMS.  Values can be
+     *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
      *
      * @uses CalendarSolution::__construct()  to instantiate the database class
      * @uses CalendarSolution_List::$interval_spec  is set based on the
      *       $months parameter; which is used later when creating new
      *       DateInterval objects
      */
-    public function __construct($dbms, $months = 3) {
+    public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
         parent::__construct($dbms);
         $this->interval_spec = 'P' . ($months - 1) . 'M';
     }
@@ -119,12 +121,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
      * WARNING: this function sets a cookie, so must be called before any
      * output is sent to the browser.
      *
-     * @param string $dbms  "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
      * @param integer $months  how many months should be shown at once
+     * @param string $dbms  optional override of the database extension setting
+     *                      in CALENDAR_SOLUTION_DBMS.  Values can be
+     *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
      *
      * @return CalendarSolution_List_Calendar|CalendarSolution_List_List
      */
-    public static function factory_chosen_view($dbms, $months = 3) {
+    public static function factory_chosen_view($months = 3,
+        $dbms = CALENDAR_SOLUTION_DBMS)
+    {
         $set_cookie = false;
 
         if (empty($_REQUEST['view'])) {
@@ -158,7 +164,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
         }
 
         $class = __CLASS__ . '_' . $view;
-        return new $class($dbms, $months);
+        return new $class($months, $dbms);
     }
 
     /**

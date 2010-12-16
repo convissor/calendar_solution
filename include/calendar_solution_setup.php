@@ -1,17 +1,23 @@
 <?php
 
 /**
- * An example of how to set up an autoloader
+ * The DBMS setting and autoload function for the Calendar Solution
  *
- * NOTE: If your system already has an autoloader, integrate the concepts in
- * our autoload function into yours and then remove this one.
+ * NOTE: If your system already has an autoloader, feel free to integrate the
+ * concepts in this autoload function into yours and then comment out the
+ * spl_autoload_register() call.
  *
- * @package SQLSolution
+ * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2001-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
  */
+
+/**
+ * The database extension to use: "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
+ */
+define('CALENDAR_SOLUTION_DBMS', '');
 
 if (!defined('TAASC_DIR_INCLUDE')) {
 	/**
