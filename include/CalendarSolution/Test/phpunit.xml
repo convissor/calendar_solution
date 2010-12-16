@@ -2,13 +2,4 @@
 <phpunit
     bootstrap="./bootstrap.inc"
     >
-
-    <!--
-    stopOnFailure="true"
-
-    colors="false"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    -->
 </phpunit>
