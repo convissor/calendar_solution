@@ -30,10 +30,6 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 * @return void
 	 */
 	public function delete() {
-		if (!$this->sql->SQLConnection) {
-			$this->sql->Connect(__FILE__, __LINE__);
-		}
-
 		$this->sql->SQLQueryString = 'DELETE FROM cs_calendar
 			WHERE calendar_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['calendar_id']);
@@ -174,10 +170,6 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 * @return void
 	 */
 	public function insert() {
-		if (!$this->sql->SQLConnection) {
-			$this->sql->Connect(__FILE__, __LINE__);
-		}
-
 		$feature_bitwise = $this->get_bitwise_from_array($this->data['feature_on_page_id']);
 
 		$sql_top = 'INSERT INTO cs_calendar (
@@ -890,10 +882,6 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 * @return void
 	 */
 	public function update() {
-		if (!$this->sql->SQLConnection) {
-			$this->sql->Connect(__FILE__, __LINE__);
-		}
-
 		$feature_bitwise = $this->get_bitwise_from_array($this->data['feature_on_page_id']);
 
 		$this->sql->SQLQueryString = 'UPDATE cs_calendar SET
