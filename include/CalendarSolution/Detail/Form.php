@@ -24,6 +24,40 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 */
 	protected $errors = array();
 
+	/**
+	 * The names of fields on the form
+	 * @var array
+	 */
+	protected $fields = array(
+		'calendar_id',
+		'calendar_uri',
+		'changed',
+		'date_start',
+		'detail',
+		'feature_on_page_id',
+		'frequency',
+		'frequent_event_id',
+		'frequent_event_uri',
+		'list_link_goes_to_id',
+		'location_start',
+		'note',
+		'span',
+		'status_id',
+		'summary',
+		'time_end',
+		'time_start',
+		'title',
+		'week_of_month',
+	);
+
+	/**
+	 * The names of fields on the form that are bitwise in the database
+	 * @var array
+	 */
+	protected $fields_bitwise = array(
+		'feature_on_page_id',
+	);
+
 
 	/**
 	 * Deletes the record specified by $this->data['calendar_id']
