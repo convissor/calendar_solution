@@ -99,9 +99,7 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 			throw new CalendarSolution_Exception('Invalid $calendar_id');
 		}
 
-		if (!$safe_markup) {
-			$this->sql->SQLSafeMarkup = 'N';
-		}
+		$this->sql->SQLSafeMarkup = $safe_markup ? 'Y' : 'N';
 
 		$this->sql->SQLQueryString = "SELECT
 			calendar_id,
