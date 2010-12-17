@@ -20,180 +20,180 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution_List_List extends CalendarSolution_List {
-    /**
-     * The type of view this class represents
-     * @var string
-     */
-    protected $view = 'List';
+	/**
+	 * The type of view this class represents
+	 * @var string
+	 */
+	protected $view = 'List';
 
 
-    /**
-     * @param array $event  an associative array of a given event
-     * @param string $class  the CSS class name for this row
-     *
-     * @return string  the HTML for one event
-     */
-    protected function get_event_formatted($event, $class) {
-        /*
-         * NOTE: SQL Solution runs the output through htmlspecialchars(),
-         * so there is no need to do it here.
-         */
+	/**
+	 * @param array $event  an associative array of a given event
+	 * @param string $class  the CSS class name for this row
+	 *
+	 * @return string  the HTML for one event
+	 */
+	protected function get_event_formatted($event, $class) {
+		/*
+		 * NOTE: SQL Solution runs the output through htmlspecialchars(),
+		 * so there is no need to do it here.
+		 */
 
-        $out = '  <td class="title">'
-            . $this->get_link($event)
-            . "</td>\n";
+		$out = '  <td class="title">'
+			. $this->get_link($event)
+			. "</td>\n";
 
-        $out .= '  <td class="day">'
-             . $this->format_date($event['date_start'], self::DATE_FORMAT_LONG)
-             . "</td>\n";
+		$out .= '  <td class="day">'
+			 . $this->format_date($event['date_start'], self::DATE_FORMAT_LONG)
+			 . "</td>\n";
 
-        $out .= '  <td class="time">'
-             . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
-             . (($event['time_end']) ? ' to ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
-             . "</td>\n";
+		$out .= '  <td class="time">'
+			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
+			 . (($event['time_end']) ? ' to ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
+			 . "</td>\n";
 
-        $out .= '  <td class="location_start">'
-             . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
-             . "</td>\n";
+		$out .= '  <td class="location_start">'
+			 . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
+			 . "</td>\n";
 
-        $out .= '  <td class="status">' . $event['status'];
-        if ($event['changed'] == 'Y'
-            && $event['status_id'] != self::STATUS_CANCELLED)
-        {
-            $out .= ' &amp; Changed';
-        }
-        $out .= "</td>\n";
+		$out .= '  <td class="status">' . $event['status'];
+		if ($event['changed'] == 'Y'
+			&& $event['status_id'] != self::STATUS_CANCELLED)
+		{
+			$out .= ' &amp; Changed';
+		}
+		$out .= "</td>\n";
 
-        if ($event['summary'] != '' && $this->show_summary) {
-            $out .= $this->get_row_close()
-                 . $this->get_row_open($class)
-                 . '  <td class="summary" colspan="5">'
-                 . $event['summary'] . "</td>\n";
-        }
+		if ($event['summary'] != '' && $this->show_summary) {
+			$out .= $this->get_row_close()
+				 . $this->get_row_open($class)
+				 . '  <td class="summary" colspan="5">'
+				 . $event['summary'] . "</td>\n";
+		}
 
-        return $out;
-    }
+		return $out;
+	}
 
-    /**
-     * @return string  the HTML for closing a list
-     */
-    protected function get_list_close() {
-        return "</table>\n";
-    }
+	/**
+	 * @return string  the HTML for closing a list
+	 */
+	protected function get_list_close() {
+		return "</table>\n";
+	}
 
-    /**
-     * @return string  the HTML for opening a list
-     */
-    protected function get_list_open() {
-        return '<table class="cs_list_list">' . "\n";
-    }
+	/**
+	 * @return string  the HTML for opening a list
+	 */
+	protected function get_list_open() {
+		return '<table class="cs_list_list">' . "\n";
+	}
 
-    /**
-     * @return string  the HTML closing out a month
-     */
-    protected function get_month_close() {
-        return "\n";
-    }
+	/**
+	 * @return string  the HTML closing out a month
+	 */
+	protected function get_month_close() {
+		return "\n";
+	}
 
-    /**
-     * @return string  the HTML of the month header
-     */
-    protected function get_month_open(DateTime $current_date_time) {
-        $out = " <tr>\n"
-            . '  <td class="month" colspan="4">' . "\n"
-            . '   <big><b>'
-            . $current_date_time->format('F') . ' '
-            . $current_date_time->format('Y')
-            . "</b></big>\n  </td>\n </tr>\n";
+	/**
+	 * @return string  the HTML of the month header
+	 */
+	protected function get_month_open(DateTime $current_date_time) {
+		$out = " <tr>\n"
+			. '  <td class="month" colspan="4">' . "\n"
+			. '   <big><b>'
+			. $current_date_time->format('F') . ' '
+			. $current_date_time->format('Y')
+			. "</b></big>\n  </td>\n </tr>\n";
 
-        return $out;
-    }
+		return $out;
+	}
 
-    /**
-     * @return string  the HTML for closing a row
-     */
-    protected function get_row_close() {
-        return " </tr>\n";
-    }
+	/**
+	 * @return string  the HTML for closing a row
+	 */
+	protected function get_row_close() {
+		return " </tr>\n";
+	}
 
-    /**
-     * @param string $class  the CSS class name for this row
-     * @return string  the HTML for opening a row
-     */
-    protected function get_row_open($class) {
-        return ' <tr class="' . $class . '">' . "\n";
-    }
+	/**
+	 * @param string $class  the CSS class name for this row
+	 * @return string  the HTML for opening a row
+	 */
+	protected function get_row_open($class) {
+		return ' <tr class="' . $class . '">' . "\n";
+	}
 
-    /**
-     * Produces a list of events laid out in a list format
-     *
-     * @return string  the complete HTML of the events and the related interface
-     *
-     * @uses CalendarSolution_List::set_from()
-     * @uses CalendarSolution_List::set_to()
-     * @uses CalendarSolution_List::set_prior_and_next_dates()
-     * @uses CalendarSolution_List::set_frequent_event_id()
-     * @uses CalendarSolution_List::get_limit_form()
-     * @uses CalendarSolution_List::get_navigation()
-     * @uses CalendarSolution_List::run_query()
-     */
-    public function get_rendering() {
-        if ($this->from === null) {
-            $this->set_from();
-        }
+	/**
+	 * Produces a list of events laid out in a list format
+	 *
+	 * @return string  the complete HTML of the events and the related interface
+	 *
+	 * @uses CalendarSolution_List::set_from()
+	 * @uses CalendarSolution_List::set_to()
+	 * @uses CalendarSolution_List::set_prior_and_next_dates()
+	 * @uses CalendarSolution_List::set_frequent_event_id()
+	 * @uses CalendarSolution_List::get_limit_form()
+	 * @uses CalendarSolution_List::get_navigation()
+	 * @uses CalendarSolution_List::run_query()
+	 */
+	public function get_rendering() {
+		if ($this->from === null) {
+			$this->set_from();
+		}
 
-        if ($this->to === null) {
-            $this->set_to();
-        }
+		if ($this->to === null) {
+			$this->set_to();
+		}
 
-        $this->set_prior_and_next_dates();
+		$this->set_prior_and_next_dates();
 
-        if ($this->frequent_event_id === null) {
-            $this->set_frequent_event_id();
-        }
+		if ($this->frequent_event_id === null) {
+			$this->set_frequent_event_id();
+		}
 
-        $out = $this->get_navigation();
+		$out = $this->get_navigation();
 
-        $this->run_query();
+		$this->run_query();
 
-        $out .= $this->get_list_open();
+		$out .= $this->get_list_open();
 
-        $prior_event_month = '';
+		$prior_event_month = '';
 
-        for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {
-            $event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
-                array('calendar_uri', 'frequent_event_uri'));
+		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {
+			$event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
+				array('calendar_uri', 'frequent_event_uri'));
 
-            if ($event['status_id'] == self::STATUS_CANCELLED) {
-                $class = 'X';
-            } elseif ($event['changed'] == 'Y') {
-                $class = 'Y';
-            } else {
-                $class = 'N';
-            }
-            $class .= ($counter % 2);
+			if ($event['status_id'] == self::STATUS_CANCELLED) {
+				$class = 'X';
+			} elseif ($event['changed'] == 'Y') {
+				$class = 'Y';
+			} else {
+				$class = 'N';
+			}
+			$class .= ($counter % 2);
 
-            $event_month = substr($event['date_start'], 0, 7);
-            if ($prior_event_month != $event_month) {
-                $event_date = new CalendarSolution_DateTime($event['date_start']);
-                if ($counter == 0) {
-                    $out .= $this->get_month_open($event_date);
-                } else {
-                    $out .= $this->get_month_close();
-                    $out .= $this->get_month_open($event_date);
-                }
-            }
-            $prior_event_month = $event_month;
+			$event_month = substr($event['date_start'], 0, 7);
+			if ($prior_event_month != $event_month) {
+				$event_date = new CalendarSolution_DateTime($event['date_start']);
+				if ($counter == 0) {
+					$out .= $this->get_month_open($event_date);
+				} else {
+					$out .= $this->get_month_close();
+					$out .= $this->get_month_open($event_date);
+				}
+			}
+			$prior_event_month = $event_month;
 
-            $out .= $this->get_row_open($class);
-            $out .= $this->get_event_formatted($event, $class);
-            $out .= $this->get_row_close();
-        }
+			$out .= $this->get_row_open($class);
+			$out .= $this->get_event_formatted($event, $class);
+			$out .= $this->get_row_close();
+		}
 
-        $out .= $this->get_list_close();
-        $out .= $this->get_limit_form();
-        $out .= $this->get_credit();
+		$out .= $this->get_list_close();
+		$out .= $this->get_limit_form();
+		$out .= $this->get_credit();
 
-        return $out;
-    }
+		return $out;
+	}
 }
