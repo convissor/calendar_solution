@@ -83,7 +83,6 @@ class CalendarSolution_FeaturedPage_List extends CalendarSolution_FeaturedPage {
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
-	 * @uses CalendarSolution::get_navigation()
 	 * @uses CalendarSolution_FeaturedPage_List::run_query()
 	 */
 	public function get_rendering() {

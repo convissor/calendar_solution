@@ -85,7 +85,6 @@ class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
-	 * @uses CalendarSolution_List::get_navigation()
 	 * @uses CalendarSolution_FrequentEvent_List::run_query()
 	 */
 	public function get_rendering() {
