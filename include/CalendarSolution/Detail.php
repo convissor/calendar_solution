@@ -69,7 +69,7 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 	 * @throws CalendarSolution_Exception on an invalid $calendar_id or if
 	 *         no matching record is found
 	 */
-	protected function run_query($calendar_id = null, $safe_markup = true) {
+	protected function run_query($calendar_id = null) {
 		if ($calendar_id === null) {
 			$calendar_id = $this->get_int_from_request('calendar_id');
 		}
@@ -79,8 +79,6 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 		{
 			throw new CalendarSolution_Exception('Invalid $calendar_id');
 		}
-
-		$this->sql->SQLSafeMarkup = $safe_markup ? 'Y' : 'N';
 
 		$this->sql->SQLQueryString = "SELECT
 			calendar_id,
@@ -124,9 +122,15 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 	 * @uses CalendarSolution_Detail::$data  to hold the data
 	 */
 	public function set_data_from_query($calendar_id = null, $safe_markup = true) {
-		$this->run_query($calendar_id, $safe_markup);
+		$this->run_query($calendar_id);
+
+		$original_safe_markup = $this->sql->SQLSafeMarkup;
+		$this->sql->SQLSafeMarkup = $safe_markup ? 'Y' : 'N';
+
 		$this->data = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
 			array('display_uri'));
 		$this->data['set_from'] = 'query';
+
+		$this->sql->SQLSafeMarkup = $original_safe_markup;
 	}
 }
