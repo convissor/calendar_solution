@@ -1,0 +1,19 @@
+form.cs_frequentevent_form table {
+ vertical-align: top;
+ border: thin solid black;
+}
+
+form.cs_frequentevent_form td {
+ vertical-align: top;
+ padding: 0.2em;
+ border: thin solid black;
+}
+
+form.cs_frequentevent_form td table,
+form.cs_frequentevent_form td table td {
+ border: none;
+}
+
+form.cs_frequentevent_form em {
+ font-size: 1.3em;
+}

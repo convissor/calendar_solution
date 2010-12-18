@@ -82,6 +82,30 @@ class CalendarSolution {
 	/**#@-*/
 
 	/**
+	 * An associative array of the given item's data
+	 * @var array
+	 */
+	protected $data = array();
+
+	/**
+	 * Errors found by is_valid()
+	 * @var array
+	 */
+	protected $errors = array();
+
+	/**
+	 * The names of fields on the form
+	 * @var array
+	 */
+	protected $fields = array();
+
+	/**
+	 * The names of fields on the form that are bitwise in the database
+	 * @var array
+	 */
+	protected $fields_bitwise = array();
+
+	/**
 	 * @var object SQLSolution_General
 	 */
 	protected $sql;
@@ -135,6 +159,25 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Sanitizes the data in $this->data via htmlspecialchars()
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_Detail::$data  as the data to sanitize
+	 */
+	protected function escape_data_for_html() {
+		foreach ($this->data as $key => $value) {
+			if (is_array($value)) {
+				foreach ($value as $sub_key => $sub_value) {
+					$this->data[$key][$sub_key] = htmlspecialchars($sub_value);
+				}
+			} else {
+				$this->data[$key] = htmlspecialchars($value);
+			}
+		}
+	}
+
+	/**
 	 * Formats a date/time string
 	 *
 	 * This route is necessary because of the need to provide portability
@@ -154,12 +197,38 @@ class CalendarSolution {
 	}
 
 	/**
+	 * @return string  the HTML with the admin links
+	 */
+	public function get_admin_nav() {
+		return '<p>
+			<a href="calendar.php">View All Events</a> |
+			<a href="calendar-detail.php">Add New Event</a> ||
+			<a href="frequent_event.php">View All Frequent Events</a> |
+			<a href="frequent_event-detail.php">Add New Frequent Event</a>
+			</p>';
+	}
+
+	/**
 	 * @return string  the HTML with the credit link
 	 */
 	protected function get_credit() {
 		return '<p class="cs_credit">Calendar produced using <a href="'
 			. 'http://www.analysisandsolutions.com/software/calendar/'
 			. '">Calendar Solution</a></p>' . "\n";
+	}
+
+	/**
+	 * Provides the Cascading Style Sheet data, for use between <style> tags
+	 *
+	 * @return string  the CSS
+	 */
+	public function get_css() {
+		$file = $this->get_css_name();
+		if ($file) {
+			return file_get_contents($file);
+		} else {
+			return '';
+		}
 	}
 
 	/**
@@ -183,6 +252,26 @@ class CalendarSolution {
 			return false;
 		}
 		return $_REQUEST[$name];
+	}
+
+	/**
+	 * Produces an HTML list explaining the errors found by is_valid()
+	 *
+	 * @return string  the HTML containing the list of problems
+	 *
+	 * @see CalendarSolution_Detail_Form::is_valid()
+	 */
+	public function get_errors() {
+		$out = '<p class="cs_notice"><big>'
+			. 'Your submission was NOT saved.<br />'
+			. 'Please fix the following errors and try again:</big></p>'
+			. "\n<ul>\n";
+		foreach ($this->errors AS $error) {
+			$out .= " <li>$error.</li>\n";
+		}
+		$out .= "</ul>\n";
+
+		return $out;
 	}
 
 	/**
@@ -222,5 +311,80 @@ class CalendarSolution {
 			}
 		}
 		return $answer;
+	}
+
+	/**
+	 * Populates $this->data with the requisite keys and sets values to NULL
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_Detail::$data  to hold the data
+	 * @uses CalendarSolution_Detail::$fields  as the list of field names
+	 */
+	public function set_data_empty() {
+		$this->data = array();
+		foreach ($this->fields as $field) {
+			$this->data[$field] = null;
+		}
+		$this->data['set_from'] = 'empty';
+	}
+
+	/**
+	 * Populates $this->data with the information from $_POST
+	 *
+	 * The following transformations also occur:
+	 * + Missing keys are created and their values set to NULL.
+	 * + Non-scalar entries get set to NULL.
+	 * + Values are passed through trim().
+	 * + Empty strings are converted to NULL.
+	 *
+	 * Fields expected to be arrays have their values passed through the
+	 * process listed above.
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_Detail::$data  to hold the data
+	 * @uses CalendarSolution_Detail::$fields  as the list of field names
+	 * @uses CalendarSolution_Detail::$fields_bitwise  to know which fields to
+	 *       handle differently
+	 */
+	public function set_data_from_post() {
+		$this->data = array();
+		foreach ($this->fields as $field) {
+			if (array_key_exists($field, $_POST)) {
+				if (in_array($field, $this->fields_bitwise)) {
+					if (is_array($_POST[$field])) {
+						foreach ($_POST[$field] as $key => $value) {
+							if (is_scalar($value)) {
+								$this->data[$field][$key] = trim($_POST[$field][$key]);
+								if ($this->data[$field][$key] === '') {
+									$this->data[$field][$key] = null;
+								}
+							} else {
+								$this->data[$field][$key] = null;
+							}
+						}
+					} else {
+						$this->data[$field] = array();
+					}
+				} else {
+					if (is_scalar($_POST[$field])) {
+						$this->data[$field] = trim($_POST[$field]);
+						if ($this->data[$field] === '') {
+							$this->data[$field] = null;
+						}
+					} else {
+						$this->data[$field] = null;
+					}
+				}
+			} else {
+				if (in_array($field, $this->fields_bitwise)) {
+					$this->data[$field] = array();
+				} else {
+					$this->data[$field] = null;
+				}
+			}
+		}
+		$this->data['set_from'] = 'post';
 	}
 }

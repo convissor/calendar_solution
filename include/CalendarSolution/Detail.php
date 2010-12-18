@@ -19,13 +19,6 @@
  */
 abstract class CalendarSolution_Detail extends CalendarSolution {
 	/**
-	 * An associative array of the given event's data
-	 * @var array
-	 */
-	protected $data = array();
-
-
-	/**
 	 * Converts a bitwise number into an array of values that are a power of 2
 	 *
 	 * @param int $in  the number to convert
@@ -59,18 +52,6 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 			return null;
 		}
 		return array_sum($in);
-	}
-
-	/**
-	 * Provides the Cascading Style Sheet data, for use between <style> tags
-	 *
-	 * @return string  the CSS
-	 *
-	 * @uses CalendarSolution_Detail_Form::get_css_name()  to know where the CSS is
-	 * @uses CalendarSolution_Detail_Html::get_css_name()  to know where the CSS is
-	 */
-	public function get_css() {
-		return file_get_contents($this->get_css_name());
 	}
 
 	/**
@@ -141,7 +122,6 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 	 * @return void
 	 *
 	 * @uses CalendarSolution_Detail::$data  to hold the data
-	 * @uses CalendarSolution_Detail::$fields  as the list of field names
 	 */
 	public function set_data_from_query($calendar_id = null, $safe_markup = true) {
 		$this->run_query($calendar_id, $safe_markup);

@@ -38,10 +38,9 @@ try {
 </head>
 <body>
 
-<p><a href="./">View All Events</a> | <a href="calendar-detail.php">Add a New Event</a></p>
-
 <?php
 
+echo $calendar->get_admin_nav();
 
 try {
     if (empty($_POST['submit'])) {

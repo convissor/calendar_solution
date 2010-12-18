@@ -51,7 +51,7 @@ try {
  * generate that link if the person is viewing this script via the admin page.
  */
 if ($calendar->is_admin()) {
-    echo '<p><a href="calendar-detail.php">Add a New Event</a></p>' . "\n";
+	echo $calendar->get_admin_nav();
 }
 
 

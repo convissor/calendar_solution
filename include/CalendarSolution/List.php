@@ -168,19 +168,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Provides the Cascading Style Sheet data, for use between <style> tags
-	 *
-	 * @return string  the CSS
-	 *
-	 * @uses CalendarSolution_List::get_css_name()  to know where the CSS is
-	 * @uses CalendarSolution_List_QuickTable::get_css_name()  to know where the CSS is
-	 * @uses CalendarSolution_List_Title::get_css_name()  to know where the CSS is
-	 */
-	public function get_css() {
-		return file_get_contents($this->get_css_name());
-	}
-
-	/**
 	 * Provides the path and name of the needed Cascading Style Sheet file
 	 *
 	 * @return string  the path and name of the CSS file

@@ -19,12 +19,6 @@
  */
 class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	/**
-	 * Errors found by is_valid()
-	 * @var array
-	 */
-	protected $errors = array();
-
-	/**
 	 * The names of fields on the form
 	 * @var array
 	 */
@@ -72,51 +66,12 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	}
 
 	/**
-	 * Sanitizes the data in $this->data via htmlspecialchars()
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_Detail::$data  as the data to sanitize
-	 */
-	protected function escape_data_for_html() {
-		foreach ($this->data as $key => $value) {
-			if (is_array($value)) {
-				foreach ($value as $sub_key => $sub_value) {
-					$this->data[$key][$sub_key] = htmlspecialchars($sub_value);
-				}
-			} else {
-				$this->data[$key] = htmlspecialchars($value);
-			}
-		}
-	}
-
-	/**
 	 * Provides the path and name of the needed Cascading Style Sheet file
 	 *
 	 * @return string  the path and name of the CSS file
 	 */
 	public function get_css_name() {
 		return dirname(__FILE__) . '/Form.css';
-	}
-
-	/**
-	 * Produces an HTML list explaining the errors found by is_valid()
-	 *
-	 * @return string  the HTML containing the list of problems
-	 *
-	 * @see CalendarSolution_Detail_Form::is_valid()
-	 */
-	public function get_errors() {
-		$out = '<p class="cs_notice"><big>'
-			. 'Your submission was NOT saved.<br />'
-			. 'Please fix the following errors and try again:</big></p>'
-			. "\n<ul>\n";
-		foreach ($this->errors AS $error) {
-			$out .= " <li>$error.</li>\n";
-		}
-		$out .= "</ul>\n";
-
-		return $out;
 	}
 
 	/**
@@ -834,81 +789,6 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		$out .= "\n</form>\n\n";
 
 		return $out;
-	}
-
-	/**
-	 * Populates $this->data with the requisite keys and sets values to NULL
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_Detail::$data  to hold the data
-	 * @uses CalendarSolution_Detail::$fields  as the list of field names
-	 */
-	public function set_data_empty() {
-		$this->data = array();
-		foreach ($this->fields as $field) {
-			$this->data[$field] = null;
-		}
-		$this->data['set_from'] = 'empty';
-	}
-
-	/**
-	 * Populates $this->data with the information from $_POST
-	 *
-	 * The following transformations also occur:
-	 * + Missing keys are created and their values set to NULL.
-	 * + Non-scalar entries get set to NULL.
-	 * + Values are passed through trim().
-	 * + Empty strings are converted to NULL.
-	 *
-	 * Fields expected to be arrays have their values passed through the
-	 * process listed above.
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_Detail::$data  to hold the data
-	 * @uses CalendarSolution_Detail::$fields  as the list of field names
-	 * @uses CalendarSolution_Detail::$fields_bitwise  to know which fields to
-	 *       handle differently
-	 */
-	public function set_data_from_post() {
-		$this->data = array();
-		foreach ($this->fields as $field) {
-			if (array_key_exists($field, $_POST)) {
-				if (in_array($field, $this->fields_bitwise)) {
-					if (is_array($_POST[$field])) {
-						foreach ($_POST[$field] as $key => $value) {
-							if (is_scalar($value)) {
-								$this->data[$field][$key] = trim($_POST[$field][$key]);
-								if ($this->data[$field][$key] === '') {
-									$this->data[$field][$key] = null;
-								}
-							} else {
-								$this->data[$field][$key] = null;
-							}
-						}
-					} else {
-						$this->data[$field] = array();
-					}
-				} else {
-					if (is_scalar($_POST[$field])) {
-						$this->data[$field] = trim($_POST[$field]);
-						if ($this->data[$field] === '') {
-							$this->data[$field] = null;
-						}
-					} else {
-						$this->data[$field] = null;
-					}
-				}
-			} else {
-				if (in_array($field, $this->fields_bitwise)) {
-					$this->data[$field] = array();
-				} else {
-					$this->data[$field] = null;
-				}
-			}
-		}
-		$this->data['set_from'] = 'post';
 	}
 
 	/**
