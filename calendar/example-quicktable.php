@@ -34,7 +34,7 @@ try {
 <html>
 <head>
 <title>Calendar Solution Example: Quick Table format for Frequent Event pages</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css">
 
 <?php echo $calendar->get_css(); ?>

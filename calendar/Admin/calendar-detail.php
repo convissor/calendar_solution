@@ -31,9 +31,11 @@ try {
 <html>
 <head>
 <title>Calendar Solution Admin Event Detail</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css">
+
 <?php echo $calendar->get_css(); ?>
+
 </style>
 </head>
 <body>
