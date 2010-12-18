@@ -21,9 +21,9 @@ require dirname(__FILE__) . '/../include/calendar_solution_setup.php';
  * Instantiate the quick table class.
  */
 try {
-    $calendar = new CalendarSolution_List_QuickTable;
+	$calendar = new CalendarSolution_List_QuickTable;
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 
@@ -49,9 +49,9 @@ try {
  * Display the list.
  */
 try {
-    echo $calendar->get_rendering(1);
+	echo $calendar->get_rendering(1);
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 

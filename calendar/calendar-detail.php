@@ -20,12 +20,12 @@ require dirname(__FILE__) . '/../include/calendar_solution_setup.php';
  * Instantiate the calendar detail HTML class.
  */
 try {
-    $calendar = new CalendarSolution_Detail_Html;
+	$calendar = new CalendarSolution_Detail_Html;
 
-    // Calendar Solution runs htmlspecialchars() on the output.
-    $event_title = $calendar->get_title();
+	// Calendar Solution runs htmlspecialchars() on the output.
+	$event_title = $calendar->get_title();
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 
@@ -52,9 +52,9 @@ try {
  * Display the event.
  */
 try {
-    echo $calendar->get_rendering();
+	echo $calendar->get_rendering();
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 ?>

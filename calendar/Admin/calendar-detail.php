@@ -17,9 +17,9 @@
 require dirname(__FILE__) . '/../../include/calendar_solution_setup.php';
 
 try {
-    $calendar = new CalendarSolution_Detail_Form;
+	$calendar = new CalendarSolution_Detail_Form;
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 
@@ -45,44 +45,44 @@ try {
 echo $calendar->get_admin_nav();
 
 try {
-    if (empty($_POST['submit'])) {
-        if (empty($_GET['calendar_id'])) {
-            $calendar->set_data_empty();
-        } else {
-            $calendar->set_data_from_query($_GET['calendar_id'], false);
-        }
-        echo $calendar->get_rendering();
-    } else {
-        $calendar->set_data_from_post();
+	if (empty($_POST['submit'])) {
+		if (empty($_GET['calendar_id'])) {
+			$calendar->set_data_empty();
+		} else {
+			$calendar->set_data_from_query($_GET['calendar_id'], false);
+		}
+		echo $calendar->get_rendering();
+	} else {
+		$calendar->set_data_from_post();
 
-        switch ($_POST['submit']) {
-            case 'Add':
-                if ($calendar->is_valid(false)) {
-                    $calendar->insert();
-                } else {
-                    echo $calendar->get_errors();
-                    echo $calendar->get_rendering();
-                }
-                break;
-            case 'Update':
-                if ($calendar->is_valid()) {
-                    $calendar->update();
-                } else {
-                    echo $calendar->get_errors();
-                    echo $calendar->get_rendering();
-                }
-                break;
-            case 'Delete':
-                $calendar->delete();
-                break;
-            default:
-                throw new CalendarSolution_Exception('Invalid submit option');
-        }
+		switch ($_POST['submit']) {
+			case 'Add':
+				if ($calendar->is_valid(false)) {
+					$calendar->insert();
+				} else {
+					echo $calendar->get_errors();
+					echo $calendar->get_rendering();
+				}
+				break;
+			case 'Update':
+				if ($calendar->is_valid()) {
+					$calendar->update();
+				} else {
+					echo $calendar->get_errors();
+					echo $calendar->get_rendering();
+				}
+				break;
+			case 'Delete':
+				$calendar->delete();
+				break;
+			default:
+				throw new CalendarSolution_Exception('Invalid submit option');
+		}
 
-        echo '<p class="notice"><big class="notice">Your changes were saved.</big></p>';
-    }
+		echo '<p class="notice"><big class="notice">Your changes were saved.</big></p>';
+	}
 } catch (Exception $e) {
-    echo 'EXCEPTION: ' . $e->getMessage();
+	echo 'EXCEPTION: ' . $e->getMessage();
 }
 
 

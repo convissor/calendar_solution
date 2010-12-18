@@ -20,9 +20,9 @@ require dirname(__FILE__) . '/../include/calendar_solution_setup.php';
  * Instantiate the calendar class appropriate for the view the user wants.
  */
 try {
-    $calendar = CalendarSolution_List::factory_chosen_view();
+	$calendar = CalendarSolution_List::factory_chosen_view();
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 
@@ -59,9 +59,9 @@ if ($calendar->is_admin()) {
  * Display the calendar.
  */
 try {
-    echo $calendar->get_rendering();
+	echo $calendar->get_rendering();
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 

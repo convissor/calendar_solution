@@ -21,9 +21,9 @@ require dirname(__FILE__) . '/../include/calendar_solution_setup.php';
  * Instantiate the title list class.
  */
 try {
-    $calendar = new CalendarSolution_List_Title;
+	$calendar = new CalendarSolution_List_Title;
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 
@@ -49,10 +49,10 @@ try {
  * Display the list.
  */
 try {
-    // 1 = Home Page
-    echo $calendar->get_rendering(1);
+	// 1 = Home Page
+	echo $calendar->get_rendering(1);
 } catch (Exception $e) {
-    die('EXCEPTION: ' . $e->getMessage());
+	die('EXCEPTION: ' . $e->getMessage());
 }
 
 
