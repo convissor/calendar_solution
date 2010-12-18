@@ -44,7 +44,7 @@ try {
 
 <?php
 
-echo $calendar->get_admin_nav();
+echo $calendar->get_admin_navigation();
 
 /*
  * Display the calendar.

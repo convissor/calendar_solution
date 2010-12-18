@@ -199,7 +199,7 @@ class CalendarSolution {
 	/**
 	 * @return string  the HTML with the admin links
 	 */
-	public function get_admin_nav() {
+	public function get_admin_navigation() {
 		return '<p><small>
 			<a href="calendar.php">View Events</a> |
 			<a href="calendar-detail.php">Add Event</a> ||
