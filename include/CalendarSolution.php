@@ -106,7 +106,7 @@ class CalendarSolution {
 	protected $fields_bitwise = array();
 
 	/**
-	 * @var object SQLSolution_General
+	 * @var SQLSolution_General
 	 */
 	protected $sql;
 
@@ -119,7 +119,7 @@ class CalendarSolution {
 	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
 	 *
 	 * @uses CALENDAR_SOLUTION_DBMS  to know which database extension to use
-	 * @uses CalendarSolution_View::$sql  the SQL Solution object for the
+	 * @uses CalendarSolution::$sql  the SQL Solution object for the
 	 *       database system specified by the $dbms parameter
 	 *
 	 * @throws CalendarSolution_Exception if the $dbms parameter is improper
