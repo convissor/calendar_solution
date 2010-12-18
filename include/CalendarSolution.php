@@ -163,7 +163,7 @@ class CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_Detail::$data  as the data to sanitize
+	 * @uses CalendarSolution::$data  as the data to sanitize
 	 */
 	protected function escape_data_for_html() {
 		foreach ($this->data as $key => $value) {
@@ -320,8 +320,8 @@ class CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_Detail::$data  to hold the data
-	 * @uses CalendarSolution_Detail::$fields  as the list of field names
+	 * @uses CalendarSolution::$data  to hold the data
+	 * @uses CalendarSolution::$fields  as the list of field names
 	 */
 	public function set_data_empty() {
 		$this->data = array();
@@ -345,9 +345,9 @@ class CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_Detail::$data  to hold the data
-	 * @uses CalendarSolution_Detail::$fields  as the list of field names
-	 * @uses CalendarSolution_Detail::$fields_bitwise  to know which fields to
+	 * @uses CalendarSolution::$data  to hold the data
+	 * @uses CalendarSolution::$fields  as the list of field names
+	 * @uses CalendarSolution::$fields_bitwise  to know which fields to
 	 *       handle differently
 	 */
 	public function set_data_from_post() {

@@ -119,7 +119,7 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_Detail::$data  to hold the data
+	 * @uses CalendarSolution::$data  to hold the data
 	 */
 	public function set_data_from_query($calendar_id = null, $safe_markup = true) {
 		$this->run_query($calendar_id);

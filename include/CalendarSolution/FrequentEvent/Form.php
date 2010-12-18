@@ -200,8 +200,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_Detail::$data  to hold the data
-	 * @uses CalendarSolution_Detail::$fields  as the list of field names
+	 * @uses CalendarSolution::$data  to hold the data
+	 * @uses CalendarSolution::$fields  as the list of field names
 	 */
 	public function set_data_empty() {
 		$this->data = array();
