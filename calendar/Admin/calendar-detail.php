@@ -55,6 +55,7 @@ try {
 	} else {
 		$calendar->set_data_from_post();
 
+		$saved = true;
 		switch ($_POST['submit']) {
 			case 'Add':
 				if ($calendar->is_valid(false)) {
@@ -62,6 +63,7 @@ try {
 				} else {
 					echo $calendar->get_errors();
 					echo $calendar->get_rendering();
+					$saved = false;
 				}
 				break;
 			case 'Update':
@@ -70,6 +72,7 @@ try {
 				} else {
 					echo $calendar->get_errors();
 					echo $calendar->get_rendering();
+					$saved = false;
 				}
 				break;
 			case 'Delete':
@@ -79,7 +82,9 @@ try {
 				throw new CalendarSolution_Exception('Invalid submit option');
 		}
 
-		echo '<p class="notice"><big class="notice">Your changes were saved.</big></p>';
+		if ($saved) {
+			echo '<p class="notice"><big class="notice">Your changes were saved.</big></p>';
+		}
 	}
 } catch (Exception $e) {
 	echo 'EXCEPTION: ' . $e->getMessage();
