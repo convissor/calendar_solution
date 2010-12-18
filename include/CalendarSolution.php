@@ -200,12 +200,14 @@ class CalendarSolution {
 	 * @return string  the HTML with the admin links
 	 */
 	public function get_admin_nav() {
-		return '<p>
-			<a href="calendar.php">View All Events</a> |
-			<a href="calendar-detail.php">Add New Event</a> ||
-			<a href="frequent_event.php">View All Frequent Events</a> |
-			<a href="frequent_event-detail.php">Add New Frequent Event</a>
-			</p>';
+		return '<p><small>
+			<a href="calendar.php">View Events</a> |
+			<a href="calendar-detail.php">Add Event</a> ||
+			<a href="frequent_event.php">View Frequent Events</a> |
+			<a href="frequent_event-detail.php">Add Frequent Event</a> ||
+			<a href="featured_page.php">View Featured Pages</a> |
+			<a href="featured_page-detail.php">Add Featured Page</a>
+			</small></p>';
 	}
 
 	/**
