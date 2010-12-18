@@ -63,7 +63,9 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_uri'])
 			. ')';
 
-		$this->sql->RunQuery(__FILE__, __LINE__);
+		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
+			throw new CalendarSolution_Exception('That Title already exists');
+		}
 	}
 
 	/**
@@ -219,6 +221,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 			frequent_event_uri = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_uri']) . '
 			WHERE frequent_event_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_id']);
 
-		$this->sql->RunQuery(__FILE__, __LINE__);
+		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
+			throw new CalendarSolution_Exception('That Title already exists');
+		}
 	}
 }
