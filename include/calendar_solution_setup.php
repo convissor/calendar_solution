@@ -5,7 +5,8 @@
  *
  * NOTE: If your system already has an autoloader, feel free to integrate the
  * concepts in this autoload function into yours and then comment out the
- * spl_autoload_register() call.
+ * spl_autoload_register() call.  If you do so and also use our PHPUnit tests,
+ * don't forget to edit the bootstrap.ini file to include your autoloader.
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -29,7 +30,7 @@ if (!defined('TAASC_DIR_INCLUDE')) {
 }
 
 /**
- * A sample autoload function
+ * An autoload function for software from The Analysis and Solutions Company
  *
  * Uses the PEAR naming convention of "_" in class names becoming "/".
  *
