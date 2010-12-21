@@ -9,6 +9,8 @@ Calendar Solution can use MySQL (via PHP's mysql or mysqli extensions),
 PostgreSQL or SQLite (via PHP's sqlite or sqlite3 extensions) as the
 database system.
 
-The current release branch is "3". Development happens on "master".
+The stable release branch is "2.1".  Development happens on "master".
+The code in master is undergoing significant changes, which will be
+released in a branch named "3" (though that branch does not exist yet).
 
 Please see include/CalendarSolution/doc/README.TXT for more information.
