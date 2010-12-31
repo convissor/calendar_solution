@@ -77,11 +77,11 @@ database, here are some rough examples of how to do so.
 * Load the installation SQL script into your database system.
   + MySQL:
     mysql -u <database_admin_user_name> -p <database_name> \
-      < include/CalendarSolution/sql/install-3-mysql.sql
+      < include/CalendarSolution/sql/install-3.0-mysql.sql
 
   + PostgreSQL
     sudo -u postgres psql <database_name> \
-      < include/CalendarSolution/sql/install-3-postgresql.sql
+      < include/CalendarSolution/sql/install-3.0-postgresql.sql
 
     sudo -u postgres psql <database_name>
 
