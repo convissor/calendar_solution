@@ -4,12 +4,14 @@ CREATE TABLE cs_status (
   PRIMARY KEY (status_id),
   UNIQUE (status)
 );
+BEGIN;
 INSERT INTO cs_status (status_id, status)
   VALUES (1, 'Open');
 INSERT INTO cs_status (status_id, status)
   VALUES (2, 'Full');
 INSERT INTO cs_status (status_id, status)
   VALUES (3, 'Cancelled');
+COMMIT;
 
 CREATE TABLE cs_list_link_goes_to (
   list_link_goes_to_id SMALLINT NOT NULL,
@@ -17,6 +19,7 @@ CREATE TABLE cs_list_link_goes_to (
   PRIMARY KEY (list_link_goes_to_id),
   UNIQUE (list_link_goes_to)
 );
+BEGIN;
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (1, 'No Link');
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
@@ -25,11 +28,13 @@ INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (3, 'Frequent Event URL');
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (4, 'Calendar URL');
+COMMIT;
 
 CREATE TABLE cs_power_of_two (
   power_of_two_id INT NOT NULL,
   PRIMARY KEY (power_of_two_id)
 );
+BEGIN;
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (1);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (2);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (4);
@@ -45,6 +50,7 @@ INSERT INTO cs_power_of_two (power_of_two_id) VALUES (2048);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (4096);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (8192);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (16384);
+COMMIT;
 
 CREATE TABLE cs_feature_on_page (
   feature_on_page_id INT NOT NULL, -- Power of 2 for multiple choice via bitmask
@@ -54,8 +60,10 @@ CREATE TABLE cs_feature_on_page (
   CONSTRAINT feature_on_page_id_fk FOREIGN KEY (feature_on_page_id)
     REFERENCES cs_power_of_two (power_of_two_id)
 );
+BEGIN;
 INSERT INTO cs_feature_on_page (feature_on_page_id, feature_on_page)
   VALUES (1, 'Home Page');
+COMMIT;
 
 CREATE TABLE cs_frequent_event (
   frequent_event_id INTEGER NOT NULL PRIMARY KEY,

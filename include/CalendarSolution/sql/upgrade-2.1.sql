@@ -57,8 +57,10 @@ ALTER TABLE cs_calendar
   MODIFY summary varchar(250) default NULL,
   CHANGE location location_start varchar(250) default NULL;
 
+BEGIN;
 UPDATE cs_calendar SET summary = NULL WHERE summary = '';
 UPDATE cs_calendar SET location_start = NULL WHERE location_start = '';
+COMMIT;
 
 
 -- Enhance URI functionality.
@@ -70,6 +72,7 @@ CREATE TABLE cs_list_link_goes_to (
   UNIQUE (list_link_goes_to)
 ) ENGINE=InnoDB;
 
+BEGIN;
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (1, 'No Link');
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
@@ -78,6 +81,7 @@ INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (3, 'Frequent Event URL');
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (4, 'Calendar URL');
+COMMIT;
 
 ALTER TABLE cs_calendar
   ADD COLUMN list_link_goes_to_id smallint default 2 NOT NULL,
@@ -88,8 +92,10 @@ ALTER TABLE cs_calendar
 
 ALTER TABLE cs_frequent_event
   CHANGE uri frequent_event_uri varchar(250) default NULL;
+BEGIN;
 UPDATE cs_frequent_event SET frequent_event_uri = NULL
   WHERE frequent_event_uri = '';
+COMMIT;
 
 
 -- Add status functionality.
@@ -101,12 +107,14 @@ CREATE TABLE cs_status (
   UNIQUE (status)
 ) ENGINE=InnoDB;
 
+BEGIN;
 INSERT INTO cs_status (status_id, status)
   VALUES (1, 'Open');
 INSERT INTO cs_status (status_id, status)
   VALUES (2, 'Full');
 INSERT INTO cs_status (status_id, status)
   VALUES (3, 'Cancelled');
+COMMIT;
 
 ALTER TABLE cs_calendar
   ADD COLUMN status_id smallint default 1 NOT NULL,
@@ -122,6 +130,7 @@ CREATE TABLE cs_power_of_two (
   PRIMARY KEY (power_of_two_id)
 ) ENGINE=InnoDB;
 
+BEGIN;
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (1);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (2);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (4);
@@ -137,6 +146,7 @@ INSERT INTO cs_power_of_two (power_of_two_id) VALUES (2048);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (4096);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (8192);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (16384);
+COMMIT;
 
 CREATE TABLE cs_feature_on_page (
   feature_on_page_id int NOT NULL,
@@ -149,8 +159,10 @@ ALTER TABLE cs_feature_on_page
   ADD FOREIGN KEY (feature_on_page_id)
     REFERENCES cs_power_of_two (power_of_two_id);
 
+BEGIN;
 INSERT INTO cs_feature_on_page (feature_on_page_id, feature_on_page)
   VALUES (1, 'Home Page');
+COMMIT;
 
 ALTER TABLE cs_calendar
   ADD COLUMN feature_on_page_id int default NULL;
