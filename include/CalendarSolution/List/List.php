@@ -175,7 +175,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 			$event_month = substr($event['date_start'], 0, 7);
 			if ($prior_event_month != $event_month) {
-				$event_date = new CalendarSolution_DateTime($event['date_start']);
+				$event_date = new DateTimeSolution($event['date_start']);
 				if ($counter == 0) {
 					$out .= $this->get_month_open($event_date);
 				} else {

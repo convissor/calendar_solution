@@ -11,37 +11,6 @@
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
-if (class_exists('DateInterval')) {
-	// PHP 5.3
-
-	if (version_compare(phpversion(), '5.3.3', '>=')) {
-		/**
-		 * Version of PHP is cool, so just stub out the real DateTime class
-		 * @ignore
-		 * @package CalendarSolution
-		 */
-		class CalendarSolution_DateTime extends DateTime {}
-	} else {
-		/**
-		 * Use our own date class so we can provide forward compatibility
-		 *
-		 * Bug 49081 afflicts PHP's DateTime::diff() method
-		 * @ignore
-		 * @package CalendarSolution
-		 */
-		class CalendarSolution_DateTime extends CalendarSolution_DateTimeDiff {}
-	}
-} else {
-	// PHP 5.2
-
-	/**
-	 * PHP 5.2 needs all of our date mojo
-	 * @package CalendarSolution
-	 */
-	class CalendarSolution_DateTime extends CalendarSolution_DateTime52 {}
-}
-
-
 /**
  * The base class
  *

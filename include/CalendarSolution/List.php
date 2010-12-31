@@ -26,12 +26,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 	/**
 	 * The start of the date range to show events for in the current request
-	 * @var DateTime
+	 * @var DateTimeSolution
 	 */
 	protected $from;
 
 	/**
-	 * The DateInterval specification for how many months to show at once
+	 * The DateIntervalSolution specification for how many months to show at once
 	 * @var string
 	 */
 	protected $interval_spec;
@@ -45,14 +45,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * The start of the date range to show events for if the user navigates
 	 * to later events
-	 * @var DateTime
+	 * @var DateTimeSolution
 	 */
 	protected $next_from;
 
 	/**
 	 * The end of the date range to show events for if the user navigates
 	 * to later events
-	 * @var DateTime
+	 * @var DateTimeSolution
 	 */
 	protected $next_to;
 
@@ -65,14 +65,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * The start of the date range to show events for if the user navigates
 	 * to earlier events
-	 * @var DateTime
+	 * @var DateTimeSolution
 	 */
 	protected $prior_from;
 
 	/**
 	 * The end of the date range to show events for if the user navigates
 	 * to earlier events
-	 * @var DateTime
+	 * @var DateTimeSolution
 	 */
 	protected $prior_to;
 
@@ -90,7 +90,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 	/**
 	 * The end of the date range to show events for in the current request
-	 * @var DateTime
+	 * @var DateTimeSolution
 	 */
 	protected $to;
 
@@ -106,7 +106,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution::__construct()  to instantiate the database class
 	 * @uses CalendarSolution_List::$interval_spec  is set based on the
 	 *       $months parameter; which is used later when creating new
-	 *       DateInterval objects
+	 *       DateIntervalSolution objects
 	 */
 	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
 		parent::__construct($dbms);
@@ -334,10 +334,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Creates a DateInterval object indicating how many months should be
+	 * Creates a DateIntervalSolution object indicating how many months should be
 	 * displayed at one time
 	 *
-	 * @return DateInterval
+	 * @return DateIntervalSolution
 	 *
 	 * @uses CalendarSolution_List::$interval_spec  to know how long the
 	 *       interval should be
@@ -345,7 +345,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected function interval_singleton() {
 		static $out;
 		if (!isset($out)) {
-			$out = new DateInterval($this->interval_spec);
+			$out = new DateIntervalSolution($this->interval_spec);
 		}
 		return $out;
 	}
@@ -518,9 +518,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		try {
-			$this->from = new CalendarSolution_DateTime($in);
+			$this->from = new DateTimeSolution($in);
 		} catch (Exception $e) {
-			$this->from = new CalendarSolution_DateTime;
+			$this->from = new DateTimeSolution;
 		}
 	}
 
@@ -561,19 +561,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. ' must be called before set_prior_and_next_dates()');
 		}
 
-		$one_day_interval = new DateInterval('P1D');
+		$one_day_interval = new DateIntervalSolution('P1D');
 
-		$this->prior_to = new CalendarSolution_DateTime($this->from->format('Y-m-d'));
+		$this->prior_to = new DateTimeSolution($this->from->format('Y-m-d'));
 		$this->prior_to->sub($one_day_interval);
 
-		$this->next_from = new CalendarSolution_DateTime($this->to->format('Y-m-d'));
+		$this->next_from = new DateTimeSolution($this->to->format('Y-m-d'));
 		$this->next_from->add($one_day_interval);
 
-		$this->prior_from = new CalendarSolution_DateTime($this->prior_to->format('Y-m-d'));
+		$this->prior_from = new DateTimeSolution($this->prior_to->format('Y-m-d'));
 		$this->prior_from->sub($this->interval_singleton());
 		$this->prior_from->modify('first day of this month');
 
-		$this->next_to = new CalendarSolution_DateTime($this->next_from->format('Y-m-d'));
+		$this->next_to = new DateTimeSolution($this->next_from->format('Y-m-d'));
 		$this->next_to->add($this->interval_singleton());
 		$this->next_to->modify('last day of this month');
 	}
@@ -644,9 +644,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		try {
-			$this->to = new CalendarSolution_DateTime($in);
+			$this->to = new DateTimeSolution($in);
 		} catch (Exception $e) {
-			$this->to = new CalendarSolution_DateTime;
+			$this->to = new DateTimeSolution;
 		}
 
 		if ($add_months) {

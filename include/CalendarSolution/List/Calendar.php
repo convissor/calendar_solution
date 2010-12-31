@@ -30,8 +30,8 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	/**
 	 * Determine how many months to display
 	 *
-	 * @param CalendarSolution_DateTime $current
-	 * @param CalendarSolution_DateTime $to
+	 * @param DateTimeSolution $current
+	 * @param DateTimeSolution $to
 	 */
 	protected function calculate_months($current, $to)
 	{
@@ -188,11 +188,11 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 // This doesn't work.  For example, DateTime::add() fails.
 //        $current_date_time = $this->from;
 
-		$current_date_time = new CalendarSolution_DateTime($this->from->format('Y-m-d'));
+		$current_date_time = new DateTimeSolution($this->from->format('Y-m-d'));
 
 		$months = $this->calculate_months($current_date_time, $this->to);
 
-		$one_day_interval = new DateInterval('P1D');
+		$one_day_interval = new DateIntervalSolution('P1D');
 
 		$out = $this->get_navigation();
 

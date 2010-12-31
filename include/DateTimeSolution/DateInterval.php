@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Calendar Solution's DateInterval class, used only if the server's PHP
- * version is earlier than 5.3
+ * DateTime Solution's DateInterval class for use if PHP < 5.3
  *
- * @package CalendarSolution
+ * @package DateTimeSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2009-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
@@ -13,14 +12,26 @@
 /**
  * Provides DateInterval functionality for versions of PHP before 5.3
  *
- * Only support years, months and days
- *
- * @package CalendarSolution
+ * @package DateTimeSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2009-2010
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
-class DateInterval {
+class DateTimeSolution_DateInterval {
+	/**
+	 * Indicates which level of support the DateTime Solution is providing
+	 * @var string
+	 */
+	public $datetime_solution_level = '52';
+
+	/**
+	 * The total number of days
+	 *
+	 * This is false if the value is not known
+	 * @var int|bool
+	 */
+	public $days = false;
+
 	/**
 	 * The interval specification provided in the constructor
 	 * @var string
@@ -29,22 +40,18 @@ class DateInterval {
 
 	/**#@+
 	 * Date components
-	 *
-	 * Make public to improve efficiency by reducing calls to format().
 	 * @var int
 	 */
-	public $y = 0;
-	public $m = 0;
-	public $d = 0;
-	public $h = 0;
-	public $i = 0;
-	public $s = 0;
+	public $y;
+	public $m;
+	public $d;
+	public $h;
+	public $i;
+	public $s;
 	/**#@-*/
 
 	/**
 	 * Boolean representation of whether end came before start
-	 *
-	 * Make public to improve efficiency by reducing calls to format().
 	 * @var int
 	 */
 	public $invert = 0;
@@ -59,30 +66,31 @@ class DateInterval {
 
 
 	/**
-	 * Creates a DateInterval object
+	 * Creates a DateIntervalSolution object
 	 *
 	 * @param string $interval_spec  example: "P0Y2M1DT10H5M20S"
 	 *
+	 * @throws Exception  on invalid interval_spec
 	 * @link http://php.net/dateinterval.construct
 	 */
 	public function __construct($interval_spec) {
 		$this->interval_spec = $interval_spec;
-		if (!preg_match('/^P(\d+Y)?(\d+M)?(\d+D)?T?(\d+H)?(\d+M)?(\d+S)?$/', $interval_spec, $parts)) {
-			throw new Exception('invalid interval_spec');
+		if (!preg_match('/^P((\d+)Y)?((\d+)M)?((\d+)D)?(T((\d+)H)?((\d+)M)?((\d+)S)?)?$/', $interval_spec, $match)) {
+			throw new Exception("Invalid interval_spec $interval_spec");
 		}
-		$this->y = empty($parts[1]) ? 0 : (int) $parts[1];
-		$this->m = empty($parts[2]) ? 0 : (int) $parts[2];
-		$this->d = empty($parts[3]) ? 0 : (int) $parts[3];
-		$this->h = empty($parts[4]) ? 0 : (int) $parts[4];
-		$this->i = empty($parts[5]) ? 0 : (int) $parts[5];
-		$this->s = empty($parts[6]) ? 0 : (int) $parts[6];
+		$this->y = empty($match[2]) ? 0 : (int) $match[2];
+		$this->m = empty($match[4]) ? 0 : (int) $match[4];
+		$this->d = empty($match[6]) ? 0 : (int) $match[6];
+		$this->h = empty($match[9]) ? 0 : (int) $match[9];
+		$this->i = empty($match[11]) ? 0 : (int) $match[11];
+		$this->s = empty($match[13]) ? 0 : (int) $match[13];
 	}
 
 	/**
 	 * Formats the interval
 	 *
 	 * @param string $format  supports any combination of
-	 *                        "%y", "%m", "%d", "%h", "%i", "%s", "%R", "%r"
+	 *                        "%y", "%m", "%d", "%a", "%h", "%i", "%s", "%R", "%r"
 	 * @return string
 	 */
 	public function format($format) {
@@ -94,8 +102,8 @@ class DateInterval {
 			$this->r = '';
 		}
 
-		$search = array('%y', '%m', '%d', '%h', '%i', '%s', '%R', '%r');
-		$replace = array($this->y, $this->m, $this->d, $this->h, $this->i, $this->s, $this->R, $this->r);
+		$search = array('%y', '%m', '%d', '%a', '%h', '%i', '%s', '%R', '%r');
+		$replace = array($this->y, $this->m, $this->d, $this->days, $this->h, $this->i, $this->s, $this->R, $this->r);
 		return str_replace($search, $replace, $format);
 	}
 }

@@ -97,8 +97,8 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			 * These monthly types are hairy.  Do this separately.
 			 */
 
-			$date = new CalendarSolution_DateTime($this->data['date_start']);
-			$interval = new DateInterval('P1M');
+			$date = new DateTimeSolution($this->data['date_start']);
+			$interval = new DateIntervalSolution('P1M');
 
 			$date_starts = array($this->data['date_start']);
 
@@ -143,8 +143,8 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
 		$date_starts = array($this->data['date_start']);
 
-		$date = new CalendarSolution_DateTime($this->data['date_start']);
-		$interval = new DateInterval($interval_spec);
+		$date = new DateTimeSolution($this->data['date_start']);
+		$interval = new DateIntervalSolution($interval_spec);
 
 		for ($i = 1; $i < $this->data['span']; $i++) {
 			$date->add($interval);
@@ -299,7 +299,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			$this->errors[] = 'Start Date is invalid';
 		} else {
 			try {
-				$x = new CalendarSolution_DateTime($this->data['date_start']);
+				$x = new DateTimeSolution($this->data['date_start']);
 			} catch (Exception $e) {
 				$this->errors[] = 'Start Date is invalid';
 			}
@@ -312,7 +312,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 				$this->errors[] = 'Start Time is invalid';
 			} else {
 				try {
-					$x = new CalendarSolution_DateTime($this->data['time_start'] . ':00');
+					$x = new DateTimeSolution($this->data['time_start'] . ':00');
 				} catch (Exception $e) {
 					$this->errors[] = 'Start Time is invalid';
 				}
@@ -326,7 +326,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 				$this->errors[] = 'End Time is invalid';
 			} else {
 				try {
-					$x = new CalendarSolution_DateTime($this->data['time_end'] . ':00');
+					$x = new DateTimeSolution($this->data['time_end'] . ':00');
 				} catch (Exception $e) {
 					$this->errors[] = 'End Time is invalid';
 				}
