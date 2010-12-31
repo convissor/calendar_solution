@@ -91,6 +91,7 @@ database, here are some rough examples of how to do so.
       cs_power_of_two,
       cs_feature_on_page,
       cs_frequent_event,
+      cs_category,
       cs_calendar
       TO <database_user_name>;
     GRANT SELECT, UPDATE ON

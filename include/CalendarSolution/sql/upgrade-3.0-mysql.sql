@@ -17,3 +17,15 @@ INSERT INTO cs_power_of_two (power_of_two_id) VALUES (536870912);
 INSERT INTO cs_power_of_two (power_of_two_id) VALUES (1073741824);
 COMMIT;
 
+CREATE TABLE cs_category (
+  category_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  category VARCHAR(60) NOT NULL DEFAULT '',
+  UNIQUE (category)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cs_calendar
+  ADD category_id INTEGER DEFAULT NULL,
+  ADD CONSTRAINT category_id_fk FOREIGN KEY (category_id)
+    REFERENCES cs_category (category_id)
+    ON UPDATE CASCADE;
+
