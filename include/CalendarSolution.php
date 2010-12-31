@@ -170,11 +170,13 @@ class CalendarSolution {
 	 */
 	public function get_admin_navigation() {
 		return '<p><small>
-			<a href="calendar.php">View Events</a> |
+			<a href="calendar.php">Events</a> |
 			<a href="calendar-detail.php">Add Event</a> ||
-			<a href="frequent_event.php">View Frequent Events</a> |
+			<a href="category.php">Categories</a> |
+			<a href="category-detail.php">Add Category</a> ||
+			<a href="frequent_event.php">Frequent Events</a> |
 			<a href="frequent_event-detail.php">Add Frequent Event</a> ||
-			<a href="featured_page.php">View Featured Pages</a> |
+			<a href="featured_page.php">Featured Pages</a> |
 			<a href="featured_page-detail.php">Add Featured Page</a>
 			</small></p>';
 	}
