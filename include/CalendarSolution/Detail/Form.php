@@ -25,6 +25,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	protected $fields = array(
 		'calendar_id',
 		'calendar_uri',
+		'category_id',
 		'changed',
 		'date_start',
 		'detail',
@@ -163,6 +164,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
 		$sql_top = 'INSERT INTO cs_calendar (
 				calendar_uri,
+				category_id,
 				changed,
 				detail,
 				feature_on_page_id,
@@ -178,6 +180,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 				date_start
 			) VALUES ('
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['calendar_uri']) . ', '
+				. $this->sql->Escape(__FILE__, __LINE__, $this->data['category_id']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['changed']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['detail']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $feature_bitwise) . ', '
@@ -260,6 +263,13 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		{
 			// Comes from list, so this is a real problem.
 			throw new CalendarSolution_Exception('Frequent Event is invalid');
+		}
+
+		if ($this->data['category_id']
+			&& !preg_match('/^\d{1,10}$/', $this->data['category_id']))
+		{
+			// Comes from list, so this is a real problem.
+			throw new CalendarSolution_Exception('Category is invalid');
 		}
 
 		if ($this->data['calendar_uri']
@@ -679,6 +689,40 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		// ------------------------------------------------------
 		$out .= '  <tr>' . "\n";
 		$out .= "   <td nowrap>\n";
+		$out .= '    <label for="category_id">' . "\n";
+		$out .= "     Category\n";
+		$out .= "    </label>\n";
+		$out .= "   </td>\n";
+		$out .= "   <td>\n";
+
+		if (empty($this->data['category_id'])) {
+			$this->data['category_id'] = '';
+		}
+		$Opt = array(
+			'id'           => 'category_id',
+			'table'        => 'cs_category',
+			'visiblefield' => 'category',
+			'keyfield'     => 'category_id',
+			'name'         => 'category_id',
+			'orderby'      => 'category',
+			'where'        => '1 = 1',
+			'multiple'     => 'N',
+			'size'         => '0',
+			'default'      => $this->data['category_id'],
+			'add'          => array('' => 'NONE'),
+		);
+		ob_start();
+		$this->sql->OptionListGenerator(__FILE__, __LINE__, $Opt);
+		$out .= ob_get_contents();
+		ob_end_clean();
+
+		$out .= "   </td>\n";
+		$out .= "  </tr>\n";
+
+
+		// ------------------------------------------------------
+		$out .= '  <tr>' . "\n";
+		$out .= "   <td nowrap>\n";
 		$out .= "    Featured Event\n";
 		$out .= "   </td>\n";
 		$out .= "   <td><small>\n";
@@ -800,6 +844,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
 		$this->sql->SQLQueryString = 'UPDATE cs_calendar SET
 			calendar_uri = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['calendar_uri']) . ',
+			category_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['category_id']) . ',
 			changed = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['changed']) . ',
 			date_start = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['date_start']) . ',
 			detail = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['detail']) . ',

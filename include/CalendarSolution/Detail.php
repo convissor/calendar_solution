@@ -83,6 +83,8 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 		$this->sql->SQLQueryString = "SELECT
 			calendar_id,
 			calendar_uri,
+			category,
+			cs_calendar.category_id AS category_id,
 			changed,
 			date_start,
 			detail,
@@ -103,6 +105,8 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 			LEFT JOIN cs_frequent_event USING (frequent_event_id)
 			LEFT JOIN cs_status
 				ON (cs_status.status_id = cs_calendar.status_id)
+			LEFT JOIN cs_category
+				ON (cs_category.category_id = cs_calendar.category_id)
 			WHERE calendar_id = $calendar_id";
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
