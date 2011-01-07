@@ -512,8 +512,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($in === null) {
 			$in = $this->get_int_from_request('category_id');
 		}
-		if ($in === false || !preg_match('/^\d{1,10}$/', $in)) {
-			$this->category_id = false;
+		if (!preg_match('/^\d{1,10}$/', $in)) {
+			$in = false;
 		}
 
 		$this->category_id = $in;
@@ -550,8 +550,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($in === null) {
 			$in = $this->get_int_from_request('frequent_event_id');
 		}
-		if ($in === false || !preg_match('/^\d{1,10}$/', $in)) {
-			$this->frequent_event_id = false;
+		if (!preg_match('/^\d{1,10}$/', $in)) {
+			$in = false;
 		}
 
 		$this->frequent_event_id = $in;
