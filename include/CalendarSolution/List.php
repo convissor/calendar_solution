@@ -658,7 +658,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List_List::$show_cancelled  to store the decision
 	 */
 	public function set_show_cancelled($in) {
-		$this->show_cancelled = $in;
+		$this->show_cancelled = (bool) $in;
 	}
 
 	/**
@@ -671,7 +671,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List_List::$show_summary  to store the decision
 	 */
 	public function set_show_summary($in) {
-		$this->show_summary = $in;
+		$this->show_summary = (bool) $in;
 	}
 
 	/**
