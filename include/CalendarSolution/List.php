@@ -520,9 +520,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Sets the "page_id" property to the appropriate value
+	 * Sets the Featured Page "page_id" property to the appropriate value
 	 *
-	 * @param int $in  the page id to get the list for
+	 * @param int $in  the featured page id to get the list for
 	 *
 	 * @return void
 	 *
