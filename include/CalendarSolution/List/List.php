@@ -132,6 +132,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @uses CalendarSolution_List::set_from()
 	 * @uses CalendarSolution_List::set_to()
 	 * @uses CalendarSolution_List::set_prior_and_next_dates()
+	 * @uses CalendarSolution_List::set_category_id()
 	 * @uses CalendarSolution_List::set_frequent_event_id()
 	 * @uses CalendarSolution_List::get_limit_form()
 	 * @uses CalendarSolution_List::get_navigation()
@@ -147,6 +148,10 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		}
 
 		$this->set_prior_and_next_dates();
+
+		if ($this->category_id === null) {
+			$this->set_category_id();
+		}
 
 		if ($this->frequent_event_id === null) {
 			$this->set_frequent_event_id();

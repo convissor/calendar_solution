@@ -19,6 +19,12 @@
  */
 abstract class CalendarSolution_List extends CalendarSolution {
 	/**
+	 * The category id to show events for
+	 * @var int
+	 */
+	protected $category_id;
+
+	/**
 	 * The frequent event id to show events for
 	 * @var int
 	 */
@@ -183,6 +189,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @return string  the HTML for the limit form
 	 *
 	 * @uses CalendarSolution_List::$view
+	 * @uses CalendarSolution_List::$category_id
 	 * @uses CalendarSolution_List::$frequent_event_id
 	 * @uses CalendarSolution_List::$from
 	 * @uses CalendarSolution_List::$to
@@ -211,6 +218,32 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= ' and <input type="text" size="11" maxlength="10" '
 			 . 'name="to" value="'
 			 . $this->to->format('Y-m-d') . '" /> (inclusive).</small></p>' . "\n";
+
+		$out .= '<p class="bottom"><small>';
+
+		$out .= '<label for="category_id">'
+			 . 'Categories:</label>' . "\n";
+
+		$opt = array(
+			'id'           => 'category_id',
+			'table'        => 'cs_category',
+			'visiblefield' => 'category',
+			'keyfield'     => 'category_id',
+			'name'         => 'category_id',
+			'orderby'      => 'category',
+			'where'        => '1 = 1',
+			'multiple'     => 'N',
+			'size'         => '0',
+			'default'      => $this->category_id,
+			'add'          => array('' => 'Pick a Category, if you want to')
+		);
+
+		ob_start();
+		$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
+		$out .= ob_get_contents();
+		ob_end_clean();
+
+		$out .= "</p>\n";
 
 		$out .= '<p class="bottom"><small>';
 
@@ -290,6 +323,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @return string  the navigation section's HTML
 	 *
 	 * @uses CalendarSolution_List::$view
+	 * @uses CalendarSolution_List::$category_id
 	 * @uses CalendarSolution_List::$frequent_event_id
 	 * @uses CalendarSolution_List::$from
 	 * @uses CalendarSolution_List::$to
@@ -304,6 +338,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			 . '  <td>' . "\n"
 			 . '   <a href="calendar.php?from=' . $this->prior_from->format('Y-m-d')
 			 . '&amp;to=' . $this->prior_to->format('Y-m-d')
+			 . '&amp;category_id=' . $this->category_id
 			 . '&amp;frequent_event_id=' . $this->frequent_event_id
 			 . '&amp;view=' . $this->view . '">&lt; See Earlier Events</a>'
 			 . "  </td>\n";
@@ -311,6 +346,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= '  <td align="right">' . "\n"
 			 . '<a href="calendar.php?from=' . $this->next_from->format('Y-m-d')
 			 . '&amp;to=' . $this->next_to->format('Y-m-d')
+			 . '&amp;category_id=' . $this->category_id
 			 . '&amp;frequent_event_id=' . $this->frequent_event_id
 			 . '&amp;view=' . $this->view . '">See Later Events &gt;</a>' . "\n"
 			 . "  </td>\n"
@@ -321,6 +357,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			 . 'View the events in  <a href="calendar.php?from='
 			 . $this->from->format('Y-m-d')
 			 . '&amp;to=' . $this->to->format('Y-m-d')
+			 . '&amp;category_id=' . $this->category_id
 			 . '&amp;frequent_event_id=' . $this->frequent_event_id
 			 . '&amp;view='
 			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
@@ -357,6 +394,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @uses CalendarSolution_List::$from  to know the start of the date range
 	 * @uses CalendarSolution_List::$to  to know the end of the date range
+	 * @uses CalendarSolution_List::$category_id  to limit entries to a
+	 *       particular category if so desired
 	 * @uses CalendarSolution_List::$frequent_event_id  to limit entries to a
 	 *       particular event if so desired
 	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
@@ -385,6 +424,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		} elseif (!empty($this->to)) {
 			$where[] = "date_start <= '"
 				. $this->to->format('Y-m-d') . "'";
+		}
+
+		if (!empty($this->category_id)) {
+			$where[] = "cs_calendar.category_id = "
+				. $this->sql->Escape(__FILE__, __LINE__, $this->category_id);
 		}
 
 		if (!empty($this->frequent_event_id)) {
@@ -416,6 +460,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			calendar_uri,
 			changed,
 			date_start,
+			cs_calendar.category_id AS category_id,
 			cs_calendar.frequent_event_id AS frequent_event_id,
 			frequent_event_uri,
 			list_link_goes_to_id,
@@ -447,6 +492,31 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+	}
+
+	/**
+	 * Sets the "category_id" property to the appropriate value
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['category_id']
+	 *                   though use FALSE if it is not set or invalid
+	 *                   + FALSE = set the value to FALSE
+	 *                   + integer = an integer, falling back to FALSE if
+	 *                   the input is is invalid
+	 * @return void
+	 *
+	 * @uses CalendarSolution::get_int_from_request()  to determine the
+	 *       user's intention
+	 * @uses CalendarSolution_List::$category_id  to store the data
+	 */
+	public function set_category_id($in = null) {
+		if ($in === null) {
+			$in = $this->get_int_from_request('category_id');
+		}
+		if ($in === false || !preg_match('/^\d{1,10}$/', $in)) {
+			$this->category_id = false;
+		}
+
+		$this->category_id = $in;
 	}
 
 	/**
