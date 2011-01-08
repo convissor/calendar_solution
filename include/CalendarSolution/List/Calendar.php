@@ -162,33 +162,16 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
-	 * @uses CalendarSolution_List_Calendar::set_from()
-	 * @uses CalendarSolution_List::set_to()
+	 * @uses CalendarSolution_List::set_request_properties()  to automatically
+	 *       set properties to $_REQUEST data
 	 * @uses CalendarSolution_List::set_prior_and_next_dates()
-	 * @uses CalendarSolution_List::set_category_id()
-	 * @uses CalendarSolution_List::set_frequent_event_id()
 	 * @uses CalendarSolution_List::get_limit_form()
 	 * @uses CalendarSolution_List::get_navigation()
 	 * @uses CalendarSolution_List::run_query()
 	 */
 	public function get_rendering() {
-		if ($this->from === null) {
-			$this->set_from();
-		}
-
-		if ($this->to === null) {
-			$this->set_to();
-		}
-
+		$this->set_request_properties();
 		$this->set_prior_and_next_dates();
-
-		if ($this->category_id === null) {
-			$this->set_category_id();
-		}
-
-		if ($this->frequent_event_id === null) {
-			$this->set_frequent_event_id();
-		}
 
 // This doesn't work.  For example, DateTime::add() fails.
 //        $current_date_time = $this->from;
