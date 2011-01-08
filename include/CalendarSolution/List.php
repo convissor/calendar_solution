@@ -495,15 +495,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Sets all properties that can be set from $_REQUEST data
+	 * Sets all properties that can be populated with $_REQUEST data, but
+	 * does so only for properties that have not been set yet
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List_Calendar::set_from()
-	 * @uses CalendarSolution_List_List::set_from()
-	 * @uses CalendarSolution_List::set_to()
-	 * @uses CalendarSolution_List::set_category_id()
-	 * @uses CalendarSolution_List::set_frequent_event_id()
+	 * @uses CalendarSolution_List_Calendar::set_from()  to set the "from" date
+	 *       when in Calendar view
+	 * @uses CalendarSolution_List_List::set_from()  to set the "from" date
+	 *       when in List view
+	 * @uses CalendarSolution_List::set_to()  to set the "to" date
+	 * @uses CalendarSolution_List::set_category_id()  to set the category id
+	 * @uses CalendarSolution_List::set_frequent_event_id()  to set the frequent
+	 *       event id
 	 */
 	public function set_request_properties() {
 		if ($this->from === null) {
