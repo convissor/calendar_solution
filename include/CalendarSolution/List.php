@@ -46,7 +46,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * The number of items to show
 	 * @var int
 	 */
-	protected $limit;
+	protected $limit_quantity;
+
+	/**
+	 * The zero-based row index to start the limit on
+	 * @var int
+	 */
+	protected $limit_start;
 
 	/**
 	 * The start of the date range to show events for if the user navigates
@@ -400,6 +406,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       particular event if so desired
 	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
 	 *       are set to be featured on the given page id
+	 * @uses CalendarSolution_List::$limit_quantity  to limit the number of
+	 *       rows shown
+	 * @uses CalendarSolution_List::$limit_start  to determine where to start
+	 *       the number of rows to be shown
 	 *
 	 * @throws CalendarSolution_Exception if to is later than from
 	 */
@@ -486,9 +496,15 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			ORDER BY date_start, time_start, title,
 				cs_calendar.frequent_event_id";
 
-		if (!empty($this->limit)) {
-			$this->sql->SQLQueryString .= "
-				LIMIT " . (int) $this->limit;
+		if (!empty($this->limit_quantity)) {
+			if (empty($this->limit_start)) {
+				$this->sql->SQLQueryString .= "
+					LIMIT " . $this->limit_quantity;
+			} else {
+				$this->sql->SQLQueryString .= "
+					LIMIT " . $this->limit_quantity
+					. " OFFSET " . $this->limit_start;
+			}
 		}
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
@@ -582,16 +598,45 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Sets the "limit" property
+	 * Sets the "limit_quantity" and "limit_start" properties
 	 *
-	 * @param mixed $in  the number of rows to show
+	 * @param mixed $quantity  the number of rows to show
+	 *              + NULL = use value of $_REQUEST['limit_quantity']
+	 *              though use FALSE if it is not set or invalid
+	 *              + FALSE = set the value to FALSE
+	 *              + integer = an integer, falling back to FALSE if
+	 *              the input is is invalid
+	 * @param mixed $start  the row to start on.  Is zero indexed, so 0 starts
+	 *              on the first row, 10 starts on the 11th row, etc.
+	 *              + NULL = use value of $_REQUEST['limit_start']
+	 *              though use FALSE if it is not set or invalid
+	 *              + FALSE = set the value to FALSE
+	 *              + integer = an integer, falling back to FALSE if
+	 *              the input is is invalid
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List::$limit  to store the data
+	 * @uses CalendarSolution::get_date_from_request()  to determine the
+	 *       user's intention
+	 * @uses CalendarSolution_List::$limit_quantity  to store the data
+	 * @uses CalendarSolution_List::$limit_start  to store the data
 	 */
-	public function set_limit($in) {
-		$this->limit = (int) $in;
+	public function set_limit($quantity = null, $start = null) {
+		if ($quantity === null) {
+			$quantity = $this->get_int_from_request('limit_quantity');
+		}
+		if ($quantity === false || !preg_match('/^\d{1,10}$/', $quantity)) {
+			$quantity = false;
+		}
+		$this->limit_quantity = $quantity;
+
+		if ($start === null) {
+			$start = $this->get_int_from_request('limit_start');
+		}
+		if ($start === false || !preg_match('/^\d{1,10}$/', $start)) {
+			$start = false;
+		}
+		$this->limit_start = $start;
 	}
 
 	/**
