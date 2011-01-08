@@ -495,39 +495,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Sets all properties that can be populated with $_REQUEST data, but
-	 * does so only for properties that have not been set yet
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List_Calendar::set_from()  to set the "from" date
-	 *       when in Calendar view
-	 * @uses CalendarSolution_List_List::set_from()  to set the "from" date
-	 *       when in List view
-	 * @uses CalendarSolution_List::set_to()  to set the "to" date
-	 * @uses CalendarSolution_List::set_category_id()  to set the category id
-	 * @uses CalendarSolution_List::set_frequent_event_id()  to set the frequent
-	 *       event id
-	 */
-	public function set_request_properties() {
-		if ($this->from === null) {
-			$this->set_from();
-		}
-
-		if ($this->to === null) {
-			$this->set_to();
-		}
-
-		if ($this->category_id === null) {
-			$this->set_category_id();
-		}
-
-		if ($this->frequent_event_id === null) {
-			$this->set_frequent_event_id();
-		}
-	}
-
-	/**
 	 * Sets the "category_id" property to the appropriate value
 	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['category_id']
@@ -550,19 +517,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		$this->category_id = $in;
-	}
-
-	/**
-	 * Sets the Featured Page "page_id" property to the appropriate value
-	 *
-	 * @param int $in  the featured page id to get the list for
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List::$page_id  to store the data
-	 */
-	public function set_page_id($in) {
-		$this->page_id = (int) $in;
 	}
 
 	/**
@@ -641,6 +595,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Sets the Featured Page "page_id" property to the appropriate value
+	 *
+	 * @param int $in  the featured page id to get the list for
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$page_id  to store the data
+	 */
+	public function set_page_id($in) {
+		$this->page_id = (int) $in;
+	}
+
+	/**
 	 * Sets the properties used later when generating the navigation elements
 	 * for getting to earlier and later events
 	 *
@@ -679,6 +646,39 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->next_to = new DateTimeSolution($this->next_from->format('Y-m-d'));
 		$this->next_to->add($this->interval_singleton());
 		$this->next_to->modify('last day of this month');
+	}
+
+	/**
+	 * Sets all properties that can be populated with $_REQUEST data, but
+	 * does so only for properties that have not been set yet
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_Calendar::set_from()  to set the "from" date
+	 *       when in Calendar view
+	 * @uses CalendarSolution_List_List::set_from()  to set the "from" date
+	 *       when in List view
+	 * @uses CalendarSolution_List::set_to()  to set the "to" date
+	 * @uses CalendarSolution_List::set_category_id()  to set the category id
+	 * @uses CalendarSolution_List::set_frequent_event_id()  to set the frequent
+	 *       event id
+	 */
+	public function set_request_properties() {
+		if ($this->from === null) {
+			$this->set_from();
+		}
+
+		if ($this->to === null) {
+			$this->set_to();
+		}
+
+		if ($this->category_id === null) {
+			$this->set_category_id();
+		}
+
+		if ($this->frequent_event_id === null) {
+			$this->set_frequent_event_id();
+		}
 	}
 
 	/**
