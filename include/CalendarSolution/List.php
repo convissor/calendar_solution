@@ -625,7 +625,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($quantity === null) {
 			$quantity = $this->get_int_from_request('limit_quantity');
 		}
-		if ($quantity === false || !preg_match('/^\d{1,10}$/', $quantity)) {
+		if (!preg_match('/^\d{1,10}$/', $quantity)) {
 			$quantity = false;
 		}
 		$this->limit_quantity = $quantity;
@@ -633,7 +633,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($start === null) {
 			$start = $this->get_int_from_request('limit_start');
 		}
-		if ($start === false || !preg_match('/^\d{1,10}$/', $start)) {
+		if (!preg_match('/^\d{1,10}$/', $start)) {
 			$start = false;
 		}
 		$this->limit_start = $start;
