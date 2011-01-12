@@ -4,6 +4,9 @@
  * Sets the include directory, desired database system and autoloader
  *
  * @package CalendarSolution_Test
+ * @author Daniel Convissor <danielc@analysisandsolutions.com>
+ * @copyright The Analysis and Solutions Company, 2002-2011
+ * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
 /**
@@ -13,9 +16,3 @@
  * settings and __DIR__ was introduced in PHP 5.3.
  */
 require dirname(__FILE__) . '/../../calendar_solution_setup.php';
-
-/**
- * Load the Calendar Solution class file now because it includes our DateTime
- * class wich won't be found by autoloader
- */
-require dirname(__FILE__) . '/../../CalendarSolution.php';

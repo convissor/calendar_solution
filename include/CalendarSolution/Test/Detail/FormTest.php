@@ -1,44 +1,29 @@
 <?php /** @package CalendarSolution_Test */
 
 /**
- * Extend the class to be tested so we can have access to protected elements
- * @package CalendarSolution_Test
- */
-class CalendarSolution_Test_Detail_Form extends CalendarSolution_Detail_Form {
-	public function __call($method, $args) {
-		return call_user_func_array(array($this, $method), $args);
-	}
-	public function __get($property) {
-		return $this->$property;
-	}
-	public function get_data_element($key) {
-		return $this->data[$key];
-	}
-}
-
-
-/**
  * Tests the CalendarSolution_Detail_Form class
  *
  * Usage:  phpunit Detail_FormTest
  *
  * @package CalendarSolution_Test
+ * @author Daniel Convissor <danielc@analysisandsolutions.com>
+ * @copyright The Analysis and Solutions Company, 2002-2011
+ * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * The calendar class to test
-	 * @var CalendarSolution_Detail_Form
+	 * @var CalendarSolution_Test_Detail_FormHelper
 	 */
 	protected $calendar;
 
-
 	/**
-	 * Prepares the environment before running a test
+	 * Prepares the environment before running each test
 	 */
 	protected function setUp() {
-		parent::setUp();
-		$this->calendar = new CalendarSolution_Test_Detail_Form;
+		$this->calendar = new CalendarSolution_Test_Detail_FormHelper;
 	}
+
 
 	/**#@+
 	 * get_date_starts() first x of the month

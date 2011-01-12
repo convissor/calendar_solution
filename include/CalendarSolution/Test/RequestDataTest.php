@@ -1,50 +1,27 @@
 <?php /** @package CalendarSolution_Test */
 
 /**
- * Extend the class to be tested so we can have access to protected elements
- * @package CalendarSolution_Test
- */
-class CalendarSolution_Test_RequestData extends CalendarSolution {
-	public function __call($method, $args) {
-		return call_user_func_array(array($this, $method), $args);
-	}
-	public function __get($property) {
-		return $this->$property;
-	}
-	public function get_data_element($key) {
-		return $this->data[$key];
-	}
-}
-
-
-/**
- * Tests the CalendarSolution_List_Calendar class
+ * Tests the CalendarSolution class' request data methods
  *
- * Usage:  phpunit List_CalendarTest
+ * Usage:  phpunit RequestDataTest
  *
  * @package CalendarSolution_Test
+ * @author Daniel Convissor <danielc@analysisandsolutions.com>
+ * @copyright The Analysis and Solutions Company, 2002-2011
+ * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution_Test_RequestDataTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * The calendar class to test
-	 * @var CalendarSolution
+	 * @var CalendarSolution_Test_Helper
 	 */
 	protected $calendar;
 
-
 	/**
-	 * Prepares the environment before running a test
+	 * Prepares the environment before running each test
 	 */
 	protected function setUp() {
-		$this->calendar = new CalendarSolution_Test_RequestData;
-	}
-
-	protected function setGetGood() {
-		$_REQUEST = array(
-			'category_id' => array(2, 3),
-			'frequent_event_id' => 2,
-			'from' => '2011-12-13',
-		);
+		$this->calendar = new CalendarSolution_Test_Helper;
 	}
 
 
