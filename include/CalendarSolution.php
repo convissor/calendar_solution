@@ -210,7 +210,8 @@ class CalendarSolution {
 	 * @param string $name  the $_REQUEST array's key to examine
 	 *
 	 * @return mixed  the date in YYYY-MM-DD format, NULL if the REQUEST
-	 *                element is not set or FALSE if the date is invalid
+	 *                element is not set, NULL if $_GET['remove_limit'] is set,
+	 *                or FALSE if the input is invalid
 	 */
 	protected function get_date_from_request($name) {
 		if (!empty($_GET['remove_limit'])) {
@@ -252,8 +253,9 @@ class CalendarSolution {
 	 *
 	 * @param string $name  the $_REQUEST array's key to examine
 	 *
-	 * @return mixed  the integer, NULL if the REQUEST element
-	 *                is not set or FALSE if it is invalid
+	 * @return mixed  the integer, NULL if the REQUEST
+	 *                element is not set, NULL if $_GET['remove_limit'] is set,
+	 *                or FALSE if the input is invalid
 	 */
 	protected function get_int_from_request($name) {
 		if (!empty($_GET['remove_limit'])) {
