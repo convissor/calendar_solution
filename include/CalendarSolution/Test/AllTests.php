@@ -13,8 +13,8 @@ class CalendarSolution_Test_AllTests {
 
 		$suite->addTestSuite('CalendarSolution_Test_RequestDataTest');
 
-		$suite->addTest(CalendarSolution_Test_Detail_AllTests::suite());
-		$suite->addTest(CalendarSolution_Test_List_AllTests::suite());
+		$suite->addTestSuite('CalendarSolution_Test_Detail_AllTests');
+		$suite->addTestSuite('CalendarSolution_Test_List_AllTests');
 
 		return $suite;
 	}
