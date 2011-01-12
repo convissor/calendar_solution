@@ -11,6 +11,8 @@ class CalendarSolution_Test_AllTests {
 	public static function suite() {
 		$suite = new PHPUnit_Framework_TestSuite('Calendar Solution Unit Tests');
 
+		$suite->addTestSuite('CalendarSolution_Test_RequestDataTest');
+
 		$suite->addTest(CalendarSolution_Test_Detail_AllTests::suite());
 		$suite->addTest(CalendarSolution_Test_List_AllTests::suite());
 
