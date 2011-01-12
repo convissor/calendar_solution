@@ -273,6 +273,41 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Extracts an integer or an array of integers in $_REQUEST[$name]
+	 *
+	 * @param string $name  the $_REQUEST array's key to examine
+	 *
+	 * @return mixed  the array of integers, NULL if the REQUEST
+	 *                element is not set, NULL if $_GET['remove_limit'] is set,
+	 *                or FALSE if the input is invalid
+	 */
+	protected function get_int_array_from_request($name) {
+		if (!empty($_GET['remove_limit'])) {
+			return null;
+		}
+		if (!array_key_exists($name, $_REQUEST)) {
+			return null;
+		}
+
+		if (is_array($_REQUEST[$name])) {
+			$tmp = $_REQUEST[$name];
+		} else {
+			$tmp = array($_REQUEST[$name]);
+		}
+
+		$out = array();
+		foreach ($tmp as $value) {
+			if (!is_scalar($value)
+				|| !preg_match('/^\d{1,10}$/', $value))
+			{
+				return false;
+			}
+			$out[] = $value;
+		}
+		return $out;
+	}
+
+	/**
 	 * Is the current view from the admin section or not?
 	 * @return bool
 	 */

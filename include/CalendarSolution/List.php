@@ -19,8 +19,8 @@
  */
 abstract class CalendarSolution_List extends CalendarSolution {
 	/**
-	 * The category id to show events for
-	 * @var int
+	 * The category ids to show events for
+	 * @var array
 	 */
 	protected $category_id;
 
@@ -238,10 +238,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			'name'         => 'category_id',
 			'orderby'      => 'category',
 			'where'        => '1 = 1',
-			'multiple'     => 'N',
-			'size'         => '0',
+			'multiple'     => 'Y',
+			'size'         => '2',
 			'default'      => $this->category_id,
-			'add'          => array('' => 'Pick a Category, if you want to')
+			'add'          => array('' => 'Pick Categories, if you want to')
 		);
 
 		ob_start();
@@ -339,12 +339,21 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_to
 	 */
 	protected function get_navigation() {
+		$categories = '';
+		$i = 0;
+		if (is_array($this->category_id)) {
+			foreach ($this->category_id as $category) {
+				$categories .= '&amp;category_id[' . $i . ']=' . $category;
+				$i++;
+			}
+		}
+
 		$out = '<table class="cs_nav" width="100%">' . "\n"
 			 . " <tr>\n"
 			 . '  <td>' . "\n"
 			 . '   <a href="calendar.php?from=' . $this->prior_from->format('Y-m-d')
 			 . '&amp;to=' . $this->prior_to->format('Y-m-d')
-			 . '&amp;category_id=' . $this->category_id
+			 . $categories
 			 . '&amp;frequent_event_id=' . $this->frequent_event_id
 			 . '&amp;view=' . $this->view . '">&lt; See Earlier Events</a>'
 			 . "  </td>\n";
@@ -352,7 +361,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= '  <td align="right">' . "\n"
 			 . '<a href="calendar.php?from=' . $this->next_from->format('Y-m-d')
 			 . '&amp;to=' . $this->next_to->format('Y-m-d')
-			 . '&amp;category_id=' . $this->category_id
+			 . $categories
 			 . '&amp;frequent_event_id=' . $this->frequent_event_id
 			 . '&amp;view=' . $this->view . '">See Later Events &gt;</a>' . "\n"
 			 . "  </td>\n"
@@ -363,7 +372,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			 . 'View the events in  <a href="calendar.php?from='
 			 . $this->from->format('Y-m-d')
 			 . '&amp;to=' . $this->to->format('Y-m-d')
-			 . '&amp;category_id=' . $this->category_id
+			 . $categories
 			 . '&amp;frequent_event_id=' . $this->frequent_event_id
 			 . '&amp;view='
 			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
@@ -437,8 +446,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		if (!empty($this->category_id)) {
-			$where[] = "cs_calendar.category_id = "
-				. $this->sql->Escape(__FILE__, __LINE__, $this->category_id);
+			$where[] = "cs_calendar.category_id IN ("
+				. implode(', ', $this->category_id) . ")";
 		}
 
 		if (!empty($this->frequent_event_id)) {
@@ -518,21 +527,34 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                   + FALSE = set the value to FALSE
 	 *                   + integer = an integer, falling back to FALSE if
 	 *                   the input is is invalid
+	 *                   + array of integers = if each element is not an integer
+	 *                   then the value will be set to FALSE
 	 * @return void
 	 *
-	 * @uses CalendarSolution::get_int_from_request()  to determine the
+	 * @uses CalendarSolution::get_int_array_from_request()  to determine the
 	 *       user's intention
 	 * @uses CalendarSolution_List::$category_id  to store the data
 	 */
 	public function set_category_id($in = null) {
 		if ($in === null) {
-			$in = $this->get_int_from_request('category_id');
-		}
-		if (!preg_match('/^\d{1,10}$/', $in)) {
-			$in = false;
+			$out = $this->get_int_array_from_request('category_id');
+		} else {
+			if (!is_array($in)) {
+				$in = array($in);
+			}
+			$out = array();
+			foreach ($in as $value) {
+				if (!is_scalar($value)
+					|| !preg_match('/^\d{1,10}$/', $value))
+				{
+					$this->category_id = false;
+					return;
+				}
+				$out[] = $value;
+			}
 		}
 
-		$this->category_id = $in;
+		$this->category_id = $out;
 	}
 
 	/**
