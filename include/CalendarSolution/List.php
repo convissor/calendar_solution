@@ -575,7 +575,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($in === null) {
 			$in = $this->get_int_from_request('frequent_event_id');
 		}
-		if (!preg_match('/^\d{1,10}$/', $in)) {
+		if (!is_scalar($in) || !preg_match('/^\d{1,10}$/', $in)) {
 			$in = false;
 		}
 
@@ -603,7 +603,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$in = $this->get_date_from_request('from');
 		} elseif ($in === true) {
 			$in = $this->get_date_from_request('from');
-			if ($in === false) {
+			if ($in === null) {
 				$this->from = false;
 				return;
 			}
@@ -647,7 +647,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($quantity === null) {
 			$quantity = $this->get_int_from_request('limit_quantity');
 		}
-		if (!preg_match('/^\d{1,10}$/', $quantity)) {
+		if (!is_scalar($quantity) || !preg_match('/^\d{1,10}$/', $quantity)) {
 			$quantity = false;
 		}
 		$this->limit_quantity = $quantity;
@@ -655,7 +655,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($start === null) {
 			$start = $this->get_int_from_request('limit_start');
 		}
-		if (!preg_match('/^\d{1,10}$/', $start)) {
+		if (!is_scalar($start) || !preg_match('/^\d{1,10}$/', $start)) {
 			$start = false;
 		}
 		$this->limit_start = $start;
@@ -798,7 +798,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$in = $this->get_date_from_request('to');
 		} elseif ($in === true) {
 			$in = $this->get_date_from_request('to');
-			if ($in === false) {
+			if ($in === null) {
 				$this->to = false;
 				return;
 			}
@@ -816,6 +816,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		try {
 			$this->to = new DateTimeSolution($in);
 		} catch (Exception $e) {
+			$add_months = true;
 			$this->to = new DateTimeSolution;
 		}
 
