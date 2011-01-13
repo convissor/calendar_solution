@@ -652,6 +652,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 		$this->limit_quantity = $quantity;
 
+		if ($quantity === false) {
+			$this->limit_start = false;
+		}
+
 		if ($start === null) {
 			$start = $this->get_int_from_request('limit_start');
 		}
