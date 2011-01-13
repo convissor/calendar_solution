@@ -523,7 +523,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Sets the "category_id" property to the appropriate value
 	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['category_id']
-	 *                   though use FALSE if it is not set or invalid
+	 *                   though set it to FALSE if it is not set or invalid
 	 *                   + FALSE = set the value to FALSE
 	 *                   + integer = an integer, falling back to FALSE if
 	 *                   the input is is invalid
@@ -561,7 +561,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Sets the "frequent_event_id" property to the appropriate value
 	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['frequent_event_id']
-	 *                   though use FALSE if it is not set or invalid
+	 *                   though set it to FALSE if it is not set or invalid
 	 *                   + FALSE = set the value to FALSE
 	 *                   + integer = an integer, falling back to FALSE if
 	 *                   the input is is invalid
@@ -624,14 +624,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @param mixed $quantity  the number of rows to show
 	 *              + NULL = use value of $_REQUEST['limit_quantity']
-	 *              though use FALSE if it is not set or invalid
+	 *              though set it to FALSE if it is not set or invalid
 	 *              + FALSE = set the value to FALSE
 	 *              + integer = an integer, falling back to FALSE if
 	 *              the input is is invalid
 	 * @param mixed $start  the row to start on.  Is zero indexed, so 0 starts
 	 *              on the first row, 10 starts on the 11th row, etc.
 	 *              + NULL = use value of $_REQUEST['limit_start']
-	 *              though use FALSE if it is not set or invalid
+	 *              though set it to FALSE if it is not set or invalid
 	 *              + FALSE = set the value to FALSE
 	 *              + integer = an integer, falling back to FALSE if
 	 *              the input is is invalid
