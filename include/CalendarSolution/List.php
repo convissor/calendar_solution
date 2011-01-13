@@ -676,7 +676,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$page_id  to store the data
 	 */
 	public function set_page_id($in) {
-		$this->page_id = (int) $in;
+		if (!is_scalar($in) || !preg_match('/^\d{1,10}$/', $in)) {
+			$in = false;
+		}
+		$this->page_id = $in;
 	}
 
 	/**
