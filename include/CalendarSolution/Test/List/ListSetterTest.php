@@ -361,4 +361,33 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
 	/**#@-*/
+
+	/**#@+
+	 * set_page_id()
+	 */
+	public function test_page_id_input_good() {
+		$this->calendar->set_page_id(4);
+		$this->assertEquals(4, $this->calendar->page_id);
+	}
+	public function test_page_id_input_false() {
+		$this->calendar->set_page_id(false);
+		$this->assertEquals(false, $this->calendar->page_id);
+	}
+	public function test_page_id_input_bad_array_string() {
+		$this->calendar->set_page_id(array('some string'));
+		$this->assertEquals(false, $this->calendar->page_id);
+	}
+	public function test_page_id_input_bad_array_int() {
+		$this->calendar->set_page_id(array(3));
+		$this->assertEquals(false, $this->calendar->page_id);
+	}
+	public function test_page_id_input_bad_string() {
+		$this->calendar->set_page_id('some string');
+		$this->assertEquals(false, $this->calendar->page_id);
+	}
+	public function test_page_id_input_odd_numberstring() {
+		$this->calendar->set_page_id('l33t');
+		$this->assertEquals(false, $this->calendar->page_id);
+	}
+	/**#@-*/
 }
