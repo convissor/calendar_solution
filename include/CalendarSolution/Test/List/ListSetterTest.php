@@ -223,4 +223,122 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(false, $this->calendar->to);
 	}
 	/**#@-*/
+
+	/**#@+
+	 * set_limit()
+	 */
+	public function test_limit_request_good_both() {
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$this->calendar->set_limit();
+		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(4, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_request_good_quantity() {
+		$_REQUEST = array('limit_quantity' => 2);
+		$this->calendar->set_limit();
+		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_request_good_start() {
+		$_REQUEST = array('limit_start' => 4);
+		$this->calendar->set_limit();
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+
+	public function test_limit_input_good_both() {
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$this->calendar->set_limit(6, 12);
+		$this->assertEquals(6, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(12, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_input_quantity_request_start() {
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$this->calendar->set_limit(6);
+		$this->assertEquals(6, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(4, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_request_quantity_input_start() {
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$this->calendar->set_limit(null, 12);
+		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(12, $this->calendar->limit_start, 'Start');
+	}
+
+	public function test_limit_input_quantity_false_start() {
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$this->calendar->set_limit(6, false);
+		$this->assertEquals(6, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_false_quantity_request_start() {
+			$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$this->calendar->set_limit(false);
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+
+	public function test_limit_request_bad_array_both() {
+		$_REQUEST = array('limit_quantity' => array('some'), 'limit_start' => array('string'));
+		$this->calendar->set_limit();
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_request_bad_array_quantity() {
+		$_REQUEST = array('limit_quantity' => array('some'), 'limit_start' => 4);
+		$this->calendar->set_limit();
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_request_bad_array_start() {
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => array('string'));
+		$this->calendar->set_limit();
+		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+
+	public function test_limit_input_bad_array() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit(array('some'), array('string'));
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_input_bad_array_start() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit(6, array('string'));
+		$this->assertEquals(6, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_input_bad_array_quantity() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit(array('some'), 12);
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+
+	public function test_limit_request_bad() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit();
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_input_bad() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit('some', 'string');
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_input_bad_start() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit(6, 'string');
+		$this->assertEquals(6, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	public function test_limit_input_bad_quantity() {
+		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
+		$this->calendar->set_limit('some', 12);
+		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
+		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+	}
+	/**#@-*/
 }
