@@ -57,6 +57,11 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->calendar->set_category_id(4);
 		$this->assertEquals(array(4), $this->calendar->category_id);
 	}
+	public function test_category_id_input_false() {
+		$_REQUEST = array('category_id' => 2);
+		$this->calendar->set_category_id(false);
+		$this->assertEquals(false, $this->calendar->category_id);
+	}
 	public function test_category_id_request_bad_array() {
 		$_REQUEST = array('category_id' => array('some string'));
 		$this->calendar->set_category_id();
@@ -92,6 +97,11 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->calendar->set_frequent_event_id(4);
 		$this->assertEquals(4, $this->calendar->frequent_event_id);
 	}
+	public function test_frequent_event_id_input_false() {
+		$_REQUEST = array('frequent_event_id' => 2);
+		$this->calendar->set_frequent_event_id(false);
+		$this->assertEquals(false, $this->calendar->frequent_event_id);
+	}
 	public function test_frequent_event_id_request_bad_array() {
 		$_REQUEST = array('frequent_event_id' => array('some string'));
 		$this->calendar->set_frequent_event_id();
@@ -126,6 +136,11 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$_REQUEST = array('from' => '2011-12-13');
 		$this->calendar->set_from('2009-10-11');
 		$this->assertEquals('2009-10-11', $this->calendar->from->format('Y-m-d'));
+	}
+	public function test_from_input_false() {
+		$_REQUEST = array('from' => '2011-12-13');
+		$this->calendar->set_from(false);
+		$this->assertEquals(false, $this->calendar->from);
 	}
 	public function test_from_request_bad_array() {
 		$_REQUEST = array('from' => array('some string'));
@@ -181,6 +196,11 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$_REQUEST = array('to' => '2011-12-13');
 		$this->calendar->set_to('2009-10-11');
 		$this->assertEquals('2009-10-11', $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_to_input_false() {
+		$_REQUEST = array('to' => '2011-12-13');
+		$this->calendar->set_to(false);
+		$this->assertEquals(false, $this->calendar->to);
 	}
 	public function test_to_request_bad_array() {
 		$_REQUEST = array('to' => array('some string'));
