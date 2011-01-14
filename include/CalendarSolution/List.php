@@ -558,6 +558,20 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Sets the date format to be used by our format_date() method
+	 *
+	 * @param int $in  the format used by PHP's date() function
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$date_format_id  to store the data
+	 * @see CalendarSolution::format_date()
+	 */
+	public function set_date_format($in) {
+		$this->date_format = $in;
+	}
+
+	/**
 	 * Sets the "frequent_event_id" property to the appropriate value
 	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['frequent_event_id']

@@ -21,6 +21,15 @@
  */
 class CalendarSolution_List_List extends CalendarSolution_List {
 	/**
+	 * Format for PHP's date() function, to be used by our format_date() method
+	 *
+	 * @see CalendarSolution_List::set_date_format()
+	 * @see CalendarSolution::format_date()
+	 * @var string
+	 */
+	protected $date_format = self::DATE_FORMAT_LONG;
+
+	/**
 	 * The type of view this class represents
 	 * @var string
 	 */
@@ -44,7 +53,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 			. "</td>\n";
 
 		$out .= '  <td class="day">'
-			 . $this->format_date($event['date_start'], self::DATE_FORMAT_LONG)
+			 . $this->format_date($event['date_start'], $this->date_format)
 			 . "</td>\n";
 
 		$out .= '  <td class="time">'
@@ -129,6 +138,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
+	 * @see CalendarSolution_List::set_date_format()
 	 * @uses CalendarSolution_List::set_request_properties()  to automatically
 	 *       set properties to $_REQUEST data
 	 * @uses CalendarSolution_List::set_prior_and_next_dates()

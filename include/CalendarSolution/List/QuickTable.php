@@ -27,6 +27,15 @@
  */
 class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	/**
+	 * Format for PHP's date() function, to be used by our format_date() method
+	 *
+	 * @see CalendarSolution_List::set_date_format()
+	 * @see CalendarSolution::format_date()
+	 * @var string
+	 */
+	protected $date_format = self::DATE_FORMAT_MEDIUM;
+
+	/**
 	 * The type of view this class represents
 	 * @var string
 	 */
@@ -60,7 +69,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		 */
 
 		$out = '  <td class="day">'
-			 . $this->format_date($event['date_start'], self::DATE_FORMAT_MEDIUM)
+			 . $this->format_date($event['date_start'], $this->date_format)
 			 . "</td>\n";
 
 		$out .= '  <td class="time">'
@@ -104,6 +113,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
+	 * @see CalendarSolution_List::set_date_format()
 	 * @uses CalendarSolution_List::set_frequent_event_id()  if
 	 *       $frequent_event_id is passed
 	 * @uses CalendarSolution_List::set_from()  to default the date to today
