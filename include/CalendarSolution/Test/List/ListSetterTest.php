@@ -390,4 +390,123 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(false, $this->calendar->page_id);
 	}
 	/**#@-*/
+
+	/**#@+
+	 * set_request_properties()
+	 */
+	public function test_set_request_properties_request_full() {
+		$_REQUEST = array(
+			'category_id' => 22,
+			'frequent_event_id' => 33,
+			'from' => '2001-02-03',
+			'to' => '2004-05-06',
+		);
+		$this->calendar->set_request_properties();
+		$this->assertEquals(array(22), $this->calendar->category_id);
+		$this->assertEquals(33, $this->calendar->frequent_event_id);
+		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_category() {
+		$_REQUEST = array(
+			'category_id' => 22,
+		);
+		$this->calendar->set_request_properties();
+		$this->assertEquals(array(22), $this->calendar->category_id);
+		$this->assertEquals(null, $this->calendar->frequent_event_id);
+		$this->assertEquals(date('Y-m-d'), $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_frequent_event() {
+		$_REQUEST = array(
+			'frequent_event_id' => 33,
+		);
+		$this->calendar->set_request_properties();
+		$this->assertEquals(null, $this->calendar->category_id);
+		$this->assertEquals(33, $this->calendar->frequent_event_id);
+		$this->assertEquals(date('Y-m-d'), $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_from() {
+		$_REQUEST = array(
+			'from' => '2001-02-03',
+		);
+		$this->calendar->set_request_properties();
+		$this->assertEquals(null, $this->calendar->category_id);
+		$this->assertEquals(null, $this->calendar->frequent_event_id);
+		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_to() {
+		$_REQUEST = array(
+			'to' => '2004-05-06',
+		);
+		$this->calendar->set_request_properties();
+		$this->assertEquals(null, $this->calendar->category_id);
+		$this->assertEquals(null, $this->calendar->frequent_event_id);
+		$this->assertEquals(date('Y-m-d'), $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
+	}
+
+	public function test_set_request_properties_request_category_false() {
+		$_REQUEST = array(
+			'category_id' => 22,
+			'frequent_event_id' => 33,
+			'from' => '2001-02-03',
+			'to' => '2004-05-06',
+		);
+		$this->calendar->set_category_id(false);
+
+		$this->calendar->set_request_properties();
+		$this->assertEquals(false, $this->calendar->category_id);
+		$this->assertEquals(33, $this->calendar->frequent_event_id);
+		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_frequent_event_false() {
+		$_REQUEST = array(
+			'category_id' => 22,
+			'frequent_event_id' => 33,
+			'from' => '2001-02-03',
+			'to' => '2004-05-06',
+		);
+		$this->calendar->set_frequent_event_id(false);
+
+		$this->calendar->set_request_properties();
+		$this->assertEquals(array(22), $this->calendar->category_id);
+		$this->assertEquals(false, $this->calendar->frequent_event_id);
+		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_from_false() {
+		$_REQUEST = array(
+			'category_id' => 22,
+			'frequent_event_id' => 33,
+			'from' => '2001-02-03',
+			'to' => '2004-05-06',
+		);
+		$this->calendar->set_from(false);
+
+		$this->calendar->set_request_properties();
+		$this->assertEquals(array(22), $this->calendar->category_id);
+		$this->assertEquals(33, $this->calendar->frequent_event_id);
+		$this->assertEquals(false, $this->calendar->from);
+		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_set_request_properties_request_to_false() {
+		$_REQUEST = array(
+			'category_id' => 22,
+			'frequent_event_id' => 33,
+			'from' => '2001-02-03',
+			'to' => '2004-05-06',
+		);
+		$this->calendar->set_to(false);
+
+		$this->calendar->set_request_properties();
+		$this->assertEquals(array(22), $this->calendar->category_id);
+		$this->assertEquals(33, $this->calendar->frequent_event_id);
+		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
+		$this->assertEquals(false, $this->calendar->to);
+	}
+	/**#@-*/
 }
