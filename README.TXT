@@ -10,7 +10,8 @@ PostgreSQL or SQLite (via PHP's sqlite or sqlite3 extensions) as the
 database system.
 
 The stable release branch is "2.1".  Development happens on "master".
-The code in master is undergoing significant changes, which will be
-released in a branch named "3" (though that branch does not exist yet).
+The code in master is significantly changed from 2.1 and will become
+the next release.  That release will be made from a branch named "3"
+(though that branch does not exist yet).
 
 Please see include/CalendarSolution/doc/README.TXT for more information.
