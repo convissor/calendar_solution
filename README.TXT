@@ -9,6 +9,10 @@ Calendar Solution can use MySQL (via PHP's mysql or mysqli extensions),
 PostgreSQL or SQLite (via PHP's sqlite or sqlite3 extensions) as the
 database system.
 
+Directory Structure:
+calendar/  = pages to be displayed by web servers
+include/   = classes to perform the tasks requested by the pages
+
 The stable release branch is "2.1".  Development happens on "master".
 The code in master is significantly changed from 2.1 and will become
 the next release.  That release will be made from a branch named "3"
