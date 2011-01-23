@@ -340,11 +340,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	protected function get_navigation() {
 		$categories = '';
-		$i = 0;
 		if (is_array($this->category_id)) {
 			foreach ($this->category_id as $category) {
-				$categories .= '&amp;category_id[' . $i . ']=' . $category;
-				$i++;
+				$categories .= '&amp;category_id[]=' . $category;
 			}
 		}
 
