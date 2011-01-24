@@ -467,6 +467,22 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. $this->sql->Escape(__FILE__, __LINE__, self::STATUS_CANCELLED);
 		}
 
+		$where_sql = '';
+		if ($where) {
+			$where_sql = "\n WHERE " . implode(' AND ', $where);
+		}
+
+		$limit_sql = '';
+		if (!empty($this->limit_quantity)) {
+			if (empty($this->limit_start)) {
+				$limit_sql = "
+					LIMIT " . $this->limit_quantity;
+			} else {
+				$limit_sql = "
+					LIMIT " . $this->limit_quantity
+					. " OFFSET " . $this->limit_start;
+			}
+		}
 
 		/*
 		 * Construct the SQL string.
@@ -494,25 +510,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			LEFT JOIN cs_status
 				ON (cs_status.status_id = cs_calendar.status_id)";
 
-		if ($where) {
-			$this->sql->SQLQueryString .= "\n WHERE "
-				. implode(' AND ', $where);
-		}
+		$this->sql->SQLQueryString .= $where_sql;
 
 		$this->sql->SQLQueryString .= "
 			ORDER BY date_start, time_start, title,
 				cs_calendar.frequent_event_id";
 
-		if (!empty($this->limit_quantity)) {
-			if (empty($this->limit_start)) {
-				$this->sql->SQLQueryString .= "
-					LIMIT " . $this->limit_quantity;
-			} else {
-				$this->sql->SQLQueryString .= "
-					LIMIT " . $this->limit_quantity
-					. " OFFSET " . $this->limit_start;
-			}
-		}
+		$this->sql->SQLQueryString .= $limit_sql;
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
 	}
