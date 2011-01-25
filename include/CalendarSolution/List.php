@@ -474,7 +474,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$limit_sql = '';
 		if (!empty($this->limit_quantity)) {
-			if (empty($this->limit_start)) {
+			if (!is_numeric($this->limit_start)) {
 				$limit_sql = "
 					LIMIT " . $this->limit_quantity;
 			} else {
