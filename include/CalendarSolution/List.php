@@ -480,14 +480,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$limit_sql = '';
 		if (!empty($this->limit_quantity)) {
-			if (!is_numeric($this->limit_start)) {
-				$limit_sql = "
-					LIMIT " . $this->limit_quantity;
-			} else {
-				$limit_sql = "
-					LIMIT " . $this->limit_quantity
-					. " OFFSET " . $this->limit_start;
-			}
+			$limit_sql = "
+				LIMIT " . $this->limit_quantity
+				. " OFFSET " . $this->limit_start;
 		}
 
 		/*
@@ -662,9 +657,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @param mixed $start  the row to start on.  Is zero indexed, so 0 starts
 	 *              on the first row, 10 starts on the 11th row, etc.
 	 *              + NULL = use value of $_REQUEST['limit_start']
-	 *              though set it to FALSE if it is not set or invalid
-	 *              + FALSE = set the value to FALSE
-	 *              + integer = an integer, falling back to FALSE if
+	 *              though set it to 0 if it is not set or invalid
+	 *              + integer = an integer, falling back to 0 if
 	 *              the input is is invalid
 	 *
 	 * @return void
@@ -684,7 +678,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->limit_quantity = $quantity;
 
 		if (!$quantity) {
-			$this->limit_start = false;
+			$this->limit_start = 0;
 			return;
 		}
 
@@ -692,7 +686,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$start = $this->get_int_from_request('limit_start');
 		}
 		if (!is_scalar($start) || !preg_match('/^\d{1,10}$/', $start)) {
-			$start = false;
+			$start = 0;
 		}
 		$this->limit_start = $start;
 	}
