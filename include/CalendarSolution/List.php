@@ -533,6 +533,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		{
 			$this->data[] = $event;
 		}
+		$this->sql->ReleaseRecordSet(__FILE__, __LINE__);
 	}
 
 	/**
