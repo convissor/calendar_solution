@@ -185,8 +185,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		$out = $this->get_navigation();
 
 		$this->run_query();
-		$event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
-			array('calendar_uri', 'frequent_event_uri'));
+		$event = array_shift($this->data);
 
 		for ($month_counter = 0; $month_counter < $months; $month_counter++) {
 			$out .= $this->get_month_open($current_date_time);
@@ -199,8 +198,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 				if ($the_date == $event['date_start']) {
 					do {
 						$out .= $this->get_event_formatted($event);
-						$event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
-							array('calendar_uri', 'frequent_event_uri'));
+						$event = array_shift($this->data);
 					} while ($the_date == $event['date_start']);
 				}
 

@@ -25,6 +25,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $category_id;
 
 	/**
+	 * The records to be displayed
+	 * @var array
+	 */
+	protected $data;
+
+	/**
 	 * The frequent event id to show events for
 	 * @var int
 	 */
@@ -519,6 +525,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->sql->SQLQueryString .= $limit_sql;
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+
+		$this->data = array();
+		$skip_markup = array('calendar_uri', 'frequent_event_uri');
+		while ($event = $this->sql->RecordAsAssocArray(
+				__FILE__, __LINE__, $skip_markup))
+		{
+			$this->data[] = $event;
+		}
 	}
 
 	/**

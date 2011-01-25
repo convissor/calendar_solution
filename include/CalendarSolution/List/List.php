@@ -158,10 +158,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 		$prior_event_month = '';
 
-		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {
-			$event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
-				array('calendar_uri', 'frequent_event_uri'));
-
+		foreach ($this->data as $counter => $event) {
 			if ($event['status_id'] == self::STATUS_CANCELLED) {
 				$class = 'X';
 			} elseif ($event['changed'] == 'Y') {

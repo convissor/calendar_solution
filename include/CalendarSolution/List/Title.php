@@ -119,11 +119,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 
 		$out = $this->get_list_open();
 
-		// Using for instead of while to provide consistency with other classes.
-		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {
-			$event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
-				array('calendar_uri', 'frequent_event_uri'));
-
+		foreach ($this->data as $event) {
 			$out .= $this->get_row_open();
 			$out .= $this->get_event_formatted($event);
 			$out .= $this->get_row_close();

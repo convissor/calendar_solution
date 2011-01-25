@@ -136,10 +136,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 
 		$out = $this->get_list_open();
 
-		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {
-			$event = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
-				array('calendar_uri', 'frequent_event_uri'));
-
+		foreach ($this->data as $counter => $event) {
 			if ($event['status_id'] == self::STATUS_CANCELLED) {
 				$event['note'] = 'CANCELLED. ' . $event['note'];
 				$class = 'X';
