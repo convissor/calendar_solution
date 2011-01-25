@@ -154,10 +154,10 @@ the environment you are running in.
   + chmod 760 include/CalendarSolution/sqlite/calendar_solution*
 
 * Edit the "CALENDAR_SOLUTION_DBMS" setting in
-"include/calendar_solution_setup.php".
+"include/calendar_solution_settings.php".
 
 * This package depends on PHP's autoload functionality and ships with such a
-function in "include/calendar_solution_setup.php".  If your system already has
+function in "include/calendar_solution_settings.php".  If your system already has
 an autoloader, feel free to integrate the concepts in our autoload function
 into yours and then comment out our call to "spl_autoload_register()".
 
@@ -189,7 +189,7 @@ their changes now:
 * Put the "calendar" and "include" directories in a location accessible
 by the web server.  This package assumes both of these directories will
 be put in the same location.  If they are not, the path used for the
-"include calendar_solution_setup.php" calls in each of the *.php files in
+"include calendar_solution_settings.php" calls in each of the *.php files in
 the "calendar" directory must be adjusted.
 
 * Point your web browser at your web server and navigate to the

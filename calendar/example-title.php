@@ -15,7 +15,7 @@
  * Uses dirname(__FILE__) because "./" can be stripped by PHP's safety
  * settings and __DIR__ was introduced in PHP 5.3.
  */
-require dirname(__FILE__) . '/../include/calendar_solution_setup.php';
+require dirname(__FILE__) . '/../include/calendar_solution_settings.php';
 
 /*
  * Instantiate the title list class.
