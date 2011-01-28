@@ -192,6 +192,9 @@ be put in the same location.  If they are not, the path used for the
 "include calendar_solution_settings.php" calls in each of the *.php files in
 the "calendar" directory must be adjusted.
 
+
+ADDING EVENTS
+-------------
 * Point your web browser at your web server and navigate to the
 "calendar/Admin" directory.  The web server will produce a prompt
 asking for the user name and password you generated in the prior
@@ -199,10 +202,10 @@ step.
 
 * You should see a calendar with no events in it.
 
-* Click the "Add a New Event" link, enter the data for an event
+* Click the "Add Event" link, enter the data for an event
 then click the "Add" button at the bottom.
 
-* Click the "View All Events" link at the top and your event
+* Click the "Events" link at the top and your event
 should show up in the calendar, though the calendar shows only
 three months by default, so you may need to navigate ahead
 via the "See Later Events" link to get to the right time frame
