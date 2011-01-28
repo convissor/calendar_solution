@@ -314,7 +314,7 @@ class CalendarSolution {
 	public function is_admin() {
 		static $answer;
 		if (!isset($answer)) {
-			if (strpos($_SERVER['REQUEST_URI'], '/Admin/') !== false) {
+			if (strpos($_SERVER['SCRIPT_FILENAME'], '/Admin/') !== false) {
 				$answer = true;
 			} else {
 				$answer = false;
