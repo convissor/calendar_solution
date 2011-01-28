@@ -14,6 +14,11 @@ REQUIREMENTS
   + pgsql
   + sqlite
   + sqlite3
+* Caching is optional.  If using caching, our default is to use Memcached.
+  It is possible to use other cache engines by writing a simple cache
+  wrapper class.  Anyway, if using our Memcached based mechanism:
+  + Memcached server
+  + PHP's memcache PECL extension
 
 
 NOTE
@@ -191,6 +196,19 @@ by the web server.  This package assumes both of these directories will
 be put in the same location.  If they are not, the path used for the
 "include calendar_solution_settings.php" calls in each of the *.php files in
 the "calendar" directory must be adjusted.
+
+
+CACHING (OPTIONAL)
+------------------
+* If you want to enable caching, populate the "$GLOBALS['cache_servers']" array
+in "include/calendar_solution_settings.php".
+
+If you wish to utilize a different caching engine:
+* Write a class that implements the interface found in
+  "include/CalendarSolution/Cache.php". See
+  "include/CalendarSolution/Cache/Memcache.php" for an example.
+* Change the value of the "CALENDAR_SOLUTION_CACHE_CLASS" constant in
+  "include/calendar_solution_settings.php".
 
 
 ADDING EVENTS

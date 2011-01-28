@@ -33,6 +33,8 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	 * @return void
 	 */
 	public function delete() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'DELETE FROM cs_feature_on_page
 			WHERE feature_on_page_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['feature_on_page_id']);
@@ -54,6 +56,8 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	 * @return void
 	 */
 	public function insert() {
+		$this->cache->flush();
+
 //		$this->sql->SQLQueryString = 'BEGIN';
 //		$this->sql->RunQuery(__FILE__, __LINE__);
 
@@ -199,6 +203,8 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	 * @return void
 	 */
 	public function update() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'UPDATE cs_feature_on_page SET
 			feature_on_page = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['feature_on_page']) . '
 			WHERE feature_on_page_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['feature_on_page_id']);

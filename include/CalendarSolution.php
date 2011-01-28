@@ -51,6 +51,12 @@ class CalendarSolution {
 	/**#@-*/
 
 	/**
+	 * The cache object
+	 * @var CalendarSolution_Cache
+	 */
+	protected $cache;
+
+	/**
 	 * An associative array of the given item's data
 	 * @var array
 	 */
@@ -79,9 +85,15 @@ class CalendarSolution {
 	 */
 	protected $sql;
 
+	/**
+	 * Should the current request use caching?
+	 * @var bool
+	 */
+	protected $use_cache;
+
 
 	/**
-	 * Instantiates the database class and stores it in the $sql property
+	 * Instantiates the database and cache classes
 	 *
 	 * @param string $dbms  optional override of the database extension setting
 	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
@@ -90,8 +102,12 @@ class CalendarSolution {
 	 * @uses CALENDAR_SOLUTION_DBMS  to know which database extension to use
 	 * @uses CalendarSolution::$sql  the SQL Solution object for the
 	 *       database system specified by the $dbms parameter
+	 * @uses CALENDAR_SOLUTION_CACHE_CLASS  to know which cache class to use
+	 * @uses $GLOBALS['cache_servers']  to know where the cache servers are
+	 * @uses CalendarSolution::$cache  the Calendar Solution Cache object
 	 *
-	 * @throws CalendarSolution_Exception if the $dbms parameter is improper
+	 * @throws CalendarSolution_Exception if the $dbms parameter or
+	 *         CALENDAR_SOLUTION_CACHE_CLASS is improper
 	 */
 	public function __construct($dbms = CALENDAR_SOLUTION_DBMS) {
 		$file = '';
@@ -124,6 +140,19 @@ class CalendarSolution {
 		if ($file && $this->sql->SQLDbName == 'default') {
 			$this->sql->SQLDbName = dirname(__FILE__)
 				. '/CalendarSolution/sqlite/' . $file;
+		}
+
+		if ($GLOBALS['cache_servers']) {
+			$class = CALENDAR_SOLUTION_CACHE_CLASS;
+
+			$this->cache = new $class;
+			if (!$this->cache instanceof CalendarSolution_Cache) {
+				throw new CalendarSolution_Exception('Improper cache class');
+			}
+
+			if (!$this->is_admin()) {
+				$this->use_cache = true;
+			}
 		}
 	}
 

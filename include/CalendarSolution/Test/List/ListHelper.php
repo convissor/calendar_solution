@@ -24,6 +24,9 @@ class CalendarSolution_Test_List_ListHelper extends CalendarSolution_List_List {
 	public function __get($property) {
 		return $this->$property;
 	}
+	public function __set($property, $value) {
+		$this->$property = $value;
+	}
 	public function get_data_element($key) {
 		return $this->data[$key];
 	}

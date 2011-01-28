@@ -112,6 +112,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	protected $to;
 
+	/**
+	 * How many rows the entire result set has
+	 * @var int
+	 */
+	protected $total_rows;
+
 
 	/**
 	 * Calls the parent constructor then populates the $interval_spec property
@@ -423,6 +429,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       rows shown
 	 * @uses CalendarSolution_List::$limit_start  to determine where to start
 	 *       the number of rows to be shown
+	 * @uses CalendarSolution::$cache  to cache the results, if possible
+	 * @uses CalendarSolution_List::$data  to hold the results
 	 *
 	 * @throws CalendarSolution_Exception if to is later than from
 	 */
@@ -473,16 +481,48 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. $this->sql->Escape(__FILE__, __LINE__, self::STATUS_CANCELLED);
 		}
 
-		$where_sql = '';
 		if ($where) {
 			$where_sql = "\n WHERE " . implode(' AND ', $where);
+			$cache_key = md5($where_sql);
+		} else {
+			$where_sql = '';
+			$cache_key = 'all';
+		}
+
+		if ($this->use_cache) {
+			$this->data = $this->cache->get($cache_key);
+			$memcache_result = ($this->data !== false);
+			if ($memcache_result) {
+				$this->total_rows = count($this->data);
+			}
+		} else {
+			$memcache_result = null;
 		}
 
 		$limit_sql = '';
 		if (!empty($this->limit_quantity)) {
-			$limit_sql = "
-				LIMIT " . $this->limit_quantity
-				. " OFFSET " . $this->limit_start;
+			if (!$this->use_cache) {
+				$limit_sql = "
+					LIMIT " . $this->limit_quantity
+					. " OFFSET " . $this->limit_start;
+			} elseif ($this->total_rows) {
+				$this->data = array_slice($this->data, $this->limit_start,
+						$this->limit_quantity);
+			}
+		}
+
+		if ($memcache_result) {
+			return;
+		}
+
+		if ($limit_sql) {
+			$this->sql->SQLQueryString = "SELECT COUNT(*) AS ct
+				FROM cs_calendar
+				$where_sql";
+
+			$this->sql->RunQuery(__FILE__, __LINE__);
+			$event = $this->sql->RecordAsEnumArray(__FILE__, __LINE__);
+			$this->total_rows = $event[0];
 		}
 
 		/*
@@ -529,6 +569,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->data[] = $event;
 		}
 		$this->sql->ReleaseRecordSet(__FILE__, __LINE__);
+
+		if ($this->use_cache) {
+			$this->total_rows = count($this->data);
+			$this->cache->set($cache_key, $this->data);
+
+			if ($this->limit_quantity) {
+				$this->data = array_slice($this->data, $this->limit_start,
+						$this->limit_quantity);
+			}
+		}
 	}
 
 	/**

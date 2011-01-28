@@ -34,6 +34,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 * @return void
 	 */
 	public function delete() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'DELETE FROM cs_frequent_event
 			WHERE frequent_event_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_id']);
@@ -55,6 +57,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 * @return void
 	 */
 	public function insert() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'INSERT INTO cs_frequent_event (
 				frequent_event,
 				frequent_event_uri
@@ -216,6 +220,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 * @return void
 	 */
 	public function update() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'UPDATE cs_frequent_event SET
 			frequent_event = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event']) . ',
 			frequent_event_uri = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_uri']) . '

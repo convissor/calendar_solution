@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The DBMS setting and autoload function for the Calendar Solution
+ * The DBMS and cache settings plus autoload function for the Calendar Solution
  *
  * NOTE: If your system already has an autoloader, feel free to integrate the
  * concepts in this autoload function into yours and then comment out the
@@ -19,6 +19,44 @@
  * The database extension to use: "mysql", "mysqli", "pgsql", "sqlite", "sqlite3"
  */
 define('CALENDAR_SOLUTION_DBMS', '');
+
+
+/**
+ * Cache server connection information, if any
+ *
+ * Caching will only be utilized if this array is populated.
+ *
+ * The format is an array of arrays.  Each sub-array must contain the server
+ * and port.  A server's weight can also be specified in the third element.
+ *
+ * <pre>
+ * array(
+ *     array('localhost', 11211, 8),
+ *     array('cache.example.net', 11211, 4),
+ *     array('198.7.9.45', 11211, 4),
+ * )
+ * </pre>
+ *
+ * @link http://php.net/memcached.addservers
+ */
+$GLOBALS['cache_servers'] = array(
+);
+
+/**
+ * The Calendar Solution Cache class to use: "CalendarSolution_Cache_Memcache"
+ *
+ * NOTE: Leave this alone unless you are creating your own cache class.
+ */
+define('CALENDAR_SOLUTION_CACHE_CLASS', 'CalendarSolution_Cache_Memcache');
+
+/**
+ * How many seconds to keep stuff in the cache
+ *
+ * In general, leave it set to 0, which means store it indefinitely.  The
+ * cache is flushed when administrators edit events.
+ */
+define('CALENDAR_SOLUTION_CACHE_EXPIRE', 0);
+
 
 if (!defined('TAASC_DIR_INCLUDE')) {
 	/**

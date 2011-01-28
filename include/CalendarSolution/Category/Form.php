@@ -33,6 +33,8 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	 * @return void
 	 */
 	public function delete() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'DELETE FROM cs_category
 			WHERE category_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['category_id']);
@@ -54,6 +56,8 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	 * @return void
 	 */
 	public function insert() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'INSERT INTO cs_category (
 				category
 			) VALUES ('
@@ -190,6 +194,8 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	 * @return void
 	 */
 	public function update() {
+		$this->cache->flush();
+
 		$this->sql->SQLQueryString = 'UPDATE cs_category SET
 			category = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['category']) . '
 			WHERE category_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['category_id']);
