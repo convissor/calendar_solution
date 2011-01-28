@@ -88,6 +88,12 @@ CREATE TABLE cs_frequent_event (
   UNIQUE (frequent_event)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+CREATE TABLE cs_category (
+  category_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  category VARCHAR(60) NOT NULL DEFAULT '',
+  UNIQUE (category)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 CREATE TABLE cs_calendar (
   calendar_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   date_start DATE NOT NULL DEFAULT '1753-01-01',
@@ -104,6 +110,10 @@ CREATE TABLE cs_calendar (
   calendar_uri VARCHAR(250) DEFAULT NULL,
   status_id SMALLINT NOT NULL DEFAULT 1,
   feature_on_page_id INT DEFAULT NULL, -- Bitwise representation of cs_feature_on_page
+  category_id INTEGER DEFAULT NULL,
+  CONSTRAINT category_id_fk FOREIGN KEY (category_id)
+    REFERENCES cs_category (category_id)
+    ON UPDATE CASCADE,
   CONSTRAINT frequent_event_id_fk FOREIGN KEY (frequent_event_id)
     REFERENCES cs_frequent_event (frequent_event_id)
     ON UPDATE CASCADE,
