@@ -118,6 +118,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	protected $total_rows;
 
+	/**
+	 * The md5 sum of the SQL WHERE clause for the current view
+	 * @var string
+	 */
+	protected $where_md5;
+
 
 	/**
 	 * Calls the parent constructor then populates the $interval_spec property
@@ -483,11 +489,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($where) {
 			$where_sql = "\n WHERE " . implode(' AND ', $where);
-			$cache_key = md5($where_sql);
+			$this->where_md5 = md5($where_sql);
 		} else {
 			$where_sql = '';
-			$cache_key = 'all';
+			$this->where_md5 = 'all';
 		}
+		$cache_key = 'sql:' . $this->where_md5;
 
 		if ($this->use_cache) {
 			$this->data = $this->cache->get($cache_key);
