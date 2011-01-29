@@ -101,6 +101,7 @@ database, here are some rough examples of how to do so.
       TO <database_user_name>;
     GRANT SELECT, UPDATE ON
       cs_frequent_event_frequent_event_id_seq,
+      cs_category_category_id_seq,
       cs_calendar_calendar_id_seq
       TO <database_user_name>;
     \q
