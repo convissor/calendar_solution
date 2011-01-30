@@ -32,11 +32,7 @@ try {
 <head>
 <title>Calendar Solution Admin Frequent Event Details</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<style type="text/css">
-
-<?php echo $calendar->get_css(); ?>
-
-</style>
+<link rel="stylesheet" type="text/css" href="admin.css" />
 </head>
 <body>
 

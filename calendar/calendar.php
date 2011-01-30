@@ -39,6 +39,15 @@ try {
 <?php echo $calendar->get_css(); ?>
 
 </style>
+
+<?php
+
+if ($calendar->is_admin()) {
+	echo '<link rel="stylesheet" type="text/css" href="admin.css" />';
+}
+
+?>
+
 </head>
 <body>
 

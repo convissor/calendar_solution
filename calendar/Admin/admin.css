@@ -1,0 +1,29 @@
+p.cs_admin_navigation {
+ font-size: 0.7em;
+}
+
+table.cs_list,
+table.cs_list td {
+ border: thin solid black;
+}
+
+
+form.cs_form table {
+ vertical-align: top;
+ border: thin solid black;
+}
+
+form.cs_form td {
+ vertical-align: top;
+ padding: 0.2em;
+ border: thin solid black;
+}
+
+form.cs_form td table,
+form.cs_form td table td {
+ border: none;
+}
+
+form.cs_form em {
+ font-size: 1.3em;
+}

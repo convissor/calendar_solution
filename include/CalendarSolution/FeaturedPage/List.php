@@ -19,15 +19,6 @@
  */
 class CalendarSolution_FeaturedPage_List extends CalendarSolution_FeaturedPage {
 	/**
-	 * Provides the path and name of the needed Cascading Style Sheet file
-	 *
-	 * @return string  the path and name of the CSS file
-	 */
-	public function get_css_name() {
-		return dirname(__FILE__) . '/List.css';
-	}
-
-	/**
 	 * @param array $event  an associative array of a given event
 	 *
 	 * @return string  the HTML for one event
@@ -60,7 +51,7 @@ class CalendarSolution_FeaturedPage_List extends CalendarSolution_FeaturedPage {
 	 * @return string  the HTML for opening a list
 	 */
 	protected function get_list_open() {
-		return '<table class="cs_featuredpage_list">' . "\n";
+		return '<table class="cs_list">' . "\n";
 	}
 
 	/**

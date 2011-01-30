@@ -217,7 +217,7 @@ class CalendarSolution {
 	 * @return string  the HTML with the admin links
 	 */
 	public function get_admin_navigation() {
-		return '<p><small>
+		return '<p class="cs_admin_navigation">
 			<a href="calendar.php">Events</a> |
 			<a href="calendar-detail.php">Add Event</a> ||
 			<a href="category.php">Categories</a> |
@@ -227,7 +227,7 @@ class CalendarSolution {
 			<a href="featured_page.php">Featured Pages</a> |
 			<a href="featured_page-detail.php">Add Featured Page</a> ||
 			<a href="flush.php">Flush Cache</a>
-			</small></p>';
+			</p>';
 	}
 
 	/**

@@ -44,15 +44,6 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	}
 
 	/**
-	 * Provides the path and name of the needed Cascading Style Sheet file
-	 *
-	 * @return string  the path and name of the CSS file
-	 */
-	public function get_css_name() {
-		return dirname(__FILE__) . '/Form.css';
-	}
-
-	/**
 	 * Inserts the posted data into the database
 	 * @return void
 	 */
@@ -135,7 +126,7 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 			$this->escape_data_for_html();
 		}
 
-		$out = '<form class="cs_frequentevent_form" method="post">' . "\n";
+		$out = '<form class="cs_form" method="post">' . "\n";
 		$out .= ' <table summary="Frequent Event Entry Form. Left ';
 		$out .= "column has field names. Right column has data entry fields.\">\n";
 

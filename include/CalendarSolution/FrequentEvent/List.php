@@ -19,15 +19,6 @@
  */
 class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent {
 	/**
-	 * Provides the path and name of the needed Cascading Style Sheet file
-	 *
-	 * @return string  the path and name of the CSS file
-	 */
-	public function get_css_name() {
-		return dirname(__FILE__) . '/List.css';
-	}
-
-	/**
 	 * @param array $event  an associative array of a given event
 	 *
 	 * @return string  the HTML for one event
@@ -44,7 +35,7 @@ class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent
 			. $event['frequent_event']
 			. "</a></td>\n";
 
-		$out .= '  <td class="frequent_event_uri">'
+		$out .= '  <td class="uri">'
 			 . (($event['frequent_event_uri']) ? $event['frequent_event_uri'] : '&nbsp;')
 			 . "</td>\n";
 
@@ -62,7 +53,7 @@ class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent
 	 * @return string  the HTML for opening a list
 	 */
 	protected function get_list_open() {
-		return '<table class="cs_frequentevent_list">' . "\n";
+		return '<table class="cs_list">' . "\n";
 	}
 
 	/**

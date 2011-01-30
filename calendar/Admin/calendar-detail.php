@@ -37,6 +37,7 @@ try {
 <?php echo $calendar->get_css(); ?>
 
 </style>
+<link rel="stylesheet" type="text/css" href="admin.css" />
 </head>
 <body>
 

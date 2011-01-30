@@ -43,15 +43,6 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	}
 
 	/**
-	 * Provides the path and name of the needed Cascading Style Sheet file
-	 *
-	 * @return string  the path and name of the CSS file
-	 */
-	public function get_css_name() {
-		return dirname(__FILE__) . '/Form.css';
-	}
-
-	/**
 	 * Inserts the posted data into the database
 	 * @return void
 	 */
@@ -122,7 +113,7 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 			$this->escape_data_for_html();
 		}
 
-		$out = '<form class="cs_category_form" method="post">' . "\n";
+		$out = '<form class="cs_form" method="post">' . "\n";
 		$out .= ' <table summary="Category Entry Form. Left ';
 		$out .= "column has field names. Right column has data entry fields.\">\n";
 
