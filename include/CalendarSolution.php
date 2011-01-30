@@ -57,6 +57,12 @@ class CalendarSolution {
 	protected $cache;
 
 	/**
+	 * Is caching available?
+	 * @var bool
+	 */
+	protected $cache_available = false;
+
+	/**
 	 * An associative array of the given item's data
 	 * @var array
 	 */
@@ -150,6 +156,7 @@ class CalendarSolution {
 				throw new CalendarSolution_Exception('Improper cache class');
 			}
 
+			$this->cache_available = true;
 			if (!$this->is_admin()) {
 				$this->use_cache = true;
 			}
@@ -173,6 +180,18 @@ class CalendarSolution {
 				$this->data[$key] = htmlspecialchars($value);
 			}
 		}
+	}
+
+	/**
+	 * Flushes the system's cache
+	 *
+	 * @return bool
+	 */
+	public function flush_cache() {
+		if (!$this->cache_available) {
+			return false;
+		}
+		return $this->cache->flush();
 	}
 
 	/**
@@ -206,7 +225,8 @@ class CalendarSolution {
 			<a href="frequent_event.php">Frequent Events</a> |
 			<a href="frequent_event-detail.php">Add Frequent Event</a> ||
 			<a href="featured_page.php">Featured Pages</a> |
-			<a href="featured_page-detail.php">Add Featured Page</a>
+			<a href="featured_page-detail.php">Add Featured Page</a> ||
+			<a href="flush.php">Flush Cache</a>
 			</small></p>';
 	}
 
@@ -350,6 +370,14 @@ class CalendarSolution {
 			}
 		}
 		return $answer;
+	}
+
+	/**
+	 * Is caching available?
+	 * @return bool
+	 */
+	public function is_cache_available() {
+		return $this->cache_available;
 	}
 
 	/**
