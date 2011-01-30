@@ -204,6 +204,11 @@ CACHING (OPTIONAL)
 * If you want to enable caching, populate the "$GLOBALS['cache_servers']" array
 in "include/calendar_solution_settings.php".
 
+The caching significantly helps performance.  In a simple set of tests
+(on my dev box viewing "calendar/calendar.php" against the data in
+"include/CalendarSolution/sql/benchmark-insert.sql"), caching boosted
+throughput to 95 requests per second from 26 without caching.
+
 If you wish to utilize a different caching engine:
 * Write a class that implements the interface found in
   "include/CalendarSolution/Cache.php". See
