@@ -248,24 +248,38 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= '<label for="category_id">'
 			 . 'Categories:</label>' . "\n";
 
-		$opt = array(
-			'id'           => 'category_id',
-			'table'        => 'cs_category',
-			'visiblefield' => 'category',
-			'keyfield'     => 'category_id',
-			'name'         => 'category_id',
-			'orderby'      => 'category',
-			'where'        => '1 = 1',
-			'multiple'     => 'Y',
-			'size'         => '2',
-			'default'      => $this->category_id,
-			'add'          => array('' => 'Pick Categories, if you want to')
-		);
+		if ($this->use_cache) {
+			$cache_key = 'category_list:' . $this->category_id;
+			$list = $this->cache->get($cache_key);
+			$memcache_result = ($list !== false);
+		} else {
+			$memcache_result = null;
+		}
+		if (!$memcache_result) {
+			$opt = array(
+				'id'           => 'category_id',
+				'table'        => 'cs_category',
+				'visiblefield' => 'category',
+				'keyfield'     => 'category_id',
+				'name'         => 'category_id',
+				'orderby'      => 'category',
+				'where'        => '1 = 1',
+				'multiple'     => 'Y',
+				'size'         => '2',
+				'default'      => $this->category_id,
+				'add'          => array('' => 'Pick Categories, if you want to')
+			);
 
-		ob_start();
-		$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
-		$out .= ob_get_contents();
-		ob_end_clean();
+			ob_start();
+			$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
+			$list = ob_get_contents();
+			ob_end_clean();
+
+			if ($this->use_cache) {
+				$this->cache->set($cache_key, $list);
+			}
+		}
+		$out .= $list;
 
 		$out .= "</p>\n";
 
@@ -274,24 +288,38 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= '<label for="frequent_event_id" accesskey="r">'
 			 . 'F<u>r</u>equent Events:</label>' . "\n";
 
-		$opt = array(
-			'id'           => 'frequent_event_id',
-			'table'        => 'cs_frequent_event',
-			'visiblefield' => 'frequent_event',
-			'keyfield'     => 'frequent_event_id',
-			'name'         => 'frequent_event_id',
-			'orderby'      => 'frequent_event',
-			'where'        => '1 = 1',
-			'multiple'     => 'N',
-			'size'         => '0',
-			'default'      => $this->frequent_event_id,
-			'add'          => array('' => 'Pick a Frequent Event, if you want to')
-		);
+		if ($this->use_cache) {
+			$cache_key = 'frequent_event_list:' . $this->frequent_event_id;
+			$list = $this->cache->get($cache_key);
+			$memcache_result = ($list !== false);
+		} else {
+			$memcache_result = null;
+		}
+		if (!$memcache_result) {
+			$opt = array(
+				'id'           => 'frequent_event_id',
+				'table'        => 'cs_frequent_event',
+				'visiblefield' => 'frequent_event',
+				'keyfield'     => 'frequent_event_id',
+				'name'         => 'frequent_event_id',
+				'orderby'      => 'frequent_event',
+				'where'        => '1 = 1',
+				'multiple'     => 'N',
+				'size'         => '0',
+				'default'      => $this->frequent_event_id,
+				'add'          => array('' => 'Pick a Frequent Event, if you want to')
+			);
 
-		ob_start();
-		$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
-		$out .= ob_get_contents();
-		ob_end_clean();
+			ob_start();
+			$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
+			$list = ob_get_contents();
+			ob_end_clean();
+
+			if ($this->use_cache) {
+				$this->cache->set($cache_key, $list);
+			}
+		}
+		$out .= $list;
 
 		$out .= '   <input type="hidden" name="view" value="'
 			 . $this->view . '" />' . "\n";
