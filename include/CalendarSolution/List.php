@@ -517,47 +517,58 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($where) {
 			$where_sql = "\n WHERE " . implode(' AND ', $where);
-			$this->where_md5 = md5($where_sql);
 		} else {
 			$where_sql = '';
-			$this->where_md5 = 'all';
 		}
-		$cache_key = 'sql:' . $this->where_md5;
+
+		/*
+		 * Get data from cache, if available.
+		 */
+
+		$start_set = is_numeric($this->limit_start);
 
 		if ($this->use_cache) {
+			$this->where_md5 = md5($where_sql);
+			$cache_key = 'sql:' . $this->where_md5;
+
+			if ($this->limit_quantity) {
+				if (!$start_set) {
+					$cache_key .= ':' . $this->limit_quantity;
+				}
+			}
+
 			$this->data = $this->cache->get($cache_key);
 			$memcache_result = ($this->data !== false);
 			if ($memcache_result) {
 				$this->total_rows = count($this->data);
+				if (!empty($start_set)) {
+					$this->data = array_slice($this->data, $this->limit_start,
+							$this->limit_quantity);
+				}
+				return;
 			}
-		} else {
-			$memcache_result = null;
 		}
+
+		/*
+		 * Compose LIMIT and run COUNT if needed.
+		 */
 
 		$limit_sql = '';
-		if (!empty($this->limit_quantity)) {
-			if (!$this->use_cache) {
+		if ($this->limit_quantity) {
+			if (!$this->use_cache || !$start_set) {
 				$limit_sql = "
 					LIMIT " . $this->limit_quantity
-					. " OFFSET " . $this->limit_start;
-			} elseif ($this->total_rows) {
-				$this->data = array_slice($this->data, $this->limit_start,
-						$this->limit_quantity);
+					. " OFFSET " . (int) $this->limit_start;
 			}
-		}
+			if (!$this->use_cache && $start_set) {
+				$this->sql->SQLQueryString = "SELECT COUNT(*) AS ct
+					FROM cs_calendar
+					$where_sql";
 
-		if ($memcache_result) {
-			return;
-		}
-
-		if ($limit_sql) {
-			$this->sql->SQLQueryString = "SELECT COUNT(*) AS ct
-				FROM cs_calendar
-				$where_sql";
-
-			$this->sql->RunQuery(__FILE__, __LINE__);
-			$event = $this->sql->RecordAsEnumArray(__FILE__, __LINE__);
-			$this->total_rows = $event[0];
+				$this->sql->RunQuery(__FILE__, __LINE__);
+				$event = $this->sql->RecordAsEnumArray(__FILE__, __LINE__);
+				$this->total_rows = $event[0];
+			}
 		}
 
 		/*
@@ -596,6 +607,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
 
+		/*
+		 * Process database results.
+		 */
+
 		$this->data = array();
 		$skip_markup = array('calendar_uri', 'frequent_event_uri');
 		while ($event = $this->sql->RecordAsAssocArray(
@@ -609,7 +624,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->total_rows = count($this->data);
 			$this->cache->set($cache_key, $this->data);
 
-			if ($this->limit_quantity) {
+			if ($start_set) {
 				$this->data = array_slice($this->data, $this->limit_start,
 						$this->limit_quantity);
 			}
@@ -742,8 +757,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @param mixed $start  the row to start on.  Is zero indexed, so 0 starts
 	 *              on the first row, 10 starts on the 11th row, etc.
 	 *              + NULL = use value of $_REQUEST['limit_start']
-	 *              though set it to 0 if it is not set or invalid
-	 *              + integer = an integer, falling back to 0 if
+	 *              though set it to FALSE if it is not set or invalid
+	 *              + FALSE = set the value to FALSE
+	 *              + integer = an integer, falling back to FALSE if
 	 *              the input is is invalid
 	 *
 	 * @return void
@@ -763,7 +779,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->limit_quantity = $quantity;
 
 		if (!$quantity) {
-			$this->limit_start = 0;
+			$this->limit_start = false;
 			return;
 		}
 
@@ -771,7 +787,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$start = $this->get_int_from_request('limit_start');
 		}
 		if (!is_scalar($start) || !preg_match('/^\d{1,10}$/', $start)) {
-			$start = 0;
+			$start = false;
 		}
 		$this->limit_start = $start;
 	}
