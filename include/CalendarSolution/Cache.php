@@ -36,12 +36,17 @@ interface CalendarSolution_Cache {
 	/**
 	 * Stores data in the cache
 	 *
+	 * Cache values expire at 00:00:01 tomorrow.
+	 *
+	 * Note: the cache is also flushed when administrators edit events.
+	 *
 	 * @param string $key  the data element's name
 	 * @param mixed $value  the data to be stored
 	 *
 	 * @return bool
 	 *
-	 * @uses CALENDAR_SOLUTION_CACHE_EXPIRE  to know how long to store data
+	 * @uses CalendarSolution_Cache::$expiration_time  to know when the data
+	 *       should exipre
 	 */
 	public function set($key, $value);
 }

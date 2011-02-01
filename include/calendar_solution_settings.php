@@ -49,14 +49,6 @@ $GLOBALS['cache_servers'] = array(
  */
 define('CALENDAR_SOLUTION_CACHE_CLASS', 'CalendarSolution_Cache_Memcache');
 
-/**
- * How many seconds to keep stuff in the cache
- *
- * In general, leave it set to 0, which means store it indefinitely.  The
- * cache is flushed when administrators edit events.
- */
-define('CALENDAR_SOLUTION_CACHE_EXPIRE', 0);
-
 
 if (!defined('TAASC_DIR_INCLUDE')) {
 	/**

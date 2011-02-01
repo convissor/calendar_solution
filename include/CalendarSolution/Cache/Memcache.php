@@ -24,6 +24,18 @@ class CalendarSolution_Cache_Memcache implements CalendarSolution_Cache {
 	 */
 	protected $cache;
 
+	/**
+	 * The Unix timestamp of when the cache should expire.
+	 *
+	 * Should be set to 00:00:01 tomorrow.  This is because many views use the
+	 * current date as the starting point, so when tomorrow rolls around,
+	 * today's data is no longer needed.
+	 *
+	 * Note: the cache is also flushed when administrators edit events.
+	 *
+	 * @var int
+	 */
+	protected $expiration_time;
 
 	/**
 	 * @throws CalendarSolution_Exception  if the memcache extension is not
@@ -58,6 +70,13 @@ class CalendarSolution_Cache_Memcache implements CalendarSolution_Cache {
 	}
 
 	public function set($key, $value) {
-		return @$this->cache->set($key, $value, null, CALENDAR_SOLUTION_CACHE_EXPIRE);
+		if (!$this->expiration_time) {
+			$date = new DateTime;
+			$date->modify('+1 day');
+			$date->setTime(0, 0, 1);
+			$this->expiration_time = $date->format('U');
+		}
+
+		return @$this->cache->set($key, $value, null, $this->expiration_time);
 	}
 }
