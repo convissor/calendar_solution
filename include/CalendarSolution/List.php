@@ -580,8 +580,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			calendar_uri,
 			changed,
 			date_start,
-			cs_calendar.category_id AS category_id,
-			cs_calendar.frequent_event_id AS frequent_event_id,
 			frequent_event_uri,
 			list_link_goes_to_id,
 			location_start,
@@ -612,7 +610,18 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		 */
 
 		$this->data = array();
-		$skip_markup = array('calendar_uri', 'frequent_event_uri');
+		$skip_markup = array(
+			'calendar_id',
+			'calendar_uri',
+			'changed',
+			'date_start',
+			'frequent_event_uri',
+			'list_link_goes_to_id',
+			'status_id',
+			'time_end',
+			'time_start',
+			'title',
+		);
 		while ($event = $this->sql->RecordAsAssocArray(
 				__FILE__, __LINE__, $skip_markup))
 		{
