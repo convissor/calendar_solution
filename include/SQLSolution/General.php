@@ -19,7 +19,7 @@
  *
  * @package SQLSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2001-2010
+ * @copyright The Analysis and Solutions Company, 2001-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
  */
@@ -28,7 +28,7 @@
  * Methods and properties common to all SQLSolution DBMS varieties
  *
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2001-2010
+ * @copyright The Analysis and Solutions Company, 2001-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
  */
@@ -297,8 +297,11 @@ class SQLSolution_General extends SQLSolution_ErrorHandler {
 	 * @return string
 	 */
 	public function ParseSafeMarkup($Val) {
+		// Use once-only (? >) where possible to improve efficiency.
+		// Use S (spend more time analyzing) where appropriate.
+
 		// Plain URI's
-		$Val = preg_replace('@(?<!::)(http://|https://|ftp://|gopher://|news:|mailto:)([\w/!#$%&\'()*+,.:;=?\@~-]+)([\w/!#$%&\'()*+:;=?\@~-])@i', '<a href="\\1\\2\\3">\\1\\2\\3</a>', $Val);
+		$Val = preg_replace('@(?<!::)(http://|https://|ftp://|gopher://|news:|mailto:)((?>[\w/!#$%&\'()*+,.:;=?\@~-]+))@iS', '<a href="\\1\\2">\\1\\2</a>', $Val);
 		// Ancored URI's
 		$Val = preg_replace('@::a::(http://|https://|ftp://|gopher://|news:|mailto:)([\w/!#$%&\'()*+,.:;=?\@~-]+)([\w/!#$%&\'()*+:;=?\@~-])::a::(.*)::/a::@iU', '<a href="\\1\\2\\3">\\4</a>', $Val);
 		// Paired Elements
@@ -306,9 +309,9 @@ class SQLSolution_General extends SQLSolution_ErrorHandler {
 		// Empty Elements
 		$Val = preg_replace('/::(br|hr)::/', '<\\1 />', $Val);
 		// Character Entity References
-		$Val = preg_replace('/(?<!::a)::([a-z]{2,6}|[a-z]{2,4}[0-9]{1,2})::/i', '&\\1;', $Val);
+		$Val = preg_replace('/(?<!::a)::((?>[a-z]{2,6})|(?>[a-z]{2,4})(?>[0-9]{1,2}))::/iS', '&\\1;', $Val);
 		// Numeric Character References
-		$Val = preg_replace('/(?<!::a)::([0-9]{2,4})::/', '&#\\1;', $Val);
+		$Val = preg_replace('/(?<!::a)::((?>[0-9]{2,4}))::/S', '&#\\1;', $Val);
 		return $Val;
 	}
 
@@ -1899,7 +1902,7 @@ class SQLSolution_General extends SQLSolution_ErrorHandler {
  * The error handler class
  *
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2001-2010
+ * @copyright The Analysis and Solutions Company, 2001-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  * @link http://www.analysisandsolutions.com/software/sql/sql.htm
  */
