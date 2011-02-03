@@ -529,21 +529,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($this->use_cache) {
 			$this->where_md5 = md5($where_sql);
-			$cache_key = 'sql:' . $this->where_md5;
+			$data_key = 'sql:' . $this->where_md5;
 
 			if ($this->limit_quantity) {
-				if (!$start_set) {
-					$cache_key .= ':' . $this->limit_quantity;
-				}
+				$data_key .= ':' . $this->limit_quantity
+					. '@' . (int) $this->limit_start;
+				$count_key = 'count:' . $this->where_md5;
 			}
 
-			$this->data = $this->cache->get($cache_key);
+			$this->data = $this->cache->get($data_key);
 			$memcache_result = ($this->data !== false);
 			if ($memcache_result) {
-				$this->total_rows = count($this->data);
-				if (!empty($start_set)) {
-					$this->data = array_slice($this->data, $this->limit_start,
-							$this->limit_quantity);
+				if ($start_set) {
+					$this->total_rows = $this->cache->get($count_key);
 				}
 				return;
 			}
@@ -555,12 +553,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$limit_sql = '';
 		if ($this->limit_quantity) {
-			if (!$this->use_cache || !$start_set) {
-				$limit_sql = "
-					LIMIT " . $this->limit_quantity
-					. " OFFSET " . (int) $this->limit_start;
-			}
-			if (!$this->use_cache && $start_set) {
+			$limit_sql = "
+				LIMIT " . $this->limit_quantity
+				. " OFFSET " . (int) $this->limit_start;
+
+			if ($start_set) {
 				$this->sql->SQLQueryString = "SELECT COUNT(*) AS ct
 					FROM cs_calendar
 					$where_sql";
@@ -630,12 +627,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->sql->ReleaseRecordSet(__FILE__, __LINE__);
 
 		if ($this->use_cache) {
-			$this->total_rows = count($this->data);
-			$this->cache->set($cache_key, $this->data);
-
+			$this->cache->set($data_key, $this->data);
 			if ($start_set) {
-				$this->data = array_slice($this->data, $this->limit_start,
-						$this->limit_quantity);
+				$this->cache->set($count_key, $this->total_rows);
 			}
 		}
 	}
