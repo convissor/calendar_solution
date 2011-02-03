@@ -204,17 +204,36 @@ CACHING (OPTIONAL)
 * If you want to enable caching, populate the "$GLOBALS['cache_servers']" array
 in "include/calendar_solution_settings.php".
 
-The caching significantly helps performance.  In a simple set of tests
-(on my dev box viewing "calendar/calendar.php" against the data in
-"include/CalendarSolution/sql/benchmark-insert.sql"), caching boosted
-throughput to 95 requests per second from 26 without caching.
-
 If you wish to utilize a different caching engine:
 * Write a class that implements the interface found in
   "include/CalendarSolution/Cache.php". See
   "include/CalendarSolution/Cache/Memcache.php" for an example.
 * Change the value of the "CALENDAR_SOLUTION_CACHE_CLASS" constant in
   "include/calendar_solution_settings.php".
+
+The following tests are run against databases populated with the data
+found in "include/CalendarSolution/sql/benchmark-insert.sql".
+
+------------------------------------------------------------------
+Benchmarking Database Extensions (w/o caching) (requests / second)
+------------------------------------------------------------------
+mysql  mysqli  pgsql  sqlite  sqlite3   file in calendar/benchmark
+-----  ------  -----  ------  -------   --------------------------
+   24      24     14      24       21   calendar.php
+   72      72     24      69       58   title-limit10.php
+   71      71     23      68       55   title-limit10-offset20.php
+------------------------------------------------------------------
+
+---------------------------------------------------------------
+Benchmarking Cache (using mysqli extension) (requests / second)
+---------------------------------------------------------------
+none  memcache   file in calendar/benchmark
+----  --------   --------------------------
+1663       n/a   blank.php
+  24        56   calendar.php
+  72        82   title-limit10.php
+  71        82   title-limit10-offset20.php
+---------------------------------------------------------------
 
 
 ADDING EVENTS
