@@ -475,7 +475,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$where = array();
 
-		if (!empty($this->from) && !empty($this->to)) {
+		if ($this->from && $this->to) {
 			if ($this->from > $this->to) {
 				throw new CalendarSolution_Exception("'from' can not be after 'to'");
 			}
@@ -483,25 +483,25 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$where[] = "date_start BETWEEN '"
 				. $this->from->format('Y-m-d')
 				. "' AND '" . $this->to->format('Y-m-d') . "'";
-		} elseif (!empty($this->from)) {
+		} elseif ($this->from) {
 			$where[] = "date_start >= '"
 				. $this->from->format('Y-m-d') . "'";
-		} elseif (!empty($this->to)) {
+		} elseif ($this->to) {
 			$where[] = "date_start <= '"
 				. $this->to->format('Y-m-d') . "'";
 		}
 
-		if (!empty($this->category_id)) {
+		if ($this->category_id) {
 			$where[] = "cs_calendar.category_id IN ("
 				. implode(', ', $this->category_id) . ")";
 		}
 
-		if (!empty($this->frequent_event_id)) {
+		if ($this->frequent_event_id) {
 			$where[] = "cs_calendar.frequent_event_id = "
 				. $this->sql->Escape(__FILE__, __LINE__, $this->frequent_event_id);
 		}
 
-		if (!empty($this->page_id)) {
+		if ($this->page_id) {
 			if ($this->sql->SQLClassName == 'SQLSolution_PostgreSQLUser') {
 				$where[] = "CAST(feature_on_page_id & " . (int) $this->page_id
 					. " AS BOOLEAN)";
