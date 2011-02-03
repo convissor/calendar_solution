@@ -357,15 +357,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 					$uri = $event['calendar_uri'];
 					break;
 				default:
-					$uri = '';
+					return $event['title'];
 			}
 		}
 
-		if ($uri) {
-			return '<a href="' . $uri . '">' . $event['title'] . '</a>';
-		} else {
-			return $event['title'];
-		}
+		return '<a href="' . $uri . '">' . $event['title'] . '</a>';
 	}
 
 	/**
