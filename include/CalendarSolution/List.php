@@ -498,7 +498,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($this->frequent_event_id) {
 			$where[] = "cs_calendar.frequent_event_id = "
-				. $this->sql->Escape(__FILE__, __LINE__, $this->frequent_event_id);
+				. (int) $this->frequent_event_id;
 		}
 
 		if ($this->page_id) {
