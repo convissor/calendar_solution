@@ -143,14 +143,14 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 *       set properties to $_REQUEST data
 	 * @uses CalendarSolution_List::set_prior_and_next_dates()
 	 * @uses CalendarSolution_List::get_limit_form()
-	 * @uses CalendarSolution_List::get_navigation()
+	 * @uses CalendarSolution_List::get_date_navigation()
 	 * @uses CalendarSolution_List::run_query()
 	 */
 	public function get_rendering() {
 		$this->set_request_properties();
 		$this->set_prior_and_next_dates();
 
-		$out = $this->get_navigation();
+		$out = $this->get_date_navigation();
 
 		$this->run_query();
 

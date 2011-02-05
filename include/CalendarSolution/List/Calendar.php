@@ -166,7 +166,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 *       set properties to $_REQUEST data
 	 * @uses CalendarSolution_List::set_prior_and_next_dates()
 	 * @uses CalendarSolution_List::get_limit_form()
-	 * @uses CalendarSolution_List::get_navigation()
+	 * @uses CalendarSolution_List::get_date_navigation()
 	 * @uses CalendarSolution_List::run_query()
 	 */
 	public function get_rendering() {
@@ -182,7 +182,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 		$one_day_interval = new DateIntervalSolution('P1D');
 
-		$out = $this->get_navigation();
+		$out = $this->get_date_navigation();
 
 		$this->run_query();
 		$event = array_shift($this->data);

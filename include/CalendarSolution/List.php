@@ -213,6 +213,67 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Produces the HTML for navigating to earlier and later events
+	 * as well as changing between list and calendar views
+	 *
+	 * @return string  the navigation section's HTML
+	 *
+	 * @uses CalendarSolution_List::$view
+	 * @uses CalendarSolution_List::$category_id
+	 * @uses CalendarSolution_List::$frequent_event_id
+	 * @uses CalendarSolution_List::$from
+	 * @uses CalendarSolution_List::$to
+	 * @uses CalendarSolution_List::$prior_from
+	 * @uses CalendarSolution_List::$prior_to
+	 * @uses CalendarSolution_List::$next_from
+	 * @uses CalendarSolution_List::$next_to
+	 */
+	protected function get_date_navigation() {
+		$categories = '';
+		if (is_array($this->category_id)) {
+			foreach ($this->category_id as $category) {
+				$categories .= '&amp;category_id[]=' . $category;
+			}
+		}
+
+		$out = '<table class="cs_nav" width="100%">' . "\n"
+			 . " <tr>\n"
+			 . '  <td>' . "\n"
+			 . '   <a href="calendar.php?from=' . $this->prior_from->format('Y-m-d')
+			 . '&amp;to=' . $this->prior_to->format('Y-m-d')
+			 . $categories
+			 . '&amp;frequent_event_id=' . $this->frequent_event_id
+			 . '&amp;view=' . $this->view . '">&lt; See Earlier Events</a>'
+			 . "  </td>\n";
+
+		$out .= '  <td align="right">' . "\n"
+			 . '<a href="calendar.php?from=' . $this->next_from->format('Y-m-d')
+			 . '&amp;to=' . $this->next_to->format('Y-m-d')
+			 . $categories
+			 . '&amp;frequent_event_id=' . $this->frequent_event_id
+			 . '&amp;view=' . $this->view . '">See Later Events &gt;</a>' . "\n"
+			 . "  </td>\n"
+			 . " </tr>\n";
+
+		$out .= " <tr>\n"
+			 . '  <td colspan="2" align="center">' . "\n"
+			 . 'View the events in  <a href="calendar.php?from='
+			 . $this->from->format('Y-m-d')
+			 . '&amp;to=' . $this->to->format('Y-m-d')
+			 . $categories
+			 . '&amp;frequent_event_id=' . $this->frequent_event_id
+			 . '&amp;view='
+			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
+			 . '</a> format.' . "\n";
+
+		$out .= "  </td>\n"
+			 . " </tr>\n"
+			 . "</table>\n";
+
+		return $out;
+	}
+
+	/**
 	 * Produces the HTML for the form people can use to pick date ranges
 	 * and particular events
 	 *
@@ -416,67 +477,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		return '<a href="' . $uri . '">' . $event['title'] . '</a>';
-	}
-
-	/**
-	 * Produces the HTML for navigating to earlier and later events
-	 * as well as changing between list and calendar views
-	 *
-	 * @return string  the navigation section's HTML
-	 *
-	 * @uses CalendarSolution_List::$view
-	 * @uses CalendarSolution_List::$category_id
-	 * @uses CalendarSolution_List::$frequent_event_id
-	 * @uses CalendarSolution_List::$from
-	 * @uses CalendarSolution_List::$to
-	 * @uses CalendarSolution_List::$prior_from
-	 * @uses CalendarSolution_List::$prior_to
-	 * @uses CalendarSolution_List::$next_from
-	 * @uses CalendarSolution_List::$next_to
-	 */
-	protected function get_navigation() {
-		$categories = '';
-		if (is_array($this->category_id)) {
-			foreach ($this->category_id as $category) {
-				$categories .= '&amp;category_id[]=' . $category;
-			}
-		}
-
-		$out = '<table class="cs_nav" width="100%">' . "\n"
-			 . " <tr>\n"
-			 . '  <td>' . "\n"
-			 . '   <a href="calendar.php?from=' . $this->prior_from->format('Y-m-d')
-			 . '&amp;to=' . $this->prior_to->format('Y-m-d')
-			 . $categories
-			 . '&amp;frequent_event_id=' . $this->frequent_event_id
-			 . '&amp;view=' . $this->view . '">&lt; See Earlier Events</a>'
-			 . "  </td>\n";
-
-		$out .= '  <td align="right">' . "\n"
-			 . '<a href="calendar.php?from=' . $this->next_from->format('Y-m-d')
-			 . '&amp;to=' . $this->next_to->format('Y-m-d')
-			 . $categories
-			 . '&amp;frequent_event_id=' . $this->frequent_event_id
-			 . '&amp;view=' . $this->view . '">See Later Events &gt;</a>' . "\n"
-			 . "  </td>\n"
-			 . " </tr>\n";
-
-		$out .= " <tr>\n"
-			 . '  <td colspan="2" align="center">' . "\n"
-			 . 'View the events in  <a href="calendar.php?from='
-			 . $this->from->format('Y-m-d')
-			 . '&amp;to=' . $this->to->format('Y-m-d')
-			 . $categories
-			 . '&amp;frequent_event_id=' . $this->frequent_event_id
-			 . '&amp;view='
-			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
-			 . '</a> format.' . "\n";
-
-		$out .= "  </td>\n"
-			 . " </tr>\n"
-			 . "</table>\n";
-
-		return $out;
 	}
 
 	/**
