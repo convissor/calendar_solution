@@ -16,6 +16,7 @@ class CalendarSolution_Test_List_AllTests {
 
 		$suite->addTestSuite('CalendarSolution_Test_List_CalendarTest');
 		$suite->addTestSuite('CalendarSolution_Test_List_CalendarSetterTest');
+		$suite->addTestSuite('CalendarSolution_Test_List_ListGetterTest');
 		$suite->addTestSuite('CalendarSolution_Test_List_ListSetterTest');
 		$suite->addTestSuite('CalendarSolution_Test_List_RunQueryTest');
 

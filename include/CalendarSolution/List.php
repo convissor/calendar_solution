@@ -43,6 +43,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $from;
 
 	/**
+	 * Should the output include the limit navigation?
+	 * @var bool
+	 */
+	protected $show_limit_navigation = false;
+
+	/**
 	 * The DateIntervalSolution specification for how many months to show at once
 	 * @var string
 	 */
@@ -333,6 +339,54 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		</form>';
 
 		return $out;
+	}
+
+	/**
+	 * Produces the prior/next links for the "QuickTable" and "Title" formats
+	 *
+	 * @return string  the navigation elements if the $start parameter is
+	 *                 enabled in set_limit(), an empty string if not
+	 *
+	 * @see CalendarSolution_List::set_limit()
+	 * @see CalendarSolution_List::set_show_limit_navigation()
+	 */
+	protected function get_limit_navigation() {
+		if (!is_numeric($this->limit_start)) {
+			return '';
+		}
+
+		$query = array();
+		if (empty($_SERVER['REQUEST_URI'])) {
+			$path = '';
+		} else {
+			$request = explode('?', $_SERVER['REQUEST_URI']);
+			$path = empty($request[0]) ? '' : $request[0];
+			if (!empty($request[1])) {
+				parse_str($request[1], $query);
+			}
+		}
+
+		$prior_link = '&lt; prior';
+		$prior_start = $this->limit_start - $this->limit_quantity;
+		if ($prior_start > -$this->limit_quantity) {
+			if ($prior_start < 0) {
+				$prior_start = 0;
+			}
+			$query['limit_start'] = $prior_start;
+			$prior_link = '<a href="' . $path . '?'
+				. http_build_query($query, '', '&amp;') . '">' . $prior_link . '</a>';
+		}
+
+		$next_link = 'next &gt;';
+		$next_start = $this->limit_start + $this->limit_quantity;
+		if ($next_start < $this->total_rows) {
+			$query['limit_start'] = $next_start;
+			$next_link = '<a href="' . $path . '?'
+				. http_build_query($query, '', '&amp;') . '">' . $next_link . '</a>';
+		}
+
+		return '<div class="cs_prior">' . $prior_link
+			. '</div><div class="cs_next">' . $next_link . '</div>';
 	}
 
 	/**
@@ -747,6 +801,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Sets the "limit_quantity" and "limit_start" properties
 	 *
+	 * To have lists show only the first ten events: <kbd>set_limit(10)</kbd>
+	 *
+	 * To have lists show the first ten events and possibly show navigation
+	 * to later events: <kbd>set_limit(10, null)</kbd>.  One must also call
+	 * <kbd>set_show_limit_navigation()</kbd> to get the navigation to show up.
+	 *
 	 * @param mixed $quantity  the number of rows to show
 	 *              + NULL = use value of $_REQUEST['limit_quantity']
 	 *              though set it to FALSE if it is not set or invalid
@@ -764,7 +824,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution::get_date_from_request()  to determine the
+	 * @see CalendarSolution_List::set_show_limit_navigation()
+	 *
+	 * @uses CalendarSolution::get_int_from_request()  to determine the
 	 *       user's intention
 	 * @uses CalendarSolution_List::$limit_quantity  to store the data
 	 * @uses CalendarSolution_List::$limit_start  to store the data
@@ -897,6 +959,27 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	public function set_show_cancelled($in) {
 		$this->show_cancelled = (bool) $in;
+	}
+
+	/**
+	 * Turns the paging navigation on or off in the "QuickTable" and "Title"
+	 * formats
+	 *
+	 * NOTE: The navigation elements will only show up if set_limit() has
+	 * been called and its $start parameter has been enabled.  For example:
+	 * <kbd>set_limit(10, null)</kbd>
+	 *
+	 * @param bool $in  set it to TRUE to include the navigation
+	 *
+	 * @return void
+	 *
+	 * @see CalendarSolution_List::set_limit()
+	 *
+	 * @uses CalendarSolution_List::$show_limit_navigation  to store the
+	 *       decision
+	 */
+	public function set_show_limit_navigation($in) {
+		$this->show_limit_navigation = (bool) $in;
 	}
 
 	/**
