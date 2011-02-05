@@ -756,10 +756,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @param mixed $start  the row to start on.  Is zero indexed, so 0 starts
 	 *              on the first row, 10 starts on the 11th row, etc.
 	 *              + NULL = use value of $_REQUEST['limit_start']
-	 *              though set it to FALSE if it is not set or invalid
+	 *              though set it to 0 if it is not set or FALSE if invalid
 	 *              + FALSE = set the value to FALSE
 	 *              + integer = an integer, falling back to FALSE if
 	 *              the input is is invalid
+	 *              + Gets set to FALSE if $quantity is empty()
 	 *
 	 * @return void
 	 *
@@ -768,7 +769,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$limit_quantity  to store the data
 	 * @uses CalendarSolution_List::$limit_start  to store the data
 	 */
-	public function set_limit($quantity = null, $start = null) {
+	public function set_limit($quantity, $start = false) {
 		if ($quantity === null) {
 			$quantity = $this->get_int_from_request('limit_quantity');
 		}
@@ -777,13 +778,17 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 		$this->limit_quantity = $quantity;
 
-		if (!$quantity) {
+		if (!$quantity || $start === false) {
 			$this->limit_start = false;
 			return;
 		}
 
 		if ($start === null) {
 			$start = $this->get_int_from_request('limit_start');
+			if ($start === null) {
+				$this->limit_start = 0;
+				return;
+			}
 		}
 		if (!is_scalar($start) || !preg_match('/^\d{1,10}$/', $start)) {
 			$start = false;

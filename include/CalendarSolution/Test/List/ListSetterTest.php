@@ -249,19 +249,19 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 	 */
 	public function test_limit_request_good_both() {
 		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(4, $this->calendar->limit_start, 'Start');
 	}
 	public function test_limit_request_good_quantity() {
 		$_REQUEST = array('limit_quantity' => 2);
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
-		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
+		$this->assertEquals(0, $this->calendar->limit_start, 'Start');
 	}
 	public function test_limit_request_good_start() {
 		$_REQUEST = array('limit_start' => 4);
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
@@ -274,7 +274,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 	}
 	public function test_limit_input_quantity_request_start() {
 		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
-		$this->calendar->set_limit(6);
+		$this->calendar->set_limit(6, null);
 		$this->assertEquals(6, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(4, $this->calendar->limit_start, 'Start');
 	}
@@ -292,7 +292,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
 	public function test_limit_false_quantity_request_start() {
-			$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
+		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => 4);
 		$this->calendar->set_limit(false);
 		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
@@ -300,19 +300,19 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 
 	public function test_limit_request_bad_array_both() {
 		$_REQUEST = array('limit_quantity' => array('some'), 'limit_start' => array('string'));
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
 	public function test_limit_request_bad_array_quantity() {
 		$_REQUEST = array('limit_quantity' => array('some'), 'limit_start' => 4);
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
 	public function test_limit_request_bad_array_start() {
 		$_REQUEST = array('limit_quantity' => 2, 'limit_start' => array('string'));
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(2, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
@@ -338,7 +338,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 
 	public function test_limit_request_bad() {
 		$_REQUEST = array('limit_quantity' => 'some', 'limit_start' => 'string');
-		$this->calendar->set_limit();
+		$this->calendar->set_limit(null, null);
 		$this->assertEquals(false, $this->calendar->limit_quantity, 'Quantity');
 		$this->assertEquals(false, $this->calendar->limit_start, 'Start');
 	}
