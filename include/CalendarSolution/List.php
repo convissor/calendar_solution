@@ -19,6 +19,12 @@
  */
 abstract class CalendarSolution_List extends CalendarSolution {
 	/**
+	 * The data cache key for the current view
+	 * @var string
+	 */
+	protected $cache_key;
+
+	/**
 	 * The category ids to show events for
 	 * @var array
 	 */
@@ -123,12 +129,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @var int
 	 */
 	protected $total_rows;
-
-	/**
-	 * The md5 sum of the SQL WHERE clause for the current view
-	 * @var string
-	 */
-	protected $where_md5;
 
 
 	/**
@@ -578,16 +578,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$start_set = is_numeric($this->limit_start);
 
 		if ($this->use_cache) {
-			$this->where_md5 = md5($where_sql);
-			$data_key = 'sql:' . $this->where_md5;
+			$where_md5 = md5($where_sql);
+			$this->cache_key = 'data:' . $where_md5;
 
 			if ($this->limit_quantity) {
-				$data_key .= ':' . $this->limit_quantity
+				$this->cache_key .= ':' . $this->limit_quantity
 					. '@' . (int) $this->limit_start;
-				$count_key = 'count:' . $this->where_md5;
+				$count_key = 'count:' . $where_md5;
 			}
 
-			$this->data = $this->cache->get($data_key);
+			$this->data = $this->cache->get($this->cache_key);
 			$memcache_result = ($this->data !== false);
 			if ($memcache_result) {
 				if ($start_set) {
@@ -677,7 +677,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->sql->ReleaseRecordSet(__FILE__, __LINE__);
 
 		if ($this->use_cache) {
-			$this->cache->set($data_key, $this->data);
+			$this->cache->set($this->cache_key, $this->data);
 			if ($start_set) {
 				$this->cache->set($count_key, $this->total_rows);
 			}
