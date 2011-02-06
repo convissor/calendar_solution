@@ -10,15 +10,15 @@ table.cs_list_quicktable td {
  vertical-align: top;
 }
 
-td.day {
+td.cs_day {
  white-space: nowrap;
 }
 
 /* N = normal, Y = changed, X = cancelled */
-table.cs_list_quicktable tr.Y0,
-table.cs_list_quicktable tr.Y1,
-table.cs_list_quicktable tr.X0,
-table.cs_list_quicktable tr.X1 {
+table.cs_list_quicktable tr.cs_Y0,
+table.cs_list_quicktable tr.cs_Y1,
+table.cs_list_quicktable tr.cs_X0,
+table.cs_list_quicktable tr.cs_X1 {
  background-color: #FFCC66;
 }
 

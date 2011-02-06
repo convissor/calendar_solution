@@ -68,20 +68,20 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="day">'
+		$out = '  <td class="cs_day">'
 			 . $this->format_date($event['date_start'], $this->date_format)
 			 . "</td>\n";
 
-		$out .= '  <td class="time">'
+		$out .= '  <td class="cs_time">'
 			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
 			 . (($event['time_end']) ? ' - ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
 			 . "</td>\n";
 
-		$out .= '  <td class="location_start">'
+		$out .= '  <td class="cs_location_start">'
 			 . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
 			 . "</td>\n";
 
-		$out .= '  <td class="note">'
+		$out .= '  <td class="cs_note">'
 			 . (($event['note']) ? $event['note'] : '&nbsp;')
 			 . "</td>\n";
 
@@ -146,12 +146,12 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		foreach ($this->data as $counter => $event) {
 			if ($event['status_id'] == self::STATUS_CANCELLED) {
 				$event['note'] = 'CANCELLED. ' . $event['note'];
-				$class = 'X';
+				$class = 'cs_X';
 			} elseif ($event['changed'] == 'Y') {
 				$event['note'] = 'CHANGED. ' . $event['note'];
-				$class = 'Y';
+				$class = 'cs_Y';
 			} else {
-				$class = 'N';
+				$class = 'cs_N';
 			}
 			$class .= ($counter % 2);
 

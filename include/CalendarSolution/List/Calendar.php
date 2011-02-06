@@ -67,16 +67,16 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 			$event['title'] = 'FULL: ' . $event['title'];
 		}
 
-		$out = '<div class="item' . $class . '">';
-		$out .= '<span class="title">' . $this->get_link($event) . '</span>';
+		$out = '<div class="cs_item' . $class . '">';
+		$out .= '<span class="cs_title">' . $this->get_link($event) . '</span>';
 
 		$out .= ($event['time_start'] ?
-			'<br /><span class="time">'
+			'<br /><span class="cs_time">'
 			. $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP)
 			. '</span>' : '');
 
 		$out .= ($event['location_start'] ?
-				'<br /><span class="location_start">' . $event['location_start'] . '</span>' : '');
+				'<br /><span class="cs_location_start">' . $event['location_start'] . '</span>' : '');
 		$out .= '</div>';
 
 		return $out;

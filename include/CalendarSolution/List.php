@@ -292,14 +292,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			 . "\n" . ' <tr>' . "\n"
 			 . "  <td>\n\n";
 
-		$out .= "\n\n" . '<p class="instructions"><small>'
+		$out .= "\n\n" . '<p class="cs_instructions"><small>'
 			 . "\n You can limit the list of events by dates\n"
 			 . " or the event type or a combination thereof."
 			 . "<br />To view all events, click on the\n"
 			 . " &quot;Remove All Limits&quot; button.\n"
 			 . "</small></p>\n\n";
 
-		$out .= '<p class="date"><small><u>L</u>imit'
+		$out .= '<p class="cs_date"><small><u>L</u>imit'
 			 . ' to dates between';
 
 		$out .= ' <input type="text" size="11" maxlength="10"'
@@ -310,7 +310,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			 . 'name="to" value="'
 			 . $this->to->format('Y-m-d') . '" /> (inclusive).</small></p>' . "\n";
 
-		$out .= '<p class="bottom"><small>';
+		$out .= '<p class="cs_bottom"><small>';
 
 		$out .= '<label for="category_id">'
 			 . 'Categories:</label>' . "\n";
@@ -350,7 +350,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$out .= "</p>\n";
 
-		$out .= '<p class="bottom"><small>';
+		$out .= '<p class="cs_bottom"><small>';
 
 		$out .= '<label for="frequent_event_id" accesskey="r">'
 			 . 'F<u>r</u>equent Events:</label>' . "\n";

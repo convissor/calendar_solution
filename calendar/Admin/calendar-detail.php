@@ -84,7 +84,7 @@ try {
 		}
 
 		if ($saved) {
-			echo '<p class="notice"><big class="notice">Your changes were saved.</big></p>';
+			echo '<p class="cs_notice"><big class="cs_notice">Your changes were saved.</big></p>';
 		}
 	}
 } catch (Exception $e) {

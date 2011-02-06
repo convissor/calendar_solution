@@ -49,7 +49,7 @@ try {
  * Display the list.
  */
 try {
-	echo $calendar->get_rendering(1);
+	echo $calendar->get_rendering();
 } catch (Exception $e) {
 	die('EXCEPTION: ' . $e->getMessage());
 }

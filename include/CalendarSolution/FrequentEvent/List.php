@@ -29,13 +29,13 @@ class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="title">'
+		$out = '  <td class="cs_title">'
 			. '<a href="frequent_event-detail.php?frequent_event_id='
 			. $event['frequent_event_id'] . '">'
 			. $event['frequent_event']
 			. "</a></td>\n";
 
-		$out .= '  <td class="uri">'
+		$out .= '  <td class="cs_uri">'
 			 . (($event['frequent_event_uri']) ? $event['frequent_event_uri'] : '&nbsp;')
 			 . "</td>\n";
 
@@ -81,7 +81,7 @@ class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent
 	public function get_rendering() {
 		$this->run_query();
 
-		$class = 'row';
+		$class = 'cs_row';
 		$out = $this->get_list_open();
 
 		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {

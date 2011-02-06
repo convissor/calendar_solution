@@ -42,15 +42,15 @@ table.cs_list_calendar td {
 }
 
 /* N = normal, Y = changed, X = cancelled */
-table.cs_list_calendar div.itemN,
-table.cs_list_calendar div.itemY,
-table.cs_list_calendar div.itemX {
+table.cs_list_calendar div.cs_itemN,
+table.cs_list_calendar div.cs_itemY,
+table.cs_list_calendar div.cs_itemX {
  margin-top: 0em;
  margin-bottom: 0.5em;
 }
 
-table.cs_list_calendar div.itemY,
-table.cs_list_calendar div.itemX {
+table.cs_list_calendar div.cs_itemY,
+table.cs_list_calendar div.cs_itemX {
  background-color: #FFCC66;
 }
 
@@ -63,7 +63,7 @@ table.cs_list_list {
  border-style: none;
 }
 
-table.cs_list_list td.month {
+table.cs_list_list td.cs_month {
  color: #004300;
  background-color: #FFFFFF;
  border-style: solid none none none;
@@ -72,21 +72,21 @@ table.cs_list_list td.month {
 }
 
 /* N = normal, Y = changed, X = cancelled */
-table.cs_list_list tr.N0 {
+table.cs_list_list tr.cs_N0 {
  background-color: #99CCCC;
 }
 
-table.cs_list_list tr.N1 {
+table.cs_list_list tr.cs_N1 {
  background-color: #99CC99;
 }
 
-table.cs_list_list tr.Y0,
-table.cs_list_list tr.X0 {
+table.cs_list_list tr.cs_Y0,
+table.cs_list_list tr.cs_X0 {
  background-color: #FFCC99;
 }
 
-table.cs_list_list tr.Y1,
-table.cs_list_list tr.X1 {
+table.cs_list_list tr.cs_Y1,
+table.cs_list_list tr.cs_X1 {
  background-color: #FFCC00;
 }
 
@@ -99,13 +99,13 @@ table.cs_list_list td {
  padding: 0.2em;
 }
 
-table.cs_list_list td.summary {
+table.cs_list_list td.cs_summary {
  border-style: none;
  padding-left: 1em;
 }
 
-table.cs_list_list td.day,
-table.cs_list_list td.time {
+table.cs_list_list td.cs_day,
+table.cs_list_list td.cs_time {
  white-space: nowrap;
 }
 
@@ -131,15 +131,15 @@ form.cs_limit select,
 form.cs_limit option {
  font-size: 9pt;
 }
-form.cs_limit p.instructions {
+form.cs_limit p.cs_instructions {
  margin-top: 0em;
  margin-bottom: 0em;
 }
-form.cs_limit p.date {
+form.cs_limit p.cs_date {
  margin-top: 0.3em;
  margin-bottom: 0.3em;
 }
-form.cs_limit p.bottom {
+form.cs_limit p.cs_bottom {
  margin-top: 0.3em;
  margin-bottom: 0em;
 }

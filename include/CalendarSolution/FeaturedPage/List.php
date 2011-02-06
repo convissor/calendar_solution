@@ -29,9 +29,9 @@ class CalendarSolution_FeaturedPage_List extends CalendarSolution_FeaturedPage {
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="id">' . $event['feature_on_page_id'] . "</td>\n";
+		$out = '  <td class="cs_id">' . $event['feature_on_page_id'] . "</td>\n";
 
-		$out .= '  <td class="title">'
+		$out .= '  <td class="cs_title">'
 			. '<a href="featured_page-detail.php?feature_on_page_id='
 			. $event['feature_on_page_id'] . '">'
 			. $event['feature_on_page']
@@ -79,7 +79,7 @@ class CalendarSolution_FeaturedPage_List extends CalendarSolution_FeaturedPage {
 	public function get_rendering() {
 		$this->run_query();
 
-		$class = 'row';
+		$class = 'cs_row';
 		$out = $this->get_list_open();
 
 		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {

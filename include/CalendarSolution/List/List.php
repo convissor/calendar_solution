@@ -48,24 +48,24 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="title">'
+		$out = '  <td class="cs_title">'
 			. $this->get_link($event)
 			. "</td>\n";
 
-		$out .= '  <td class="day">'
+		$out .= '  <td class="cs_day">'
 			 . $this->format_date($event['date_start'], $this->date_format)
 			 . "</td>\n";
 
-		$out .= '  <td class="time">'
+		$out .= '  <td class="cs_time">'
 			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
 			 . (($event['time_end']) ? ' to ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
 			 . "</td>\n";
 
-		$out .= '  <td class="location_start">'
+		$out .= '  <td class="cs_location_start">'
 			 . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
 			 . "</td>\n";
 
-		$out .= '  <td class="status">' . $event['status'];
+		$out .= '  <td class="cs_status">' . $event['status'];
 		if ($event['changed'] == 'Y'
 			&& $event['status_id'] != self::STATUS_CANCELLED)
 		{
@@ -76,7 +76,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		if ($event['summary'] != '' && $this->show_summary) {
 			$out .= $this->get_row_close()
 				 . $this->get_row_open($class)
-				 . '  <td class="summary" colspan="5">'
+				 . '  <td class="cs_summary" colspan="5">'
 				 . $event['summary'] . "</td>\n";
 		}
 
@@ -109,7 +109,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 */
 	protected function get_month_open(DateTime $current_date_time) {
 		$out = " <tr>\n"
-			. '  <td class="month" colspan="4">' . "\n"
+			. '  <td class="cs_month" colspan="4">' . "\n"
 			. '   <big><b>'
 			. $current_date_time->format('F') . ' '
 			. $current_date_time->format('Y')
@@ -160,11 +160,11 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 		foreach ($this->data as $counter => $event) {
 			if ($event['status_id'] == self::STATUS_CANCELLED) {
-				$class = 'X';
+				$class = 'cs_X';
 			} elseif ($event['changed'] == 'Y') {
-				$class = 'Y';
+				$class = 'cs_Y';
 			} else {
-				$class = 'N';
+				$class = 'cs_N';
 			}
 			$class .= ($counter % 2);
 

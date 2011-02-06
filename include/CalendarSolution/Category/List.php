@@ -29,7 +29,7 @@ class CalendarSolution_Category_List extends CalendarSolution_Category {
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="title">'
+		$out = '  <td class="cs_title">'
 			. '<a href="category-detail.php?category_id='
 			. $event['category_id'] . '">'
 			. $event['category']
@@ -77,7 +77,7 @@ class CalendarSolution_Category_List extends CalendarSolution_Category {
 	public function get_rendering() {
 		$this->run_query();
 
-		$class = 'row';
+		$class = 'cs_row';
 		$out = $this->get_list_open();
 
 		for ($counter = 0; $counter < $this->sql->SQLRecordSetRowCount; $counter++) {

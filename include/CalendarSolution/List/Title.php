@@ -62,10 +62,10 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 		 * so there is no need to do it here.
 		 */
 
-		$out =  '<td class="day">'
+		$out =  '<td class="cs_day">'
 			. $this->format_date($event['date_start'], $this->date_format)
 			. '</td> '
-			. '<td class="title">' . $this->get_link($event) . '</td>';
+			. '<td class="cs_title">' . $this->get_link($event) . '</td>';
 
 		return $out;
 	}

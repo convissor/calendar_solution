@@ -2,12 +2,12 @@ table.cs_list_title {
  border: none;
 }
 
-table.cs_list_title td.day {
+table.cs_list_title td.cs_day {
  text-align: right;
  vertical-align: top;
 }
 
-table.cs_list_title td.title {
+table.cs_list_title td.cs_title {
  padding-left: 0.5em;
 }
 
