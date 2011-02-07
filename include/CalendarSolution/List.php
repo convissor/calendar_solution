@@ -19,6 +19,12 @@
  */
 abstract class CalendarSolution_List extends CalendarSolution {
 	/**
+	 * The cache key identifying the number of rows found in a data set
+	 * @var string
+	 */
+	protected $cache_count_key;
+
+	/**
 	 * The data cache key for the current view
 	 * @var string
 	 */
@@ -129,6 +135,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @var int
 	 */
 	protected $total_rows;
+
+	/**
+	 * The SQL WHERE clause for the current view
+	 * @var string
+	 */
+	protected $where_sql;
 
 
 	/**
@@ -501,97 +513,37 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List::$from  to know the start of the date range
-	 * @uses CalendarSolution_List::$to  to know the end of the date range
-	 * @uses CalendarSolution_List::$category_id  to limit entries to a
-	 *       particular category if so desired
-	 * @uses CalendarSolution_List::$frequent_event_id  to limit entries to a
-	 *       particular event if so desired
-	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
-	 *       are set to be featured on the given page id
+	 * @uses CalendarSolution_List::set_where_sql()  to generate the SQL's
+	 *       WHERE clause and needed cache keys
 	 * @uses CalendarSolution_List::$limit_quantity  to limit the number of
 	 *       rows shown
 	 * @uses CalendarSolution_List::$limit_start  to determine where to start
 	 *       the number of rows to be shown
 	 * @uses CalendarSolution::$cache  to cache the results, if possible
 	 * @uses CalendarSolution_List::$data  to hold the results
+	 * @uses CalendarSolution_List::$where_sql  as the query's WHERE clause
+	 * @uses CalendarSolution_List::$cache_key  to know where the data is stored
+	 * @uses CalendarSolution_List::$cache_count_key  to know where the row
+	 *       count is stored
 	 *
 	 * @throws CalendarSolution_Exception if to is later than from
 	 */
 	protected function run_query() {
-		/*
-		 * Establish WHERE elements.
-		 */
-
-		$where = array();
-
-		if ($this->from && $this->to) {
-			if ($this->from > $this->to) {
-				throw new CalendarSolution_Exception("'from' can not be after 'to'");
-			}
-
-			$where[] = "date_start BETWEEN '"
-				. $this->from->format('Y-m-d')
-				. "' AND '" . $this->to->format('Y-m-d') . "'";
-		} elseif ($this->from) {
-			$where[] = "date_start >= '"
-				. $this->from->format('Y-m-d') . "'";
-		} elseif ($this->to) {
-			$where[] = "date_start <= '"
-				. $this->to->format('Y-m-d') . "'";
+		if (!$this->where_sql) {
+			$this->set_where_sql();
 		}
 
-		if ($this->category_id) {
-			$where[] = "cs_calendar.category_id IN ("
-				. implode(', ', $this->category_id) . ")";
-		}
-
-		if ($this->frequent_event_id) {
-			$where[] = "cs_calendar.frequent_event_id = "
-				. (int) $this->frequent_event_id;
-		}
-
-		if ($this->page_id) {
-			if ($this->sql->SQLClassName == 'SQLSolution_PostgreSQLUser') {
-				$where[] = "CAST(feature_on_page_id & " . (int) $this->page_id
-					. " AS BOOLEAN)";
-			} else {
-				$where[] = "feature_on_page_id & " . (int) $this->page_id;
-			}
-		}
-
-		if (!$this->show_cancelled) {
-			$where[] = "cs_calendar.status_id <> "
-				. $this->sql->Escape(__FILE__, __LINE__, self::STATUS_CANCELLED);
-		}
-
-		if ($where) {
-			$where_sql = "\n WHERE " . implode(' AND ', $where);
-		} else {
-			$where_sql = '';
-		}
+		$start_set = is_numeric($this->limit_start);
 
 		/*
 		 * Get data from cache, if available.
 		 */
 
-		$start_set = is_numeric($this->limit_start);
-
 		if ($this->use_cache) {
-			$where_md5 = md5($where_sql);
-			$this->cache_key = 'data:' . $where_md5;
-
-			if ($this->limit_quantity) {
-				$this->cache_key .= ':' . $this->limit_quantity
-					. '@' . (int) $this->limit_start;
-				$count_key = 'count:' . $where_md5;
-			}
-
 			$this->data = $this->cache->get($this->cache_key);
-			$memcache_result = ($this->data !== false);
-			if ($memcache_result) {
+			if ($this->data !== false) {
 				if ($start_set) {
-					$this->total_rows = $this->cache->get($count_key);
+					$this->total_rows = $this->cache->get($this->cache_count_key);
 				}
 				return;
 			}
@@ -610,7 +562,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			if ($start_set) {
 				$this->sql->SQLQueryString = "SELECT COUNT(*) AS ct
 					FROM cs_calendar
-					$where_sql";
+					$this->where_sql";
 
 				$this->sql->RunQuery(__FILE__, __LINE__);
 				$event = $this->sql->RecordAsEnumArray(__FILE__, __LINE__);
@@ -642,7 +594,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			LEFT JOIN cs_status
 				ON (cs_status.status_id = cs_calendar.status_id)";
 
-		$this->sql->SQLQueryString .= $where_sql;
+		$this->sql->SQLQueryString .= $this->where_sql;
 
 		$this->sql->SQLQueryString .= "
 			ORDER BY date_start, time_start, title,
@@ -679,7 +631,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($this->use_cache) {
 			$this->cache->set($this->cache_key, $this->data);
 			if ($start_set) {
-				$this->cache->set($count_key, $this->total_rows);
+				$this->cache->set($this->cache_count_key, $this->total_rows);
 			}
 		}
 	}
@@ -1044,6 +996,91 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($add_months) {
 			$this->to->add($this->interval_singleton());
 			$this->to->modify('last day of this month');
+		}
+	}
+
+	/**
+	 * Generates the SQL WHERE clause and cache keys for data retrieval
+	 *
+	 * This has been separated out from run_query() to facilitate cache
+	 * lookups by the various get_rendering() methods.
+	 *
+	 * @uses CalendarSolution_List::$where_sql  to hold the WHERE clause
+	 * @uses CalendarSolution_List::$cache_key  to indicate where the data
+	 *       should be stored
+	 * @uses CalendarSolution_List::$cache_count_key  to indicate where the row
+	 *       count should be stored
+	 * @uses CalendarSolution_List::$from  to know the start of the date range
+	 * @uses CalendarSolution_List::$to  to know the end of the date range
+	 * @uses CalendarSolution_List::$category_id  to limit entries to a
+	 *       particular category if so desired
+	 * @uses CalendarSolution_List::$frequent_event_id  to limit entries to a
+	 *       particular event if so desired
+	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
+	 *       are set to be featured on the given page id
+	 */
+	protected function set_where_sql() {
+		/*
+		 * Establish WHERE elements.
+		 */
+
+		$where = array();
+
+		if ($this->from && $this->to) {
+			if ($this->from > $this->to) {
+				throw new CalendarSolution_Exception("'from' can not be after 'to'");
+			}
+
+			$where[] = "date_start BETWEEN '"
+				. $this->from->format('Y-m-d')
+				. "' AND '" . $this->to->format('Y-m-d') . "'";
+		} elseif ($this->from) {
+			$where[] = "date_start >= '"
+				. $this->from->format('Y-m-d') . "'";
+		} elseif ($this->to) {
+			$where[] = "date_start <= '"
+				. $this->to->format('Y-m-d') . "'";
+		}
+
+		if ($this->category_id) {
+			$where[] = "cs_calendar.category_id IN ("
+				. implode(', ', $this->category_id) . ")";
+		}
+
+		if ($this->frequent_event_id) {
+			$where[] = "cs_calendar.frequent_event_id = "
+				. (int) $this->frequent_event_id;
+		}
+
+		if ($this->page_id) {
+			if ($this->sql->SQLClassName == 'SQLSolution_PostgreSQLUser') {
+				$where[] = "CAST(feature_on_page_id & " . (int) $this->page_id
+					. " AS BOOLEAN)";
+			} else {
+				$where[] = "feature_on_page_id & " . (int) $this->page_id;
+			}
+		}
+
+		if (!$this->show_cancelled) {
+			$where[] = "cs_calendar.status_id <> "
+				. $this->sql->Escape(__FILE__, __LINE__, self::STATUS_CANCELLED);
+		}
+
+		if ($where) {
+			$this->where_sql = "\n WHERE " . implode(' AND ', $where);
+		} else {
+			$this->where_sql = '';
+		}
+
+		if ($this->use_cache) {
+			$where_md5 = md5($this->where_sql);
+			$this->cache_key = 'calendar_solution:' . $where_md5;
+
+			if ($this->limit_quantity) {
+				$this->cache_key .= ':' . $this->limit_quantity
+					. '@' . (int) $this->limit_start;
+				$this->cache_count_key = 'calendar_solution:count:' . $where_md5;
+			}
 		}
 	}
 }

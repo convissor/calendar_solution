@@ -162,29 +162,40 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
+	 * @uses CalendarSolution_List::set_where_sql()  to generate the cache keys
+	 * @uses CalendarSolution::$cache  to cache the output of the default view,
+	 *       if possible
+	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
 	 * @uses CalendarSolution_List::set_request_properties()  to automatically
 	 *       set properties to $_REQUEST data
 	 * @uses CalendarSolution_List::set_prior_and_next_dates()
 	 * @uses CalendarSolution_List::get_limit_form()
 	 * @uses CalendarSolution_List::get_date_navigation()
-	 * @uses CalendarSolution_List::run_query()
 	 */
 	public function get_rendering() {
 		$this->set_request_properties();
 		$this->set_prior_and_next_dates();
 
+		if ($this->use_cache) {
+			$this->set_where_sql();
+
+			$cache_key = $this->cache_key . ':calendar:';
+
+			$out = $this->cache->get($cache_key);
+			if ($out !== false) {
+				return $out;
+			}
+		}
+
+		$this->run_query();
+
 // This doesn't work.  For example, DateTime::add() fails.
 //        $current_date_time = $this->from;
-
 		$current_date_time = new DateTimeSolution($this->from->format('Y-m-d'));
 
 		$months = $this->calculate_months($current_date_time, $this->to);
-
 		$one_day_interval = new DateIntervalSolution('P1D');
-
 		$out = $this->get_date_navigation();
-
-		$this->run_query();
 		$event = array_shift($this->data);
 
 		for ($month_counter = 0; $month_counter < $months; $month_counter++) {
@@ -219,6 +230,11 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 		$out .= $this->get_limit_form();
 		$out .= $this->get_credit();
+
+		// Save memory by only caching default view.
+		if ($this->use_cache && empty($_GET)) {
+			$this->cache->set($cache_key, $out);
+		}
 
 		return $out;
 	}

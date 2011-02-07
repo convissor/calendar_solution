@@ -230,9 +230,9 @@ Benchmarking Cache (using mysqli extension) (requests / second)
 none  memcache   file in calendar/benchmark
 ----  --------   --------------------------
 1663       n/a   blank.php
-  24        56   calendar.php
-  72        82   title-limit10.php
-  71        82   title-limit10-offset20.php
+  24       105   calendar.php
+  72       115   title-limit10.php
+  71       114   title-limit10-offset20.php
 ---------------------------------------------------------------
 
 

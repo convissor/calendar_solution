@@ -117,10 +117,12 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * @see CalendarSolution_List::set_show_limit_navigation()
 	 * @see CalendarSolution_List::set_date_format()
 	 *
+	 * @uses CalendarSolution_List::set_where_sql()  to generate the cache keys
+	 * @uses CalendarSolution::$cache  to cache the output, if possible
+	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
 	 * @uses CalendarSolution_List::set_frequent_event_id()  if
 	 *       $frequent_event_id is passed
 	 * @uses CalendarSolution_List::set_from()  to default the date to today
-	 * @uses CalendarSolution_List::run_query()  to obtain the data
 	 * @uses CalendarSolution_List_Title::get_list_open()  to open the set
 	 * @uses CalendarSolution_List_Title::get_event_formatted()  to format
 	 *       each event
@@ -137,6 +139,19 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 
 		if ($this->from === null) {
 			$this->set_from();
+		}
+
+		if ($this->use_cache) {
+			$this->set_where_sql();
+
+			$cache_key = $this->cache_key . ':quicktable:'
+					. (int) $this->show_limit_navigation . ':'
+					. $this->date_format;
+
+			$out = $this->cache->get($cache_key);
+			if ($out !== false) {
+				return $out;
+			}
 		}
 
 		$this->run_query();
@@ -169,6 +184,10 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 				. $this->get_limit_navigation() . '</td></tr>';
 		}
 		$out .= $this->get_list_close();
+
+		if ($this->use_cache) {
+			$this->cache->set($cache_key, $out);
+		}
 
 		return $out;
 	}
