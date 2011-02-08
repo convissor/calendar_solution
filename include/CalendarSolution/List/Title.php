@@ -87,6 +87,8 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a short list format
 	 *
+	 * NOTE: this view never shows cancelled events.
+	 *
 	 * @param int $page_id  the feature_on_page_id to limit the list to, if any
 	 *
 	 * @return string  the complete HTML of the events and the related interface
