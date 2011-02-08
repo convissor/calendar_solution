@@ -79,4 +79,35 @@ class CalendarSolution_Test_List_CalendarSetterTest extends PHPUnit_Framework_Te
 		$this->assertEquals(false, $this->calendar->from);
 	}
 	/**#@-*/
+
+	/**#@+
+	 * set_prior_and_next_dates()
+	 */
+	public function test_prior_and_next_dates() {
+		$this->calendar->set_from('2011-02-01');
+		$this->calendar->set_to('2011-04-30');
+		$this->calendar->set_prior_and_next_dates();
+		$this->assertEquals('2010-11-01', $this->calendar->prior_from->format('Y-m-d'), 'prior_from');
+		$this->assertEquals('2011-01-31', $this->calendar->prior_to->format('Y-m-d'), 'prior_to');
+		$this->assertEquals('2011-05-01', $this->calendar->next_from->format('Y-m-d'), 'next_from');
+		$this->assertEquals('2011-07-31', $this->calendar->next_to->format('Y-m-d'), 'next_to');
+	}
+	public function test_prior_and_next_dates_false() {
+		$this->calendar->set_from(false);
+		$this->calendar->set_prior_and_next_dates();
+		$this->assertEquals(null, $this->calendar->prior_from, 'prior_from');
+		$this->assertEquals(null, $this->calendar->prior_to, 'prior_to');
+		$this->assertEquals(null, $this->calendar->next_from, 'next_from');
+		$this->assertEquals(null, $this->calendar->next_to, 'next_to');
+	}
+	public function test_prior_and_next_dates_from_unset() {
+		$this->setExpectedException('CalendarSolution_Exception');
+		$this->calendar->set_prior_and_next_dates();
+	}
+	public function test_prior_and_next_dates_to_unset() {
+		$this->calendar->set_from('2011-02-01');
+		$this->setExpectedException('CalendarSolution_Exception');
+		$this->calendar->set_prior_and_next_dates();
+	}
+	/**#@-*/
 }
