@@ -859,7 +859,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected function set_prior_and_next_dates() {
 		if ($this->from === false) {
 			return;
-		} elseif ($this->from === null) {
+		} elseif ($this->from === null || $this->to === null) {
 			throw new CalendarSolution_Exception('set_from() and set_to()'
 				. ' must be called before set_prior_and_next_dates()');
 		}
