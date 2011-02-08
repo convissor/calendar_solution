@@ -873,8 +873,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->next_from->add($one_day_interval);
 
 		$this->prior_from = new DateTimeSolution($this->prior_to->format('Y-m-d'));
-		$this->prior_from->sub($this->interval_singleton());
 		$this->prior_from->modify('first day of this month');
+		$this->prior_from->sub($this->interval_singleton());
 
 		$this->next_to = new DateTimeSolution($this->next_from->format('Y-m-d'));
 		$this->next_to->add($this->interval_singleton());
