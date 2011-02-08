@@ -279,10 +279,10 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		if ($this->data['calendar_uri']
 			&& !preg_match('@(http://|https://|ftp://|gopher://|news:|mailto:)([\w/!#$%&\'()*+,.:;=?\@~-]+)([\w/!#$%&\'()*+:;=?\@~-])@i', $this->data['calendar_uri']))
 		{
-			$this->errors[] = 'Calendar URL is malformed';
+			$this->errors[] = 'Specific URL is malformed';
 		}
 		if (strlen($this->data['calendar_uri']) > 250) {
-			$this->errors[] = 'Calendar URL is too long. We trimmed it';
+			$this->errors[] = 'Specific URL is too long. We trimmed it';
 			$this->data['calendar_uri'] = trim(substr($this->data['calendar_uri'], 0, 250));
 		}
 
@@ -293,7 +293,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
 		if ($this->data['list_link_goes_to_id'] == self::LINK_TO_CALENDAR_URI) {
 			if (!$this->data['calendar_uri']) {
-				$this->errors[] = 'List Link Goes To is set to Calendar URL but you did not provide a Calendar URL';
+				$this->errors[] = 'List Link Goes To is set to Specific URL but you did not provide a Specific URL';
 			}
 		} elseif ($this->data['list_link_goes_to_id'] == self::LINK_TO_FREQUENT_EVENT_URI) {
 			if ($this->data['frequent_event_id']) {
@@ -645,7 +645,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		// ------------------------------------------------------
 		$out .= '  <tr>' . "\n";
 		$out .= "   <td>\n";
-		$out .= "    Calendar URL\n";
+		$out .= "    Specific URL\n";
 		$out .= "   </td>\n";
 		$out .= "   <td><small>\n";
 		$out .= "    * Hyperlink for this one event.\n";
