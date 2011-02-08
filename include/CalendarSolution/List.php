@@ -241,39 +241,53 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_to
 	 */
 	protected function get_date_navigation() {
-		$categories = '';
-		if (is_array($this->category_id)) {
-			foreach ($this->category_id as $category) {
-				$categories .= '&amp;category_id[]=' . $category;
+		$query = array();
+		if (empty($_SERVER['REQUEST_URI'])) {
+			$path = '';
+		} else {
+			$request = explode('?', $_SERVER['REQUEST_URI']);
+			$path = empty($request[0]) ? '' : $request[0];
+			if (!empty($request[1])) {
+				parse_str($request[1], $query);
 			}
 		}
+
+		$query['category_id'] = empty($this->category_id)
+				? null : $this->category_id;
+		$query['frequent_event_id'] = empty($this->frequent_event_id)
+				? null : $this->frequent_event_id;
+		$query['view'] = $this->view;
+
+		$query['from'] = $this->prior_from->format('Y-m-d');
+		$query['to'] = $this->prior_to->format('Y-m-d');
 
 		$out = '<table class="cs_nav" width="100%">' . "\n"
 			 . " <tr>\n"
 			 . '  <td>' . "\n"
-			 . '   <a href="calendar.php?from=' . $this->prior_from->format('Y-m-d')
-			 . '&amp;to=' . $this->prior_to->format('Y-m-d')
-			 . $categories
-			 . '&amp;frequent_event_id=' . $this->frequent_event_id
-			 . '&amp;view=' . $this->view . '">&lt; See Earlier Events</a>'
+			 . '   <a href="'
+			 . $path . '?' . http_build_query($query, '', '&amp;')
+			 . '">&lt; See Earlier Events</a>'
 			 . "  </td>\n";
 
+		$query['from'] = $this->next_from->format('Y-m-d');
+		$query['to'] = $this->next_to->format('Y-m-d');
+
 		$out .= '  <td align="right">' . "\n"
-			 . '<a href="calendar.php?from=' . $this->next_from->format('Y-m-d')
-			 . '&amp;to=' . $this->next_to->format('Y-m-d')
-			 . $categories
-			 . '&amp;frequent_event_id=' . $this->frequent_event_id
-			 . '&amp;view=' . $this->view . '">See Later Events &gt;</a>' . "\n"
+			 . '   <a href="'
+			 . $path . '?' . http_build_query($query, '', '&amp;')
+			 . '">See Later Events &gt;</a>' . "\n"
 			 . "  </td>\n"
 			 . " </tr>\n";
 
+		$query['from'] = $this->from->format('Y-m-d');
+		$query['to'] = $this->to->format('Y-m-d');
+		unset($query['view']);
+
 		$out .= " <tr>\n"
 			 . '  <td colspan="2" align="center">' . "\n"
-			 . 'View the events in  <a href="calendar.php?from='
-			 . $this->from->format('Y-m-d')
-			 . '&amp;to=' . $this->to->format('Y-m-d')
-			 . $categories
-			 . '&amp;frequent_event_id=' . $this->frequent_event_id
+			 . 'View the events in '
+			 . '   <a href="'
+			 . $path . '?' . http_build_query($query, '', '&amp;')
 			 . '&amp;view='
 			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
 			 . '</a> format.' . "\n";
