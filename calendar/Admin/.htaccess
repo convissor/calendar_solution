@@ -1,14 +1,12 @@
-# Edit the value of the AuthUserFile directive, which is
-# directly below this comment.  It must contain the full
-# path to the present directory and the name of the .htpasswd
-# file.  For example: "/var/www/calendar/Admin/.htpasswd".
-# The "pwd" command may help you figure out the path.
+# This file is only for systems using the Apache httpd web server.
+#
+# Set AuthUserFile to the location of the .htpasswd file.
+#
+# See include/CalendarSolution/doc/INSTALL.txt for more information.
 
 AuthUserFile "/var/www/calendar/Admin/.htpasswd"
 
 
-# See the .htpasswd file for further installation instructions.
-#
 # The rest of this file should be left alone.
 
 AuthType Basic

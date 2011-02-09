@@ -177,16 +177,50 @@ in the include/SQLSolution directory:
   + SQLiteUser.php  (for PHP's sqlite extension)
   + SQLite3User.php  (for PHP's sqlite3 extension)
 
-* In a command line terminal, cd into our "calendar/Admin"
-directory.  Follow the instructions in both of the following files:
-  + .htaccess
-  + .htpasswd
-
 * If you are using SQLite as your database AND you obtained
 the source code using Git, the following step is needed to 
 prevent future updates from corrupting your database:
   + echo "calendar_solution* merge=ours" >> \
     include/CalendarSolution/sqlite/.gitattributes
+
+* Configure the web server to block public access to the Admin directory.
+There are many ways to do this; the following is one.
+
+  + In a command line terminal, cd into our "calendar/Admin" directory.
+
+  + Generate a user/password:  htpasswd -m .htpasswd <user_name>
+
+    If you get a "command not found" error, or similar, you will need
+    to use the full path to the executable.  On Unix/Linux/BSD systems,
+    one can find the path via "locate htpasswd".  On Windows boxes,
+    the program is in the "bin" sub-directory where Apache is
+    installed, e.g. "C:\Program Files\Apache Group\Apache\bin\htpasswd"
+
+    If you are using Lighttpd, make sure there are no comments in the
+    .htpasswd file, otherwise you may not be able to log in
+    (http://redmine.lighttpd.net/issues/2223).
+
+  + If using an APACHE HTTPD web server: edit the ".htaccess" file so the
+    AuthUserFile setting contains the full path to the .htpasswd file.
+    For example: "/var/www/calendar/Admin/.htpasswd".
+
+  + If using a LIGHTTPD web server: edit "/etc/lighttpd/lighttpd.conf"
+    (adjust paths as appropriate for your environment):
+
+      server.modules += ( "mod_auth" )
+      url.access-deny += ( ".htaccess", ".htpasswd" )
+      auth.debug = 2
+      auth.backend = "htpasswd"
+      auth.backend.htpasswd.userfile = "/var/www/calendar/Admin/.htpasswd"
+      $HTTP["host"] == "localhost" {
+        auth.require = (
+          "/calendar/Admin/" => (
+            "method" => "basic",
+            "realm" => "Calendar Solution Admin",
+            "require" => "valid-user"
+          )
+        )
+      }
 
 * Everyone who obtained the source code using Git needs to commit
 their changes now:
