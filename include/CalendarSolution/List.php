@@ -363,10 +363,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				'add'          => array('' => 'Pick Categories, if you want to')
 			);
 
-			ob_start();
-			$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
-			$list = ob_get_contents();
-			ob_end_clean();
+			$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
 
 			if ($this->use_cache) {
 				$this->cache->set($cache_key, $list);
@@ -403,10 +400,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				'add'          => array('' => 'Pick a Frequent Event, if you want to')
 			);
 
-			ob_start();
-			$this->sql->OptionListGenerator(__FILE__, __LINE__, $opt);
-			$list = ob_get_contents();
-			ob_end_clean();
+			$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
 
 			if ($this->use_cache) {
 				$this->cache->set($cache_key, $list);

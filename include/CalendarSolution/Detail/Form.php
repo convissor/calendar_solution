@@ -450,11 +450,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			'default'      => $this->data['frequent_event_id'],
 			'add'          => array('' => 'NONE'),
 		);
-		ob_start();
-		$this->sql->OptionListGenerator(__FILE__, __LINE__, $Opt);
-		$out .= ob_get_contents();
-		ob_end_clean();
-
+		$out .= $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $Opt);
 		$out .= "   </td>\n";
 		$out .= "  </tr>\n";
 
@@ -715,11 +711,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			'default'      => $this->data['category_id'],
 			'add'          => array('' => 'NONE'),
 		);
-		ob_start();
-		$this->sql->OptionListGenerator(__FILE__, __LINE__, $Opt);
-		$out .= ob_get_contents();
-		ob_end_clean();
-
+		$out .= $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $Opt);
 		$out .= "   </td>\n";
 		$out .= "  </tr>\n";
 
