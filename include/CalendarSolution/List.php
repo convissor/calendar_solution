@@ -241,53 +241,44 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_to
 	 */
 	protected function get_date_navigation() {
-		$query = array();
-		if (empty($_SERVER['REQUEST_URI'])) {
-			$path = '';
-		} else {
-			$request = explode('?', $_SERVER['REQUEST_URI']);
-			$path = empty($request[0]) ? '' : $request[0];
-			if (!empty($request[1])) {
-				parse_str($request[1], $query);
-			}
-		}
+		$uri = $this->parse_uri();
 
-		$query['category_id'] = empty($this->category_id)
+		$uri['query']['category_id'] = empty($this->category_id)
 				? null : $this->category_id;
-		$query['frequent_event_id'] = empty($this->frequent_event_id)
+		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
 				? null : $this->frequent_event_id;
-		$query['view'] = $this->view;
+		$uri['query']['view'] = $this->view;
 
-		$query['from'] = $this->prior_from->format('Y-m-d');
-		$query['to'] = $this->prior_to->format('Y-m-d');
+		$uri['query']['from'] = $this->prior_from->format('Y-m-d');
+		$uri['query']['to'] = $this->prior_to->format('Y-m-d');
 
 		$out = '<table class="cs_nav" width="100%">' . "\n"
 			 . " <tr>\n"
 			 . '  <td>' . "\n"
 			 . '   <a href="'
-			 . $path . '?' . http_build_query($query, '', '&amp;')
+			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
 			 . '">&lt; See Earlier Events</a>'
 			 . "  </td>\n";
 
-		$query['from'] = $this->next_from->format('Y-m-d');
-		$query['to'] = $this->next_to->format('Y-m-d');
+		$uri['query']['from'] = $this->next_from->format('Y-m-d');
+		$uri['query']['to'] = $this->next_to->format('Y-m-d');
 
 		$out .= '  <td align="right">' . "\n"
 			 . '   <a href="'
-			 . $path . '?' . http_build_query($query, '', '&amp;')
+			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
 			 . '">See Later Events &gt;</a>' . "\n"
 			 . "  </td>\n"
 			 . " </tr>\n";
 
-		$query['from'] = $this->from->format('Y-m-d');
-		$query['to'] = $this->to->format('Y-m-d');
-		unset($query['view']);
+		$uri['query']['from'] = $this->from->format('Y-m-d');
+		$uri['query']['to'] = $this->to->format('Y-m-d');
+		unset($uri['query']['view']);
 
 		$out .= " <tr>\n"
 			 . '  <td colspan="2" align="center">' . "\n"
 			 . 'View the events in '
 			 . '   <a href="'
-			 . $path . '?' . http_build_query($query, '', '&amp;')
+			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
 			 . '&amp;view='
 			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
 			 . '</a> format.' . "\n";
@@ -436,16 +427,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			return '';
 		}
 
-		$query = array();
-		if (empty($_SERVER['REQUEST_URI'])) {
-			$path = '';
-		} else {
-			$request = explode('?', $_SERVER['REQUEST_URI']);
-			$path = empty($request[0]) ? '' : $request[0];
-			if (!empty($request[1])) {
-				parse_str($request[1], $query);
-			}
-		}
+		$uri = $this->parse_uri();
 
 		$prior_link = '&lt; prior';
 		$prior_start = $this->limit_start - $this->limit_quantity;
@@ -453,17 +435,17 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			if ($prior_start < 0) {
 				$prior_start = 0;
 			}
-			$query['limit_start'] = $prior_start;
-			$prior_link = '<a href="' . $path . '?'
-				. http_build_query($query, '', '&amp;') . '">' . $prior_link . '</a>';
+			$uri['query']['limit_start'] = $prior_start;
+			$prior_link = '<a href="' . $uri['path'] . '?'
+				. http_build_query($uri['query'], '', '&amp;') . '">' . $prior_link . '</a>';
 		}
 
 		$next_link = 'next &gt;';
 		$next_start = $this->limit_start + $this->limit_quantity;
 		if ($next_start < $this->total_rows) {
-			$query['limit_start'] = $next_start;
-			$next_link = '<a href="' . $path . '?'
-				. http_build_query($query, '', '&amp;') . '">' . $next_link . '</a>';
+			$uri['query']['limit_start'] = $next_start;
+			$next_link = '<a href="' . $uri['path'] . '?'
+				. http_build_query($uri['query'], '', '&amp;') . '">' . $next_link . '</a>';
 		}
 
 		return '<div class="cs_prior">' . $prior_link
@@ -512,6 +494,27 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		static $out;
 		if (!isset($out)) {
 			$out = new DateIntervalSolution($this->interval_spec);
+		}
+		return $out;
+	}
+
+	/**
+	 * Breaks up the REQUEST_URI into usable parts
+	 *
+	 * @return array  an associative array containing the 'path' as a string
+	 *                and the 'query' broken into a sub-array
+	 */
+	protected function parse_uri() {
+		static $out;
+		if (!isset($out)) {
+			$out = array('path' => '', 'query' => array());
+			if (!empty($_SERVER['REQUEST_URI'])) {
+				$request = explode('?', $_SERVER['REQUEST_URI']);
+				$out['path'] = empty($request[0]) ? '' : $request[0];
+				if (!empty($request[1])) {
+					parse_str($request[1], $out['query']);
+				}
+			}
 		}
 		return $out;
 	}
