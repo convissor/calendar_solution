@@ -115,8 +115,21 @@ table.cs_list_list td.cs_time {
  */
 
 div.cs_change_view,
-table.cs_nav td {
- font-size: 9pt;
+div.cs_prior,
+div.cs_next {
+ font-size: 0.7em;
+}
+
+div.cs_nav {
+ line-height: 0em;
+}
+
+div.cs_prior {
+ text-align: left;
+}
+
+div.cs_next {
+ text-align: right;
 }
 
 div.cs_change_view {

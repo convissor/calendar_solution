@@ -280,25 +280,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$uri['query']['from'] = $this->prior_from->format('Y-m-d');
 		$uri['query']['to'] = $this->prior_to->format('Y-m-d');
 
-		$out = '<table class="cs_nav" width="100%">' . "\n"
-			 . " <tr>\n"
-			 . '  <td>' . "\n"
-			 . '   <a href="'
+		$out = '<div class="cs_nav">';
+		$out .= '<div class="cs_prior"><a href="'
 			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '">&lt; See Earlier Events</a>'
-			 . "  </td>\n";
+			 . '">&lt; See Earlier Events</a></div>';
 
 		$uri['query']['from'] = $this->next_from->format('Y-m-d');
 		$uri['query']['to'] = $this->next_to->format('Y-m-d');
 
-		$out .= '  <td align="right">' . "\n"
-			 . '   <a href="'
+		$out .= '<div class="cs_next"><a href="'
 			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '">See Later Events &gt;</a>' . "\n"
-			 . "  </td>\n"
-			 . " </tr>\n";
+			 . '">See Later Events &gt;</a></div>';
 
-		$out .= "</table>\n";
+		$out .= "</div>\n";
 
 		return $out;
 	}
