@@ -216,6 +216,35 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Produces the HTML for changing between list and calendar views
+	 *
+	 * @return string  the navigation section's HTML
+	 *
+	 * @uses CalendarSolution_List::$view
+	 * @uses CalendarSolution_List::$category_id
+	 * @uses CalendarSolution_List::$frequent_event_id
+	 * @uses CalendarSolution_List::$from
+	 * @uses CalendarSolution_List::$to
+	 */
+	protected function get_change_view() {
+		$uri = $this->parse_uri();
+
+		$uri['query']['category_id'] = empty($this->category_id)
+				? null : $this->category_id;
+		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
+				? null : $this->frequent_event_id;
+		$uri['query']['from'] = $this->from->format('Y-m-d');
+		$uri['query']['to'] = $this->to->format('Y-m-d');
+		unset($uri['query']['view']);
+
+		return '<div class="cs_change_view">View the events in <a href="'
+			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
+			 . '&amp;view='
+			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
+			 . "</a> format</div>\n";
+	}
+
+	/**
 	 * Provides the path and name of the needed Cascading Style Sheet file
 	 *
 	 * @return string  the path and name of the CSS file
@@ -226,7 +255,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 	/**
 	 * Produces the HTML for navigating to earlier and later events
-	 * as well as changing between list and calendar views
 	 *
 	 * @return string  the navigation section's HTML
 	 *
@@ -270,22 +298,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			 . "  </td>\n"
 			 . " </tr>\n";
 
-		$uri['query']['from'] = $this->from->format('Y-m-d');
-		$uri['query']['to'] = $this->to->format('Y-m-d');
-		unset($uri['query']['view']);
-
-		$out .= " <tr>\n"
-			 . '  <td colspan="2" align="center">' . "\n"
-			 . 'View the events in '
-			 . '   <a href="'
-			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '&amp;view='
-			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
-			 . '</a> format.' . "\n";
-
-		$out .= "  </td>\n"
-			 . " </tr>\n"
-			 . "</table>\n";
+		$out .= "</table>\n";
 
 		return $out;
 	}

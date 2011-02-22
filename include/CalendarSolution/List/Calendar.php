@@ -196,6 +196,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		$months = $this->calculate_months($current_date_time, $this->to);
 		$one_day_interval = new DateIntervalSolution('P1D');
 		$out = $this->get_date_navigation();
+		$out .= $this->get_change_view();
 		$event = array_shift($this->data);
 
 		for ($month_counter = 0; $month_counter < $months; $month_counter++) {

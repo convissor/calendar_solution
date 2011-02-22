@@ -151,6 +151,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		$this->set_prior_and_next_dates();
 
 		$out = $this->get_date_navigation();
+		$out .= $this->get_change_view();
 
 		$this->run_query();
 

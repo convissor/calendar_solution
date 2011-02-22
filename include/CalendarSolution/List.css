@@ -114,8 +114,13 @@ table.cs_list_list td.cs_time {
  * NAVIGATION AND LIMIT FORM
  */
 
+div.cs_change_view,
 table.cs_nav td {
  font-size: 9pt;
+}
+
+div.cs_change_view {
+ text-align: center;
 }
 
 form.cs_limit table {
