@@ -416,20 +416,24 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the prior/next links for the "QuickTable" and "Title" formats
 	 *
+	 * @param string $prior_link  the text for the "prior" link
+	 * @param string $next_link  the text for the "next" link
+	 *
 	 * @return string  the navigation elements if the $start parameter is
 	 *                 enabled in set_limit(), an empty string if not
 	 *
 	 * @see CalendarSolution_List::set_limit()
 	 * @see CalendarSolution_List::set_show_limit_navigation()
 	 */
-	protected function get_limit_navigation() {
+	protected function get_limit_navigation($prior_link = '&lt; prior',
+			$next_link = 'next &gt;')
+	{
 		if (!is_numeric($this->limit_start)) {
 			return '';
 		}
 
 		$uri = $this->parse_uri();
 
-		$prior_link = '&lt; prior';
 		$prior_start = $this->limit_start - $this->limit_quantity;
 		if ($prior_start > -$this->limit_quantity) {
 			if ($prior_start < 0) {
@@ -440,7 +444,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. http_build_query($uri['query'], '', '&amp;') . '">' . $prior_link . '</a>';
 		}
 
-		$next_link = 'next &gt;';
 		$next_start = $this->limit_start + $this->limit_quantity;
 		if ($next_start < $this->total_rows) {
 			$uri['query']['limit_start'] = $next_start;
