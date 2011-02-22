@@ -256,6 +256,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the HTML for navigating to earlier and later events
 	 *
+	 * @param string $prior_link  the text for the "prior" link
+	 * @param string $next_link  the text for the "next" link
+	 *
 	 * @return string  the navigation section's HTML
 	 *
 	 * @uses CalendarSolution_List::$view
@@ -268,7 +271,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_from
 	 * @uses CalendarSolution_List::$next_to
 	 */
-	protected function get_date_navigation() {
+	protected function get_date_navigation($prior_link = '&lt; See Earlier Events',
+			$next_link = 'See Later Events &gt;')
+	{
 		$uri = $this->parse_uri();
 
 		$uri['query']['category_id'] = empty($this->category_id)
@@ -283,14 +288,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out = '<div class="cs_nav">';
 		$out .= '<div class="cs_prior"><a href="'
 			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '">&lt; See Earlier Events</a></div>';
+			 . '">' . $prior_link . '</a></div>';
 
 		$uri['query']['from'] = $this->next_from->format('Y-m-d');
 		$uri['query']['to'] = $this->next_to->format('Y-m-d');
 
 		$out .= '<div class="cs_next"><a href="'
 			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '">See Later Events &gt;</a></div>';
+			 . '">' . $next_link . '</a></div>';
 
 		$out .= "</div>\n";
 
