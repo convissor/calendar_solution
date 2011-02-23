@@ -94,7 +94,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 * @return string  the complete HTML of the events and the related interface
 	 *
 	 * @see CalendarSolution_List::set_limit()
-	 * @see CalendarSolution_List::set_show_limit_navigation()
+	 * @see CalendarSolution_List::get_limit_navigation()
 	 * @see CalendarSolution_List::set_date_format()
 	 *
 	 * @uses CalendarSolution_List::set_where_sql()  to generate the cache keys
@@ -108,10 +108,6 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 * @uses CalendarSolution_List_Title::get_event_formatted()  to format
 	 *       each event
 	 * @uses CalendarSolution_List_Title::get_list_close()  to close the set
-	 * @uses CalendarSolution_List::$show_limit_navigation  to know if
-	 *       limit navigation should be shown or not
-	 * @uses CalendarSolution_List::get_limit_navigation()  to provide paging
-	 *       links to more events
 	 */
 	public function get_rendering($page_id = null) {
 		if ($page_id) {
@@ -128,7 +124,6 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 			$this->set_where_sql();
 
 			$cache_key = $this->cache_key . ':title:'
-					. (int) $this->show_limit_navigation . ':'
 					. $this->date_format;
 
 			$out = $this->cache->get($cache_key);
@@ -147,10 +142,6 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 			$out .= $this->get_row_close();
 		}
 
-		if ($this->show_limit_navigation) {
-			$out .= '<tr><td colspan="2" class="cs_limit_navigation" align="center">'
-				. $this->get_limit_navigation() . '</td></tr>';
-		}
 		$out .= $this->get_list_close();
 
 		if ($this->use_cache) {

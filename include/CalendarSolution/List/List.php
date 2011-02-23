@@ -37,6 +37,26 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 
 	/**
+	 * Calls the parent constructor then populates properties
+	 *
+	 * @param integer $months  how many months should be shown at once
+	 * @param string $dbms  optional override of the database extension setting
+	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
+	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
+	 *
+	 * @uses CalendarSolution_List::__construct()  to set up database, etc
+	 * @uses CalendarSolution_List::set_request_properties()  to automatically
+	 *       set properties to $_REQUEST data
+	 * @uses CalendarSolution_List::set_prior_and_next_dates()
+	 */
+	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
+		parent::__construct($months, $dbms);
+		$this->set_request_properties();
+		$this->set_prior_and_next_dates();
+	}
+
+
+	/**
 	 * @param array $event  an associative array of a given event
 	 * @param string $class  the CSS class name for this row
 	 *
@@ -139,23 +159,15 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @return string  the complete HTML of the events and the related interface
 	 *
 	 * @see CalendarSolution_List::set_date_format()
-	 * @uses CalendarSolution_List::set_request_properties()  to automatically
-	 *       set properties to $_REQUEST data
-	 * @uses CalendarSolution_List::set_prior_and_next_dates()
-	 * @uses CalendarSolution_List::get_limit_form()
-	 * @uses CalendarSolution_List::get_date_navigation()
+	 * @see CalendarSolution_List::get_limit_form()
+	 * @see CalendarSolution_List::get_date_navigation()
+	 *
 	 * @uses CalendarSolution_List::run_query()
 	 */
 	public function get_rendering() {
-		$this->set_request_properties();
-		$this->set_prior_and_next_dates();
-
-		$out = $this->get_date_navigation();
-		$out .= $this->get_change_view();
-
 		$this->run_query();
 
-		$out .= $this->get_list_open();
+		$out = $this->get_list_open();
 
 		$prior_event_month = '';
 
@@ -187,7 +199,6 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		}
 
 		$out .= $this->get_list_close();
-		$out .= $this->get_limit_form();
 		$out .= $this->get_credit();
 
 		return $out;

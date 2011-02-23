@@ -28,6 +28,26 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 
 	/**
+	 * Calls the parent constructor then populates properties
+	 *
+	 * @param integer $months  how many months should be shown at once
+	 * @param string $dbms  optional override of the database extension setting
+	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
+	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
+	 *
+	 * @uses CalendarSolution_List::__construct()  to set up database, etc
+	 * @uses CalendarSolution_List::set_request_properties()  to automatically
+	 *       set properties to $_REQUEST data
+	 * @uses CalendarSolution_List::set_prior_and_next_dates()
+	 */
+	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
+		parent::__construct($months, $dbms);
+		$this->set_request_properties();
+		$this->set_prior_and_next_dates();
+	}
+
+
+	/**
 	 * Determine how many months to display
 	 *
 	 * @param DateTimeSolution $current
@@ -162,20 +182,15 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 *
 	 * @return string  the complete HTML of the events and the related interface
 	 *
+	 * @see CalendarSolution_List::get_limit_form()
+	 * @see CalendarSolution_List::get_date_navigation()
+	 *
 	 * @uses CalendarSolution_List::set_where_sql()  to generate the cache keys
 	 * @uses CalendarSolution::$cache  to cache the output of the default view,
 	 *       if possible
 	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
-	 * @uses CalendarSolution_List::set_request_properties()  to automatically
-	 *       set properties to $_REQUEST data
-	 * @uses CalendarSolution_List::set_prior_and_next_dates()
-	 * @uses CalendarSolution_List::get_limit_form()
-	 * @uses CalendarSolution_List::get_date_navigation()
 	 */
 	public function get_rendering() {
-		$this->set_request_properties();
-		$this->set_prior_and_next_dates();
-
 		if ($this->use_cache) {
 			$this->set_where_sql();
 
@@ -195,8 +210,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 		$months = $this->calculate_months($current_date_time, $this->to);
 		$one_day_interval = new DateIntervalSolution('P1D');
-		$out = $this->get_date_navigation();
-		$out .= $this->get_change_view();
+		$out = '';
 		$event = array_shift($this->data);
 
 		for ($month_counter = 0; $month_counter < $months; $month_counter++) {
@@ -229,7 +243,6 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 			$current_date_time->add($one_day_interval);
 		}
 
-		$out .= $this->get_limit_form();
 		$out .= $this->get_credit();
 
 		// Save memory by only caching default view.

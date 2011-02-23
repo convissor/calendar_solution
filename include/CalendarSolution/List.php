@@ -55,12 +55,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $from;
 
 	/**
-	 * Should the output include the limit navigation?
-	 * @var bool
-	 */
-	protected $show_limit_navigation = false;
-
-	/**
 	 * The DateIntervalSolution specification for how many months to show at once
 	 * @var string
 	 */
@@ -226,7 +220,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$from
 	 * @uses CalendarSolution_List::$to
 	 */
-	protected function get_change_view() {
+	public function get_change_view() {
 		$uri = $this->parse_uri();
 
 		$uri['query']['category_id'] = empty($this->category_id)
@@ -271,7 +265,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_from
 	 * @uses CalendarSolution_List::$next_to
 	 */
-	protected function get_date_navigation($prior_link = '&lt; See Earlier Events',
+	public function get_date_navigation($prior_link = '&lt; See Earlier Events',
 			$next_link = 'See Later Events &gt;')
 	{
 		$uri = $this->parse_uri();
@@ -314,7 +308,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$from
 	 * @uses CalendarSolution_List::$to
 	 */
-	protected function get_limit_form() {
+	public function get_limit_form() {
 		$out = '<form class="cs_limit" method="get">';
 
 		$out .= '<table>'
@@ -428,6 +422,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the prior/next links for the "QuickTable" and "Title" formats
 	 *
+	 * NOTE: This must be called after get_rendering().
+	 *
 	 * @param string $prior_link  the text for the "prior" link
 	 * @param string $next_link  the text for the "next" link
 	 *
@@ -435,9 +431,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                 enabled in set_limit(), an empty string if not
 	 *
 	 * @see CalendarSolution_List::set_limit()
-	 * @see CalendarSolution_List::set_show_limit_navigation()
 	 */
-	protected function get_limit_navigation($prior_link = '&lt; prior',
+	public function get_limit_navigation($prior_link = '&lt; prior',
 			$next_link = 'next &gt;')
 	{
 		if (!is_numeric($this->limit_start)) {
@@ -463,8 +458,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. http_build_query($uri['query'], '', '&amp;') . '">' . $next_link . '</a>';
 		}
 
-		return '<div class="cs_prior">' . $prior_link
-			. '</div><div class="cs_next">' . $next_link . '</div>';
+		return '<div class="cs_limit_navigation">'
+			. '<div class="cs_prior">' . $prior_link . '</div>'
+			. '<div class="cs_next">' . $next_link . '</div></div>';
 	}
 
 	/**
@@ -783,7 +779,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * To have lists show the first ten events and possibly show navigation
 	 * to later events: <kbd>set_limit(10, null)</kbd>.  One must also call
-	 * <kbd>set_show_limit_navigation()</kbd> to get the navigation to show up.
+	 * <kbd>get_limit_navigation()</kbd> to get the navigation to show up.
 	 *
 	 * @param mixed $quantity  the number of rows to show
 	 *              + NULL = use value of $_REQUEST['limit_quantity']
@@ -802,7 +798,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @see CalendarSolution_List::set_show_limit_navigation()
+	 * @see CalendarSolution_List::get_limit_navigation()
 	 *
 	 * @uses CalendarSolution::get_int_from_request()  to determine the
 	 *       user's intention
@@ -937,27 +933,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	public function set_show_cancelled($in) {
 		$this->show_cancelled = (bool) $in;
-	}
-
-	/**
-	 * Turns the paging navigation on or off in the "QuickTable" and "Title"
-	 * formats
-	 *
-	 * NOTE: The navigation elements will only show up if set_limit() has
-	 * been called and its $start parameter has been enabled.  For example:
-	 * <kbd>set_limit(10, null)</kbd>
-	 *
-	 * @param bool $in  set it to TRUE to include the navigation
-	 *
-	 * @return void
-	 *
-	 * @see CalendarSolution_List::set_limit()
-	 *
-	 * @uses CalendarSolution_List::$show_limit_navigation  to store the
-	 *       decision
-	 */
-	public function set_show_limit_navigation($in) {
-		$this->show_limit_navigation = (bool) $in;
 	}
 
 	/**

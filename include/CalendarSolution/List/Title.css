@@ -11,7 +11,7 @@ table.cs_list_title td.cs_title {
  padding-left: 0.5em;
 }
 
-td.cs_limit_navigation {
+div.cs_limit_navigation {
  font-size: 0.7em;
  padding-top: 2em;
  line-height: 0em;

@@ -68,7 +68,10 @@ if ($calendar->is_admin()) {
  * Display the calendar.
  */
 try {
+	echo $calendar->get_date_navigation();
+	echo $calendar->get_change_view();
 	echo $calendar->get_rendering();
+	echo $calendar->get_limit_form();
 } catch (Exception $e) {
 	die('EXCEPTION: ' . $e->getMessage());
 }
