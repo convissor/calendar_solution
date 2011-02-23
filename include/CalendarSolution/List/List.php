@@ -161,6 +161,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @see CalendarSolution_List::set_date_format()
 	 * @see CalendarSolution_List::get_limit_form()
 	 * @see CalendarSolution_List::get_date_navigation()
+	 * @see CalendarSolution_List::get_change_view()
 	 *
 	 * @uses CalendarSolution_List::run_query()
 	 */

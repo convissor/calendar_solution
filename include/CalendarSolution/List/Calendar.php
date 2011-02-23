@@ -184,6 +184,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 *
 	 * @see CalendarSolution_List::get_limit_form()
 	 * @see CalendarSolution_List::get_date_navigation()
+	 * @see CalendarSolution_List::get_change_view()
 	 *
 	 * @uses CalendarSolution_List::set_where_sql()  to generate the cache keys
 	 * @uses CalendarSolution::$cache  to cache the output of the default view,
