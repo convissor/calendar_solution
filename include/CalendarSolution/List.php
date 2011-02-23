@@ -212,7 +212,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the HTML for changing between list and calendar views
 	 *
-	 * @return string  the navigation section's HTML
+	 * @param string $phrase  the sprintf formatted phrase to be displayed.
+	 *                        Must contain one "%s" conversion specification,
+	 *                        where the $list/$calendar text is inserted
+	 * @param string $list  the text for the "list" view
+	 * @param string $calendar  the text for the "calendar" view
+	 *
+	 * @return string  the HTML for switching views
 	 *
 	 * @uses CalendarSolution_List::$view
 	 * @uses CalendarSolution_List::$category_id
@@ -220,7 +226,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$from
 	 * @uses CalendarSolution_List::$to
 	 */
-	public function get_change_view() {
+	public function get_change_view($phrase = 'View the events in %s format',
+			$list = 'list', $calendar = 'calendar')
+	{
 		$uri = $this->parse_uri();
 
 		$uri['query']['category_id'] = empty($this->category_id)
@@ -231,11 +239,17 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$uri['query']['to'] = $this->to->format('Y-m-d');
 		unset($uri['query']['view']);
 
-		return '<div class="cs_change_view">View the events in <a href="'
-			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '&amp;view='
-			 . (($this->view == 'Calendar') ? 'List">List' : 'Calendar">Calendar')
-			 . "</a> format</div>\n";
+		$link = '<a href="' . $uri['path'] . '?'
+			. http_build_query($uri['query'], '', '&amp;') . '&amp;view=';
+		if ($this->view == 'Calendar') {
+			$link .= 'List">' . $list;
+		} else {
+			$link .= 'Calendar">' . $calendar;
+		}
+		$link .= '</a>';
+
+		$format = '<div class="cs_change_view">' . $phrase . "</div>\n";
+		return sprintf($format, $link);
 	}
 
 	/**
