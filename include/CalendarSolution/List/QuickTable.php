@@ -134,7 +134,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		}
 
 		if ($this->from === null) {
-			$this->set_from();
+			$this->set_from(date('Y-m-d'));
 		}
 
 		if ($this->use_cache) {

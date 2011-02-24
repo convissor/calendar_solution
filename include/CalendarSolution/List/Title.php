@@ -115,7 +115,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 		}
 
 		if ($this->from === null) {
-			$this->set_from();
+			$this->set_from(date('Y-m-d'));
 		}
 
 		$this->set_show_cancelled(false);
