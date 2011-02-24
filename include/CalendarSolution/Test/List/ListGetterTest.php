@@ -61,26 +61,26 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	public function test_get_limit_navigation_start_0() {
 		$this->calendar->set_limit(10, 0);
 		$actual = $this->calendar->get_limit_navigation();
-		$expect = $this->get_expected('', 10);
+		$expect = $this->get_limit_navigation_expected('', 10);
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_limit_navigation_start_10_uri() {
 		$_SERVER['REQUEST_URI'] = 'p?q=v';
 		$this->calendar->set_limit(10, 10);
 		$actual = $this->calendar->get_limit_navigation();
-		$expect = $this->get_expected(0, 20, 'p?q=v&amp;');
+		$expect = $this->get_limit_navigation_expected(0, 20, 'p?q=v&amp;');
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_limit_navigation_start_3() {
 		$this->calendar->set_limit(10, 3);
 		$actual = $this->calendar->get_limit_navigation();
-		$expect = $this->get_expected(0, 13);
+		$expect = $this->get_limit_navigation_expected(0, 13);
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_limit_navigation_start_23() {
 		$this->calendar->set_limit(10, 23);
 		$actual = $this->calendar->get_limit_navigation();
-		$expect = $this->get_expected(13, false);
+		$expect = $this->get_limit_navigation_expected(13, false);
 		$this->assertEquals($expect, $actual);
 	}
 	/**#@-*/
