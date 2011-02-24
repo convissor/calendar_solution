@@ -530,15 +530,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                and the 'query' broken into a sub-array
 	 */
 	protected function parse_uri() {
-		static $out;
-		if (!isset($out)) {
-			$out = array('path' => '', 'query' => array());
-			if (!empty($_SERVER['REQUEST_URI'])) {
-				$request = explode('?', $_SERVER['REQUEST_URI']);
-				$out['path'] = empty($request[0]) ? '' : $request[0];
-				if (!empty($request[1])) {
-					parse_str($request[1], $out['query']);
-				}
+		$out = array('path' => '', 'query' => array());
+		if (!empty($_SERVER['REQUEST_URI'])) {
+			$request = explode('?', $_SERVER['REQUEST_URI']);
+			$out['path'] = empty($request[0]) ? '' : $request[0];
+			if (!empty($request[1])) {
+				parse_str($request[1], $out['query']);
 			}
 		}
 		return $out;
