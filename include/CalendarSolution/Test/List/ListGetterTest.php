@@ -25,7 +25,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->calendar->total_rows = 33;
 	}
 
-	protected function get_expected($prior, $next, $uri = '?') {
+	protected function get_limit_navigation_expected($prior, $next, $uri = '?') {
 		$prior_link = '&lt; prior';
 		if (is_numeric($prior)) {
 			$prior_link = '<a href="' . $uri . 'limit_start=' . $prior . '">'
@@ -38,8 +38,9 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 				. $next_link . '</a>';
 		}
 
-		return '<div class="cs_prior">' . $prior_link
-			. '</div><div class="cs_next">' . $next_link . '</div>';
+		return '<div class="cs_limit_navigation"><div class="cs_prior">'
+			. $prior_link
+			. '</div><div class="cs_next">' . $next_link . '</div></div>';
 	}
 
 	/**#@+
