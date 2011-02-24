@@ -1036,6 +1036,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		if ($add_months) {
+			$this->to->modify('first day of this month');
 			$this->to->add($this->interval_singleton());
 			$this->to->modify('last day of this month');
 		}
