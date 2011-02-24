@@ -509,33 +509,4 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(false, $this->calendar->to);
 	}
 	/**#@-*/
-
-	/**#@+
-	 * set_show_limit_navigation()
-	 */
-	public function test_show_limit_navigation_false() {
-		$this->calendar->set_show_limit_navigation(false);
-		$this->assertEquals(false, $this->calendar->show_limit_navigation);
-	}
-	public function test_show_limit_navigation_true() {
-		$this->calendar->set_show_limit_navigation(true);
-		$this->assertEquals(true, $this->calendar->show_limit_navigation);
-	}
-	public function test_show_limit_navigation_0() {
-		$this->calendar->set_show_limit_navigation(0);
-		$this->assertEquals(false, $this->calendar->show_limit_navigation);
-	}
-	public function test_show_limit_navigation_1() {
-		$this->calendar->set_show_limit_navigation(1);
-		$this->assertEquals(true, $this->calendar->show_limit_navigation);
-	}
-	public function test_show_limit_navigation_null() {
-		$this->calendar->set_show_limit_navigation(null);
-		$this->assertEquals(false, $this->calendar->show_limit_navigation);
-	}
-	public function test_show_limit_navigation_string() {
-		$this->calendar->set_show_limit_navigation('jskas');
-		$this->assertEquals(true, $this->calendar->show_limit_navigation);
-	}
-	/**#@-*/
 }
