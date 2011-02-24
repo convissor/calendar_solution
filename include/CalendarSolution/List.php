@@ -31,6 +31,18 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $cache_key;
 
 	/**
+	 * Has set_prior_and_next_dates() been called?
+	 * @var bool
+	 */
+	protected $called_set_prior_and_next_dates = false;
+
+	/**
+	 * Has set_request_properties() been called?
+	 * @var bool
+	 */
+	protected $called_set_request_properties = false;
+
+	/**
 	 * The category ids to show events for
 	 * @var array
 	 */
@@ -229,6 +241,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	public function get_change_view($phrase = 'View the events in %s format',
 			$list = 'list', $calendar = 'calendar')
 	{
+		if (!$this->called_set_request_properties) {
+			$this->set_request_properties();
+		}
+		if (!$this->called_set_prior_and_next_dates) {
+			$this->set_prior_and_next_dates();
+		}
+
 		$uri = $this->parse_uri();
 
 		$uri['query']['category_id'] = empty($this->category_id)
@@ -282,6 +301,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	public function get_date_navigation($prior_link = '&lt; See Earlier Events',
 			$next_link = 'See Later Events &gt;')
 	{
+		if (!$this->called_set_request_properties) {
+			$this->set_request_properties();
+		}
+		if (!$this->called_set_prior_and_next_dates) {
+			$this->set_prior_and_next_dates();
+		}
+
 		$uri = $this->parse_uri();
 
 		$uri['query']['category_id'] = empty($this->category_id)
@@ -876,6 +902,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @throws CalendarSolution_Exception if $this->from hasn't been set yet
 	 */
 	protected function set_prior_and_next_dates() {
+		$this->called_set_prior_and_next_dates = true;
+
 		if ($this->from === false) {
 			return;
 		} elseif ($this->from === null || $this->to === null) {
@@ -916,6 +944,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       event id
 	 */
 	public function set_request_properties() {
+		$this->called_set_request_properties = true;
+
 		if ($this->from === null) {
 			$this->set_from();
 		}

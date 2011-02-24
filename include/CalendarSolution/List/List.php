@@ -37,26 +37,6 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 
 	/**
-	 * Calls the parent constructor then populates properties
-	 *
-	 * @param integer $months  how many months should be shown at once
-	 * @param string $dbms  optional override of the database extension setting
-	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
-	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
-	 *
-	 * @uses CalendarSolution_List::__construct()  to set up database, etc
-	 * @uses CalendarSolution_List::set_request_properties()  to automatically
-	 *       set properties to $_REQUEST data
-	 * @uses CalendarSolution_List::set_prior_and_next_dates()
-	 */
-	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
-		parent::__construct($months, $dbms);
-		$this->set_request_properties();
-		$this->set_prior_and_next_dates();
-	}
-
-
-	/**
 	 * @param array $event  an associative array of a given event
 	 * @param string $class  the CSS class name for this row
 	 *
@@ -166,6 +146,13 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @uses CalendarSolution_List::run_query()
 	 */
 	public function get_rendering() {
+		if (!$this->called_set_request_properties) {
+			$this->set_request_properties();
+		}
+		if (!$this->called_set_prior_and_next_dates) {
+			$this->set_prior_and_next_dates();
+		}
+
 		$this->run_query();
 
 		$out = $this->get_list_open();
