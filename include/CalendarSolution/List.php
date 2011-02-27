@@ -1031,6 +1031,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($this->prior_from < $this->permit_history_date) {
 			$this->prior_from = $this->permit_history_date;
 		}
+		if ($this->prior_to < $this->permit_history_date) {
+			$this->prior_to = $this->permit_history_date;
+		}
 
 		$this->next_from = new DateTimeSolution($this->to->format('Y-m-d'));
 		$this->next_from->add($one_day_interval);
@@ -1041,6 +1044,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($this->next_to > $this->permit_future_date) {
 			$this->next_to = $this->permit_future_date;
+		}
+		if ($this->next_from > $this->permit_future_date) {
+			$this->next_from = $this->permit_future_date;
 		}
 	}
 
