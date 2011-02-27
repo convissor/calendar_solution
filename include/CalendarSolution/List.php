@@ -335,16 +335,24 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$uri['query']['to'] = $this->prior_to->format('Y-m-d');
 
 		$out = '<div class="cs_nav">';
-		$out .= '<div class="cs_prior"><a href="'
-			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '">' . $prior_link . '</a></div>';
+		$out .= '<div class="cs_prior">';
+		if ($this->prior_to > $this->permit_history_date) {
+			$out .= '<a href="'
+				. $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
+				. '">' . $prior_link . '</a>';
+		}
+		$out .= '</div>';
 
 		$uri['query']['from'] = $this->next_from->format('Y-m-d');
 		$uri['query']['to'] = $this->next_to->format('Y-m-d');
 
-		$out .= '<div class="cs_next"><a href="'
-			 . $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-			 . '">' . $next_link . '</a></div>';
+		$out .= '<div class="cs_next">';
+		if ($this->next_from < $this->permit_future_date) {
+			$out .= '<a href="'
+				. $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
+				. '">' . $next_link . '</a>';
+		}
+		$out .= '</div>';
 
 		$out .= "</div>\n";
 
