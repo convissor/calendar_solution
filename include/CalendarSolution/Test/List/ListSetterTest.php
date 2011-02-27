@@ -182,6 +182,16 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->calendar->set_from(true);
 		$this->assertEquals(false, $this->calendar->from);
 	}
+	public function test_from_permit_history_months_3_reset() {
+		$this->calendar->set_permit_history_months(3);
+		$this->calendar->set_from('1900-01-01');
+		$expect = date('Y-m-01', strtotime('-2 month'));
+		$this->assertEquals($expect, $this->calendar->from->format('Y-m-d'));
+	}
+	public function test_from_permit_history_months_unset() {
+		$this->calendar->set_from('3000-01-31');
+		$this->assertEquals('3000-01-31', $this->calendar->from->format('Y-m-d'));
+	}
 	/**#@-*/
 
 	/**#@+
@@ -241,6 +251,15 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$_REQUEST = array();
 		$this->calendar->set_to(true);
 		$this->assertEquals(false, $this->calendar->to);
+	}
+	public function test_to_permit_future_months_3_reset() {
+		$this->calendar->set_permit_future_months(3);
+		$this->calendar->set_to('3000-01-31');
+		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
+	}
+	public function test_to_permit_future_months_unset() {
+		$this->calendar->set_to('3000-01-31');
+		$this->assertEquals('3000-01-31', $this->calendar->to->format('Y-m-d'));
 	}
 	/**#@-*/
 
@@ -392,9 +411,107 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 	/**#@-*/
 
 	/**#@+
+	 * set_permit_future_months()
+	 */
+	public function test_permit_future_months_0() {
+		$this->calendar->set_permit_future_months(0);
+		$this->assertEquals($this->to_default,
+				$this->calendar->permit_future_date->format('Y-m-d'));
+	}
+	public function test_permit_future_months_1() {
+		$this->calendar->set_permit_future_months(1);
+		$this->assertEquals($this->to_default,
+				$this->calendar->permit_future_date->format('Y-m-d'));
+	}
+	public function test_permit_future_months_2() {
+		$this->calendar->set_permit_future_months(2);
+		$this->assertEquals($this->to_default,
+				$this->calendar->permit_future_date->format('Y-m-d'));
+	}
+	public function test_permit_future_months_3() {
+		$this->calendar->set_permit_future_months(3);
+		$this->assertEquals($this->to_default,
+				$this->calendar->permit_future_date->format('Y-m-d'));
+	}
+	public function test_permit_future_months_13() {
+		$this->calendar->set_permit_future_months(13);
+		$expect = date('Y-m-t', strtotime(date('Y') + 1 . date('-m') . '-01'));
+		$this->assertEquals($expect,
+				$this->calendar->permit_future_date->format('Y-m-d'));
+	}
+	public function test_permit_future_months_false() {
+		$this->calendar->set_permit_future_months(false);
+		$this->assertEquals(false, $this->calendar->permit_future_date);
+	}
+	public function test_permit_future_months_3_reset_to() {
+		$this->calendar->set_to('3000-01-31');
+		$this->calendar->set_permit_future_months(3);
+		$this->assertEquals($this->to_default,
+				$this->calendar->to->format('Y-m-d'), 'to did not get reset');
+	}
+	public function test_permit_future_months_3_dont_reset_to() {
+		$date = date('Y-m-d');
+		$this->calendar->set_to($date);
+		$this->calendar->set_permit_future_months(3);
+		$this->assertEquals($date,
+				$this->calendar->to->format('Y-m-d'), 'to got reset');
+	}
+	/**#@-*/
+
+	/**#@+
+	 * set_permit_history_months()
+	 */
+	public function test_permit_history_months_0() {
+		$this->calendar->set_permit_history_months(0);
+		$this->assertEquals(date('Y-m-d'),
+				$this->calendar->permit_history_date->format('Y-m-d'));
+	}
+	public function test_permit_history_months_1() {
+		$this->calendar->set_permit_history_months(1);
+		$this->assertEquals(date('Y-m-01'),
+				$this->calendar->permit_history_date->format('Y-m-d'));
+	}
+	public function test_permit_history_months_2() {
+		$this->calendar->set_permit_history_months(2);
+		$expect = date('Y-m-01', strtotime('-1 month'));
+		$this->assertEquals($expect,
+				$this->calendar->permit_history_date->format('Y-m-d'));
+	}
+	public function test_permit_history_months_3() {
+		$this->calendar->set_permit_history_months(3);
+		$expect = date('Y-m-01', strtotime('-2 month'));
+		$this->assertEquals($expect,
+				$this->calendar->permit_history_date->format('Y-m-d'));
+	}
+	public function test_permit_history_months_13() {
+		$this->calendar->set_permit_history_months(13);
+		$expect = date('Y') - 1 . date('-m') . '-01';
+		$this->assertEquals($expect,
+				$this->calendar->permit_history_date->format('Y-m-d'));
+	}
+	public function test_permit_history_months_false() {
+		$this->calendar->set_permit_history_months(false);
+		$this->assertEquals(false, $this->calendar->permit_history_date);
+	}
+	public function test_permit_history_months_3_reset_from() {
+		$this->calendar->set_from('1900-01-01');
+		$this->calendar->set_permit_history_months(3);
+		$this->assertEquals($this->calendar->permit_history_date->format('Y-m-d'),
+				$this->calendar->from->format('Y-m-d'), 'from did not get reset');
+	}
+	public function test_permit_history_months_3_dont_reset_from() {
+		$date = date('Y-m-d');
+		$this->calendar->set_from($date);
+		$this->calendar->set_permit_history_months(3);
+		$this->assertEquals($date,
+				$this->calendar->from->format('Y-m-d'), 'from got reset');
+	}
+	/**#@-*/
+
+	/**#@+
 	 * set_request_properties()
 	 */
-	public function test_set_request_properties_request_full() {
+	public function test_request_properties_request_full() {
 		$_REQUEST = array(
 			'category_id' => 22,
 			'frequent_event_id' => 33,
@@ -407,7 +524,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
 		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_category() {
+	public function test_request_properties_request_category() {
 		$_REQUEST = array(
 			'category_id' => 22,
 		);
@@ -417,7 +534,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(date('Y-m-d'), $this->calendar->from->format('Y-m-d'));
 		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_frequent_event() {
+	public function test_request_properties_request_frequent_event() {
 		$_REQUEST = array(
 			'frequent_event_id' => 33,
 		);
@@ -427,7 +544,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(date('Y-m-d'), $this->calendar->from->format('Y-m-d'));
 		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_from() {
+	public function test_request_properties_request_from() {
 		$_REQUEST = array(
 			'from' => '2001-02-03',
 		);
@@ -437,7 +554,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
 		$this->assertEquals($this->to_default, $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_to() {
+	public function test_request_properties_request_to() {
 		$_REQUEST = array(
 			'to' => '2004-05-06',
 		);
@@ -448,7 +565,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
 	}
 
-	public function test_set_request_properties_request_category_false() {
+	public function test_request_properties_request_category_false() {
 		$_REQUEST = array(
 			'category_id' => 22,
 			'frequent_event_id' => 33,
@@ -463,7 +580,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
 		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_frequent_event_false() {
+	public function test_request_properties_request_frequent_event_false() {
 		$_REQUEST = array(
 			'category_id' => 22,
 			'frequent_event_id' => 33,
@@ -478,7 +595,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals('2001-02-03', $this->calendar->from->format('Y-m-d'));
 		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_from_false() {
+	public function test_request_properties_request_from_false() {
 		$_REQUEST = array(
 			'category_id' => 22,
 			'frequent_event_id' => 33,
@@ -493,7 +610,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals(false, $this->calendar->from);
 		$this->assertEquals('2004-05-06', $this->calendar->to->format('Y-m-d'));
 	}
-	public function test_set_request_properties_request_to_false() {
+	public function test_request_properties_request_to_false() {
 		$_REQUEST = array(
 			'category_id' => 22,
 			'frequent_event_id' => 33,

@@ -105,6 +105,18 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $page_id;
 
 	/**
+	 * The furthest date in the future users are allowed to see
+	 * @var DateTimeSolution
+	 */
+	protected $permit_future_date;
+
+	/**
+	 * The furthest date in the past users are allowed to see
+	 * @var DateTimeSolution
+	 */
+	protected $permit_history_date;
+
+	/**
 	 * The start of the date range to show events for if the user navigates
 	 * to earlier events
 	 * @var DateTimeSolution
@@ -775,6 +787,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Sets the "from" property (defaults to today)
 	 *
+	 * NOTE: "from" is reset to "permit_history_date" if "from" is earlier than
+	 * "permit_history_date"
+	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['from'] though uses
 	 *                   the default if it is not set or invalid
 	 *                   + TRUE = use value of $_REQUEST['from'] if it is set,
@@ -787,6 +802,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution::get_date_from_request()  to determine the
 	 *       user's intention
 	 * @uses CalendarSolution_List::$from  to store the data
+	 * @uses CalendarSolution_List::$permit_history_date  for validation
 	 */
 	public function set_from($in = null) {
 		if ($in === null) {
@@ -806,6 +822,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->from = new DateTimeSolution($in);
 		} catch (Exception $e) {
 			$this->from = new DateTimeSolution;
+		}
+
+		if ($this->from < $this->permit_history_date) {
+			$this->from = $this->permit_history_date;
 		}
 	}
 
@@ -886,6 +906,80 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Sets the furthest date in the future users are allowed to see
+	 *
+	 * NOTE: if the "to" property is later than this, "to" is reset to this.
+	 *
+	 * @param mixed $months  + integer = the number of months users can see,
+	 *                         including the current month.  Default is 12.
+	 *                         Falls back to the $months passed to
+	 *                         CalendarSolution_List::__construct() if this
+	 *                         parameter is less than or equal to that one.
+	 *                       + FALSE = unlimited
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$permit_future_date  to store the data
+	 * @uses CalendarSolution_List::interval_singleton()  if the value needs
+	 *       to be set to the default
+	 * @uses CalendarSolution_List::$to  for validation
+	 */
+	public function set_permit_future_months($months = 12) {
+		if ($months === false) {
+			$this->permit_future_date = false;
+			return;
+		}
+
+		$this->permit_future_date = new DateTimeSolution;
+		$interval = $this->interval_singleton();
+		if ($months > $interval->format('%m')) {
+			$interval = new DateIntervalSolution('P' . ($months - 1) . 'M');
+		}
+
+		$this->permit_future_date->modify('first day of this month');
+		$this->permit_future_date->add($interval);
+		$this->permit_future_date->modify('last day of this month');
+
+		if ($this->to > $this->permit_future_date) {
+			$this->to = $this->permit_future_date;
+		}
+	}
+
+	/**
+	 * Sets the furthest date in the past users are allowed to see
+	 *
+	 * NOTE: if the "from" property is earlier than this, "from" is reset to
+	 * this.
+	 *
+	 * @param mixed $months  + integer = the number of months users can see,
+	 *                         including the current month.  Default is 12.
+	 *                         0 = today, 1 = first day of this month.
+	 *                       + FALSE = unlimited
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$permit_history_date  to store the data
+	 * @uses CalendarSolution_List::$from  for validation
+	 */
+	public function set_permit_history_months($months = 12) {
+		if ($months === false) {
+			$this->permit_history_date = false;
+			return;
+		}
+
+		$this->permit_history_date = new DateTimeSolution;
+		if ($months > 0) {
+			$this->permit_history_date->modify('first day of this month');
+			if ($months > 1) {
+				$interval = new DateIntervalSolution('P' . ($months - 1) . 'M');
+				$this->permit_history_date->sub($interval);
+			}
+		}
+
+		if ($this->from < $this->permit_history_date) {
+			$this->from = $this->permit_history_date;
+		}
+	}
+
+	/**
 	 * Sets the properties used later when generating the navigation elements
 	 * for getting to earlier and later events
 	 *
@@ -898,6 +992,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$prior_to
 	 * @uses CalendarSolution_List::$next_from
 	 * @uses CalendarSolution_List::$next_to
+	 * @uses CalendarSolution_List::set_permit_history_months() to set bounds on
+	 *       how far back the dates can go
+	 * @uses CalendarSolution_List::set_permit_future_months() to set bounds on
+	 *       how far in the future the dates can go
 	 *
 	 * @throws CalendarSolution_Exception if $this->from hasn't been set yet
 	 */
@@ -911,6 +1009,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. ' must be called before set_prior_and_next_dates()');
 		}
 
+		if ($this->permit_history_date === null) {
+			$this->set_permit_history_months();
+		}
+		if ($this->permit_future_date === null) {
+			$this->set_permit_future_months();
+		}
+
 		$one_day_interval = new DateIntervalSolution('P1D');
 
 		$this->prior_to = new DateTimeSolution($this->from->format('Y-m-d'));
@@ -920,12 +1025,20 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->prior_from->modify('first day of this month');
 		$this->prior_from->sub($this->interval_singleton());
 
+		if ($this->prior_from < $this->permit_history_date) {
+			$this->prior_from = $this->permit_history_date;
+		}
+
 		$this->next_from = new DateTimeSolution($this->to->format('Y-m-d'));
 		$this->next_from->add($one_day_interval);
 
 		$this->next_to = new DateTimeSolution($this->next_from->format('Y-m-d'));
 		$this->next_to->add($this->interval_singleton());
 		$this->next_to->modify('last day of this month');
+
+		if ($this->next_to > $this->permit_future_date) {
+			$this->next_to = $this->permit_future_date;
+		}
 	}
 
 	/**
@@ -993,6 +1106,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Sets the "to" property (defaults to the last day of the month
 	 * occurring $interval_spec months from today)
 	 *
+	 * NOTE: "to" is reset to "permit_future_date" if "to" is later than
+	 * "permit_future_date".
+	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['to'] though uses
 	 *                   the default if it is not set or invalid
 	 *                   + TRUE = use value of $_REQUEST['to'] if it is set,
@@ -1007,6 +1123,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       user's intention
 	 * @uses CalendarSolution_List::interval_singleton()  if the value needs
 	 *       to be set to the default
+	 * @uses CalendarSolution_List::$permit_future_date  for validation
 	 */
 	public function set_to($in = null) {
 		if ($in === null) {
@@ -1039,6 +1156,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->to->modify('first day of this month');
 			$this->to->add($this->interval_singleton());
 			$this->to->modify('last day of this month');
+		}
+
+		if ($this->permit_future_date && $this->to > $this->permit_future_date) {
+			$this->to = $this->permit_future_date;
 		}
 	}
 
