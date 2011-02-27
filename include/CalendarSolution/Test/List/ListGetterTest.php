@@ -26,21 +26,21 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	}
 
 	protected function get_limit_navigation_expected($prior, $next, $uri = '?') {
-		$prior_link = '&lt; prior';
+		$prior_link = '';
 		if (is_numeric($prior)) {
 			$prior_link = '<a href="' . $uri . 'limit_start=' . $prior . '">'
-				. $prior_link . '</a>';
+				. '&lt; prior</a>';
 		}
 
-		$next_link = 'next &gt;';
+		$next_link = '';
 		if ($next) {
 			$next_link = '<a href="' . $uri . 'limit_start=' . $next . '">'
-				. $next_link . '</a>';
+				. 'next &gt;</a>';
 		}
 
 		return '<div class="cs_limit_navigation"><div class="cs_prior">'
 			. $prior_link
-			. '</div><div class="cs_next">' . $next_link . '</div></div>';
+			. '</div><div class="cs_next">' . $next_link . "</div></div>\n";
 	}
 
 	/**#@+

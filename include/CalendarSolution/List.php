@@ -504,26 +504,28 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$uri = $this->parse_uri();
 
+		$out = '<div class="cs_limit_navigation"><div class="cs_prior">';
 		$prior_start = $this->limit_start - $this->limit_quantity;
 		if ($prior_start > -$this->limit_quantity) {
 			if ($prior_start < 0) {
 				$prior_start = 0;
 			}
 			$uri['query']['limit_start'] = $prior_start;
-			$prior_link = '<a href="' . $uri['path'] . '?'
+			$out .= '<a href="' . $uri['path'] . '?'
 				. http_build_query($uri['query'], '', '&amp;') . '">' . $prior_link . '</a>';
 		}
+		$out .= '</div>';
 
+		$out .= '<div class="cs_next">';
 		$next_start = $this->limit_start + $this->limit_quantity;
 		if ($next_start < $this->total_rows) {
 			$uri['query']['limit_start'] = $next_start;
-			$next_link = '<a href="' . $uri['path'] . '?'
+			$out .= '<a href="' . $uri['path'] . '?'
 				. http_build_query($uri['query'], '', '&amp;') . '">' . $next_link . '</a>';
 		}
+		$out .= "</div></div>\n";
 
-		return '<div class="cs_limit_navigation">'
-			. '<div class="cs_prior">' . $prior_link . '</div>'
-			. '<div class="cs_next">' . $next_link . '</div></div>';
+		return $out;
 	}
 
 	/**
