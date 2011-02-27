@@ -149,9 +149,6 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		if (!$this->called_set_request_properties) {
 			$this->set_request_properties();
 		}
-		if (!$this->called_set_prior_and_next_dates) {
-			$this->set_prior_and_next_dates();
-		}
 
 		$this->run_query();
 

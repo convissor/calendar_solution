@@ -175,9 +175,6 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		if (!$this->called_set_request_properties) {
 			$this->set_request_properties();
 		}
-		if (!$this->called_set_prior_and_next_dates) {
-			$this->set_prior_and_next_dates();
-		}
 
 		if ($this->use_cache) {
 			$this->set_where_sql();

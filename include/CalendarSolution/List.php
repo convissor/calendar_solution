@@ -256,9 +256,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if (!$this->called_set_request_properties) {
 			$this->set_request_properties();
 		}
-		if (!$this->called_set_prior_and_next_dates) {
-			$this->set_prior_and_next_dates();
-		}
 
 		$uri = $this->parse_uri();
 
