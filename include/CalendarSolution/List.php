@@ -316,6 +316,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if (!$this->called_set_prior_and_next_dates) {
 			$this->set_prior_and_next_dates();
 		}
+		if ($this->permit_history_date === null) {
+			$this->set_permit_history_months();
+		}
+		if ($this->permit_future_date === null) {
+			$this->set_permit_future_months();
+		}
 
 		$uri = $this->parse_uri();
 

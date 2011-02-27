@@ -175,6 +175,12 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		if (!$this->called_set_request_properties) {
 			$this->set_request_properties();
 		}
+		if ($this->permit_history_date === null) {
+			$this->set_permit_history_months();
+		}
+		if ($this->permit_future_date === null) {
+			$this->set_permit_future_months();
+		}
 
 		if ($this->use_cache) {
 			$this->set_where_sql();
