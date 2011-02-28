@@ -384,7 +384,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$from
 	 * @uses CalendarSolution_List::$to
 	 */
-	public function get_limit_form() {
+	public function get_limit_form(
+			$show = array('datebox', 'category', 'event', 'remove'))
+	{
 		$uri = $this->uri;
 
 		$uri['query']['limit'] = null;
@@ -398,89 +400,97 @@ abstract class CalendarSolution_List extends CalendarSolution {
  		$out = '<form class="cs_limit" method="get" action="' . $action . '">'
 			. '<div class="cs_limit_form">';
 
-		$out .= '<div class="cs_date_limit_box">'
-			. '<label for="from"><u>L</u>imit to dates between </label>'
-		    . ' <input id="cs_from_box" type="text" size="11" maxlength="10"'
-			. ' name="from" accesskey="l" value="'
-			. $this->from->format('Y-m-d') . '" />'
-			. '<label for="to"> and </label>'
-			. '<input id="cs_to_box" type="text" size="11" maxlength="10" '
-			. 'name="to" value="'
-			. $this->to->format('Y-m-d') . '" />' . "\n";
-
-		$out .= '<div class="cs_category_limit"><label for="category_id">'
-			. 'Categories: </label>';
-
-		if ($this->use_cache) {
-			$cache_key = 'category_list:' . $this->category_id;
-			$list = $this->cache->get($cache_key);
-			$memcache_result = ($list !== false);
-		} else {
-			$memcache_result = null;
+		if (in_array('datebox', $show)) {
+			$out .= '<div class="cs_date_limit_box">'
+				. '<label for="from"><u>L</u>imit to dates between </label>'
+				. ' <input id="cs_from_box" type="text" size="11" maxlength="10"'
+				. ' name="from" accesskey="l" value="'
+				. $this->from->format('Y-m-d') . '" />'
+				. '<label for="to"> and </label>'
+				. '<input id="cs_to_box" type="text" size="11" maxlength="10" '
+				. 'name="to" value="'
+				. $this->to->format('Y-m-d') . '" />' . "\n";
 		}
-		if (!$memcache_result) {
-			$opt = array(
-				'id'           => 'category_id',
-				'table'        => 'cs_category',
-				'visiblefield' => 'category',
-				'keyfield'     => 'category_id',
-				'name'         => 'category_id',
-				'orderby'      => 'category',
-				'where'        => '1 = 1',
-				'multiple'     => 'N',
-				'size'         => '0',
-				'default'      => $this->category_id,
-				'add'          => array('' => 'Pick a Category, if you want to')
-			);
 
-			$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
+		if (in_array('category', $show)) {
+			$out .= '<div class="cs_category_limit"><label for="category_id">'
+				. 'Categories: </label>';
 
 			if ($this->use_cache) {
-				$this->cache->set($cache_key, $list);
+				$cache_key = 'category_list:' . $this->category_id;
+				$list = $this->cache->get($cache_key);
+				$memcache_result = ($list !== false);
+			} else {
+				$memcache_result = null;
 			}
+			if (!$memcache_result) {
+				$opt = array(
+					'id'           => 'category_id',
+					'table'        => 'cs_category',
+					'visiblefield' => 'category',
+					'keyfield'     => 'category_id',
+					'name'         => 'category_id',
+					'orderby'      => 'category',
+					'where'        => '1 = 1',
+					'multiple'     => 'N',
+					'size'         => '0',
+					'default'      => $this->category_id,
+					'add'          => array('' => 'Pick a Category, if you want to')
+				);
+
+				$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
+
+				if ($this->use_cache) {
+					$this->cache->set($cache_key, $list);
+				}
+			}
+			$out .= "$list</div>\n";
 		}
-		$out .= "$list</div>\n";
 
-		$out .= '<div class="cs_frequent_event_limit">'
-			. '<label for="frequent_event_id" accesskey="r">'
-			. 'F<u>r</u>equent Events: </label>';
-
-		if ($this->use_cache) {
-			$cache_key = 'frequent_event_list:' . $this->frequent_event_id;
-			$list = $this->cache->get($cache_key);
-			$memcache_result = ($list !== false);
-		} else {
-			$memcache_result = null;
-		}
-		if (!$memcache_result) {
-			$opt = array(
-				'id'           => 'frequent_event_id',
-				'table'        => 'cs_frequent_event',
-				'visiblefield' => 'frequent_event',
-				'keyfield'     => 'frequent_event_id',
-				'name'         => 'frequent_event_id',
-				'orderby'      => 'frequent_event',
-				'where'        => '1 = 1',
-				'multiple'     => 'N',
-				'size'         => '0',
-				'default'      => $this->frequent_event_id,
-				'add'          => array('' => 'Pick a Frequent Event, if you want to')
-			);
-
-			$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
+		if (in_array('event', $show)) {
+			$out .= '<div class="cs_frequent_event_limit">'
+				. '<label for="frequent_event_id" accesskey="r">'
+				. 'F<u>r</u>equent Events: </label>';
 
 			if ($this->use_cache) {
-				$this->cache->set($cache_key, $list);
+				$cache_key = 'frequent_event_list:' . $this->frequent_event_id;
+				$list = $this->cache->get($cache_key);
+				$memcache_result = ($list !== false);
+			} else {
+				$memcache_result = null;
 			}
+			if (!$memcache_result) {
+				$opt = array(
+					'id'           => 'frequent_event_id',
+					'table'        => 'cs_frequent_event',
+					'visiblefield' => 'frequent_event',
+					'keyfield'     => 'frequent_event_id',
+					'name'         => 'frequent_event_id',
+					'orderby'      => 'frequent_event',
+					'where'        => '1 = 1',
+					'multiple'     => 'N',
+					'size'         => '0',
+					'default'      => $this->frequent_event_id,
+					'add'          => array('' => 'Pick a Frequent Event, if you want to')
+				);
+
+				$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
+
+				if ($this->use_cache) {
+					$this->cache->set($cache_key, $list);
+				}
+			}
+			$out .= "$list</div>\n";
 		}
-		$out .= "$list</div>\n";
 
 		$out .= '<div class="cs_submit_limit">'
 			. '<input type="submit" name="limit" value="Limit" />';
-		$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
-		$out .= '</div>';
 
-		$out .= "</div>\n";
+		if (in_array('remove', $show)) {
+			$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
+		}
+		
+		$out .= "</div></div>\n";
 
 		return $out;
 	}
