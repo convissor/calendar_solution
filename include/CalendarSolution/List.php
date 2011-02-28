@@ -402,9 +402,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if (in_array('datebox', $show)) {
 			$out .= '<div class="cs_date_limit_box">'
-				. '<label for="from"><u>L</u>imit to dates between </label>'
+				. '<label for="from">Limit to dates between </label>'
 				. '<input id="from" type="text" size="11" maxlength="10"'
-				. ' name="from" accesskey="l" value="'
+				. ' name="from" value="'
 				. $this->from->format('Y-m-d') . '" />'
 				. '<label for="to"> and </label>'
 				. '<input id="to" type="text" size="11" maxlength="10" '
@@ -483,8 +483,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if (in_array('event', $show)) {
 			$out .= '<div class="cs_frequent_event_limit">'
-				. '<label for="frequent_event_id" accesskey="r">'
-				. 'F<u>r</u>equent Events: </label>';
+				. '<label for="frequent_event_id">'
+				. 'Frequent Events: </label>';
 
 			if ($this->use_cache) {
 				$cache_key = 'frequent_event_list:' . $this->frequent_event_id;
