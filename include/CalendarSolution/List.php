@@ -385,7 +385,17 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$to
 	 */
 	public function get_limit_form() {
-		$out = '<form class="cs_limit" method="get">';
+		$uri = $this->uri;
+
+		$uri['query']['limit'] = null;
+		$uri['query']['from'] = null;
+		$uri['query']['to'] = null;
+		$uri['query']['category_id'] = null;
+		$uri['query']['frequent_event_id'] = null;
+
+		$action = htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']));
+
+ 		$out = '<form class="cs_limit" method="get" action="' . $action . '">';
 
 		$out .= '<table>'
 			 . "\n" . ' <tr>' . "\n"
