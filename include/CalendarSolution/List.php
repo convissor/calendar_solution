@@ -403,11 +403,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if (in_array('datebox', $show)) {
 			$out .= '<div class="cs_date_limit_box">'
 				. '<label for="from"><u>L</u>imit to dates between </label>'
-				. ' <input id="cs_from_box" type="text" size="11" maxlength="10"'
+				. '<input id="from" type="text" size="11" maxlength="10"'
 				. ' name="from" accesskey="l" value="'
 				. $this->from->format('Y-m-d') . '" />'
 				. '<label for="to"> and </label>'
-				. '<input id="cs_to_box" type="text" size="11" maxlength="10" '
+				. '<input id="to" type="text" size="11" maxlength="10" '
 				. 'name="to" value="'
 				. $this->to->format('Y-m-d') . '" />' . "\n";
 		}
