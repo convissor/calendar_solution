@@ -575,24 +575,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Breaks up the REQUEST_URI into usable parts
-	 *
-	 * @return array  an associative array containing the 'path' as a string
-	 *                and the 'query' broken into a sub-array
-	 */
-	protected function parse_uri() {
-		$out = array('path' => '', 'query' => array());
-		if (!empty($_SERVER['REQUEST_URI'])) {
-			$request = explode('?', $_SERVER['REQUEST_URI']);
-			$out['path'] = empty($request[0]) ? '' : $request[0];
-			if (!empty($request[1])) {
-				parse_str($request[1], $out['query']);
-			}
-		}
-		return $out;
-	}
-
-	/**
 	 * Assembles the query string then executes it
 	 *
 	 * @return void
@@ -1180,6 +1162,24 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($this->permit_future_date && $this->to > $this->permit_future_date) {
 			$this->to = $this->permit_future_date;
 		}
+	}
+
+	/**
+	 * Breaks up the REQUEST_URI into usable parts
+	 *
+	 * @return array  an associative array containing the 'path' as a string
+	 *                and the 'query' broken into a sub-array
+	 */
+	protected function parse_uri() {
+		$out = array('path' => '', 'query' => array());
+		if (!empty($_SERVER['REQUEST_URI'])) {
+			$request = explode('?', $_SERVER['REQUEST_URI']);
+			$out['path'] = empty($request[0]) ? '' : $request[0];
+			if (!empty($request[1])) {
+				parse_str($request[1], $out['query']);
+			}
+		}
+		return $out;
 	}
 
 	/**
