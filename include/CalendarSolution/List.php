@@ -247,8 +247,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @param string $phrase  the sprintf formatted phrase to be displayed.
 	 *                        Must contain one "%s" conversion specification,
 	 *                        where the $list/$calendar text is inserted
-	 * @param string $list  the text for the "list" view
-	 * @param string $calendar  the text for the "calendar" view
+	 * @param string $list  the text for the "list" view.  The value is passed
+	 *                      through htmlspecialchars().
+	 * @param string $calendar  the text for the "calendar" view.  The value is
+	 *                          passed through htmlspecialchars().
 	 *
 	 * @return string  the HTML for switching views
 	 *
@@ -275,12 +277,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$uri['query']['to'] = $this->to->format('Y-m-d');
 		unset($uri['query']['view']);
 
-		$link = '<a href="' . $uri['path'] . '?'
-			. http_build_query($uri['query'], '', '&amp;') . '&amp;view=';
+		$link = '<a href="'
+			. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
+			. '&amp;view=';
 		if ($this->view == 'Calendar') {
-			$link .= 'List">' . $list;
+			$link .= 'List">' . htmlspecialchars($list);
 		} else {
-			$link .= 'Calendar">' . $calendar;
+			$link .= 'Calendar">' . htmlspecialchars($calendar);
 		}
 		$link .= '</a>';
 
@@ -300,8 +303,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the HTML for navigating to earlier and later events
 	 *
-	 * @param string $prior_link  the text for the "prior" link
-	 * @param string $next_link  the text for the "next" link
+	 * @param string $prior_link  the text for the "prior" link.  The value is
+	 *                      passed through htmlspecialchars().
+	 * @param string $next_link  the text for the "next" link.  The value is
+	 *                      passed through htmlspecialchars().
 	 *
 	 * @return string  the navigation section's HTML
 	 *
@@ -315,8 +320,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_from
 	 * @uses CalendarSolution_List::$next_to
 	 */
-	public function get_date_navigation($prior_link = '&lt; See Earlier Events',
-			$next_link = 'See Later Events &gt;')
+	public function get_date_navigation($prior_link = '< See Earlier Events',
+			$next_link = 'See Later Events >')
 	{
 		if (!$this->called_set_request_properties) {
 			$this->set_request_properties();
@@ -346,8 +351,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= '<div class="cs_prior">';
 		if ($this->prior_to > $this->permit_history_date) {
 			$out .= '<a href="'
-				. $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-				. '">' . $prior_link . '</a>';
+				. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
+				. '">' . htmlspecialchars($prior_link) . '</a>';
 		}
 		$out .= '</div>';
 
@@ -357,8 +362,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$out .= '<div class="cs_next">';
 		if ($this->next_from < $this->permit_future_date) {
 			$out .= '<a href="'
-				. $uri['path'] . '?' . http_build_query($uri['query'], '', '&amp;')
-				. '">' . $next_link . '</a>';
+				. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
+				. '">' . htmlspecialchars($next_link) . '</a>';
 		}
 		$out .= '</div>';
 
@@ -495,16 +500,18 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * NOTE: This must be called after get_rendering().
 	 *
-	 * @param string $prior_link  the text for the "prior" link
-	 * @param string $next_link  the text for the "next" link
+	 * @param string $prior_link  the text for the "prior" link.  The value is
+	 *                      passed through htmlspecialchars().
+	 * @param string $next_link  the text for the "next" link.  The value is
+	 *                      passed through htmlspecialchars().
 	 *
 	 * @return string  the navigation elements if the $start parameter is
 	 *                 enabled in set_limit(), an empty string if not
 	 *
 	 * @see CalendarSolution_List::set_limit()
 	 */
-	public function get_limit_navigation($prior_link = '&lt; prior',
-			$next_link = 'next &gt;')
+	public function get_limit_navigation($prior_link = '< prior',
+			$next_link = 'next >')
 	{
 		if (!is_numeric($this->limit_start)) {
 			return '';
@@ -519,8 +526,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				$prior_start = 0;
 			}
 			$uri['query']['limit_start'] = $prior_start;
-			$out .= '<a href="' . $uri['path'] . '?'
-				. http_build_query($uri['query'], '', '&amp;') . '">' . $prior_link . '</a>';
+			$out .= '<a href="'
+				. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
+				. '">' . htmlspecialchars($prior_link) . '</a>';
 		}
 		$out .= '</div>';
 
@@ -528,8 +536,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$next_start = $this->limit_start + $this->limit_quantity;
 		if ($next_start < $this->total_rows) {
 			$uri['query']['limit_start'] = $next_start;
-			$out .= '<a href="' . $uri['path'] . '?'
-				. http_build_query($uri['query'], '', '&amp;') . '">' . $next_link . '</a>';
+			$out .= '<a href="'
+				. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
+				. '">' . htmlspecialchars($next_link) . '</a>';
 		}
 		$out .= "</div></div>\n";
 
