@@ -66,6 +66,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	}
 	public function test_get_limit_navigation_start_10_uri() {
 		$_SERVER['REQUEST_URI'] = 'p?q=v';
+		$this->calendar->set_uri();
 		$this->calendar->set_limit(10, 10);
 		$actual = $this->calendar->get_limit_navigation();
 		$expect = $this->get_limit_navigation_expected(0, 20, 'p?q=v&amp;');

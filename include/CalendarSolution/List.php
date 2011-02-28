@@ -155,6 +155,13 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $total_rows;
 
 	/**
+	 * Data from the REQUEST_URI broken into an associative array containing
+	 * the 'path' as a string and the 'query' broken into a sub-array
+	 * @var array
+	 */
+	protected $uri;
+
+	/**
 	 * The SQL WHERE clause for the current view
 	 * @var string
 	 */
@@ -177,6 +184,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
 		parent::__construct($dbms);
 		$this->interval_spec = 'P' . ($months - 1) . 'M';
+		$this->set_uri();
 	}
 
 	/**
@@ -257,7 +265,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->set_request_properties();
 		}
 
-		$uri = $this->parse_uri();
+		$uri = $this->uri;
 
 		$uri['query']['category_id'] = empty($this->category_id)
 				? null : $this->category_id;
@@ -323,7 +331,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->set_permit_future_months();
 		}
 
-		$uri = $this->parse_uri();
+		$uri = $this->uri;
 
 		$uri['query']['category_id'] = empty($this->category_id)
 				? null : $this->category_id;
@@ -502,7 +510,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			return '';
 		}
 
-		$uri = $this->parse_uri();
+		$uri = $this->uri;
 
 		$out = '<div class="cs_limit_navigation"><div class="cs_prior">';
 		$prior_start = $this->limit_start - $this->limit_quantity;
@@ -1170,16 +1178,15 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @return array  an associative array containing the 'path' as a string
 	 *                and the 'query' broken into a sub-array
 	 */
-	protected function parse_uri() {
-		$out = array('path' => '', 'query' => array());
+	protected function set_uri() {
+		$this->uri = array('path' => '', 'query' => array());
 		if (!empty($_SERVER['REQUEST_URI'])) {
 			$request = explode('?', $_SERVER['REQUEST_URI']);
-			$out['path'] = empty($request[0]) ? '' : $request[0];
+			$this->uri['path'] = empty($request[0]) ? '' : $request[0];
 			if (!empty($request[1])) {
-				parse_str($request[1], $out['query']);
+				parse_str($request[1], $this->uri['query']);
 			}
 		}
-		return $out;
 	}
 
 	/**
