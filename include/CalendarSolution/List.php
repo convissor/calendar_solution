@@ -412,6 +412,40 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. $this->to->format('Y-m-d') . '" />' . "\n";
 		}
 
+		if (in_array('datelist', $show)
+			&& $this->permit_history_date !== false
+			&& $this->permit_future_date !== false)
+		{
+			if ($this->permit_history_date === null) {
+				$this->set_permit_history_months();
+			}
+			$from = $this->permit_history_date;
+
+			if ($this->permit_future_date === null) {
+				$this->set_permit_future_months();
+			}
+
+			$one_month = new DateIntervalSolution('P1M');
+			$from_list = '';
+			$to_list = '';
+			while ($from < $this->permit_future_date) {
+				$from_list .= '<option value="' . $from->format('Y-m-d') . '">' . $from->format('Y-m-d') . "</option>\n";
+				$to_list .= '<option value="' . $from->format('Y-m-t') . '">' . $from->format('Y-m-t') . "</option>\n";
+				$from->add($one_month);
+			}
+
+			$out .= '<div class="cs_date_limit_list">'
+				. '<label for="from">Limit to dates between </label>'
+				. '<select id="from" size="0" name="from">'
+				. "\n" . $from_list . '</select>';
+
+			$out .= '<label for="to"> and </label>'
+				. '<select id="to" size="0" name="to">'
+				. "\n" . $to_list . '</select>';
+
+			$out .= "</div>\n";
+		}
+
 		if (in_array('category', $show)) {
 			$out .= '<div class="cs_category_limit"><label for="category_id">'
 				. 'Categories: </label>';
