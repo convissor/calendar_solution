@@ -54,7 +54,7 @@ class CalendarSolution_Test_RequestDataTest extends PHPUnit_Framework_TestCase {
 	public function test_date_remove_limit() {
 		$input = '2011-12-13';
 		$_REQUEST = array('from' => $input);
-		$_GET = array('remove_limit' => 'Remove All Limits');
+		$_GET = array('remove_limit' => 'Remove Limits');
 		$actual = $this->calendar->get_date_from_request('from');
 		$this->assertEquals(null, $actual);
 	}
@@ -89,7 +89,7 @@ class CalendarSolution_Test_RequestDataTest extends PHPUnit_Framework_TestCase {
 	public function test_int_remove_limit() {
 		$input = 3;
 		$_REQUEST = array('frequent_event_id' => $input);
-		$_GET = array('remove_limit' => 'Remove All Limits');
+		$_GET = array('remove_limit' => 'Remove Limits');
 		$actual = $this->calendar->get_int_from_request('frequent_event_id');
 		$this->assertEquals(null, $actual);
 	}
@@ -130,7 +130,7 @@ class CalendarSolution_Test_RequestDataTest extends PHPUnit_Framework_TestCase {
 	public function test_int_array_remove_limit() {
 		$input = 3;
 		$_REQUEST = array('category_id' => $input);
-		$_GET = array('remove_limit' => 'Remove All Limits');
+		$_GET = array('remove_limit' => 'Remove Limits');
 		$actual = $this->calendar->get_int_array_from_request('category_id');
 		$this->assertEquals(null, $actual);
 	}

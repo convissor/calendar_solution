@@ -136,30 +136,20 @@ div.cs_change_view {
  text-align: center;
 }
 
-form.cs_limit table {
+div.cs_limit_form {
  margin-top: 0.7em;
  border-style: solid;
  width: 100%;
  border: thin solid black;
  padding: 0.5em;
 }
-form.cs_limit small,
-form.cs_limit input,
-form.cs_limit select,
-form.cs_limit option {
- font-size: 9pt;
+div.cs_limit_form {
+ font-size: 0.7em;
 }
-form.cs_limit p.cs_instructions {
- margin-top: 0em;
- margin-bottom: 0em;
-}
-form.cs_limit p.cs_date {
- margin-top: 0.3em;
- margin-bottom: 0.3em;
-}
-form.cs_limit p.cs_bottom {
- margin-top: 0.3em;
- margin-bottom: 0em;
+div.cs_limit_form input,
+div.cs_limit_form select,
+div.cs_limit_form option {
+ font-size: 1em;
 }
 
 p.cs_credit {

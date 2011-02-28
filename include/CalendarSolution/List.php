@@ -395,34 +395,21 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$action = htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']));
 
- 		$out = '<form class="cs_limit" method="get" action="' . $action . '">';
+ 		$out = '<form class="cs_limit" method="get" action="' . $action . '">'
+			. '<div class="cs_limit_form">';
 
-		$out .= '<table>'
-			 . "\n" . ' <tr>' . "\n"
-			 . "  <td>\n\n";
+		$out .= '<div class="cs_date_limit_box">'
+			. '<label for="from"><u>L</u>imit to dates between </label>'
+		    . ' <input id="cs_from_box" type="text" size="11" maxlength="10"'
+			. ' name="from" accesskey="l" value="'
+			. $this->from->format('Y-m-d') . '" />'
+			. '<label for="to"> and </label>'
+			. '<input id="cs_to_box" type="text" size="11" maxlength="10" '
+			. 'name="to" value="'
+			. $this->to->format('Y-m-d') . '" />' . "\n";
 
-		$out .= "\n\n" . '<p class="cs_instructions"><small>'
-			 . "\n You can limit the list of events by dates\n"
-			 . " or the event type or a combination thereof."
-			 . "<br />To view all events, click on the\n"
-			 . " &quot;Remove All Limits&quot; button.\n"
-			 . "</small></p>\n\n";
-
-		$out .= '<p class="cs_date"><small><u>L</u>imit'
-			 . ' to dates between';
-
-		$out .= ' <input type="text" size="11" maxlength="10"'
-			 . ' name="from" accesskey="l" value="'
-			 . $this->from->format('Y-m-d') . '" />' . "\n";
-
-		$out .= ' and <input type="text" size="11" maxlength="10" '
-			 . 'name="to" value="'
-			 . $this->to->format('Y-m-d') . '" /> (inclusive).</small></p>' . "\n";
-
-		$out .= '<p class="cs_bottom"><small>';
-
-		$out .= '<label for="category_id">'
-			 . 'Categories:</label>' . "\n";
+		$out .= '<div class="cs_category_limit"><label for="category_id">'
+			. 'Categories: </label>';
 
 		if ($this->use_cache) {
 			$cache_key = 'category_list:' . $this->category_id;
@@ -440,10 +427,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				'name'         => 'category_id',
 				'orderby'      => 'category',
 				'where'        => '1 = 1',
-				'multiple'     => 'Y',
-				'size'         => '2',
+				'multiple'     => 'N',
+				'size'         => '0',
 				'default'      => $this->category_id,
-				'add'          => array('' => 'Pick Categories, if you want to')
+				'add'          => array('' => 'Pick a Category, if you want to')
 			);
 
 			$list = $this->sql->GetOptionListGenerator(__FILE__, __LINE__, $opt);
@@ -452,14 +439,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				$this->cache->set($cache_key, $list);
 			}
 		}
-		$out .= $list;
+		$out .= "$list</div>\n";
 
-		$out .= "</p>\n";
-
-		$out .= '<p class="cs_bottom"><small>';
-
-		$out .= '<label for="frequent_event_id" accesskey="r">'
-			 . 'F<u>r</u>equent Events:</label>' . "\n";
+		$out .= '<div class="cs_frequent_event_limit">'
+			. '<label for="frequent_event_id" accesskey="r">'
+			. 'F<u>r</u>equent Events: </label>';
 
 		if ($this->use_cache) {
 			$cache_key = 'frequent_event_list:' . $this->frequent_event_id;
@@ -489,18 +473,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				$this->cache->set($cache_key, $list);
 			}
 		}
-		$out .= $list;
+		$out .= "$list</div>\n";
 
-		$out .= '   <input type="hidden" name="view" value="'
-			 . $this->view . '" />' . "\n";
+		$out .= '<div class="cs_submit_limit">'
+			. '<input type="submit" name="limit" value="Limit" />';
+		$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
+		$out .= '</div>';
 
-		$out .= '<input type="submit" name="limit" value="Limit" />
-			<input type="submit" name="remove_limit" value="Remove All Limits" />
-			</small></p>
-		  </td>
-		 </tr>
-		</table>
-		</form>';
+		$out .= "</div>\n";
 
 		return $out;
 	}
