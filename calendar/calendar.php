@@ -60,6 +60,8 @@ if ($calendar->is_admin()) {
  * generate that link if the person is viewing this script via the admin page.
  */
 if ($calendar->is_admin()) {
+	$calendar->set_permit_history_months(false);
+	$calendar->set_permit_future_months(false);
 	echo $calendar->get_admin_navigation();
 }
 

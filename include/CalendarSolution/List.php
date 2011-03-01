@@ -360,7 +360,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$uri['query']['to'] = $this->next_to->format('Y-m-d');
 
 		$out .= '<div class="cs_next">';
-		if ($this->next_from < $this->permit_future_date) {
+		if ($this->next_from < $this->permit_future_date
+			|| $this->permit_future_date === false)
+		{
 			$out .= '<a href="'
 				. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
 				. '">' . htmlspecialchars($next_link) . '</a>';
@@ -1094,10 +1096,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->next_to->add($this->interval_singleton());
 		$this->next_to->modify('last day of this month');
 
-		if ($this->next_to > $this->permit_future_date) {
+		if ($this->permit_future_date !== false
+			&& $this->next_to > $this->permit_future_date)
+		{
 			$this->next_to = $this->permit_future_date;
 		}
-		if ($this->next_from > $this->permit_future_date) {
+		if ($this->permit_future_date !== false
+			&& $this->next_from > $this->permit_future_date)
+		{
 			$this->next_from = $this->permit_future_date;
 		}
 	}
