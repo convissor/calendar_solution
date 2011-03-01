@@ -92,4 +92,3 @@ DROP TABLE cs_calendar_backup;
 COMMIT;
 
 DROP TABLE cs_category;
-

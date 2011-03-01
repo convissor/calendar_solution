@@ -92,6 +92,7 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 			feature_on_page_id,
 			cs_calendar.frequent_event_id AS frequent_event_id,
 			frequent_event_uri,
+			is_own_event,
 			list_link_goes_to_id,
 			location_start,
 			note,

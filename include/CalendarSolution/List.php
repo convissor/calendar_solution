@@ -73,6 +73,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $interval_spec;
 
 	/**
+	 * Only show events sponsored by you ("Y") or only those sponsored by
+	 * another organization ("N")?
+	 *
+	 * All events are shown if this is empty.
+	 *
+	 * @var string  ("Y" or "N")
+	 */
+	protected $is_own_event;
+
+	/**
 	 * The number of items to show
 	 * @var int
 	 */
@@ -887,6 +897,35 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Sets the "is_own_event" property to the appropriate value
+	 *
+	 * "Y" means only show events sponsored by your organization.
+	 * "N" means only show events sponsored by other organizations.
+	 * All events are shown if this is empty/unset.
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['is_own_event']
+	 *                   though set it to FALSE if it is not set or invalid
+	 *                   + FALSE = set the value to FALSE
+	 *                   + "Y" or "N" = falling back to FALSE if
+	 *                   the input is is invalid
+	 * @return void
+	 *
+	 * @uses CalendarSolution::get_string_from_request()  to determine the
+	 *       user's intention
+	 * @uses CalendarSolution_List::$is_own_event  to store the data
+	 */
+	public function set_is_own_event($in = null) {
+		if ($in === null) {
+			$in = $this->get_string_from_request('is_own_event');
+		}
+		if (!is_scalar($in) || !preg_match('/^[YN]$/', $in)) {
+			$in = false;
+		}
+
+		$this->is_own_event = $in;
+	}
+
+	/**
 	 * Sets the "limit_quantity" and "limit_start" properties
 	 *
 	 * To have lists show only the first ten events: <kbd>set_limit(10)</kbd>
@@ -1122,6 +1161,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::set_category_id()  to set the category id
 	 * @uses CalendarSolution_List::set_frequent_event_id()  to set the frequent
 	 *       event id
+	 * @uses CalendarSolution_List::set_is_own_event()  to set the own event
+	 *       flag
 	 */
 	public function set_request_properties() {
 		$this->called_set_request_properties = true;
@@ -1140,6 +1181,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($this->frequent_event_id === null) {
 			$this->set_frequent_event_id();
+		}
+
+		if ($this->is_own_event === null) {
+			$this->set_is_own_event();
 		}
 	}
 
@@ -1264,6 +1309,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       particular category if so desired
 	 * @uses CalendarSolution_List::$frequent_event_id  to limit entries to a
 	 *       particular event if so desired
+	 * @uses CalendarSolution_List::$is_own_event  to limit entries to those
+	 *       sponsored by you or those that are not
 	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
 	 *       are set to be featured on the given page id
 	 */
@@ -1298,6 +1345,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($this->frequent_event_id) {
 			$where[] = "cs_calendar.frequent_event_id = "
 				. (int) $this->frequent_event_id;
+		}
+
+		if ($this->is_own_event) {
+			$where[] = "is_own_event = '$this->is_own_event'";
 		}
 
 		if ($this->page_id) {

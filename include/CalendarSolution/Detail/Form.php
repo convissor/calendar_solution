@@ -33,6 +33,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		'frequency',
 		'frequent_event_id',
 		'frequent_event_uri',
+		'is_own_event',
 		'list_link_goes_to_id',
 		'location_start',
 		'note',
@@ -177,6 +178,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 				detail,
 				feature_on_page_id,
 				frequent_event_id,
+				is_own_event,
 				list_link_goes_to_id,
 				location_start,
 				note,
@@ -193,6 +195,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['detail']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $feature_bitwise) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_id']) . ', '
+				. $this->sql->Escape(__FILE__, __LINE__, $this->data['is_own_event']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['list_link_goes_to_id']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['location_start']) . ', '
 				. $this->sql->Escape(__FILE__, __LINE__, $this->data['note']) . ', '
@@ -378,9 +381,14 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			}
 		}
 
-		if (!preg_match('/^(Y|N)$/', $this->data['changed'])) {
+		if (!preg_match('/^[YN]$/', $this->data['changed'])) {
 			// Comes from radio button, so this is a real problem.
 			throw new CalendarSolution_Exception('Changed or Added Recently is invalid');
+		}
+
+		if (!preg_match('/^[YN]$/', $this->data['is_own_event'])) {
+			// Comes from radio button, so this is a real problem.
+			throw new CalendarSolution_Exception('Is This Your Own Event is invalid');
 		}
 
 		if (!preg_match('/^\d{1,3}$/', $this->data['status_id'])) {
@@ -800,6 +808,24 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
 
 		// ------------------------------------------------------
+		if ($this->data['is_own_event'] == 'Y') {
+			$yes = ' checked="checked"';
+			$no = '';
+		} else {
+			$yes = '';
+			$no = ' checked="checked"';
+		}
+
+		$out .= '  <tr>' . "\n";
+		$out .= "   <td>Is This Your Own Event?</td>\n";
+		$out .= "   <td>\n";
+		$out .= '    <input type="radio" name="is_own_event" value="Y"' . $yes . ' />Yes' . "\n";
+		$out .= '    <input type="radio" name="is_own_event" value="N"' . $no . ' />No, this is produced by a different organization' . "\n";
+		$out .= "   </td>\n";
+		$out .= "  </tr>\n";
+
+
+		// ------------------------------------------------------
 		$out .= '  <tr>' . "\n";
 		$out .= "   <td nowrap>\n";
 		$out .= "    Submit\n";
@@ -854,6 +880,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			detail = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['detail']) . ',
 			feature_on_page_id = ' . $this->sql->Escape(__FILE__, __LINE__, $feature_bitwise) . ',
 			frequent_event_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_id']) . ',
+			is_own_event = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['is_own_event']) . ',
 			list_link_goes_to_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['list_link_goes_to_id']) . ',
 			location_start = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['location_start']) . ',
 			note = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['note']) . ',

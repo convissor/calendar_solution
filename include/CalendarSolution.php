@@ -357,6 +357,28 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Looks for a string value in $_REQUEST[$name]
+	 *
+	 * @param string $name  the $_REQUEST array's key to examine
+	 *
+	 * @return mixed  the string, NULL if the REQUEST
+	 *                element is not set, NULL if $_GET['remove_limit'] is set,
+	 *                or FALSE if the input is invalid
+	 */
+	protected function get_string_from_request($name) {
+		if (!empty($_GET['remove_limit'])) {
+			return null;
+		}
+		if (!array_key_exists($name, $_REQUEST)) {
+			return null;
+		}
+		if (!is_scalar($_REQUEST[$name])) {
+			return false;
+		}
+		return $_REQUEST[$name];
+	}
+
+	/**
 	 * Is the current view from the admin section or not?
 	 * @return bool
 	 */

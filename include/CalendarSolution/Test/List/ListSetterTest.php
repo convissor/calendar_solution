@@ -264,6 +264,46 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 	/**#@-*/
 
 	/**#@+
+	 * set_is_own_event()
+	 */
+	public function test_is_own_event_request_good() {
+		$_REQUEST = array('is_own_event' => 'Y');
+		$this->calendar->set_is_own_event();
+		$this->assertEquals('Y', $this->calendar->is_own_event);
+	}
+	public function test_is_own_event_input_good() {
+		$_REQUEST = array('is_own_event' => 'Y');
+		$this->calendar->set_is_own_event('N');
+		$this->assertEquals('N', $this->calendar->is_own_event);
+	}
+	public function test_is_own_event_input_false() {
+		$_REQUEST = array('is_own_event' => 'Y');
+		$this->calendar->set_is_own_event(false);
+		$this->assertEquals(false, $this->calendar->is_own_event);
+	}
+	public function test_is_own_event_request_bad_array() {
+		$_REQUEST = array('is_own_event' => array('some string'));
+		$this->calendar->set_is_own_event();
+		$this->assertEquals(false, $this->calendar->is_own_event);
+	}
+	public function test_is_own_event_input_bad_array() {
+		$_REQUEST = array('is_own_event' => array('some string'));
+		$this->calendar->set_is_own_event(array('some string'));
+		$this->assertEquals(false, $this->calendar->is_own_event);
+	}
+	public function test_is_own_event_request_bad() {
+		$_REQUEST = array('is_own_event' => 'some string');
+		$this->calendar->set_is_own_event();
+		$this->assertEquals(false, $this->calendar->is_own_event);
+	}
+	public function test_is_own_event_input_bad() {
+		$_REQUEST = array('is_own_event' => 'some string');
+		$this->calendar->set_is_own_event('some string');
+		$this->assertEquals(false, $this->calendar->is_own_event);
+	}
+	/**#@-*/
+
+	/**#@+
 	 * set_limit()
 	 */
 	public function test_limit_request_good_both() {

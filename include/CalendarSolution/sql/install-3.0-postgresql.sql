@@ -113,6 +113,7 @@ CREATE TABLE cs_calendar (
   status_id SMALLINT NOT NULL DEFAULT 1,
   feature_on_page_id INT DEFAULT NULL, -- Bitwise representation of cs_feature_on_page
   category_id INTEGER DEFAULT NULL,
+  is_own_event CHAR(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT category_id_fk FOREIGN KEY (category_id)
     REFERENCES cs_category (category_id)
     ON UPDATE CASCADE,

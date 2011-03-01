@@ -30,3 +30,5 @@ ALTER TABLE cs_calendar
     REFERENCES cs_category (category_id)
     ON UPDATE CASCADE;
 
+ALTER TABLE cs_calendar
+  ADD is_own_event CHAR(1) NOT NULL DEFAULT 'Y';
