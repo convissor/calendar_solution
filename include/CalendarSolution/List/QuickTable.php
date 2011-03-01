@@ -136,9 +136,6 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		if ($this->from === null) {
 			$this->set_from(date('Y-m-d'));
 		}
-		if ($this->permit_history_date === null) {
-			$this->set_permit_history_months();
-		}
 		if ($this->permit_future_date === null) {
 			$this->set_permit_future_months();
 		}
