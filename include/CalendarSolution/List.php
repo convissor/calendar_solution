@@ -376,13 +376,22 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Produces the HTML for the form people can use to pick date ranges
 	 * and particular events
 	 *
+	 * NOTE: "datelist" will not be displayed if $permit_history_date or
+	 * $permit_future_date are false.
+	 *
+	 * @param array $show  a list of elements to show ("datebox", "datelist",
+	 *                     "category", "event", "remove")
+	 *
 	 * @return string  the HTML for the limit form
 	 *
-	 * @uses CalendarSolution_List::$view
-	 * @uses CalendarSolution_List::$category_id
-	 * @uses CalendarSolution_List::$frequent_event_id
-	 * @uses CalendarSolution_List::$from
-	 * @uses CalendarSolution_List::$to
+	 * @uses CalendarSolution_List::$category_id  to set the default category
+	 * @uses CalendarSolution_List::$frequent_event_id  to set the default event
+	 * @uses CalendarSolution_List::$from  to set the default "datebox" date
+	 * @uses CalendarSolution_List::$to  to set the default "datebox" date
+	 * @uses CalendarSolution_List::$permit_history_date  to determine the
+	 *       earliest value in the "datelist" dropdown boxes
+	 * @uses CalendarSolution_List::$permit_future_date  to determine the
+	 *       latest value in the "datelist" dropdown boxes
 	 */
 	public function get_limit_form(
 			$show = array('datebox', 'category', 'event', 'remove'))
