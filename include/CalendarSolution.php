@@ -3,6 +3,9 @@
 /**
  * Calendar Solution's base class
  *
+ * The Calendar Solution provides a simple way to post events on your website
+ * or intranet.
+ *
  * Calendar Solution is a trademark of The Analysis and Solutions Company.
  *
  * @package CalendarSolution
@@ -13,6 +16,12 @@
 
 /**
  * The base class
+ *
+ * @see CalendarSolution_List::factory_chosen_view()
+ * @see CalendarSolution_List_List::get_rendering()
+ * @see CalendarSolution_List_Calendar::get_rendering()
+ * @see CalendarSolution_List_QuickTable::get_rendering()
+ * @see CalendarSolution_List_Title::get_rendering()
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -34,7 +43,7 @@ class CalendarSolution {
 	/**#@-*/
 
 	/**#@+
-	 * ID numbers used by the list_link_goes_to_id field
+	 * ID numbers used by the "list_link_goes_to_id" field
 	 */
 	const LINK_TO_NONE = 1;
 	const LINK_TO_DETAIL_PAGE = 2;
@@ -43,7 +52,7 @@ class CalendarSolution {
 	/**#@-*/
 
 	/**#@+
-	 * Status ID numbers used by the status_id field
+	 * ID numbers used by the "status_id" field
 	 */
 	const STATUS_OPEN = 1;
 	const STATUS_FULL = 2;
@@ -106,11 +115,12 @@ class CalendarSolution {
 	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
 	 *
 	 * @uses CALENDAR_SOLUTION_DBMS  to know which database extension to use
-	 * @uses CalendarSolution::$sql  the SQL Solution object for the
-	 *       database system specified by the $dbms parameter
+	 * @uses CalendarSolution::$sql  to store the SQL Solution object
+	 *       instantiated by the Calendar Solution's constructor
 	 * @uses CALENDAR_SOLUTION_CACHE_CLASS  to know which cache class to use
 	 * @uses $GLOBALS['cache_servers']  to know where the cache servers are
-	 * @uses CalendarSolution::$cache  the Calendar Solution Cache object
+	 * @uses CalendarSolution::$cache  to store the Calendar Solution Cache
+	 *       object instantiated by the Calendar Solution's constructor
 	 *
 	 * @throws CalendarSolution_Exception if the $dbms parameter or
 	 *         CALENDAR_SOLUTION_CACHE_CLASS is improper
@@ -186,6 +196,8 @@ class CalendarSolution {
 	 * Flushes the system's cache
 	 *
 	 * @return bool
+	 *
+	 * @uses CalendarSolution_Cache::flush()  to perform the flush
 	 */
 	public function flush_cache() {
 		if (!$this->cache_available) {
@@ -202,9 +214,12 @@ class CalendarSolution {
 	 *
 	 * @param string $in  the date to format
 	 * @param string $format  the format to use (for PHP's date() function).
-	 *                        Use the DATE_FORMAT_* constants in this class.
+	 *                        Use the DATE_FORMAT_* constants in this class
+	 *                        or use a format of your choosing.
 	 *
 	 * @return string  the formatted date
+	 *
+	 * @see http://php.net/date
 	 */
 	protected function format_date($in, $format) {
 		if ($in === null || $in === '') {
@@ -214,6 +229,7 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Generates the HTML needed to access administrative functions
 	 * @return string  the HTML with the admin links
 	 */
 	public function get_admin_navigation() {
@@ -231,6 +247,7 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Produces the HTML with a link to the Calendar Solution's home page
 	 * @return string  the HTML with the credit link
 	 */
 	protected function get_credit() {
@@ -241,7 +258,6 @@ class CalendarSolution {
 
 	/**
 	 * Provides the Cascading Style Sheet data, for use between <style> tags
-	 *
 	 * @return string  the CSS
 	 */
 	public function get_css() {
@@ -423,12 +439,12 @@ class CalendarSolution {
 	 *
 	 * The following transformations also occur:
 	 * + Missing keys are created and their values set to NULL.
-	 * + Non-scalar entries get set to NULL.
+	 * + Non-scalar entries get set to NULL (see below for exceptions).
 	 * + Values are passed through trim().
 	 * + Empty strings are converted to NULL.
 	 *
-	 * Fields expected to be arrays have their values passed through the
-	 * process listed above.
+	 * Fields expected to be arrays (i.e. fields listed in "$fields_bitwise")
+	 * have their array values passed through the process listed above.
 	 *
 	 * @return void
 	 *
