@@ -179,17 +179,20 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 
 	/**
-	 * Calls the parent constructor then populates the $interval_spec property
+	 * Calls the parent constructor and set_uri() then populates the
+	 * "$interval_spec" property
 	 *
 	 * @param integer $months  how many months should be shown at once
 	 * @param string $dbms  optional override of the database extension setting
 	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
 	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
 	 *
-	 * @uses CalendarSolution::__construct()  to instantiate the database class
+	 * @uses CalendarSolution::__construct()  to instantiate the database and
+	 *       cache classes
 	 * @uses CalendarSolution_List::$interval_spec  is set based on the
-	 *       $months parameter; which is used later when creating new
+	 *       "$months" parameter; is used later when creating new
 	 *       DateIntervalSolution objects
+	 * @uses CalendarSolution_List::set_uri()  to set the "$uri" property
 	 */
 	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
 		parent::__construct($dbms);
@@ -202,7 +205,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * to determine whether to return a CalendarSolution_List_Calendar
 	 * (the default) or CalendarSolution_List_List object
 	 *
-	 * WARNING: this function sets a cookie, so must be called before any
+	 * WARNING: this function sets a cookie, so MUST be called before ANY
 	 * output is sent to the browser.
 	 *
 	 * @param integer $months  how many months should be shown at once
@@ -211,6 +214,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
 	 *
 	 * @return CalendarSolution_List_Calendar|CalendarSolution_List_List
+	 *
+	 * @todo  Adjust cookie expiration date as the year 2038 approaches.
 	 */
 	public static function factory_chosen_view($months = 3,
 		$dbms = CALENDAR_SOLUTION_DBMS)
@@ -254,9 +259,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the HTML for changing between list and calendar views
 	 *
-	 * @param string $phrase  the sprintf formatted phrase to be displayed.
+	 * @param string $phrase  the sprintf formatted string to be displayed.
 	 *                        Must contain one "%s" conversion specification,
-	 *                        where the $list/$calendar text is inserted
+	 *                        where the "$list" or "$calendar" parameter text
+	 *                        will be inserted by this method as appropriate
 	 * @param string $list  the text for the "list" view.  The value is passed
 	 *                      through htmlspecialchars().
 	 * @param string $calendar  the text for the "calendar" view.  The value is
@@ -264,11 +270,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return string  the HTML for switching views
 	 *
-	 * @uses CalendarSolution_List::$view
-	 * @uses CalendarSolution_List::$category_id
-	 * @uses CalendarSolution_List::$frequent_event_id
-	 * @uses CalendarSolution_List::$from
-	 * @uses CalendarSolution_List::$to
+	 * @uses CalendarSolution_List::set_request_properties()  to determine the
+	 *       user's intent
+	 * @uses CalendarSolution_List::$view  to know the current view
+	 * @uses CalendarSolution_List::$category_id  to know the current category
+	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
+	 * @uses CalendarSolution_List::$from  to know the current from date
+	 * @uses CalendarSolution_List::$to  to know the current to date
+	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function get_change_view($phrase = 'View the events in %s format',
 			$list = 'list', $calendar = 'calendar')
@@ -320,15 +331,26 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return string  the navigation section's HTML
 	 *
-	 * @uses CalendarSolution_List::$view
-	 * @uses CalendarSolution_List::$category_id
-	 * @uses CalendarSolution_List::$frequent_event_id
-	 * @uses CalendarSolution_List::$from
-	 * @uses CalendarSolution_List::$to
-	 * @uses CalendarSolution_List::$prior_from
-	 * @uses CalendarSolution_List::$prior_to
-	 * @uses CalendarSolution_List::$next_from
-	 * @uses CalendarSolution_List::$next_to
+	 * @uses CalendarSolution_List::set_request_properties()  to determine the
+	 *       user's intent
+	 * @uses CalendarSolution_List::set_prior_and_next_dates()  to determine
+	 *       dates for the prior and next links
+	 * @uses CalendarSolution_List::set_permit_history_months()  to limit how
+	 *       far back people can go
+	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
+	 *       far in the future people can go
+	 * @uses CalendarSolution_List::$view  to know the current view
+	 * @uses CalendarSolution_List::$category_id  to know the current category
+	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
+	 * @uses CalendarSolution_List::$from  to know the current from date
+	 * @uses CalendarSolution_List::$to  to know the current to date
+	 * @uses CalendarSolution_List::$prior_from  for the "prior" link's from date
+	 * @uses CalendarSolution_List::$prior_to  for the "prior" link's to date
+	 * @uses CalendarSolution_List::$next_from  for the "next" link's from date
+	 * @uses CalendarSolution_List::$next_to  for the "next" link's to date
+	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function get_date_navigation($prior_link = '< See Earlier Events',
 			$next_link = 'See Later Events >')
@@ -404,6 +426,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       earliest value in the "datelist" dropdown boxes
 	 * @uses CalendarSolution_List::$permit_future_date  to determine the
 	 *       latest value in the "datelist" dropdown boxes
+	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function get_limit_form(
 			$show = array('datebox', 'category', 'event', 'remove'))
@@ -564,6 +589,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                 enabled in set_limit(), an empty string if not
 	 *
 	 * @see CalendarSolution_List::set_limit()
+	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function get_limit_navigation($prior_link = '< prior',
 			$next_link = 'next >')
@@ -789,6 +817,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution::get_int_array_from_request()  to determine the
 	 *       user's intention
 	 * @uses CalendarSolution_List::$category_id  to store the data
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function set_category_id($in = null) {
 		if ($in === null) {
@@ -821,6 +851,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @uses CalendarSolution_List::$date_format_id  to store the data
 	 * @see CalendarSolution::format_date()
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function set_date_format($in) {
 		$this->date_format = $in;
@@ -913,6 +945,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution::get_string_from_request()  to determine the
 	 *       user's intention
 	 * @uses CalendarSolution_List::$is_own_event  to store the data
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function set_is_own_event($in = null) {
 		if ($in === null) {
@@ -957,6 +991,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       user's intention
 	 * @uses CalendarSolution_List::$limit_quantity  to store the data
 	 * @uses CalendarSolution_List::$limit_start  to store the data
+	 *
+	 * @since  $start parameter added in version 3.0.0
 	 */
 	public function set_limit($quantity, $start = false) {
 		if ($quantity === null) {
@@ -1018,6 +1054,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::interval_singleton()  if the value needs
 	 *       to be set to the default
 	 * @uses CalendarSolution_List::$to  for validation
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function set_permit_future_months($months = 12) {
 		if ($months === false) {
@@ -1054,6 +1092,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @uses CalendarSolution_List::$permit_history_date  to store the data
 	 * @uses CalendarSolution_List::$from  for validation
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function set_permit_history_months($months = 12) {
 		if ($months === false) {
@@ -1079,21 +1119,23 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Sets the properties used later when generating the navigation elements
 	 * for getting to earlier and later events
 	 *
+	 * Does nothing if "$from" or "$to" are false.
+	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List::$from
-	 * @uses CalendarSolution_List::$to
+	 * @uses CalendarSolution_List::$from  as the basis for the calculations
+	 * @uses CalendarSolution_List::$to  as the basis for the calculations
 	 * @uses CalendarSolution_List::interval_singleton()
-	 * @uses CalendarSolution_List::$prior_from
-	 * @uses CalendarSolution_List::$prior_to
-	 * @uses CalendarSolution_List::$next_from
-	 * @uses CalendarSolution_List::$next_to
+	 * @uses CalendarSolution_List::$prior_from  for the "prior" link's from date
+	 * @uses CalendarSolution_List::$prior_to  for the "prior" link's to date
+	 * @uses CalendarSolution_List::$next_from  for the "next" link's from date
+	 * @uses CalendarSolution_List::$next_to  for the "next" link's to date
 	 * @uses CalendarSolution_List::set_permit_history_months() to set bounds on
 	 *       how far back the dates can go
 	 * @uses CalendarSolution_List::set_permit_future_months() to set bounds on
 	 *       how far in the future the dates can go
 	 *
-	 * @throws CalendarSolution_Exception if $this->from hasn't been set yet
+	 * @throws CalendarSolution_Exception if "$from" or "$to" has not been set
 	 */
 	protected function set_prior_and_next_dates() {
 		$this->called_set_prior_and_next_dates = true;
@@ -1163,6 +1205,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       event id
 	 * @uses CalendarSolution_List::set_is_own_event()  to set the own event
 	 *       flag
+	 *
+	 * @since  Method available since version 3.0.0
 	 */
 	public function set_request_properties() {
 		$this->called_set_request_properties = true;
@@ -1278,8 +1322,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Breaks up the REQUEST_URI into usable parts
 	 *
-	 * @return array  an associative array containing the 'path' as a string
-	 *                and the 'query' broken into a sub-array
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$uri  to store the data
 	 */
 	protected function set_uri() {
 		$this->uri = array('path' => '', 'query' => array());
