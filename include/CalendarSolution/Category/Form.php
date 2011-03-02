@@ -165,22 +165,6 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	}
 
 	/**
-	 * Populates $this->data with the requisite keys and sets values to NULL
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution::$data  to hold the data
-	 * @uses CalendarSolution::$fields  as the list of field names
-	 */
-	public function set_data_empty() {
-		$this->data = array();
-		foreach ($this->fields as $field) {
-			$this->data[$field] = null;
-		}
-		$this->data['set_from'] = 'empty';
-	}
-
-	/**
 	 * Updates the record with the posted data
 	 * @return void
 	 */
