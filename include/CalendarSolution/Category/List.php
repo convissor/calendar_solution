@@ -90,6 +90,8 @@ class CalendarSolution_Category_List extends CalendarSolution_Category {
 
 		$out .= $this->get_list_close();
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 

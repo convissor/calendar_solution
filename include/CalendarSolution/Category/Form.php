@@ -173,6 +173,8 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 		$out .= ' </table>';
 		$out .= "\n</form>\n\n";
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 

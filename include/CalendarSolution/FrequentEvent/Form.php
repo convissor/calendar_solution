@@ -199,6 +199,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 		$out .= ' </table>';
 		$out .= "\n</form>\n\n";
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 

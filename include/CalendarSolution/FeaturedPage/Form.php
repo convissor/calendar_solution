@@ -182,6 +182,8 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 		$out .= ' </table>';
 		$out .= "\n</form>\n\n";
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 

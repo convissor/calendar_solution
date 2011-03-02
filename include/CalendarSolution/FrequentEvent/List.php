@@ -95,6 +95,8 @@ class CalendarSolution_FrequentEvent_List extends CalendarSolution_FrequentEvent
 
 		$out .= $this->get_list_close();
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 

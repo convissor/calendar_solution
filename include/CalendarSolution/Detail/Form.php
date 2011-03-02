@@ -860,6 +860,8 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 		$out .= ' </table>';
 		$out .= "\n</form>\n\n";
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 

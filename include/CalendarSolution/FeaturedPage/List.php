@@ -93,6 +93,8 @@ class CalendarSolution_FeaturedPage_List extends CalendarSolution_FeaturedPage {
 
 		$out .= $this->get_list_close();
 
+		$out .= $this->get_credit();
+
 		return $out;
 	}
 
