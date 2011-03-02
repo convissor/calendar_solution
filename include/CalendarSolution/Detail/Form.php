@@ -60,9 +60,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 * @return void
 	 */
 	public function delete() {
-		if ($this->use_cache) {
-			$this->cache->flush();
-		}
+		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'DELETE FROM cs_calendar
 			WHERE calendar_id = '
@@ -165,9 +163,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 * @return void
 	 */
 	public function insert() {
-		if ($this->use_cache) {
-			$this->cache->flush();
-		}
+		$this->flush_cache();
 
 		$feature_bitwise = $this->get_bitwise_from_array($this->data['feature_on_page_id']);
 
@@ -866,9 +862,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 * @return void
 	 */
 	public function update() {
-		if ($this->use_cache) {
-			$this->cache->flush();
-		}
+		$this->flush_cache();
 
 		$feature_bitwise = $this->get_bitwise_from_array($this->data['feature_on_page_id']);
 
