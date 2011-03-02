@@ -19,6 +19,12 @@
  */
 class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	/**
+	 * Errors found by is_valid()
+	 * @var array
+	 */
+	protected $errors = array();
+
+	/**
 	 * The names of fields on the form
 	 * @var array
 	 */

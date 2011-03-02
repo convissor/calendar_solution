@@ -19,6 +19,12 @@
  */
 class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	/**
+	 * Errors found by is_valid()
+	 * @var array
+	 */
+	protected $errors = array();
+
+	/**
 	 * The names of fields on the form
 	 * @var array
 	 */
@@ -26,6 +32,12 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 		'category_id',
 		'category',
 	);
+
+	/**
+	 * The names of fields on the form that are bitwise in the database
+	 * @var array
+	 */
+	protected $fields_bitwise = array();
 
 
 	/**

@@ -19,6 +19,12 @@
  */
 class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	/**
+	 * Errors found by is_valid()
+	 * @var array
+	 */
+	protected $errors = array();
+
+	/**
 	 * The names of fields on the form
 	 * @var array
 	 */
@@ -26,6 +32,12 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 		'feature_on_page_id',
 		'feature_on_page',
 	);
+
+	/**
+	 * The names of fields on the form that are bitwise in the database
+	 * @var array
+	 */
+	protected $fields_bitwise = array();
 
 
 	/**

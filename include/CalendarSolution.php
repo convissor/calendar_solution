@@ -78,24 +78,6 @@ class CalendarSolution {
 	protected $data = array();
 
 	/**
-	 * Errors found by is_valid()
-	 * @var array
-	 */
-	protected $errors = array();
-
-	/**
-	 * The names of fields on the form
-	 * @var array
-	 */
-	protected $fields = array();
-
-	/**
-	 * The names of fields on the form that are bitwise in the database
-	 * @var array
-	 */
-	protected $fields_bitwise = array();
-
-	/**
 	 * @var SQLSolution_General
 	 */
 	protected $sql;
