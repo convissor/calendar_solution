@@ -358,6 +358,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if (!$this->called_set_request_properties) {
 			$this->set_request_properties();
 		}
+		if ($this->from === false || $this->to === false) {
+			return '';
+		}
 		if (!$this->called_set_prior_and_next_dates) {
 			$this->set_prior_and_next_dates();
 		}
@@ -379,7 +382,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$uri['query']['from'] = $this->prior_from->format('Y-m-d');
 		$uri['query']['to'] = $this->prior_to->format('Y-m-d');
 
-		$out = '<div class="cs_nav">';
+		$out = '<div class="cs_date_navigation">';
 		$out .= '<div class="cs_prior">';
 		if ($this->prior_to > $this->permit_history_date) {
 			$out .= '<a href="'
@@ -1140,7 +1143,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected function set_prior_and_next_dates() {
 		$this->called_set_prior_and_next_dates = true;
 
-		if ($this->from === false) {
+		if ($this->from === false || $this->to === false) {
 			return;
 		} elseif ($this->from === null || $this->to === null) {
 			throw new CalendarSolution_Exception('set_from() and set_to()'
