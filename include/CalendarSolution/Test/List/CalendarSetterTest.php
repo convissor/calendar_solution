@@ -92,7 +92,7 @@ class CalendarSolution_Test_List_CalendarSetterTest extends PHPUnit_Framework_Te
 		$this->assertEquals('2011-05-01', $this->calendar->next_from->format('Y-m-d'), 'next_from');
 		$this->assertEquals('2011-07-31', $this->calendar->next_to->format('Y-m-d'), 'next_to');
 	}
-	public function test_prior_and_next_dates_false() {
+	public function test_prior_and_next_dates_from_false() {
 		$this->calendar->set_from(false);
 		$this->calendar->set_prior_and_next_dates();
 		$this->assertEquals(null, $this->calendar->prior_from, 'prior_from');
@@ -100,7 +100,16 @@ class CalendarSolution_Test_List_CalendarSetterTest extends PHPUnit_Framework_Te
 		$this->assertEquals(null, $this->calendar->next_from, 'next_from');
 		$this->assertEquals(null, $this->calendar->next_to, 'next_to');
 	}
+	public function test_prior_and_next_dates_to_false() {
+		$this->calendar->set_to(false);
+		$this->calendar->set_prior_and_next_dates();
+		$this->assertEquals(null, $this->calendar->prior_from, 'prior_from');
+		$this->assertEquals(null, $this->calendar->prior_to, 'prior_to');
+		$this->assertEquals(null, $this->calendar->next_from, 'next_from');
+		$this->assertEquals(null, $this->calendar->next_to, 'next_to');
+	}
 	public function test_prior_and_next_dates_from_unset() {
+		$this->calendar->set_to('2011-02-28');
 		$this->setExpectedException('CalendarSolution_Exception');
 		$this->calendar->set_prior_and_next_dates();
 	}
