@@ -25,6 +25,26 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->calendar->total_rows = 33;
 	}
 
+	protected function get_date_navigation_expected($prior_from, $prior_to,
+			$next_from, $next_to, $uri = '?view=List&amp;')
+	{
+		$prior_link = '';
+		if ($prior_from) {
+			$prior_link = '<a href="' . $uri . 'from=' . $prior_from
+				. '&amp;to=' . $prior_to . '">&lt; See Earlier Events</a>';
+		}
+
+		$next_link = '';
+		if ($next_from) {
+			$next_link = '<a href="' . $uri . 'from=' . $next_from
+				. '&amp;to=' . $next_to . '">See Later Events &gt;</a>';
+		}
+
+		return '<div class="cs_date_navigation"><div class="cs_prior">'
+			. $prior_link
+			. '</div><div class="cs_next">' . $next_link . "</div></div>\n";
+	}
+
 	protected function get_limit_navigation_expected($prior, $next, $uri = '?') {
 		$prior_link = '';
 		if (is_numeric($prior)) {
@@ -42,6 +62,43 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 			. $prior_link
 			. '</div><div class="cs_next">' . $next_link . "</div></div>\n";
 	}
+
+	/**#@+
+	 * get_date_navigation()
+	 */
+	public function test_get_date_navigation_from_false() {
+		$this->calendar->set_from(false);
+		$actual = $this->calendar->get_date_navigation();
+		$expect = '';
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_date_navigation_to_false() {
+		$this->calendar->set_to(false);
+		$actual = $this->calendar->get_date_navigation();
+		$expect = '';
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_date_navigation() {
+		$this->calendar->set_from('2011-02-01');
+		$this->calendar->set_to('2011-04-30');
+		$actual = $this->calendar->get_date_navigation();
+		$expect = $this->get_date_navigation_expected(
+				'2010-11-01', '2011-01-31', '2011-05-01', '2011-07-31');
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_date_navigation_uri() {
+		$_SERVER['REQUEST_URI'] = 'p?q=v';
+		$this->calendar->set_uri();
+
+		$this->calendar->set_from('2011-02-01');
+		$this->calendar->set_to('2011-04-30');
+		$actual = $this->calendar->get_date_navigation();
+		$expect = $this->get_date_navigation_expected(
+				'2010-11-01', '2011-01-31', '2011-05-01', '2011-07-31',
+				'p?q=v&amp;view=List&amp;');
+		$this->assertEquals($expect, $actual);
+	}
+	/**#@-*/
 
 	/**#@+
 	 * get_limit_navigation()
@@ -67,6 +124,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	public function test_get_limit_navigation_start_10_uri() {
 		$_SERVER['REQUEST_URI'] = 'p?q=v';
 		$this->calendar->set_uri();
+
 		$this->calendar->set_limit(10, 10);
 		$actual = $this->calendar->get_limit_navigation();
 		$expect = $this->get_limit_navigation_expected(0, 20, 'p?q=v&amp;');
