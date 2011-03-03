@@ -98,6 +98,17 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 				'p?q=v&amp;view=List&amp;');
 		$this->assertEquals($expect, $actual);
 	}
+	public function test_get_date_navigation_event() {
+		$this->calendar->set_frequent_event_id(2);
+
+		$this->calendar->set_from('2011-02-01');
+		$this->calendar->set_to('2011-04-30');
+		$actual = $this->calendar->get_date_navigation();
+		$expect = $this->get_date_navigation_expected(
+				'2010-11-01', '2011-01-31', '2011-05-01', '2011-07-31',
+				'?frequent_event_id=2&amp;view=List&amp;');
+		$this->assertEquals($expect, $actual);
+	}
 	/**#@-*/
 
 	/**#@+
