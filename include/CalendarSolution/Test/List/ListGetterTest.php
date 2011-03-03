@@ -86,6 +86,27 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 				'2010-11-01', '2011-01-31', '2011-05-01', '2011-07-31');
 		$this->assertEquals($expect, $actual);
 	}
+	public function test_get_date_navigation_history_0() {
+		$this->calendar->set_permit_history_months(0);
+
+		$this->calendar->set_from('2011-02-01');
+		$this->calendar->set_to('2011-04-30');
+		$actual = $this->calendar->get_date_navigation();
+		$expect = $this->get_date_navigation_expected(
+				'', '', '2011-05-01', '2011-07-31');
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_date_navigation_future_0() {
+		$this->calendar = new CalendarSolution_Test_List_ListHelper(1);
+		$this->calendar->permit_future_date = new DateTimeSolution('2011-02-28');
+
+		$this->calendar->set_from('2011-02-01');
+		$this->calendar->set_to('2011-02-28');
+		$actual = $this->calendar->get_date_navigation();
+		$expect = $this->get_date_navigation_expected(
+				'2010-11-01', '2011-01-31', '', '');
+		$this->assertEquals($expect, $actual);
+	}
 	public function test_get_date_navigation_uri() {
 		$_SERVER['REQUEST_URI'] = 'p?q=v';
 		$this->calendar->set_uri();
@@ -98,7 +119,8 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 				'p?q=v&amp;view=List&amp;');
 		$this->assertEquals($expect, $actual);
 	}
-	public function test_get_date_navigation_event() {
+	public function test_get_date_navigation_properties() {
+		$this->calendar->set_category_id(2);
 		$this->calendar->set_frequent_event_id(2);
 
 		$this->calendar->set_from('2011-02-01');
@@ -106,7 +128,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$actual = $this->calendar->get_date_navigation();
 		$expect = $this->get_date_navigation_expected(
 				'2010-11-01', '2011-01-31', '2011-05-01', '2011-07-31',
-				'?frequent_event_id=2&amp;view=List&amp;');
+				'?category_id%5B0%5D=2&amp;frequent_event_id=2&amp;view=List&amp;');
 		$this->assertEquals($expect, $actual);
 	}
 	/**#@-*/
