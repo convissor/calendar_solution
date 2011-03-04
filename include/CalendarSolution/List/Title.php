@@ -20,6 +20,8 @@
  * Intended for use to display Featured Events on Home Pages or other top
  * level pages.
  *
+ * @see CalendarSolution_List_Title::get_rendering()
+ *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
@@ -91,23 +93,24 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 *
 	 * @param int $page_id  the feature_on_page_id to limit the list to, if any
 	 *
-	 * @return string  the complete HTML of the events and the related interface
+	 * @return string  the HTML for displaying the events
 	 *
 	 * @see CalendarSolution_List::set_limit()
 	 * @see CalendarSolution_List::get_limit_navigation()
 	 * @see CalendarSolution_List::set_date_format()
 	 *
-	 * @uses CalendarSolution_List::set_where_sql()  to generate the cache keys
-	 * @uses CalendarSolution::$cache  to cache the output, if possible
-	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
-	 * @uses CalendarSolution_List::set_page_id()  if $page_id is passed
+	 * @uses CalendarSolution_List::set_from()  to default the date to today,
+	 *       but only if it has not been called yet
+	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
+	 *       far ahead people can see, but only if it has not been called yet
 	 * @uses CalendarSolution_List::set_show_cancelled()  to drop cancelled
 	 *       events from the display
-	 * @uses CalendarSolution_List::set_from()  to default the date to today
-	 * @uses CalendarSolution_List_Title::get_list_open()  to open the set
-	 * @uses CalendarSolution_List_Title::get_event_formatted()  to format
-	 *       each event
-	 * @uses CalendarSolution_List_Title::get_list_close()  to close the set
+	 * @uses CalendarSolution_List::set_page_id()  if "$page_id" is passed
+	 *
+	 * @uses CalendarSolution_List::set_where_sql()  to generate the WHERE
+	 *       clause and cache keys
+	 * @uses CalendarSolution::$cache  to cache the output, if possible
+	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
 	 */
 	public function get_rendering($page_id = null) {
 		if ($page_id) {

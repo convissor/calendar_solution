@@ -14,6 +14,9 @@
  * The means to output collections of events formatted as a table with
  * significant info about each event
  *
+ * @see CalendarSolution_List::factory_chosen_view()
+ * @see CalendarSolution_List_List::get_rendering()
+ *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
@@ -136,14 +139,19 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a list format
 	 *
-	 * @return string  the complete HTML of the events and the related interface
+	 * @return string  the HTML for displaying the events
 	 *
 	 * @see CalendarSolution_List::set_date_format()
 	 * @see CalendarSolution_List::get_limit_form()
 	 * @see CalendarSolution_List::get_date_navigation()
 	 * @see CalendarSolution_List::get_change_view()
 	 *
-	 * @uses CalendarSolution_List::run_query()
+	 * @uses CalendarSolution_List::set_request_properties()  to determine the
+	 *       user's intention, but only if it has not been called yet
+	 * @uses CalendarSolution_List::set_permit_history_months()  to limit how
+	 *       far back people can see, but only if it has not been called yet
+	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
+	 *       far ahead people can see, but only if it has not been called yet
 	 */
 	public function get_rendering() {
 		if (!$this->called_set_request_properties) {
