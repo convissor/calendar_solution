@@ -887,7 +887,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Sets the "from" property (defaults to today)
+	 * Sets the "from" property
+	 *
+	 * CalendarSolution_List::set_from() defaults to today.
+	 * CalendarSolution_List_Calendar::set_from() defaults to the first day of
+	 * today's month.
 	 *
 	 * NOTE: "from" is reset to "permit_history_date" if "from" is earlier than
 	 * "permit_history_date"
@@ -900,6 +904,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                   + string = a date in YYYY-MM-DD format though uses
 	 *                   the default if it is invalid
 	 * @return void
+	 *
+	 * @see CalendarSolution_List_Calendar::set_from()
 	 *
 	 * @uses CalendarSolution::get_date_from_request()  to determine the
 	 *       user's intention

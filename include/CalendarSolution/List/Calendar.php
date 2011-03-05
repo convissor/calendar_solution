@@ -254,10 +254,21 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	}
 
 	/**
-	 * Sets the "from" property to the first day of the given month (the
-	 * default is the first day of the current month)
+	 * Sets the "from" property to the first day of the given month
 	 *
-	 * @param mixed $in  see CalendarSolution_List::set_from()
+	 * CalendarSolution_List_Calendar::set_from() defaults to the first day of
+	 * today's month.  CalendarSolution_List::set_from() defaults to today.
+	 *
+	 * NOTE: "from" is reset to "permit_history_date" if "from" is earlier than
+	 * "permit_history_date"
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['from'] though uses
+	 *                   the default if it is not set or invalid
+	 *                   + TRUE = use value of $_REQUEST['from'] if it is set,
+	 *                   use the default if it is invalid, use FALSE if not set
+	 *                   + FALSE = set the value to FALSE
+	 *                   + string = a date in YYYY-MM-DD format though uses
+	 *                   the default if it is invalid
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::set_from()  to determine the
