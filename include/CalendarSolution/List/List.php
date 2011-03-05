@@ -152,6 +152,12 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 *       far back people can see, but only if it has not been called yet
 	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
 	 *       far ahead people can see, but only if it has not been called yet
+	 *
+	 * @uses CalendarSolution_List::set_where_sql()  to generate the WHERE
+	 *       clause and cache keys
+	 * @uses CalendarSolution::$cache  to cache the output of the default view,
+	 *       if possible
+	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
 	 */
 	public function get_rendering() {
 		if (!$this->called_set_request_properties) {
@@ -162,6 +168,17 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		}
 		if ($this->permit_future_date === null) {
 			$this->set_permit_future_months();
+		}
+
+		if ($this->use_cache) {
+			$this->set_where_sql();
+
+			$cache_key = $this->cache_key . ':list:';
+
+			$out = $this->cache->get($cache_key);
+			if ($out !== false) {
+				return $out;
+			}
 		}
 
 		$this->run_query();
@@ -199,6 +216,10 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 		$out .= $this->get_list_close();
 		$out .= $this->get_credit();
+
+		if ($this->use_cache) {
+			$this->cache->set($cache_key, $out);
+		}
 
 		return $out;
 	}
