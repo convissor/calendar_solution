@@ -247,8 +247,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 		$out .= $this->get_credit();
 
-		// Save memory by only caching default view.
-		if ($this->use_cache && empty($_GET)) {
+		if ($this->use_cache) {
 			$this->cache->set($cache_key, $out);
 		}
 
