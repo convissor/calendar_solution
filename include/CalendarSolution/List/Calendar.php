@@ -36,8 +36,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @param DateTimeSolution $current
 	 * @param DateTimeSolution $to
 	 */
-	protected function calculate_months($current, $to)
-	{
+	protected function calculate_months($current, $to) {
 		$length_interval = $current->diff($to, true);
 		$months = $length_interval->format('%m') + 1;
 		$years = $length_interval->format('%y');
