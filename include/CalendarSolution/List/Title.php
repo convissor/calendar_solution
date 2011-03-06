@@ -90,6 +90,13 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 *
 	 * NOTE: this view never shows cancelled events.
 	 *
+	 * Cascading Style Sheet notes:  the list is contained within
+	 * "table.cs_list_title".  Each event is wrapped by a "tr"
+	 * element, which has multiple class attributes:
+	 * + Row: cs_row_0, cs_row_1
+	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
+	 * + Changed: cs_changed_Y, cs_changed_N
+	 *
 	 * @param int $page_id  the feature_on_page_id to limit the list to, if any
 	 *
 	 * @return string  the HTML for displaying the events
@@ -141,8 +148,12 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 
 		$out = $this->get_list_open();
 
-		foreach ($this->data as $event) {
-			$out .= $this->get_row_open();
+		foreach ($this->data as $counter => $event) {
+			$class = 'cs_status_' . substr($event['status'], 0, 1)
+					. ' cs_changed_' . $event['changed']
+					. ' cs_row_' . ($counter % 2);
+
+			$out .= $this->get_row_open($class);
 			$out .= $this->get_event_formatted($event);
 			$out .= $this->get_row_close();
 		}
@@ -166,7 +177,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	/**
 	 * @return string  the HTML for opening a row
 	 */
-	protected function get_row_open() {
-		return ' <tr>';
+	protected function get_row_open($class) {
+		return ' <tr class="' . $class . '">';
 	}
 }
