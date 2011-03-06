@@ -70,6 +70,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		}
 
 		$out = '<div class="cs_item cs_status_' . substr($event['status'], 0, 1)
+			. ' cs_is_own_event_' . $event['is_own_event']
 			. ' cs_changed_' . $event['changed'] . '">';
 		$out .= '<span class="cs_title">' . $this->get_link($event) . '</span>';
 
@@ -168,6 +169,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * which has additional multiple class attributes:
 	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
 	 * + Changed: cs_changed_Y, cs_changed_N
+	 * + Organizer: cs_is_own_event_Y, cs_is_own_event_N
 	 *
 	 * @return string  the HTML for displaying the events
 	 *

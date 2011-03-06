@@ -149,6 +149,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * + Row: cs_row_0, cs_row_1
 	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
 	 * + Changed: cs_changed_Y, cs_changed_N
+	 * + Organizer: cs_is_own_event_Y, cs_is_own_event_N
 	 *
 	 * @return string  the HTML for displaying the events
 	 *
@@ -200,6 +201,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 		foreach ($this->data as $counter => $event) {
 			$class = 'cs_status_' . substr($event['status'], 0, 1)
+					. ' cs_is_own_event_' . $event['is_own_event']
 					. ' cs_changed_' . $event['changed']
 					. ' cs_row_' . ($counter % 2);
 

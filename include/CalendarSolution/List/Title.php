@@ -96,6 +96,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 * + Row: cs_row_0, cs_row_1
 	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
 	 * + Changed: cs_changed_Y, cs_changed_N
+	 * + Organizer: cs_is_own_event_Y, cs_is_own_event_N
 	 *
 	 * @param int $page_id  the feature_on_page_id to limit the list to, if any
 	 *
@@ -150,6 +151,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 
 		foreach ($this->data as $counter => $event) {
 			$class = 'cs_status_' . substr($event['status'], 0, 1)
+					. ' cs_is_own_event_' . $event['is_own_event']
 					. ' cs_changed_' . $event['changed']
 					. ' cs_row_' . ($counter % 2);
 

@@ -760,6 +760,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			changed,
 			date_start,
 			frequent_event_uri,
+			is_own_event,
 			list_link_goes_to_id,
 			location_start,
 			note,
