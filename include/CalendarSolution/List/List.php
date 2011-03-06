@@ -14,6 +14,10 @@
  * The means to output collections of events formatted as a table with
  * significant info about each event
  *
+ * Intended to show all events between today and a specified end date.
+ *
+ * The date limits should be established using set_from() and set_to().
+ *
  * @see CalendarSolution_List::factory_chosen_view()
  * @see CalendarSolution_List_List::get_rendering()
  *

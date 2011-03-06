@@ -4,9 +4,6 @@
  * Calendar Solution's means to output collections of events formatted as a
  * table with brief info about each entry
  *
- * Intended for use on pages that provide comprehensive information about
- * a particular Frequent Event.
- *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
@@ -17,8 +14,10 @@
  * The means to output collections of events formatted as a table with
  * brief info about each entry
  *
- * Intended for use on pages that provide comprehensive information about
- * a particular Frequent Event.
+ * Intended to show a limited number of occurrences of a particular Frequent
+ * Event on pages containing comprehensive information about that Event.
+ *
+ * The limit should be established using set_limit().
  *
  * @see CalendarSolution_List_QuickTable::get_rendering()
  *

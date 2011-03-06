@@ -4,9 +4,6 @@
  * Calendar Solution's means to output collections of events formatted as a
  * list of the date and name of each event
  *
- * Intended for use to display Featured Events on Home Pages or other top
- * level pages.
- *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
@@ -17,8 +14,10 @@
  * The means to output collections of events formatted as a list
  * of the date and name of each event
  *
- * Intended for use to display Featured Events on Home Pages or other top
- * level pages.
+ * Intended to show a limited number of occurrences of Featured Events on
+ * Home Pages or other Featured Pages
+ *
+ * The limit should be established using set_limit().
  *
  * @see CalendarSolution_List_Title::get_rendering()
  *

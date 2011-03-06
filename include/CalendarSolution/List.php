@@ -257,7 +257,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Produces the HTML for changing between list and calendar views
+	 * Produces the HTML for changing between "List" and "Calendar" formats
 	 *
 	 * @param string $phrase  the sprintf formatted string to be displayed.
 	 *                        Must contain one "%s" conversion specification,
@@ -323,6 +323,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 	/**
 	 * Produces the HTML for navigating to earlier and later events
+	 *
+	 * Inteneded for use with the "Calendar" and "List" formats.
 	 *
 	 * @param string $prior_link  the text for the "prior" link.  The value is
 	 *                      passed through htmlspecialchars().
@@ -970,6 +972,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 	/**
 	 * Sets the "limit_quantity" and "limit_start" properties
+	 *
+	 * Intended for use with the "QuickTable" and "Title" formats.
 	 *
 	 * To have lists show only the first ten events: <kbd>set_limit(10)</kbd>
 	 *
