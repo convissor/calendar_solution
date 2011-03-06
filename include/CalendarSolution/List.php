@@ -331,6 +331,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * Inteneded for use with the "Calendar" and "List" formats.
 	 *
+	 * NOTE: will return an empty string if "$from" or "$to" are false.
+	 *
 	 * @param string $prior_link  the text for the "prior" link.  The value is
 	 *                      passed through htmlspecialchars().
 	 * @param string $next_link  the text for the "next" link.  The value is
@@ -589,6 +591,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Produces the prior/next links for the "QuickTable" and "Title" formats
 	 *
 	 * NOTE: This must be called after get_rendering().
+	 *
+	 * NOTE: will return an empty string if "$limit_start" is not numeric.
 	 *
 	 * @param string $prior_link  the text for the "prior" link.  The value is
 	 *                      passed through htmlspecialchars().
@@ -1137,7 +1141,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Sets the properties used later when generating the navigation elements
 	 * for getting to earlier and later events
 	 *
-	 * Does nothing if "$from" or "$to" are false.
+	 * NOTE: Does nothing if "$from" or "$to" are false.
 	 *
 	 * @return void
 	 *
