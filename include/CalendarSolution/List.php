@@ -279,6 +279,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$to  to know the current to date
 	 * @uses CalendarSolution_List::$uri  to know the current URI
 	 *
+	 * @throws CalendarSolution_Exception if not in Calendar or List view
+	 *
 	 * @since  Method available since version 3.0.0
 	 */
 	public function get_change_view($phrase = 'View the events in %s format',
@@ -303,8 +305,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			. '&amp;view=';
 		if ($this->view == 'Calendar') {
 			$link .= 'List">' . htmlspecialchars($list);
-		} else {
+		} elseif ($this->view == 'List') {
 			$link .= 'Calendar">' . htmlspecialchars($calendar);
+		} else {
+			throw new CalendarSolution_Exception('get_change_view() for use'
+					. ' only with Calendar or List views');
 		}
 		$link .= '</a>';
 
