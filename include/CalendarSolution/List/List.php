@@ -143,6 +143,13 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a list format
 	 *
+	 * Cascading Style Sheet notes:  the list is contained within
+	 * "table.cs_list_list".  Each event is wrapped by a "tr"
+	 * element, which has multiple class attributes:
+	 * + Row: cs_row_0, cs_row_1
+	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
+	 * + Changed: cs_changed_Y, cs_changed_N
+	 *
 	 * @return string  the HTML for displaying the events
 	 *
 	 * @see CalendarSolution_List::set_date_format()
@@ -192,14 +199,9 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		$prior_event_month = '';
 
 		foreach ($this->data as $counter => $event) {
-			if ($event['status_id'] == self::STATUS_CANCELLED) {
-				$class = 'cs_X';
-			} elseif ($event['changed'] == 'Y') {
-				$class = 'cs_Y';
-			} else {
-				$class = 'cs_N';
-			}
-			$class .= ($counter % 2);
+			$class = 'cs_status_' . substr($event['status'], 0, 1)
+					. ' cs_changed_' . $event['changed']
+					. ' cs_row_' . ($counter % 2);
 
 			$event_month = substr($event['date_start'], 0, 7);
 			if ($prior_event_month != $event_month) {

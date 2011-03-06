@@ -109,6 +109,13 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a short table format
 	 *
+	 * Cascading Style Sheet notes:  the list is contained within
+	 * "table.cs_list_quicktable".  Each event is wrapped by a "tr"
+	 * element, which has multiple class attributes:
+	 * + Row: cs_row_0, cs_row_1
+	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
+	 * + Changed: cs_changed_Y, cs_changed_N
+	 *
 	 * @param int $frequent_event_id  the frequent_event_id to limit the list
 	 *                                to, if any
 	 *
@@ -161,18 +168,16 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		foreach ($this->data as $counter => $event) {
 			if ($event['status_id'] == self::STATUS_CANCELLED) {
 				$event['note'] = 'CANCELLED. ' . $event['note'];
-				$class = 'cs_X';
 			} elseif ($event['changed'] == 'Y') {
 				$event['note'] = 'CHANGED. ' . $event['note'];
-				$class = 'cs_Y';
-			} else {
-				$class = 'cs_N';
 			}
-			$class .= ($counter % 2);
-
 			if ($event['status_id'] == self::STATUS_FULL) {
 				$event['note'] = 'FULL. ' . $event['note'];
 			}
+
+			$class = 'cs_status_' . substr($event['status'], 0, 1)
+					. ' cs_changed_' . $event['changed']
+					. ' cs_row_' . ($counter % 2);
 
 			$out .= $this->get_row_open($class);
 			$out .= $this->get_event_formatted($event);

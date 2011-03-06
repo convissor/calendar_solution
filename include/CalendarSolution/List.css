@@ -41,16 +41,14 @@ table.cs_list_calendar td {
  height: 50px;
 }
 
-/* N = normal, Y = changed, X = cancelled */
-table.cs_list_calendar div.cs_itemN,
-table.cs_list_calendar div.cs_itemY,
-table.cs_list_calendar div.cs_itemX {
+table.cs_list_calendar div.cs_item {
  margin-top: 0em;
  margin-bottom: 0.5em;
 }
 
-table.cs_list_calendar div.cs_itemY,
-table.cs_list_calendar div.cs_itemX {
+/* status: O = Open, F = Full, C = Cancelled */
+table.cs_list_calendar div.cs_changed_Y,
+table.cs_list_calendar div.cs_status_C {
  background-color: #FFCC66;
 }
 
@@ -71,22 +69,22 @@ table.cs_list_list td.cs_month {
  font-size: 130%;
 }
 
-/* N = normal, Y = changed, X = cancelled */
-table.cs_list_list tr.cs_N0 {
+table.cs_list_list tr.cs_row_0 {
  background-color: #99CCCC;
 }
 
-table.cs_list_list tr.cs_N1 {
+table.cs_list_list tr.cs_row_1 {
  background-color: #99CC99;
 }
 
-table.cs_list_list tr.cs_Y0,
-table.cs_list_list tr.cs_X0 {
+/* status: O = Open, F = Full, C = Cancelled */
+table.cs_list_list tr.cs_row_0.cs_changed_Y,
+table.cs_list_list tr.cs_row_0.cs_status_C {
  background-color: #FFCC99;
 }
 
-table.cs_list_list tr.cs_Y1,
-table.cs_list_list tr.cs_X1 {
+table.cs_list_list tr.cs_row_1.cs_changed_Y,
+table.cs_list_list tr.cs_row_1.cs_status_C {
  background-color: #FFCC00;
 }
 

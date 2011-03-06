@@ -62,19 +62,15 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 		if ($event['status_id'] == self::STATUS_CANCELLED) {
 			$event['title'] = 'CANCELLED: ' . $event['title'];
-			$class = 'X';
 		} elseif ($event['changed'] == 'Y') {
 			$event['title'] = 'CHANGED: ' . $event['title'];
-			$class = 'Y';
-		} else {
-			$class = 'N';
 		}
-
 		if ($event['status_id'] == self::STATUS_FULL) {
 			$event['title'] = 'FULL: ' . $event['title'];
 		}
 
-		$out = '<div class="cs_item' . $class . '">';
+		$out = '<div class="cs_item cs_status_' . substr($event['status'], 0, 1)
+			. ' cs_changed_' . $event['changed'] . '">';
 		$out .= '<span class="cs_title">' . $this->get_link($event) . '</span>';
 
 		$out .= ($event['time_start'] ?
@@ -166,6 +162,12 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 	/**
 	 * Produces a list of events laid out in a calendar grid format
+	 *
+	 * Cascading Style Sheet notes:  the month is contained within
+	 * "table.cs_list_calendar".  Each event is wrapped by a "div.cs_item"
+	 * which has additional multiple class attributes:
+	 * + Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C
+	 * + Changed: cs_changed_Y, cs_changed_N
 	 *
 	 * @return string  the HTML for displaying the events
 	 *
