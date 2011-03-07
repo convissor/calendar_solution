@@ -201,9 +201,9 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 		foreach ($this->data as $counter => $event) {
 			$class = 'cs_status_' . substr($event['status'], 0, 1)
-					. ' cs_is_own_event_' . $event['is_own_event']
-					. ' cs_changed_' . $event['changed']
-					. ' cs_row_' . ($counter % 2);
+				. ' cs_is_own_event_' . $event['is_own_event']
+				. ' cs_changed_' . $event['changed']
+				. ' cs_row_' . ($counter % 2);
 
 			$event_month = substr($event['date_start'], 0, 7);
 			if ($prior_event_month != $event_month) {

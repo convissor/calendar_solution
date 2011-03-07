@@ -151,9 +151,9 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 
 		foreach ($this->data as $counter => $event) {
 			$class = 'cs_status_' . substr($event['status'], 0, 1)
-					. ' cs_is_own_event_' . $event['is_own_event']
-					. ' cs_changed_' . $event['changed']
-					. ' cs_row_' . ($counter % 2);
+				. ' cs_is_own_event_' . $event['is_own_event']
+				. ' cs_changed_' . $event['changed']
+				. ' cs_row_' . ($counter % 2);
 
 			$out .= $this->get_row_open($class);
 			$out .= $this->get_event_formatted($event);
