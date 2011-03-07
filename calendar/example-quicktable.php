@@ -3,7 +3,7 @@
 //  LEAVE THIS STUFF AT THE TOP ALONE  ..........................
 
 /**
- * An example of integrating a table of upcoming occasions into a 
+ * An example of integrating a quick table of upcoming occasions into a
  * Frequent Event page
  *
  * @package CalendarSolution

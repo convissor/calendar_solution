@@ -3,7 +3,7 @@
 //  LEAVE THIS STUFF AT THE TOP ALONE  ..........................
 
 /**
- * An example of integrating a title list of Featured Events into
+ * An example of integrating a ul list of Featured Events into
  * a Home Page
  *
  * @package CalendarSolution
@@ -18,10 +18,10 @@
 require dirname(__FILE__) . '/../include/calendar_solution_settings.php';
 
 /*
- * Instantiate the title list class.
+ * Instantiate the ul class.
  */
 try {
-	$calendar = new CalendarSolution_List_Title;
+	$calendar = new CalendarSolution_List_Ul;
 } catch (Exception $e) {
 	die('EXCEPTION: ' . $e->getMessage());
 }
@@ -33,7 +33,7 @@ try {
 ?>
 <html>
 <head>
-<title>Calendar Solution Example: Title List format for Home Pages</title>
+<title>Calendar Solution Example: UL format for Home Pages</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css">
 
@@ -50,6 +50,7 @@ try {
  */
 try {
 	// 1 = Home Page
+	$calendar->set_limit(3);
 	echo $calendar->get_rendering(1);
 } catch (Exception $e) {
 	die('EXCEPTION: ' . $e->getMessage());

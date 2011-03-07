@@ -1,0 +1,26 @@
+ul.cs_list_ul {
+ list-style: circle;
+}
+
+ul.cs_list_ul li {
+}
+
+ul.cs_list_ul li span.cs_day,
+ul.cs_list_ul li span.cs_title {
+ display: inline;
+ padding: 0.2em;
+}
+
+div.cs_limit_navigation {
+ font-size: 0.7em;
+ padding-top: 2em;
+ line-height: 0em;
+}
+
+div.cs_prior {
+ text-align: left;
+}
+
+div.cs_next {
+ text-align: right;
+}
