@@ -71,6 +71,7 @@ table.cs_list_list td.cs_month {
  border-style: solid none none none;
  border-top: thick solid #FFFFFF;
  font-size: 130%;
+ font-weight: bold;
 }
 
 table.cs_list_list tr.cs_row_0 {

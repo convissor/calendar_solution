@@ -113,10 +113,10 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @return string  the HTML of the month header
 	 */
 	protected function get_month_open(DateTime $current_date_time) {
-		$out = '<tr><td class="cs_month" colspan="5"><big><b>'
+		$out = '<tr><td class="cs_month" colspan="5">'
 			. $current_date_time->format('F') . ' '
 			. $current_date_time->format('Y')
-			. "</b></big></td></tr>\n";
+			. "</td></tr>\n";
 
 		return $out;
 	}
