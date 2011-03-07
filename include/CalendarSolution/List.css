@@ -46,6 +46,10 @@ table.cs_list_calendar div.cs_item {
  margin-bottom: 0.5em;
 }
 
+table.cs_list_calendar div.cs_item span {
+ display: block;
+}
+
 /* status: O = Open, F = Full, C = Cancelled */
 table.cs_list_calendar div.cs_changed_Y,
 table.cs_list_calendar div.cs_status_C {

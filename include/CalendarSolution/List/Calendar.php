@@ -76,13 +76,13 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		$out .= '<span class="cs_title">' . $this->get_link($event) . '</span>';
 
 		if ($event['time_start']) {
-			$out .= '<br /><span class="cs_time">'
+			$out .= '<span class="cs_time">'
 				. $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP)
 				. '</span>';
 		}
 
 		if ($event['location_start']) {
-			$out .= '<br /><span class="cs_location_start">'
+			$out .= '<span class="cs_location_start">'
 				. $event['location_start'] . '</span>';
 		}
 
