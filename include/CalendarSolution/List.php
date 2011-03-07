@@ -215,7 +215,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return CalendarSolution_List_Calendar|CalendarSolution_List_List
 	 *
-	 * @todo  Adjust cookie expiration date as the year 2038 approaches.
+	 * @todo Adjust cookie expiration date as the year 2038 approaches.
 	 */
 	public static function factory_chosen_view($months = 3,
 		$dbms = CALENDAR_SOLUTION_DBMS)
@@ -281,7 +281,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @throws CalendarSolution_Exception if not in Calendar or List view
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function get_change_view($phrase = 'View the events in %s format',
 			$list = 'list', $calendar = 'calendar')
@@ -359,7 +359,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$next_to  for the "next" link's to date
 	 * @uses CalendarSolution_List::$uri  to know the current URI
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function get_date_navigation($prior_link = '< See Earlier Events',
 			$next_link = 'See Later Events >')
@@ -440,7 +440,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       latest value in the "datelist" dropdown boxes
 	 * @uses CalendarSolution_List::$uri  to know the current URI
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function get_limit_form(
 			$show = array('datebox', 'category', 'event', 'remove'))
@@ -605,7 +605,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @see CalendarSolution_List::set_limit()
 	 * @uses CalendarSolution_List::$uri  to know the current URI
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function get_limit_navigation($prior_link = '< prior',
 			$next_link = 'next >')
@@ -833,7 +833,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       user's intention
 	 * @uses CalendarSolution_List::$category_id  to store the data
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_category_id($in = null) {
 		if ($in === null) {
@@ -867,7 +867,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$date_format_id  to store the data
 	 * @see CalendarSolution::format_date()
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_date_format($in) {
 		$this->date_format = $in;
@@ -967,7 +967,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       user's intention
 	 * @uses CalendarSolution_List::$is_own_event  to store the data
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_is_own_event($in = null) {
 		if ($in === null) {
@@ -1015,7 +1015,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$limit_quantity  to store the data
 	 * @uses CalendarSolution_List::$limit_start  to store the data
 	 *
-	 * @since  $start parameter added in version 3.0.0
+	 * @since $start parameter added in version 3.0.0
 	 */
 	public function set_limit($quantity, $start = false) {
 		if ($quantity === null) {
@@ -1078,7 +1078,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       to be set to the default
 	 * @uses CalendarSolution_List::$to  for validation
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_permit_future_months($months = 12) {
 		if ($months === false) {
@@ -1116,7 +1116,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$permit_history_date  to store the data
 	 * @uses CalendarSolution_List::$from  for validation
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_permit_history_months($months = 12) {
 		if ($months === false) {
@@ -1229,7 +1229,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::set_is_own_event()  to set the own event
 	 *       flag
 	 *
-	 * @since  Method available since version 3.0.0
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_request_properties() {
 		$this->called_set_request_properties = true;

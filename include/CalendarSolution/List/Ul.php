@@ -11,7 +11,7 @@
  */
 
 /**
- * The means to output collections of events formatted as  an
+ * The means to output collections of events formatted as an
  * "unordered list" of the date and name of each event
  *
  * Intended to show a limited number of occurrences of Featured Events on
@@ -25,6 +25,8 @@
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
+ *
+ * @since Class available since version 3.0.0
  */
 class CalendarSolution_List_Ul extends CalendarSolution_List {
 	/**
