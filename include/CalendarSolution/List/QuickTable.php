@@ -69,22 +69,22 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="cs_day">'
+		$out = '<td class="cs_day">'
 			 . $this->format_date($event['date_start'], $this->date_format)
-			 . "</td>\n";
+			 . "</td>";
 
-		$out .= '  <td class="cs_time">'
+		$out .= '<td class="cs_time">'
 			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
 			 . (($event['time_end']) ? ' - ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
-			 . "</td>\n";
+			 . "</td>";
 
-		$out .= '  <td class="cs_location_start">'
+		$out .= '<td class="cs_location_start">'
 			 . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
-			 . "</td>\n";
+			 . "</td>";
 
-		$out .= '  <td class="cs_note">'
+		$out .= '<td class="cs_note">'
 			 . (($event['note']) ? $event['note'] : '&nbsp;')
-			 . "</td>\n";
+			 . '</td>';
 
 		return $out;
 	}
@@ -100,8 +100,8 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * @return string  the HTML for opening a list
 	 */
 	protected function get_list_open() {
-		$out = '<table class="cs_list_quicktable">' . "\n";
-		$out .= ' <tr><th>Date</th><th>Time</th>'
+		$out = '<table class="cs_list_quicktable">'
+			. '<tr><th>Date</th><th>Time</th>'
 			. '<th>Location</th><th>Note</th></tr>' . "\n";
 		return $out;
 	}
@@ -199,7 +199,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * @return string  the HTML for closing a row
 	 */
 	protected function get_row_close() {
-		return " </tr>\n";
+		return "</tr>\n";
 	}
 
 	/**
@@ -207,6 +207,6 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * @return string  the HTML for opening a row
 	 */
 	protected function get_row_open($class) {
-		return ' <tr class="' . $class . '">' . "\n";
+		return '<tr class="' . $class . '">';
 	}
 }

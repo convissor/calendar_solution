@@ -65,7 +65,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 
 		$out =  '<td class="cs_day">'
 			. $this->format_date($event['date_start'], $this->date_format)
-			. '</td> '
+			. '</td>'
 			. '<td class="cs_title">' . $this->get_link($event) . '</td>';
 
 		return $out;
@@ -180,6 +180,6 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 * @return string  the HTML for opening a row
 	 */
 	protected function get_row_open($class) {
-		return ' <tr class="' . $class . '">';
+		return '<tr class="' . $class . '">';
 	}
 }

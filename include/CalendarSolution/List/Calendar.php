@@ -86,7 +86,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 				. $event['location_start'] . '</span>';
 		}
 
-		$out .= '</div>';
+		$out .= "</div>\n";
 
 		return $out;
 	}
@@ -96,19 +96,19 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 */
 	protected function get_month_open(DateTime $current_date_time) {
 		$out = '<table class="cs_list_calendar">' . "\n"
-			. ' <caption>'
+			. '<caption>'
 			. $current_date_time->format('F') . ' '
 			. $current_date_time->format('Y')
 			. '</caption>' . "\n"
-			. " <tr>\n"
-			. '  <th>Sun</th>' . "\n"
-			. '  <th>Mon</th>' . "\n"
-			. '  <th>Tue</th>' . "\n"
-			. '  <th>Wed</th>' . "\n"
-			. '  <th>Thu</th>' . "\n"
-			. '  <th>Fri</th>' . "\n"
-			. '  <th>Sat</th>' . "\n"
-			. " </tr>\n"
+			. '<tr>'
+			. '<th>Sun</th>'
+			. '<th>Mon</th>'
+			. '<th>Tue</th>'
+			. '<th>Wed</th>'
+			. '<th>Thu</th>'
+			. '<th>Fri</th>'
+			. '<th>Sat</th>'
+			. "</tr>\n"
 			. $this->get_row_open()
 			. $this->get_month_pad_start($current_date_time->format('w'));
 
@@ -130,14 +130,14 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @return string  the HTML for opening a row
 	 */
 	protected function get_row_open() {
-		return " <tr>\n";
+		return "<tr>\n";
 	}
 
 	/**
 	 * @return string  the HTML for closing a row
 	 */
 	protected function get_row_close() {
-		return " </tr>\n";
+		return "</tr>\n";
 	}
 
 	/**
@@ -163,7 +163,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @return string  the HTML containing $quantity of blank cells
 	 */
 	protected function get_pad($quantity) {
-		return str_repeat('  <td>&nbsp;</td>' . "\n", $quantity);
+		return str_repeat('<td>&nbsp;</td>' . "\n", $quantity);
 	}
 
 	/**
@@ -233,7 +233,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 			$days_in_month = $current_date_time->format('t');
 			for ($day_counter = 1; $day_counter <= $days_in_month; $day_counter++) {
-				$out .= '  <td>' . $day_counter;
+				$out .= '<td>' . $day_counter;
 
 				$the_date = $current_date_time->format('Y-m-d');
 				if ($the_date == $event['date_start']) {
@@ -243,7 +243,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 					} while ($the_date == $event['date_start']);
 				}
 
-				$out .= '</td>' . "\n";
+				$out .= "</td>\n";
 
 				if ($day_counter < $days_in_month) {
 					if ($current_date_time->format('w') == 6) {

@@ -55,36 +55,34 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		 * so there is no need to do it here.
 		 */
 
-		$out = '  <td class="cs_title">'
-			. $this->get_link($event)
-			. "</td>\n";
+		$out = '<td class="cs_title">' . $this->get_link($event) . '</td>';
 
-		$out .= '  <td class="cs_day">'
+		$out .= '<td class="cs_day">'
 			 . $this->format_date($event['date_start'], $this->date_format)
-			 . "</td>\n";
+			 . '</td>';
 
-		$out .= '  <td class="cs_time">'
+		$out .= '<td class="cs_time">'
 			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
 			 . (($event['time_end']) ? ' to ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
-			 . "</td>\n";
+			 . '</td>';
 
-		$out .= '  <td class="cs_location_start">'
+		$out .= '<td class="cs_location_start">'
 			 . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
-			 . "</td>\n";
+			 . '</td>';
 
-		$out .= '  <td class="cs_status">' . $event['status'];
+		$out .= '<td class="cs_status">' . $event['status'];
 		if ($event['changed'] == 'Y'
 			&& $event['status_id'] != self::STATUS_CANCELLED)
 		{
 			$out .= ' &amp; Changed';
 		}
-		$out .= "</td>\n";
+		$out .= '</td>';
 
-		if ($event['summary'] != '' && $this->show_summary) {
+		if ($event['summary'] && $this->show_summary) {
 			$out .= $this->get_row_close()
 				 . $this->get_row_open($class)
-				 . '  <td class="cs_summary" colspan="5">'
-				 . $event['summary'] . "</td>\n";
+				 . '<td class="cs_summary" colspan="5">'
+				 . $event['summary'] . '</td>';
 		}
 
 		return $out;
@@ -115,12 +113,10 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @return string  the HTML of the month header
 	 */
 	protected function get_month_open(DateTime $current_date_time) {
-		$out = " <tr>\n"
-			. '  <td class="cs_month" colspan="4">' . "\n"
-			. '   <big><b>'
+		$out = '<tr><td class="cs_month" colspan="4"><big><b>'
 			. $current_date_time->format('F') . ' '
 			. $current_date_time->format('Y')
-			. "</b></big>\n  </td>\n </tr>\n";
+			. "</b></big></td></tr>\n";
 
 		return $out;
 	}
@@ -129,7 +125,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @return string  the HTML for closing a row
 	 */
 	protected function get_row_close() {
-		return " </tr>\n";
+		return "</tr>\n";
 	}
 
 	/**
@@ -137,7 +133,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @return string  the HTML for opening a row
 	 */
 	protected function get_row_open($class) {
-		return ' <tr class="' . $class . '">' . "\n";
+		return '<tr class="' . $class . '">';
 	}
 
 	/**
