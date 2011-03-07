@@ -72,15 +72,20 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		$out = '<div class="cs_item cs_status_' . substr($event['status'], 0, 1)
 			. ' cs_is_own_event_' . $event['is_own_event']
 			. ' cs_changed_' . $event['changed'] . '">';
+
 		$out .= '<span class="cs_title">' . $this->get_link($event) . '</span>';
 
-		$out .= ($event['time_start'] ?
-			'<br /><span class="cs_time">'
-			. $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP)
-			. '</span>' : '');
+		if ($event['time_start']) {
+			$out .= '<br /><span class="cs_time">'
+				. $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP)
+				. '</span>';
+		}
 
-		$out .= ($event['location_start'] ?
-				'<br /><span class="cs_location_start">' . $event['location_start'] . '</span>' : '');
+		if ($event['location_start']) {
+			$out .= '<br /><span class="cs_location_start">'
+				. $event['location_start'] . '</span>';
+		}
+
 		$out .= '</div>';
 
 		return $out;
