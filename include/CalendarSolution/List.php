@@ -799,7 +799,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->sql->SQLQueryString .= $this->where_sql;
 
 		$this->sql->SQLQueryString .= "
-			ORDER BY date_start, time_start, title,
+			ORDER BY date_start, is_own_event DESC, time_start, title,
 				cs_calendar.frequent_event_id";
 
 		$this->sql->SQLQueryString .= $limit_sql;
