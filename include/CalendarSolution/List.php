@@ -486,9 +486,30 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$one_month = new DateIntervalSolution('P1M');
 			$from_list = '';
 			$to_list = '';
+			$from_view = $this->from->format('Y-m-d');
+			$to_view = $this->to->format('Y-m-d');
+
 			while ($from < $this->permit_future_date) {
-				$from_list .= '<option value="' . $from->format('Y-m-d') . '">' . $from->format('Y-m-d') . "</option>\n";
-				$to_list .= '<option value="' . $from->format('Y-m-t') . '">' . $from->format('Y-m-t') . "</option>\n";
+				$from_i = $from->format('Y-m-d');
+				$to_i = $from->format('Y-m-t');
+
+				if ($from_view == $from_i) {
+					$from_selected = '" selected="selected';
+				} else {
+					$from_selected = '';
+				}
+
+				if ($to_view == $to_i) {
+					$to_selected = '" selected="selected';
+				} else {
+					$to_selected = '';
+				}
+
+				$from_list .= '<option value="' . $from_i . $from_selected
+					. '">' . $from_i . "</option>\n";
+				$to_list .= '<option value="' . $to_i . $to_selected
+					. '">' . $to_i . "</option>\n";
+
 				$from->add($one_month);
 			}
 
