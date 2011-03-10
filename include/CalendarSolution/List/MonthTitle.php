@@ -24,6 +24,8 @@
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
+ *
+ * @since Class available since version 3.0.0
  */
 class CalendarSolution_List_MonthTitle extends CalendarSolution_List {
 	/**
