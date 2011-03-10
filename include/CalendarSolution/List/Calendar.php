@@ -29,6 +29,12 @@
  */
 class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	/**
+	 * Should the Location field be shown or not when viewing "Calendar" mode?
+	 * @var bool
+	 */
+	protected $show_location = true;
+
+	/**
 	 * The type of view this class represents
 	 * @var string
 	 */
@@ -81,7 +87,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 				. '</span>';
 		}
 
-		if ($event['location_start']) {
+		if ($event['location_start'] && $this->show_location) {
 			$out .= '<span class="cs_location_start">'
 				. $event['location_start'] . '</span>';
 		}
@@ -182,6 +188,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @see CalendarSolution_List::get_date_navigation()
 	 * @see CalendarSolution_List::get_change_view()
 	 * @see CalendarSolution_List::set_show_own_events_frist()
+	 * @see CalendarSolution_List_Calendar::set_show_location()
 	 *
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
 	 *       user's intention, but only if it has not been called yet
@@ -294,5 +301,18 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		if ($this->from) {
 			$this->from->modify('first day of this month');
 		}
+	}
+
+	/**
+	 * Turns the Location field on or off when showing the "Calendar" format
+	 *
+	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_List::$show_location  to store the decision
+	 */
+	public function set_show_location($in) {
+		$this->show_location = (bool) $in;
 	}
 }
