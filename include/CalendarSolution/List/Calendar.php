@@ -311,6 +311,8 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List_List::$show_location  to store the decision
+	 *
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_show_location($in) {
 		$this->show_location = (bool) $in;
