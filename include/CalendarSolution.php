@@ -18,10 +18,12 @@
  * The base class
  *
  * @see CalendarSolution_List::factory_chosen_view()
- * @see CalendarSolution_List_List::get_rendering()
  * @see CalendarSolution_List_Calendar::get_rendering()
+ * @see CalendarSolution_List_List::get_rendering()
+ * @see CalendarSolution_List_MonthTitle::get_rendering()
  * @see CalendarSolution_List_QuickTable::get_rendering()
  * @see CalendarSolution_List_Title::get_rendering()
+ * @see CalendarSolution_List_Ul::get_rendering()
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -36,6 +38,7 @@ class CalendarSolution {
 	 */
 	const DATE_FORMAT_FULL = 'l, F jS, Y';
 	const DATE_FORMAT_LONG = 'D, M jS';
+	const DATE_FORMAT_NAME_NUMBER = 'l jS';
 	const DATE_FORMAT_MEDIUM = 'D, n/j';
 	const DATE_FORMAT_SHORT = 'n/j';
 	const DATE_FORMAT_TIME_12AP = 'g:i\&\n\b\s\p\;a';
