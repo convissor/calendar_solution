@@ -153,12 +153,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $show_own_events_first = false;
 
 	/**
-	 * Should the Summary field be shown or not when viewing "List" mode?
-	 * @var bool
-	 */
-	protected $show_summary = true;
-
-	/**
 	 * The end of the date range to show events for in the current request
 	 * @var DateTimeSolution
 	 */
@@ -1317,19 +1311,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	public function set_show_own_events_frist($in) {
 		$this->show_own_events_first = (bool) $in;
-	}
-
-	/**
-	 * Turns the Summary field on or off when showing the "List" format
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List::$show_summary  to store the decision
-	 */
-	public function set_show_summary($in) {
-		$this->show_summary = (bool) $in;
 	}
 
 	/**

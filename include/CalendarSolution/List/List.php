@@ -37,6 +37,12 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	protected $date_format = self::DATE_FORMAT_LONG;
 
 	/**
+	 * Should the Summary field be shown or not when viewing "List" mode?
+	 * @var bool
+	 */
+	protected $show_summary = true;
+
+	/**
 	 * The type of view this class represents
 	 * @var string
 	 */
@@ -154,6 +160,7 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * @see CalendarSolution_List::get_date_navigation()
 	 * @see CalendarSolution_List::get_change_view()
 	 * @see CalendarSolution_List::set_show_own_events_frist()
+	 * @see CalendarSolution_List::set_show_summary()
 	 *
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
 	 *       user's intention, but only if it has not been called yet
@@ -227,5 +234,18 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		}
 
 		return $out;
+	}
+
+	/**
+	 * Turns the Summary field on or off when showing the "List" format
+	 *
+	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_List::$show_summary  to store the decision
+	 */
+	public function set_show_summary($in) {
+		$this->show_summary = (bool) $in;
 	}
 }
