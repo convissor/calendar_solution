@@ -137,7 +137,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 		if ($this->use_cache) {
 			$this->set_where_sql();
 
-			$cache_key = $this->cache_key . ':title:'
+			$cache_key = $this->cache_key . ':' . $this->view . ':'
 					. $this->date_format;
 
 			$out = $this->cache->get($cache_key);

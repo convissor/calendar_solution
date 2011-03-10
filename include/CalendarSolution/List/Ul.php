@@ -139,7 +139,7 @@ class CalendarSolution_List_Ul extends CalendarSolution_List {
 		if ($this->use_cache) {
 			$this->set_where_sql();
 
-			$cache_key = $this->cache_key . ':ul:'
+			$cache_key = $this->cache_key . ':' . $this->view . ':'
 					. $this->date_format;
 
 			$out = $this->cache->get($cache_key);
