@@ -50,6 +50,67 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 
 
 	/**
+	 * Turns the Summary field on or off when showing the "List" format
+	 *
+	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_List::$show_summary  to store the decision
+	 */
+	public function set_show_summary($in) {
+		$this->show_summary = (bool) $in;
+	}
+
+	/**
+	 * @return string  the HTML for opening a list
+	 */
+	protected function get_list_open() {
+		return '<table class="cs_list_list">' . "\n";
+	}
+
+	/**
+	 * @return string  the HTML for closing a list
+	 */
+	protected function get_list_close() {
+		return "</table>\n";
+	}
+
+	/**
+	 * @return string  the HTML of the month header
+	 */
+	protected function get_month_open(DateTime $current_date_time) {
+		$out = '<tr><td class="cs_month" colspan="5">'
+			. $current_date_time->format('F') . ' '
+			. $current_date_time->format('Y')
+			. "</td></tr>\n";
+
+		return $out;
+	}
+
+	/**
+	 * @return string  the HTML closing out a month
+	 */
+	protected function get_month_close() {
+		return "\n";
+	}
+
+	/**
+	 * @param string $class  the CSS class name for this row
+	 * @return string  the HTML for opening a row
+	 */
+	protected function get_row_open($class) {
+		return '<tr class="' . $class . '">';
+	}
+
+	/**
+	 * @return string  the HTML for closing a row
+	 */
+	protected function get_row_close() {
+		return "</tr>\n";
+	}
+
+	/**
 	 * @param array $event  an associative array of a given event
 	 * @param string $class  the CSS class name for this row
 	 *
@@ -92,54 +153,6 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		}
 
 		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for closing a list
-	 */
-	protected function get_list_close() {
-		return "</table>\n";
-	}
-
-	/**
-	 * @return string  the HTML for opening a list
-	 */
-	protected function get_list_open() {
-		return '<table class="cs_list_list">' . "\n";
-	}
-
-	/**
-	 * @return string  the HTML closing out a month
-	 */
-	protected function get_month_close() {
-		return "\n";
-	}
-
-	/**
-	 * @return string  the HTML of the month header
-	 */
-	protected function get_month_open(DateTime $current_date_time) {
-		$out = '<tr><td class="cs_month" colspan="5">'
-			. $current_date_time->format('F') . ' '
-			. $current_date_time->format('Y')
-			. "</td></tr>\n";
-
-		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for closing a row
-	 */
-	protected function get_row_close() {
-		return "</tr>\n";
-	}
-
-	/**
-	 * @param string $class  the CSS class name for this row
-	 * @return string  the HTML for opening a row
-	 */
-	protected function get_row_open($class) {
-		return '<tr class="' . $class . '">';
 	}
 
 	/**
@@ -235,18 +248,5 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 		}
 
 		return $out;
-	}
-
-	/**
-	 * Turns the Summary field on or off when showing the "List" format
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List_List::$show_summary  to store the decision
-	 */
-	public function set_show_summary($in) {
-		$this->show_summary = (bool) $in;
 	}
 }

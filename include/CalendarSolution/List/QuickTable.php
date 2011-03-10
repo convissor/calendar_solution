@@ -59,6 +59,38 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	}
 
 	/**
+	 * @return string  the HTML for opening a list
+	 */
+	protected function get_list_open() {
+		$out = '<table class="cs_list_quicktable">'
+			. '<tr><th>Date</th><th>Time</th>'
+			. '<th>Location</th><th>Note</th></tr>' . "\n";
+		return $out;
+	}
+
+	/**
+	 * @return string  the HTML for closing a list
+	 */
+	protected function get_list_close() {
+		return "</table>\n";
+	}
+
+	/**
+	 * @param string $class  the CSS class name for this row
+	 * @return string  the HTML for opening a row
+	 */
+	protected function get_row_open($class) {
+		return '<tr class="' . $class . '">';
+	}
+
+	/**
+	 * @return string  the HTML for closing a row
+	 */
+	protected function get_row_close() {
+		return "</tr>\n";
+	}
+
+	/**
 	 * @param array $event  an associative array of a given event
 	 *
 	 * @return string  the HTML for one event
@@ -86,23 +118,6 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 			 . (($event['note']) ? $event['note'] : '&nbsp;')
 			 . '</td>';
 
-		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for closing a list
-	 */
-	protected function get_list_close() {
-		return "</table>\n";
-	}
-
-	/**
-	 * @return string  the HTML for opening a list
-	 */
-	protected function get_list_open() {
-		$out = '<table class="cs_list_quicktable">'
-			. '<tr><th>Date</th><th>Time</th>'
-			. '<th>Location</th><th>Note</th></tr>' . "\n";
 		return $out;
 	}
 
@@ -194,20 +209,5 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		}
 
 		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for closing a row
-	 */
-	protected function get_row_close() {
-		return "</tr>\n";
-	}
-
-	/**
-	 * @param string $class  the CSS class name for this row
-	 * @return string  the HTML for opening a row
-	 */
-	protected function get_row_open($class) {
-		return '<tr class="' . $class . '">';
 	}
 }

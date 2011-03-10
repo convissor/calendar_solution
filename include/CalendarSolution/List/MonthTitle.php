@@ -54,13 +54,6 @@ class CalendarSolution_List_MonthTitle extends CalendarSolution_List {
 	}
 
 	/**
-	 * @return string  the HTML for closing a list
-	 */
-	protected function get_list_close() {
-		return "</table>\n";
-	}
-
-	/**
 	 * @return string  the HTML for opening a list
 	 */
 	protected function get_list_open() {
@@ -68,10 +61,10 @@ class CalendarSolution_List_MonthTitle extends CalendarSolution_List {
 	}
 
 	/**
-	 * @return string  the HTML closing out a month
+	 * @return string  the HTML for closing a list
 	 */
-	protected function get_month_close() {
-		return "\n";
+	protected function get_list_close() {
+		return "</table>\n";
 	}
 
 	/**
@@ -87,10 +80,10 @@ class CalendarSolution_List_MonthTitle extends CalendarSolution_List {
 	}
 
 	/**
-	 * @return string  the HTML for closing a row
+	 * @return string  the HTML closing out a month
 	 */
-	protected function get_row_close() {
-		return "</tr>\n";
+	protected function get_month_close() {
+		return "\n";
 	}
 
 	/**
@@ -99,6 +92,13 @@ class CalendarSolution_List_MonthTitle extends CalendarSolution_List {
 	 */
 	protected function get_row_open($class) {
 		return '<tr class="' . $class . '">';
+	}
+
+	/**
+	 * @return string  the HTML for closing a row
+	 */
+	protected function get_row_close() {
+		return "</tr>\n";
 	}
 
 	/**

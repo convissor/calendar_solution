@@ -42,6 +42,49 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 
 	/**
+	 * Sets the "from" property to the first day of the given month
+	 *
+	 * CalendarSolution_List_Calendar::set_from() defaults to the first day of
+	 * today's month.  CalendarSolution_List::set_from() defaults to today.
+	 *
+	 * NOTE: "from" is reset to "permit_history_date" if "from" is earlier than
+	 * "permit_history_date"
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['from'] though uses
+	 *                   the default if it is not set or invalid
+	 *                   + TRUE = use value of $_REQUEST['from'] if it is set,
+	 *                   use the default if it is invalid, use FALSE if not set
+	 *                   + FALSE = set the value to FALSE
+	 *                   + string = a date in YYYY-MM-DD format though uses
+	 *                   the default if it is invalid
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::set_from()  to determine the
+	 *       user's intention and perform the initial setting
+	 */
+	public function set_from($in = null) {
+		parent::set_from($in);
+		if ($this->from) {
+			$this->from->modify('first day of this month');
+		}
+	}
+
+	/**
+	 * Turns the Location field on or off when showing the "Calendar" format
+	 *
+	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_List::$show_location  to store the decision
+	 *
+	 * @since Method available since version 3.0.0
+	 */
+	public function set_show_location($in) {
+		$this->show_location = (bool) $in;
+	}
+
+	/**
 	 * Determine how many months to display
 	 *
 	 * @param DateTimeSolution $current
@@ -55,6 +98,81 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 			$months += $years * 12;
 		}
 		return $months;
+	}
+
+	/**
+	 * @return string  the HTML for the month header
+	 */
+	protected function get_month_open(DateTime $current_date_time) {
+		$out = '<table class="cs_list_calendar">' . "\n"
+			. '<caption>'
+			. $current_date_time->format('F') . ' '
+			. $current_date_time->format('Y')
+			. '</caption>' . "\n"
+			. '<tr>'
+			. '<th>Sun</th>'
+			. '<th>Mon</th>'
+			. '<th>Tue</th>'
+			. '<th>Wed</th>'
+			. '<th>Thu</th>'
+			. '<th>Fri</th>'
+			. '<th>Sat</th>'
+			. "</tr>\n"
+			. $this->get_row_open()
+			. $this->get_month_pad_start($current_date_time->format('w'));
+
+		return $out;
+	}
+
+	/**
+	 * @return string  the HTML closing out a month
+	 */
+	protected function get_month_close(DateTime $current_date_time) {
+		$out = $this->get_month_pad_end($current_date_time->format('w'))
+			. $this->get_row_close()
+			. "</table>\n";
+
+		return $out;
+	}
+
+	/**
+	 * @param int $w  the number in the week of the first day of the given month
+	 * @return string  the HTML for filling blanks at the start of a calendar
+	 * @uses CalendarSolution_List_Calendar::get_pad()
+	 */
+	protected function get_month_pad_start($w) {
+		return $this->get_pad(($w + 1) - 1);
+	}
+
+	/**
+	 * @param int $w  the number in the week of the last day of the given month
+	 * @return string  the HTML for filling blanks at the end of a calendar
+	 * @uses CalendarSolution_List_Calendar::get_pad()
+	 */
+	protected function get_month_pad_end($w) {
+		return $this->get_pad(6 - $w);
+	}
+
+	/**
+	 * @param int $quantity  the number of cells to create
+	 * @return string  the HTML containing $quantity of blank cells
+	 */
+	protected function get_pad($quantity) {
+		return str_repeat('<td>&nbsp;</td>' . "\n", $quantity);
+	}
+
+	/**
+	 * @return string  the HTML for opening a row
+	 */
+	protected function get_row_open() {
+		return "<tr>\n";
+	}
+
+	/**
+	 * @return string  the HTML for closing a row
+	 */
+	protected function get_row_close() {
+		return "</tr>\n";
 	}
 
 	/**
@@ -95,81 +213,6 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		$out .= "</div>\n";
 
 		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for the month header
-	 */
-	protected function get_month_open(DateTime $current_date_time) {
-		$out = '<table class="cs_list_calendar">' . "\n"
-			. '<caption>'
-			. $current_date_time->format('F') . ' '
-			. $current_date_time->format('Y')
-			. '</caption>' . "\n"
-			. '<tr>'
-			. '<th>Sun</th>'
-			. '<th>Mon</th>'
-			. '<th>Tue</th>'
-			. '<th>Wed</th>'
-			. '<th>Thu</th>'
-			. '<th>Fri</th>'
-			. '<th>Sat</th>'
-			. "</tr>\n"
-			. $this->get_row_open()
-			. $this->get_month_pad_start($current_date_time->format('w'));
-
-		return $out;
-	}
-
-	/**
-	 * @return string  the HTML closing out a month
-	 */
-	protected function get_month_close(DateTime $current_date_time) {
-		$out = $this->get_month_pad_end($current_date_time->format('w'))
-			. $this->get_row_close()
-			. "</table>\n";
-
-		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for opening a row
-	 */
-	protected function get_row_open() {
-		return "<tr>\n";
-	}
-
-	/**
-	 * @return string  the HTML for closing a row
-	 */
-	protected function get_row_close() {
-		return "</tr>\n";
-	}
-
-	/**
-	 * @param int $w  the number in the week of the first day of the given month
-	 * @return string  the HTML for filling blanks at the start of a calendar
-	 * @uses CalendarSolution_List_Calendar::get_pad()
-	 */
-	protected function get_month_pad_start($w) {
-		return $this->get_pad(($w + 1) - 1);
-	}
-
-	/**
-	 * @param int $w  the number in the week of the last day of the given month
-	 * @return string  the HTML for filling blanks at the end of a calendar
-	 * @uses CalendarSolution_List_Calendar::get_pad()
-	 */
-	protected function get_month_pad_end($w) {
-		return $this->get_pad(6 - $w);
-	}
-
-	/**
-	 * @param int $quantity  the number of cells to create
-	 * @return string  the HTML containing $quantity of blank cells
-	 */
-	protected function get_pad($quantity) {
-		return str_repeat('<td>&nbsp;</td>' . "\n", $quantity);
 	}
 
 	/**
@@ -273,48 +316,5 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		}
 
 		return $out;
-	}
-
-	/**
-	 * Sets the "from" property to the first day of the given month
-	 *
-	 * CalendarSolution_List_Calendar::set_from() defaults to the first day of
-	 * today's month.  CalendarSolution_List::set_from() defaults to today.
-	 *
-	 * NOTE: "from" is reset to "permit_history_date" if "from" is earlier than
-	 * "permit_history_date"
-	 *
-	 * @param mixed $in  + NULL = use value of $_REQUEST['from'] though uses
-	 *                   the default if it is not set or invalid
-	 *                   + TRUE = use value of $_REQUEST['from'] if it is set,
-	 *                   use the default if it is invalid, use FALSE if not set
-	 *                   + FALSE = set the value to FALSE
-	 *                   + string = a date in YYYY-MM-DD format though uses
-	 *                   the default if it is invalid
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List::set_from()  to determine the
-	 *       user's intention and perform the initial setting
-	 */
-	public function set_from($in = null) {
-		parent::set_from($in);
-		if ($this->from) {
-			$this->from->modify('first day of this month');
-		}
-	}
-
-	/**
-	 * Turns the Location field on or off when showing the "Calendar" format
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List_List::$show_location  to store the decision
-	 *
-	 * @since Method available since version 3.0.0
-	 */
-	public function set_show_location($in) {
-		$this->show_location = (bool) $in;
 	}
 }

@@ -55,6 +55,34 @@ class CalendarSolution_List_Ul extends CalendarSolution_List {
 	}
 
 	/**
+	 * @return string  the HTML for opening a list
+	 */
+	protected function get_list_open() {
+		return '<ul class="cs_list_ul">' . "\n";
+	}
+
+	/**
+	 * @return string  the HTML for closing a list
+	 */
+	protected function get_list_close() {
+		return "</ul>\n";
+	}
+
+	/**
+	 * @return string  the HTML for opening a row
+	 */
+	protected function get_row_open($class) {
+		return '<li class="' . $class . '">';
+	}
+
+	/**
+	 * @return string  the HTML for closing a row
+	 */
+	protected function get_row_close() {
+		return "</li>\n";
+	}
+
+	/**
 	 * @param array $event  an associative array of a given event
 	 *
 	 * @return string  the HTML for one event
@@ -71,20 +99,6 @@ class CalendarSolution_List_Ul extends CalendarSolution_List {
 			. '<span class="cs_title">' . $this->get_link($event) . '</span>';
 
 		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for closing a list
-	 */
-	protected function get_list_close() {
-		return "</ul>\n";
-	}
-
-	/**
-	 * @return string  the HTML for opening a list
-	 */
-	protected function get_list_open() {
-		return '<ul class="cs_list_ul">' . "\n";
 	}
 
 	/**
@@ -170,19 +184,5 @@ class CalendarSolution_List_Ul extends CalendarSolution_List {
 		}
 
 		return $out;
-	}
-
-	/**
-	 * @return string  the HTML for closing a row
-	 */
-	protected function get_row_close() {
-		return "</li>\n";
-	}
-
-	/**
-	 * @return string  the HTML for opening a row
-	 */
-	protected function get_row_open($class) {
-		return '<li class="' . $class . '">';
 	}
 }
