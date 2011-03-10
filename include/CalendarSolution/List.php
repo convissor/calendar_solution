@@ -147,6 +147,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $show_cancelled = true;
 
 	/**
+	 * Show your own events before events produced by other organizations?
+	 * @var bool
+	 */
+	protected $show_own_events_first = false;
+
+	/**
 	 * Should the Summary field be shown or not when viewing "List" mode?
 	 * @var bool
 	 */
@@ -771,6 +777,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			}
 		}
 
+		if ($this->show_own_events_first) {
+			$is_own_event = 'is_own_event DESC,';
+		} else {
+			$is_own_event = '';
+		}
+
 		/*
 		 * Construct the SQL string.
 		 */
@@ -799,7 +811,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		$this->sql->SQLQueryString .= $this->where_sql;
 
 		$this->sql->SQLQueryString .= "
-			ORDER BY date_start, is_own_event DESC, time_start, title,
+			ORDER BY date_start, $is_own_event time_start, title,
 				cs_calendar.frequent_event_id";
 
 		$this->sql->SQLQueryString .= $limit_sql;
@@ -1287,6 +1299,24 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	public function set_show_cancelled($in) {
 		$this->show_cancelled = (bool) $in;
+	}
+
+	/**
+	 * Show your own events before events produced by other organizations?
+	 *
+	 * Items are normally sorted by date then start time.  Enabling this option
+	 * still sorts items by date, but within each day your events are shown
+	 * first, sorted by time, then events by organizations are shown sorted by
+	 * time.
+	 *
+	 * @param bool $in  set it to TRUE to enable it, is FALSE by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$show_own_events_first  to store the decision
+	 */
+	public function set_show_own_events_frist($in) {
+		$this->show_own_events_first = (bool) $in;
 	}
 
 	/**

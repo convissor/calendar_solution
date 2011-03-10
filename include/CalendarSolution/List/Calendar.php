@@ -181,6 +181,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @see CalendarSolution_List::get_limit_form()
 	 * @see CalendarSolution_List::get_date_navigation()
 	 * @see CalendarSolution_List::get_change_view()
+	 * @see CalendarSolution_List::set_show_own_events_frist()
 	 *
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
 	 *       user's intention, but only if it has not been called yet
