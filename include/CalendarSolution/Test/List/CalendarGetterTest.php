@@ -77,6 +77,15 @@ class CalendarSolution_Test_List_CalendarGetterTest extends PHPUnit_Framework_Te
 			'list', ' format', '2001-01-01', '2001-01-31');
 		$this->assertEquals($expect, $actual);
 	}
+	public function test_get_change_view_parameters() {
+		$this->calendar->set_from('2001-01-01');
+		$this->calendar->set_to('2001-01-31');
+
+		$actual = $this->calendar->get_change_view('the %s way', 'LIST', 'CAL');
+		$expect = $this->get_change_view_expected('the ',
+			'LIST', ' way', '2001-01-01', '2001-01-31');
+		$this->assertEquals($expect, $actual);
+	}
 	public function test_get_change_view_uri() {
 		$_SERVER['REQUEST_URI'] = 'p?q=v';
 		$this->calendar->set_uri();
