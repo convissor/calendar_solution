@@ -104,8 +104,6 @@ class CalendarSolution_List_Ul extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a short list format
 	 *
-	 * NOTE: this view never shows cancelled events.
-	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "ul.cs_list_ul".  Each event is wrapped by a "li"
 	 * element, which has multiple class attributes:

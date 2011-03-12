@@ -102,8 +102,6 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a short list format
 	 *
-	 * NOTE: this view never shows cancelled events.
-	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "table.cs_list_title".  Each event is wrapped by a "tr"
 	 * element, which has multiple class attributes:
