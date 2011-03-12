@@ -12,6 +12,8 @@
 /**
  * Calendar Solution's memcache methods
  *
+ * NOTE: the cache is flushed when administrators edit events.
+ *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
@@ -27,17 +29,20 @@ class CalendarSolution_Cache_Memcache implements CalendarSolution_Cache {
 	/**
 	 * The Unix timestamp of when the cache should expire.
 	 *
-	 * Should be set to 00:00:01 tomorrow.  This is because many views use the
-	 * current date as the starting point, so when tomorrow rolls around,
-	 * today's data is no longer needed.
+	 * Should be set to <kbd>00:00:01</kbd> tomorrow.  This is because many
+	 * views use the current date as the starting point, so when tomorrow
+	 * rolls around, today's data is no longer needed.
 	 *
-	 * Note: the cache is also flushed when administrators edit events.
+	 * NOTE: the cache is also flushed when administrators edit events.
 	 *
 	 * @var int
 	 */
 	protected $expiration_time;
 
 	/**
+	 * Calls memcache's addServer() for each server listed in
+	 * $GLOBALS['cache_servers']
+	 *
 	 * @throws CalendarSolution_Exception  if the memcache extension is not
 	 *         installed or if adding one of the cache servers fails
 	 *
@@ -61,17 +66,43 @@ class CalendarSolution_Cache_Memcache implements CalendarSolution_Cache {
 		}
 	}
 
+	/**
+	 * Flush all data from the cache
+	 * @return bool
+	 */
 	public function flush() {
 		return @$this->cache->flush();
 	}
 
+	/**
+	 * Obtains data from the cache
+	 *
+	 * @param string $key  the data element's name
+	 *
+	 * @return mixed  the data on success, false on failure
+	 */
 	public function get($key) {
 		return @$this->cache->get($key);
 	}
 
+	/**
+	 * Stores data in the cache
+	 *
+	 * If $expiration_time has not been set, this method sets it to
+	 * <kbd>00:00:01</kbd> tomorrow.
+	 *
+	 * @param string $key  the data element's name
+	 * @param mixed $value  the data to be stored
+	 *
+	 * @return bool
+	 *
+	 * @uses CalendarSolution_Cache_Memcache::$expiration_time  to know
+	 *       when the data should exipre
+	 */
 	public function set($key, $value) {
 		if (!$this->expiration_time) {
 			$date = new DateTime;
+			// Using modify() because add() introduced in PHP 5.3.
 			$date->modify('+1 day');
 			$date->setTime(0, 0, 1);
 			$this->expiration_time = $date->format('U');

@@ -12,6 +12,11 @@
 /**
  * Methods that each cache class needs to define
  *
+ * Users planning to create their own cache classes should follow the
+ * procedures implemented in CalendarSolution_Cache_Memcache.
+ *
+ * @see CalendarSolution_Cache_Memcache
+ *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
  * @copyright The Analysis and Solutions Company, 2002-2011
@@ -36,9 +41,8 @@ interface CalendarSolution_Cache {
 	/**
 	 * Stores data in the cache
 	 *
-	 * Cache values expire at 00:00:01 tomorrow.
-	 *
-	 * Note: the cache is also flushed when administrators edit events.
+	 * If $expiration_time has not been set, this method sets it to
+	 * <kbd>00:00:01</kbd> tomorrow.
 	 *
 	 * @param string $key  the data element's name
 	 * @param mixed $value  the data to be stored
