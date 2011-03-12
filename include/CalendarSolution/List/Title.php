@@ -126,7 +126,8 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
 	 *       far ahead people can see, but only if it has not been called yet
 	 * @uses CalendarSolution_List::set_show_cancelled()  to drop cancelled
-	 *       events from the display
+	 *       events from the display by default. If cancelled events should be
+	 *       shown, call set_show_cancelled(true) before calling this method.
 	 * @uses CalendarSolution_List::set_page_id()  if "$page_id" is passed
 	 *
 	 * @uses CalendarSolution_List::set_where_sql()  to generate the WHERE
@@ -145,8 +146,9 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 		if ($this->permit_future_date === null) {
 			$this->set_permit_future_months();
 		}
-
-		$this->set_show_cancelled(false);
+		if ($this->show_cancelled === null) {
+			$this->set_show_cancelled(false);
+		}
 
 		if ($this->use_cache) {
 			$this->set_where_sql();
