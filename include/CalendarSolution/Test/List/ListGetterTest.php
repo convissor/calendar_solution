@@ -18,11 +18,36 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	protected $calendar;
 
 	/**
+	 * The expected default value for the "to" property
+	 * @var string
+	 */
+	protected $to_default;
+
+	/**
 	 * Prepares the environment before running each test
 	 */
 	protected function setUp() {
 		$this->calendar = new CalendarSolution_Test_List_ListHelper;
+
 		$this->calendar->total_rows = 33;
+		$to = new DateTimeSolution;
+		$to->add(new DateIntervalSolution('P2M'));
+		$this->to_default = $to->format('Y-m-t');
+	}
+
+	protected function get_change_view_expected($head, $view, $tail, $from,
+			$to, $uri_head = '?')
+	{
+		if ($from) {
+			$from = 'from=' . $from . '&amp;';
+		}
+		if ($to) {
+			$to = 'to=' . $to . '&amp;';
+		}
+
+		return '<div class="cs_change_view">' . $head . '<a href="' . $uri_head
+			. $from . $to . 'view=Calendar">' . $view . '</a>'
+			. $tail . "</div>\n";
 	}
 
 	protected function get_date_navigation_expected($prior_from, $prior_to,
@@ -62,6 +87,61 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 			. $prior_link
 			. '</div><div class="cs_next">' . $next_link . "</div></div>\n";
 	}
+
+
+	/**#@+
+	 * get_change_view()
+	 */
+	public function test_get_change_view_default() {
+		$actual = $this->calendar->get_change_view();
+		$expect = $this->get_change_view_expected('View the events in ',
+			'calendar', ' format', date('Y-m-d'), $this->to_default);
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_change_view_from_to_false() {
+		$this->calendar->set_from(false);
+		$this->calendar->set_to(false);
+
+		$actual = $this->calendar->get_change_view();
+		$expect = $this->get_change_view_expected('View the events in ',
+			'calendar', ' format', '', '');
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_change_view() {
+		$this->calendar->set_from('2001-01-01');
+		$this->calendar->set_to('2001-01-31');
+
+		$actual = $this->calendar->get_change_view();
+		$expect = $this->get_change_view_expected('View the events in ',
+			'calendar', ' format', '2001-01-01', '2001-01-31');
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_change_view_uri() {
+		$_SERVER['REQUEST_URI'] = 'p?q=v';
+		$this->calendar->set_uri();
+
+		$this->calendar->set_from('2001-01-01');
+		$this->calendar->set_to('2001-01-31');
+
+		$actual = $this->calendar->get_change_view();
+		$expect = $this->get_change_view_expected('View the events in ',
+			'calendar', ' format', '2001-01-01', '2001-01-31', 'p?q=v&amp;');
+		$this->assertEquals($expect, $actual);
+	}
+	public function test_get_change_view_properties() {
+		$this->calendar->set_category_id(2);
+		$this->calendar->set_frequent_event_id(2);
+
+		$this->calendar->set_from('2001-01-01');
+		$this->calendar->set_to('2001-01-31');
+
+		$actual = $this->calendar->get_change_view();
+		$expect = $this->get_change_view_expected('View the events in ',
+			'calendar', ' format', '2001-01-01', '2001-01-31',
+			'?category_id%5B0%5D=2&amp;frequent_event_id=2&amp;');
+		$this->assertEquals($expect, $actual);
+	}
+	/**#@-*/
 
 	/**#@+
 	 * get_date_navigation()

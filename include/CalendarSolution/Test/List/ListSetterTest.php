@@ -28,6 +28,7 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 	 */
 	protected function setUp() {
 		$this->calendar = new CalendarSolution_Test_List_ListHelper;
+
 		$to = new DateTimeSolution;
 		$to->add(new DateIntervalSolution('P2M'));
 		$this->to_default = $to->format('Y-m-t');

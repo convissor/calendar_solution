@@ -296,22 +296,25 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				? null : $this->category_id;
 		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
 				? null : $this->frequent_event_id;
-		$uri['query']['from'] = $this->from->format('Y-m-d');
-		$uri['query']['to'] = $this->to->format('Y-m-d');
-		unset($uri['query']['view']);
+		$uri['query']['from'] = empty($this->from)
+				? null : $this->from->format('Y-m-d');
+		$uri['query']['to'] = empty($this->to)
+				? null : $this->to->format('Y-m-d');
 
-		$link = '<a href="'
-			. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
-			. '&amp;view=';
 		if ($this->view == 'Calendar') {
-			$link .= 'List">' . htmlspecialchars($list);
+			$uri['query']['view'] = 'List';
+			$anchor = htmlspecialchars($list);
 		} elseif ($this->view == 'List') {
-			$link .= 'Calendar">' . htmlspecialchars($calendar);
+			$uri['query']['view'] = 'Calendar';
+			$anchor = htmlspecialchars($calendar);
 		} else {
 			throw new CalendarSolution_Exception('get_change_view() for use'
 					. ' only with Calendar or List views');
 		}
-		$link .= '</a>';
+
+		$link = '<a href="'
+			. htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']))
+			. '">' . $anchor . '</a>';
 
 		$format = '<div class="cs_change_view">' . $phrase . "</div>\n";
 		return sprintf($format, $link);

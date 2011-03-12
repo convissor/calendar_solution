@@ -15,6 +15,7 @@ class CalendarSolution_Test_List_AllTests {
 		$suite = new PHPUnit_Framework_TestSuite('Calendar Solution List sub-class Unit Tests');
 
 		$suite->addTestSuite('CalendarSolution_Test_List_CalendarTest');
+		$suite->addTestSuite('CalendarSolution_Test_List_CalendarGetterTest');
 		$suite->addTestSuite('CalendarSolution_Test_List_CalendarSetterTest');
 		$suite->addTestSuite('CalendarSolution_Test_List_ListGetterTest');
 		$suite->addTestSuite('CalendarSolution_Test_List_ListSetterTest');
