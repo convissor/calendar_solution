@@ -122,7 +122,7 @@ class CalendarSolution_List_MonthTitle extends CalendarSolution_List {
 	}
 
 	/**
-	 * Produces a list of events laid out in a list format
+	 * Produces a list of events laid out in a list format, grouped by month
 	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "table.cs_list_monthtitle".  Each event is wrapped by a "tr"
