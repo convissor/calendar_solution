@@ -131,6 +131,11 @@ class CalendarSolution_Detail_Html extends CalendarSolution_Detail {
 				 . '<td class="cs_value">' . $this->data['category'] . "</td></tr>\n";
 		}
 
+		if ($this->data['is_own_event'] == 'N') {
+			$out .= ' <tr><td scope="row" class="cs_label">Organizer:</td>'
+				 . '<td class="cs_value">This event is produced by a different group.</td></tr>' . "\n";
+		}
+
 		$out .= '</table>';
 
 		$out .= '<p class="cs_view_all"><a href="calendar.php">View All Events</a>';
