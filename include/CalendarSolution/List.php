@@ -894,7 +894,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List::$date_format_id  to store the data
+	 * @uses CalendarSolution_List::$date_format  to store the data
 	 * @see CalendarSolution::format_date()
 	 *
 	 * @since Method available since version 3.0.0
