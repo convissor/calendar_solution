@@ -201,7 +201,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 
 		if ($event['time_start']) {
 			$out .= '<span class="cs_time">'
-				. $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP)
+				. $this->format_date($event['time_start'], $this->time_format)
 				. '</span>';
 		}
 

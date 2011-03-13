@@ -153,6 +153,15 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $show_own_events_first = false;
 
 	/**
+	 * Format for PHP's date() function, to be used by our format_date() method
+	 *
+	 * @see CalendarSolution_List::set_time_format()
+	 * @see CalendarSolution::format_date()
+	 * @var string
+	 */
+	protected $time_format = self::DATE_FORMAT_TIME_12AP;
+
+	/**
 	 * The end of the date range to show events for in the current request
 	 * @var DateTimeSolution
 	 */
@@ -1314,6 +1323,22 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 */
 	public function set_show_own_events_frist($in) {
 		$this->show_own_events_first = (bool) $in;
+	}
+
+	/**
+	 * Sets the time format to be used by our format_date() method
+	 *
+	 * @param int $in  the format used by PHP's date() function
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$time_format  to store the data
+	 * @see CalendarSolution::format_date()
+	 *
+	 * @since Method available since version 3.0.0
+	 */
+	public function set_time_format($in) {
+		$this->time_format = $in;
 	}
 
 	/**

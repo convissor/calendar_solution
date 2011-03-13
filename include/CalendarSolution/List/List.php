@@ -129,8 +129,8 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 			 . '</td>';
 
 		$out .= '<td class="cs_time">'
-			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
-			 . (($event['time_end']) ? ' to ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
+			 . (($event['time_start']) ? $this->format_date($event['time_start'], $this->time_format) : '&nbsp;')
+			 . (($event['time_end']) ? ' to ' . $this->format_date($event['time_end'], $this->time_format) : '')
 			 . '</td>';
 
 		$out .= '<td class="cs_location_start">'

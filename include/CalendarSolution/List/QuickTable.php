@@ -107,7 +107,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 
 		$out .= '<td class="cs_time">';
 		if ($event['time_start']) {
-			$out .= $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP);
+			$out .= $this->format_date($event['time_start'], $this->time_format);
 		} else {
 			$out .= '&nbsp;';
 		}
