@@ -105,10 +105,13 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 			 . $this->format_date($event['date_start'], $this->date_format)
 			 . "</td>";
 
-		$out .= '<td class="cs_time">'
-			 . (($event['time_start']) ? $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP) : '&nbsp;')
-			 . (($event['time_end']) ? ' - ' . $this->format_date($event['time_end'], self::DATE_FORMAT_TIME_12AP) : '')
-			 . "</td>";
+		$out .= '<td class="cs_time">';
+		if ($event['time_start']) {
+			$out .= $this->format_date($event['time_start'], self::DATE_FORMAT_TIME_12AP);
+		} else {
+			$out .= '&nbsp;';
+		}
+		$out .= '</td>';
 
 		$out .= '<td class="cs_location_start">'
 			 . (($event['location_start']) ? $event['location_start'] : '&nbsp;')
