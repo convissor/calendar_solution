@@ -147,10 +147,30 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $show_cancelled = true;
 
 	/**
+	 * Should the Location field be shown or not when viewing "Calendar" mode?
+	 *
+	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
+	 * between Calendar and List views.
+	 *
+	 * @var bool
+	 */
+	protected $show_location = true;
+
+	/**
 	 * Show your own events before events produced by other organizations?
 	 * @var bool
 	 */
 	protected $show_own_events_first = false;
+
+	/**
+	 * Should the Summary field be shown or not when viewing "List" mode?
+	 *
+	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
+	 * between Calendar and List views.
+	 *
+	 * @var bool
+	 */
+	protected $show_summary = true;
 
 	/**
 	 * Format for PHP's date() function, to be used by our format_date() method
@@ -1319,6 +1339,24 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Turns the Location field on or off when showing the "Calendar" format
+	 *
+	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
+	 * between Calendar and List views.
+	 *
+	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_List::$show_location  to store the decision
+	 *
+	 * @since Method available since version 3.0.0
+	 */
+	public function set_show_location($in) {
+		$this->show_location = (bool) $in;
+	}
+
+	/**
 	 * Show your own events before events produced by other organizations?
 	 *
 	 * Items are normally sorted by date then start time.  Enabling this option
@@ -1331,9 +1369,27 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_own_events_first  to store the decision
+	 *
+	 * @since Method available since version 3.0.0
 	 */
 	public function set_show_own_events_frist($in) {
 		$this->show_own_events_first = (bool) $in;
+	}
+
+	/**
+	 * Turns the Summary field on or off when showing the "List" format
+	 *
+	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
+	 * between Calendar and List views.
+	 *
+	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List::$show_summary  to store the decision
+	 */
+	public function set_show_summary($in) {
+		$this->show_summary = (bool) $in;
 	}
 
 	/**

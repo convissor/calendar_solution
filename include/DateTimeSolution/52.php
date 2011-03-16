@@ -5,7 +5,7 @@
  *
  * @package DateTimeSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2009-2010
+ * @copyright The Analysis and Solutions Company, 2009-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
@@ -15,16 +15,10 @@
  *
  * @package DateTimeSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2009-2010
+ * @copyright The Analysis and Solutions Company, 2009-2011
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class DateTimeSolution_52 extends DateTimeSolution_Diff {
-	/**
-	 * Indicates which level of support the DateTime Solution is providing
-	 * @var string
-	 */
-	public $datetime_solution_level = '52';
-
 	private $week_words = array(
 		'first' => 1,
 		'second' => 2,
@@ -42,6 +36,18 @@ class DateTimeSolution_52 extends DateTimeSolution_Diff {
 		'friday' => 5,
 		'saturday' => 6,
 	);
+
+
+	/**
+	 * Indicates which level of support the DateTime Solution is providing
+	 *
+	 * Can't use a property because of PHP bug 52738
+	 *
+	 * @return string
+	 */
+	public function get_datetime_solution_level() {
+		return '52';
+	}
 
 	/**
 	 * Subtracts the specified quantity of time to this object
