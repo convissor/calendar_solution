@@ -29,12 +29,6 @@
  */
 class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	/**
-	 * Should the Location field be shown or not when viewing "Calendar" mode?
-	 * @var bool
-	 */
-	protected $show_location = true;
-
-	/**
 	 * The type of view this class represents
 	 * @var string
 	 */
@@ -67,21 +61,6 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 		if ($this->from) {
 			$this->from->modify('first day of this month');
 		}
-	}
-
-	/**
-	 * Turns the Location field on or off when showing the "Calendar" format
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List_List::$show_location  to store the decision
-	 *
-	 * @since Method available since version 3.0.0
-	 */
-	public function set_show_location($in) {
-		$this->show_location = (bool) $in;
 	}
 
 	/**

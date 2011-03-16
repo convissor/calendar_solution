@@ -37,30 +37,11 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	protected $date_format = self::DATE_FORMAT_LONG;
 
 	/**
-	 * Should the Summary field be shown or not when viewing "List" mode?
-	 * @var bool
-	 */
-	protected $show_summary = true;
-
-	/**
 	 * The type of view this class represents
 	 * @var string
 	 */
 	protected $view = 'List';
 
-
-	/**
-	 * Turns the Summary field on or off when showing the "List" format
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List_List::$show_summary  to store the decision
-	 */
-	public function set_show_summary($in) {
-		$this->show_summary = (bool) $in;
-	}
 
 	/**
 	 * @return string  the HTML for opening a list
