@@ -705,6 +705,17 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Says which view class is being used
+	 *
+	 * @return string  the view being used
+	 *
+	 * @since Method available since version 3.0.0
+	 */
+	public function get_view() {
+		return $this->view;
+	}
+
+	/**
 	 * Creates a DateIntervalSolution object indicating how many months should be
 	 * displayed at one time
 	 *
