@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page calendar_solution_settings.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name">/include/calendar_solution_settings.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+											<a href="#sec-constants">Constants</a>
+			|									<a href="#sec-functions">Functions</a>
+			</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The DBMS and cache settings plus autoload function for the Calendar Solution</p>
+<p class="description"><p>NOTE: If your system already has an autoloader, feel free to integrate the  concepts in this autoload function into yours and then comment out the  spl_autoload_register() call.  If you do so and also use our PHPUnit tests,  don't forget to edit the bootstrap.ini file to include your autoloader.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Daniel Convissor &lt;<a href="mailto:danielc@analysisandsolutions.com">danielc@analysisandsolutions.com</a>&gt;</li>
+				<li><span class="field">copyright:</span> The Analysis and Solutions Company, 2002-2011</li>
+				<li><span class="field">link:</span> <a href="http://www.analysisandsolutions.com/software/sql/sql.htm">http://www.analysisandsolutions.com/software/sql/sql.htm</a></li>
+				<li><span class="field">license:</span> <a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a></li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+									<span class="disabled">Constants</span>
+			|										<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">	
+			<a name="defineCALENDAR_SOLUTION_CACHE_CLASS"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">CALENDAR_SOLUTION_CACHE_CLASS</span> = 'CalendarSolution_Cache_Memcache'
+			(line <span class="line-number">50</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The Calendar Solution Cache class to use: &quot;CalendarSolution_Cache_Memcache&quot;</p>
+<p class="description"><p>NOTE: Leave this alone unless you are creating your own cache class.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a> - to know which cache class to use</li>
+			</ul>
+	
+		
+</div>
+<a name="defineCALENDAR_SOLUTION_DBMS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">CALENDAR_SOLUTION_DBMS</span> = ''
+			(line <span class="line-number">21</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The database extension to use: &quot;mysql&quot;, &quot;mysqli&quot;, &quot;pgsql&quot;, &quot;sqlite&quot;, &quot;sqlite3&quot;</p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a> - to know which database extension to use</li>
+			</ul>
+	
+		
+</div>
+<a name="defineTAASC_DIR_INCLUDE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">TAASC_DIR_INCLUDE</span> = dirname(__FILE__)
+			(line <span class="line-number">59</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the include path to the current directory</p>
+<p class="description"><p>Using dirname(__FILE__) because __DIR__ introduced in PHP 5.3.</p></p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	<a name="sec-functions"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Functions</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+													<a href="#sec-constants">Constants</a>
+				|									<span class="disabled">Functions</span>
+		</div>
+		<div class="info-box-body">	
+			<a name="functiontaasc_autoload_example" id="functiontaasc_autoload_example"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="method-title">taasc_autoload_example</span> (line <span class="line-number">75</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">An autoload function for software from The Analysis and Solutions Company</p>
+<p class="description"><p>Uses the PEAR naming convention of &quot;_&quot; in class names becoming &quot;/&quot;.</p><p>Checks the current directory and subdirectories thereof first,  then tries via the include_path.</p><p>NOTE: If your system already has an autoloader, integrate the concepts in  our autoload function into yours and then remove this one.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			taasc_autoload_example
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$class</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$class</span>			</li>
+				</ul>
+		
+	
+</div>
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 16 Mar 2011 10:21:39 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
