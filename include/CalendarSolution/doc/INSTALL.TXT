@@ -119,28 +119,6 @@ NOTE: the INSERT statements here are ONLY EXAMPLES.
     - SQLite 3
       sqlite3 include/CalendarSolution/sqlite/calendar_solution.sqlite3
 
-  + Insert your Frequent Events, if any:
-      INSERT INTO cs_frequent_event
-        (frequent_event, frequent_event_uri) VALUES
-        ('Ride to Nowhere', 'http://example.org/nowhere.php');
-      INSERT INTO cs_frequent_event
-        (frequent_event, frequent_event_uri) VALUES
-        ('Ride to Somewhere', NULL);
-
-  + Insert your Featured Pages, if any.
-    NOTE: feature_on_page_id must be a power of 2 to allow an event
-    to be featured on multiple pages using bitwise math.
-    So, each new id is two times the prior one.  For example:
-      INSERT INTO cs_feature_on_page
-        (feature_on_page_id, feature_on_page) VALUES
-        (2, 'Rides Page');
-      INSERT INTO cs_feature_on_page
-        (feature_on_page_id, feature_on_page) VALUES
-        (4, 'Meetings Page');
-      INSERT INTO cs_feature_on_page
-        (feature_on_page_id, feature_on_page) VALUES
-        (8, 'Movies Page');
-
   + Exit the database:
     - MySQL:
       exit
