@@ -63,7 +63,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 */
 	protected function get_list_open() {
 		$out = '<table class="cs_list_quicktable">'
-			. '<tr><th>Date</th><th>Time</th>'
+			. '<tr class="cs_header"><th>Date</th><th>Time</th>'
 			. '<th>Location</th><th>Note</th></tr>' . "\n";
 		return $out;
 	}
