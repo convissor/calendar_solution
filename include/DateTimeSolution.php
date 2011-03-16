@@ -18,7 +18,7 @@
  * @link http://www.analysisandsolutions.com/software/datetime_solution/
  */
 
-if (class_exists('DateInterval')) {
+if (class_exists('DateInterval', false)) {
 	// PHP 5.3
 
 	if (version_compare(phpversion(), '5.3.5', '>=')) {
