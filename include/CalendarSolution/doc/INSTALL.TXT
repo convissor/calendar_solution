@@ -206,9 +206,10 @@ their changes now:
 
 * Put the "calendar" and "include" directories in a location accessible
 by the web server.  This package assumes both of these directories will
-be put in the same location.  If they are not, the path used for the
-"include calendar_solution_settings.php" calls in each of the *.php files in
-the "calendar" directory must be adjusted.
+be put in the same location.  If they are not, the path used in the
+require calendar_solution_settings.php calls in each of the *.php files in
+the "calendar" directory and the require List.php in "calendar/calendar.php"
+must be adjusted.
 
 
 CACHING (OPTIONAL)

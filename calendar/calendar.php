@@ -16,6 +16,15 @@
  */
 require dirname(__FILE__) . '/../include/calendar_solution_settings.php';
 
+/**
+ * Manually require List class because PHP 5.2 doesn't use autoload for static
+ * methods
+ *
+ * Another lesson learned the hard way. :)
+ */
+require dirname(__FILE__) . '/../include/CalendarSolution/List.php';
+
+
 /*
  * Instantiate the calendar class appropriate for the view the user wants.
  */
