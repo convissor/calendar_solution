@@ -498,15 +498,15 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if (in_array('datebox', $show)) {
 			if ($this->from) {
-				$from == $this->from->format('Y-m-d');
+				$from = $this->from->format('Y-m-d');
 			} else {
-				$from == '';
+				$from = '';
 			}
 
 			if ($this->to) {
-				$to == $this->to->format('Y-m-d');
+				$to = $this->to->format('Y-m-d');
 			} else {
-				$to == '';
+				$to = '';
 			}
 
 			$out .= '<div class="cs_date_limit_box">'
