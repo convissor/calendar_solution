@@ -498,15 +498,15 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if (in_array('datebox', $show)) {
 			if ($this->from) {
-				$from == $this->from->format('Y-m-d');
+				$from = $this->from->format('Y-m-d');
 			} else {
-				$from == '';
+				$from = '';
 			}
 
 			if ($this->to) {
-				$to == $this->to->format('Y-m-d');
+				$to = $this->to->format('Y-m-d');
 			} else {
-				$to == '';
+				$to = '';
 			}
 
 			$out .= '<div class="cs_date_limit_box">'
@@ -527,7 +527,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			if ($this->permit_history_date === null) {
 				$this->set_permit_history_months();
 			}
-			$from = $this->permit_history_date;
+			$from = new DateTimeSolution($this->permit_history_date->format('Y-m-d'));
 
 			if ($this->permit_future_date === null) {
 				$this->set_permit_future_months();
@@ -572,7 +572,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. '<select id="to" size="0" name="to">'
 				. "\n" . $to_list . '</select>';
 
-			$out .= "</div>\n";
+			$out .= "</div></form>\n";
 		}
 
 		if (in_array('category', $show)) {
