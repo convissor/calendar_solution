@@ -572,7 +572,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. '<select id="to" size="0" name="to">'
 				. "\n" . $to_list . '</select>';
 
-			$out .= "</div>\n";
+			$out .= "</div></form>\n";
 		}
 
 		if (in_array('category', $show)) {
