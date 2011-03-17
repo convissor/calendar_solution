@@ -454,8 +454,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * Produces the HTML for the form people can use to pick date ranges
 	 * and particular events
 	 *
-	 * NOTE: "datelist" will not be displayed if $permit_history_date or
-	 * $permit_future_date are false.
+	 * NOTE: "datelist" will not be displayed if "$from", "$to",
+	 * "$permit_history_date", or "$permit_future_date" are false.
 	 *
 	 * @param array $show  a list of elements to show ("datebox", "datelist",
 	 *                     "category", "event", "remove")
@@ -471,12 +471,18 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$permit_future_date  to determine the
 	 *       latest value in the "datelist" dropdown boxes
 	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 * @uses CalendarSolution_List::set_request_properties()  to determine the
+	 *       users intentions
 	 *
 	 * @since Method available since version 3.0.0
 	 */
 	public function get_limit_form(
 			$show = array('datebox', 'category', 'event', 'remove'))
 	{
+		if (!$this->called_set_request_properties) {
+			$this->set_request_properties();
+		}
+
 		$uri = $this->uri;
 
 		$uri['query']['limit'] = null;
@@ -491,18 +497,30 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			. '<div class="cs_limit_form">';
 
 		if (in_array('datebox', $show)) {
+			if ($this->from) {
+				$from == $this->from->format('Y-m-d');
+			} else {
+				$from == '';
+			}
+
+			if ($this->to) {
+				$to == $this->to->format('Y-m-d');
+			} else {
+				$to == '';
+			}
+
 			$out .= '<div class="cs_date_limit_box">'
 				. '<label for="from">Limit to dates between </label>'
 				. '<input id="from" type="text" size="11" maxlength="10"'
-				. ' name="from" value="'
-				. $this->from->format('Y-m-d') . '" />'
+				. ' name="from" value="' . $from . '" />'
 				. '<label for="to"> and </label>'
 				. '<input id="to" type="text" size="11" maxlength="10" '
-				. 'name="to" value="'
-				. $this->to->format('Y-m-d') . '" />' . "\n";
+				. 'name="to" value="' . $to . '" />' . "\n";
 		}
 
 		if (in_array('datelist', $show)
+			&& $this->from !== false
+			&& $this->to !== false
 			&& $this->permit_history_date !== false
 			&& $this->permit_future_date !== false)
 		{
