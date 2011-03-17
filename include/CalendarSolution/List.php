@@ -527,7 +527,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			if ($this->permit_history_date === null) {
 				$this->set_permit_history_months();
 			}
-			$from = $this->permit_history_date;
+			$from = new DateTimeSolution($this->permit_history_date->format('Y-m-d'));
 
 			if ($this->permit_future_date === null) {
 				$this->set_permit_future_months();
