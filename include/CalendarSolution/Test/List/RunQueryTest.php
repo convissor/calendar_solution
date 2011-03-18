@@ -33,8 +33,8 @@ class CalendarSolution_Test_List_RunQueryTest extends PHPUnit_Framework_TestCase
 	 * Prepare the environment before the first test is run
 	 */
 	public static function setUpBeforeClass() {
-		$date = new DateTime(date('Y-m-01'));
-		$date->add(new DateInterval('P1M'));
+		$date = new DateTimeSolution(date('Y-m-01'));
+		$date->add(new DateIntervalSolution('P1M'));
 		self::$ym = $date->format('Y-m');
 	}
 
