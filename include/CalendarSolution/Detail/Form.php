@@ -810,12 +810,12 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 
 
 		// ------------------------------------------------------
-		if ($this->data['is_own_event'] == 'Y') {
-			$yes = ' checked="checked"';
-			$no = '';
-		} else {
+		if ($this->data['is_own_event'] == 'N') {
 			$yes = '';
 			$no = ' checked="checked"';
+		} else {
+			$yes = ' checked="checked"';
+			$no = '';
 		}
 
 		$out .= '  <tr>' . "\n";
