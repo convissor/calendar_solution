@@ -43,12 +43,6 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	protected $view = 'QuickTable';
 
 	/**
-	 * Should the Summary field be shown or not?
-	 * @var bool
-	 */
-	protected $show_summary = true;
-
-	/**
 	 * Should the End Time field be shown or not?
 	 * @var bool
 	 */
