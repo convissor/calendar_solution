@@ -186,7 +186,7 @@ There are many ways to do this; the following is one.
     (adjust paths as appropriate for your environment):
 
       server.modules += ( "mod_auth" )
-      url.access-deny += ( ".htaccess", ".htpasswd" )
+      url.access-deny += ( ".htaccess", ".htpasswd", "/include/" )
       auth.debug = 2
       auth.backend = "htpasswd"
       auth.backend.htpasswd.userfile = "/var/www/calendar/Admin/.htpasswd"
