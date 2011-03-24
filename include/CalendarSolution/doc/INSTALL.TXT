@@ -1,7 +1,7 @@
 REQUIREMENTS
 ------------
-* Apache httpd web server.  (You can get it to run on other
-  servers by porting the .htaccess and .htpasswd files.  If
+* Apache's httpd or Redmine's lighttpd web server.  (You can get it to run
+  on other servers by porting the .htaccess and .htpasswd files.  If
   you do, please send them to me so they can be included in
   a future version.)
 * Access to one of the following database systems:
