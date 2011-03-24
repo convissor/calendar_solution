@@ -48,6 +48,26 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 */
 	protected $show_summary = true;
 
+	/**
+	 * Should the End Time field be shown or not?
+	 * @var bool
+	 */
+	protected $show_time_end = true;
+
+
+	/**
+	 * Should End Time field be shown or not?
+	 *
+	 * @param bool $in  set it to FALSE to leave out end times
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution_List_QuickTable::$show_time_end  to store the
+	 *       decision
+	 */
+	public function set_show_time_end($in) {
+		$this->show_time_end = (bool) $in;
+	}
 
 	/**
 	 * Provides the path and name of the needed Cascading Style Sheet file
@@ -108,6 +128,9 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 		$out .= '<td class="cs_time">';
 		if ($event['time_start']) {
 			$out .= $this->format_date($event['time_start'], $this->time_format);
+			if ($event['time_end'] && $this->show_time_end) {
+				$out .= ' - ' . $this->format_date($event['time_end'], $this->time_format);
+			}
 		} else {
 			$out .= '&nbsp;';
 		}
@@ -144,6 +167,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * @see CalendarSolution_List::get_limit_navigation()
 	 * @see CalendarSolution_List::set_date_format()
 	 * @see CalendarSolution_List::set_show_own_events_frist()
+	 * @see CalendarSolution_List_QuickTable::set_show_time_end()
 	 *
 	 * @uses CalendarSolution_List::set_from()  to default the date to today,
 	 *       but only if it has not been called yet
