@@ -10,7 +10,8 @@ table.cs_list_quicktable td {
  vertical-align: top;
 }
 
-td.cs_day {
+td.cs_day,
+td.cs_time {
  white-space: nowrap;
 }
 
