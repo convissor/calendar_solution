@@ -22,6 +22,13 @@ define('CALENDAR_SOLUTION_DBMS', '');
 
 
 /**
+ * The HTTP_HOST string used if $_SERVER['HTTP_HOST'] is empty
+ * @see CalendarSolution::$http_host
+ */
+define('CALENDAR_SOLUTION_HTTP_HOST', 'localhost');
+
+
+/**
  * Cache server connection information, if any
  *
  * Caching will only be utilized if this array is populated.

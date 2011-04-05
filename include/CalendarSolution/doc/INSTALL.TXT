@@ -137,8 +137,8 @@ the environment you are running in.
   + chmod 755 include/CalendarSolution/doc/compile_phpdoc.sh
   + chmod 760 include/CalendarSolution/sqlite/calendar_solution*
 
-* Edit the "CALENDAR_SOLUTION_DBMS" setting in
-"include/calendar_solution_settings.php".
+* Edit the "CALENDAR_SOLUTION_DBMS" and "CALENDAR_SOLUTION_HTTP_HOST" settings
+in "include/calendar_solution_settings.php".
 
 * This package depends on PHP's autoload functionality and ships with such a
 function in "include/calendar_solution_settings.php".  If your system already has
