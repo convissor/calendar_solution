@@ -86,8 +86,18 @@ function taasc_autoload_example($class) {
 		// Local file, get it.
 		require TAASC_DIR_INCLUDE . '/' . $class . '.php';
 	} else {
-		// File doesn't exist locally.  Use include path.
-		require $class . '.php';
+		/*
+		 * File doesn't exist locally, manually check include path.
+		 *
+		 * This approach is necessary because class_exists() can cause problems.
+		 * For an example, see WordPress's wp-admin/includes/deprecated.php.
+		 */
+		$paths = explode(PATH_SEPARATOR, get_include_path());
+		foreach ($paths as $path) {
+			if (file_exists($path . '/' . $class . '.php')) {
+				require $path . '/' . $class . '.php';
+			}
+		}
 	}
 }
 
