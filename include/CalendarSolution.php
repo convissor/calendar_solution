@@ -41,8 +41,10 @@ class CalendarSolution {
 	const DATE_FORMAT_NAME_NUMBER = 'l jS';
 	const DATE_FORMAT_MEDIUM = 'D, n/j';
 	const DATE_FORMAT_SHORT = 'n/j';
+	const DATE_FORMAT_ICALENDAR = 'Ymd';
 	const DATE_FORMAT_TIME_12AP = 'g:i\&\n\b\s\p\;a';
 	const DATE_FORMAT_TIME_24 = 'H:i';
+	const DATE_FORMAT_TIME_ICALENDAR = 'Ymd\THis';
 	/**#@-*/
 
 	/**#@+
@@ -81,6 +83,16 @@ class CalendarSolution {
 	protected $data = array();
 
 	/**
+	 * The HTTP_HOST, set in __construct()
+	 *
+	 * Defaults to $_SERVER['HTTP_HOST'] and falls back to
+	 * CALENDAR_SOLUTION_HTTP_HOST if that's not set.
+	 *
+	 * @var string
+	 */
+	protected $http_host;
+
+	/**
 	 * @var SQLSolution_General
 	 */
 	protected $sql;
@@ -93,7 +105,8 @@ class CalendarSolution {
 
 
 	/**
-	 * Instantiates the database and cache classes
+	 * Instantiates the database and cache classes then sets the $http_host
+	 * property
 	 *
 	 * @param string $dbms  optional override of the database extension setting
 	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
@@ -106,6 +119,8 @@ class CalendarSolution {
 	 * @uses $GLOBALS['cache_servers']  to know where the cache servers are
 	 * @uses CalendarSolution::$cache  to store the Calendar Solution Cache
 	 *       object instantiated by the Calendar Solution's constructor
+	 * @uses CALENDAR_SOLUTION_HTTP_HOST  in case $_SERVER['HTTP_HOST] is empty
+	 * @uses CalendarSolution::$http_host  to store the HTTP_HOST string
 	 *
 	 * @throws CalendarSolution_Exception if the $dbms parameter or
 	 *         CALENDAR_SOLUTION_CACHE_CLASS is improper
@@ -156,6 +171,12 @@ class CalendarSolution {
 				$this->use_cache = true;
 			}
 		}
+
+		if (empty($_SERVER['HTTP_HOST'])) {
+			$this->http_host = CALENDAR_SOLUTION_HTTP_HOST;
+		} else {
+			$this->http_host = $_SERVER['HTTP_HOST'];
+		}
 	}
 
 	/**
@@ -175,6 +196,37 @@ class CalendarSolution {
 				$this->data[$key] = htmlspecialchars($value);
 			}
 		}
+	}
+
+	/**
+	 * Sanitizes the input for iCalendar formats
+	 *
+	 * The steps are:
+	 *  + Break hyperlinks down into anchor text and URI text
+	 *  + Strip HTML tags
+	 *  + Escape iCalendar special characters
+	 *  + Wrap text at 75 characters
+	 *
+	 * @param string $text  the string to be escaped
+	 *
+	 * @return string  the sanitized data
+	 *
+	 * @since Method available since version 3.3
+	 */
+	protected function escape_for_icalendar($text) {
+		// Break hyperlinks down into anchor text and URI text,
+		// but don't touch hyperlinks that have URI's as the anchor text
+		// because strip tags will do the right thing with them.
+		$text = preg_replace('@<a href="([^"]+)">((?!http)(.+))</a>@', '\2 [\1]', $text);
+
+		$text = strip_tags($text);
+		$text = str_replace(
+			array('\\', "\r\n", "\n", ',', ';'),
+			array('\\\\', '\n', '\n', '\,', '\;'),
+			$text
+		);
+
+		return wordwrap($text, 75, "\r\n\t ");
 	}
 
 	/**
@@ -294,6 +346,102 @@ class CalendarSolution {
 			$out .= " <li>$error.</li>\n";
 		}
 		$out .= "</ul>\n";
+
+		return $out;
+	}
+
+	/**
+	 * Formats event data for iCalendar output
+	 *
+	 * @param array $event  an associative array of a given event
+	 *
+	 * @return string  the iCalendar formatted event
+	 *
+	 * @uses CalendarSolution::escape_for_icalendar()  to sanitize the data
+	 * @uses CalendarSolution::$http_host  as the UID's domain
+	 *
+	 * @since Method available since version 3.3
+	 */
+	protected function get_event_formatted_icalendar($event) {
+		// We don't track creation/modification time.  Fake it.
+		if ($event['changed'] == 'Y') {
+			$out = "DTSTAMP:20010101T000000\r\n";
+		} else {
+			$out = "DTSTAMP:20000101T000000\r\n";
+		}
+
+		$out .= 'UID:' . $event['calendar_id'] . '@' . $this->http_host . "\r\n";
+
+		if ($event['time_start']) {
+			$out .= 'DTSTART:' . $this->format_date(
+				$event['date_start'] . ' ' . $event['time_start'],
+				self::DATE_FORMAT_TIME_ICALENDAR) . "\r\n";
+
+			if ($event['time_end']) {
+				$out .= 'DTEND:' . $this->format_date(
+					$event['date_start'] . ' ' . $event['time_end'],
+					self::DATE_FORMAT_TIME_ICALENDAR) . "\r\n";
+			}
+		} else {
+			$out .= 'DTSTART;VALUE=DATE:' . $this->format_date(
+				$event['date_start'], self::DATE_FORMAT_ICALENDAR) . "\r\n";
+		}
+
+		if ($event['status_id'] == self::STATUS_CANCELLED) {
+			$out .= "STATUS:CANCELLED\r\n";
+		} else {
+			if ($event['status_id'] == self::STATUS_FULL) {
+				$event['title'] = 'FULL: ' . $event['title'];
+			}
+			$out .= "STATUS:CONFIRMED\r\n";
+		}
+
+		$out .= 'SUMMARY:' . $this->escape_for_icalendar($event['title'])
+			. "\r\n";
+
+		$description = '';
+		if ($event['summary']) {
+			$description .= $this->escape_for_icalendar($event['summary']);
+		}
+		if (!empty($event['detail'])) {
+			if ($description) {
+				$description .= '\n\n';
+			}
+			$description .= $this->escape_for_icalendar($event['detail']);
+		}
+		if ($description) {
+			$out .= 'DESCRIPTION:' . $description . "\r\n";
+		}
+
+		if (!empty($event['note'])) {
+			$out .= 'COMMENT:'
+				. $this->escape_for_icalendar($event['note']) . "\r\n";
+		}
+
+		if ($event['changed'] == 'Y') {
+			$out .= "COMMENT:Event changed since first posted.\r\n";
+		}
+
+		if ($event['is_own_event'] == 'N') {
+			$out .= "COMMENT:This event is produced by a different group.\r\n";
+		}
+
+		if ($event['location_start']) {
+			$out .= 'LOCATION:'
+				. $this->escape_for_icalendar($event['location_start'])
+				. "\r\n";
+		}
+
+		if (!empty($event['calendar_uri'])) {
+			$out .= 'URL:' . $event['calendar_uri'] . "\r\n";
+		} elseif (!empty($event['frequent_event_uri'])) {
+			$out .= 'URL:' . $event['frequent_event_uri'] . "\r\n";
+		}
+
+		if (!empty($event['category'])) {
+			$out .= 'CATEGORIES:'
+				. $this->escape_for_icalendar($event['category']) . "\r\n";
+		}
 
 		return $out;
 	}

@@ -126,16 +126,22 @@ abstract class CalendarSolution_Detail extends CalendarSolution {
 	 *
 	 * @uses CalendarSolution::$data  to hold the data
 	 */
-	public function set_data_from_query($calendar_id = null, $safe_markup = true) {
+	public function set_data_from_query($calendar_id = null,
+		$safe_markup = true, $escape_html = true)
+	{
 		$this->run_query($calendar_id);
 
 		$original_safe_markup = $this->sql->SQLSafeMarkup;
+		$original_escape_html = $this->sql->SQLEscapeHTML;
+
 		$this->sql->SQLSafeMarkup = $safe_markup ? 'Y' : 'N';
+		$this->sql->SQLEscapeHTML = $escape_html ? 'Y' : 'N';
 
 		$this->data = $this->sql->RecordAsAssocArray(__FILE__, __LINE__,
 			array('display_uri'));
 		$this->data['set_from'] = 'query';
 
 		$this->sql->SQLSafeMarkup = $original_safe_markup;
+		$this->sql->SQLEscapeHTML = $original_escape_html;
 	}
 }

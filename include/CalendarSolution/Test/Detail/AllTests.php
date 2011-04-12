@@ -15,6 +15,7 @@ class CalendarSolution_Test_Detail_AllTests {
 		$suite = new PHPUnit_Framework_TestSuite('Calendar Solution Detail sub-class Unit Tests');
 
 		$suite->addTestSuite('CalendarSolution_Test_Detail_FormTest');
+		$suite->addTestSuite('CalendarSolution_Test_Detail_IcalendarTest');
 
 		return $suite;
 	}
