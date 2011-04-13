@@ -250,6 +250,13 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$expect = '';
 		$this->assertEquals($expect, $actual);
 	}
+	public function test_get_limit_navigation_before_get_rendering() {
+		$this->calendar->total_rows = null;
+		$this->calendar->set_limit(10, 3);
+		$actual = $this->calendar->get_limit_navigation();
+		$expect = '';
+		$this->assertEquals($expect, $actual);
+	}
 	public function test_get_limit_navigation_start_0() {
 		$this->calendar->set_limit(10, 0);
 		$actual = $this->calendar->get_limit_navigation();

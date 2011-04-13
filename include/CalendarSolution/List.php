@@ -661,7 +661,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the prior/next links for the "QuickTable" and "Title" formats
 	 *
-	 * NOTE: This must be called after get_rendering().
+	 * NOTE: This must be called after get_rendering().  An empty string will
+	 * be returned if called before get_rendering().
 	 *
 	 * NOTE: will return an empty string if "$limit_start" is not numeric.
 	 *
@@ -671,7 +672,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                      passed through htmlspecialchars().
 	 *
 	 * @return string  the navigation elements if the $start parameter is
-	 *                 enabled in set_limit(), an empty string if not
+	 *                 enabled in set_limit() and get_rendering() has been
+	 *                 called, an empty string if not
 	 *
 	 * @see CalendarSolution_List::set_limit()
 	 * @uses CalendarSolution_List::$uri  to know the current URI
@@ -681,7 +683,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	public function get_limit_navigation($prior_link = '< prior',
 			$next_link = 'next >')
 	{
-		if (!is_numeric($this->limit_start)) {
+		if (!is_numeric($this->limit_start) || !$this->total_rows) {
 			return '';
 		}
 
