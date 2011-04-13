@@ -1044,7 +1044,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * "Y" means only show events sponsored by your organization.
 	 * "N" means only show events sponsored by other organizations.
-	 * All events are shown if this is empty/unset.
+	 * All events are shown if this is empty/unset/false.
 	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['is_own_event']
 	 *                   though set it to FALSE if it is not set or invalid
@@ -1348,8 +1348,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Should cancelled events be shown or not?
 	 *
-	 * @param bool $in  set it to FALSE to leave out cancelled events
-	 *
+	 * @param bool $in  pass FALSE to leave out cancelled events,
+	 *                  is TRUE by default
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_cancelled  to store the decision
@@ -1361,16 +1361,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Turns the Location field on or off when showing the "Calendar" format
 	 *
-	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
-	 * between Calendar and List views.
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 * @param bool $in  pass FALSE to not show locations, is TRUE by default
 	 *
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List_List::$show_location  to store the decision
 	 *
 	 * @since Method available since version 3.0
+	 *
+	 * @internal This is in the CalendarSolution_List class to avoid method not
+	 * found errors when users switch between Calendar and List views
 	 */
 	public function set_show_location($in) {
 		$this->show_location = (bool) $in;
@@ -1384,8 +1384,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * first, sorted by time, then events by organizations are shown sorted by
 	 * time.
 	 *
-	 * @param bool $in  set it to TRUE to enable it, is FALSE by default
-	 *
+	 * @param bool $in  pass TRUE to show your own events first,
+	 *                  is FALSE by default
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_own_events_first  to store the decision
@@ -1399,14 +1399,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Turns the Summary field on or off when showing the "List" format
 	 *
-	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
-	 * between Calendar and List views.
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 * @param bool $in  pass FALSE to not show summaries, is TRUE by default
 	 *
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_summary  to store the decision
+	 *
+	 * @internal This is in the CalendarSolution_List class to avoid method not
+	 * found errors when users switch between Calendar and List views
 	 */
 	public function set_show_summary($in) {
 		$this->show_summary = (bool) $in;
