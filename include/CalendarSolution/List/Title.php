@@ -2,7 +2,7 @@
 
 /**
  * Calendar Solution's means to output collections of events formatted as a
- * list of the date and name of each event
+ * table of the date and name of each event
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -11,15 +11,13 @@
  */
 
 /**
- * The means to output collections of events formatted as a list
+ * The means to output collections of events formatted as a table
  * of the date and name of each event
  *
  * Intended to show a limited number of occurrences of Featured Events on
- * Home Pages or other Featured Pages
+ * Home Pages or other Featured Pages.
  *
- * The limit should be established using set_limit().
- *
- * @see CalendarSolution_List_Title::get_rendering()
+ * See {@link CalendarSolution_List_Title::get_rendering()} for details.
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -100,7 +98,10 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	}
 
 	/**
-	 * Produces a list of events laid out in a short list format
+	 * Produces a table of events showing their dates and names
+	 *
+	 * Intended to show a limited number of occurrences of Featured Events on
+	 * Home Pages or other Featured Pages.
 	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "table.cs_list_title".  Each event is wrapped by a "tr"
@@ -128,10 +129,11 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 *       shown, call set_show_cancelled(true) before calling this method.
 	 * @uses CalendarSolution_List::set_page_id()  if "$page_id" is passed
 	 *
-	 * @uses CalendarSolution_List::set_where_sql()  to generate the WHERE
-	 *       clause and cache keys
-	 * @uses CalendarSolution::$cache  to cache the output, if possible
-	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
+	 * @internal Uses {@link CalendarSolution_List::set_where_sql()} to
+	 *           generate the WHERE clause and cache keys
+	 * @internal Caches output in {@link CalendarSolution::$cache}, if enabled
+	 * @internal Uses {@link CalendarSolution_List::run_query()} to obtain the
+	 *           data if it is not in the cache yet or caching is not enabled.
 	 */
 	public function get_rendering($page_id = null) {
 		if ($page_id) {

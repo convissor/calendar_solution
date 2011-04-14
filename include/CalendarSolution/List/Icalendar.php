@@ -14,12 +14,9 @@
  * The means to output collections of events formatted as a
  * set of iCalendar VEVENT entries
  *
- * Intended to show all events between today and a specified end date.
- * Defaults to today through the last day of the month two months from now.
+ * Intended to show all events in a date range.
  *
- * The date limits can be changed using set_from() and set_to().
- *
- * @see CalendarSolution_List_Icalendar::get_rendering()
+ * See {@link CalendarSolution_List_Icalendar::get_rendering()} for details.
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -76,12 +73,15 @@ class CalendarSolution_List_Icalendar extends CalendarSolution_List {
 	}
 
 	/**
-	 * Produces a list of events laid out in iCalendar format
+	 * Produces a list of events in iCalendar format
+	 *
+	 * Intended to show all events in a date range.
+	 *
+	 * Defaults to showing all events between today and the last day of the
+	 * month two months from today.  The date range can be adjusted using
+	 * set_from() and set_to().
 	 *
 	 * @return string  the text displaying the events
-	 *
-	 * @see CalendarSolution_List::set_show_own_events_frist()
-	 * @see CalendarSolution_List_List::set_show_summary()
 	 *
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
 	 *       user's intention, but only if it has not been called yet
@@ -90,11 +90,11 @@ class CalendarSolution_List_Icalendar extends CalendarSolution_List {
 	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
 	 *       far ahead people can see, but only if it has not been called yet
 	 *
-	 * @uses CalendarSolution_List::set_where_sql()  to generate the WHERE
-	 *       clause and cache keys
-	 * @uses CalendarSolution::$cache  to cache the output of the default view,
-	 *       if possible
-	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
+	 * @internal Uses {@link CalendarSolution_List::set_where_sql()} to
+	 *           generate the WHERE clause and cache keys
+	 * @internal Caches output in {@link CalendarSolution::$cache}, if enabled
+	 * @internal Uses {@link CalendarSolution_List::run_query()} to obtain the
+	 *           data if it is not in the cache yet or caching is not enabled.
 	 */
 	public function get_rendering() {
 		if (!$this->called_set_request_properties) {

@@ -1310,7 +1310,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @uses CalendarSolution_List_Calendar::set_from()  to set the "from" date
 	 *       when in Calendar view
-	 * @uses CalendarSolution_List_List::set_from()  to set the "from" date
+	 * @uses CalendarSolution_List::set_from()  to set the "from" date
 	 *       when in List view
 	 * @uses CalendarSolution_List::set_to()  to set the "to" date
 	 * @uses CalendarSolution_List::set_category_id()  to set the category id
@@ -1365,7 +1365,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List_List::$show_location  to store the decision
+	 * @uses CalendarSolution_List::$show_location  to store the decision
 	 *
 	 * @since Method available since version 3.0
 	 *
