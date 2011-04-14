@@ -11,8 +11,8 @@
 /**
  * Obtain the Calendar Solution's settings and autoload function
  *
- * Uses dirname(__FILE__) because "./" can be stripped by PHP's safety
- * settings and __DIR__ was introduced in PHP 5.3.
+ * @internal Uses dirname(__FILE__) because "./" can be stripped by PHP's
+ * safety settings and __DIR__ was introduced in PHP 5.3.
  */
 require dirname(__FILE__) . '/../../include/calendar_solution_settings.php';
 
