@@ -659,17 +659,18 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
-	 * Produces the prior/next links for the "QuickTable" and "Title" formats
+	 * Produces the prior/next links for use in conjunction with set_limit()
+	 *
+	 * For this navigation to work properly, set_limit()'s "$start" parameter
+	 * must be set to NULL.  For example: <kbd>set_limit(10, null)</kbd>.
 	 *
 	 * NOTE: This must be called after get_rendering().  An empty string will
 	 * be returned if called before get_rendering().
 	 *
-	 * NOTE: will return an empty string if "$limit_start" is not numeric.
-	 *
 	 * @param string $prior_link  the text for the "prior" link.  The value is
-	 *                      passed through htmlspecialchars().
+	 *                            passed through htmlspecialchars().
 	 * @param string $next_link  the text for the "next" link.  The value is
-	 *                      passed through htmlspecialchars().
+	 *                           passed through htmlspecialchars().
 	 *
 	 * @return string  the navigation elements if the $start parameter is
 	 *                 enabled in set_limit() and get_rendering() has been
