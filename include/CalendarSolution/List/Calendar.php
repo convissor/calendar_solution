@@ -2,7 +2,7 @@
 
 /**
  * Calendar Solution's means to output collections of events formatted as a
- * calendar with brief info about each event
+ * calendar grid with brief info about each event
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -11,16 +11,14 @@
  */
 
 /**
- * The means to output collections of events formatted as a calendar with
+ * The means to output collections of events formatted as a calendar grid with
  * brief info about each event
  *
- * Intended to show all events between the first of this month and a specified
- * end date.
+ * Intended to show all events in a date range.
  *
- * The date limits should be established using set_from() and set_to().
+ * See {@link CalendarSolution_List_Calendar::get_rendering()} for details.
  *
  * @see CalendarSolution_List::factory_chosen_view()
- * @see CalendarSolution_List_Calendar::get_rendering()
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
@@ -197,6 +195,12 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	/**
 	 * Produces a list of events laid out in a calendar grid format
 	 *
+	 * Intended to show all events in a date range.
+	 *
+	 * Defaults to showing all events between the first day of this month
+	 * and the last day of the month two months from today.  The date range
+	 * can be adjusted using set_from() and set_to().
+	 *
 	 * Cascading Style Sheet notes:  the month is contained within
 	 * "table.cs_list_calendar".  Each event is wrapped by a "div.cs_item"
 	 * which has additional multiple class attributes:
@@ -220,11 +224,11 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @uses CalendarSolution_List::set_permit_future_months()  to limit how
 	 *       far ahead people can see, but only if it has not been called yet
 	 *
-	 * @uses CalendarSolution_List::set_where_sql()  to generate the WHERE
-	 *       clause and cache keys
-	 * @uses CalendarSolution::$cache  to cache the output of the default view,
-	 *       if possible
-	 * @uses CalendarSolution_List::run_query()  to obtain non-cached data
+	 * @internal Uses {@link CalendarSolution_List::set_where_sql()} to
+	 *           generate the WHERE clause and cache keys
+	 * @internal Caches output in {@link CalendarSolution::$cache}, if enabled
+	 * @internal Uses {@link CalendarSolution_List::run_query()} to obtain the
+	 *           data if it is not in the cache yet or caching is not enabled.
 	 */
 	public function get_rendering() {
 		if (!$this->called_set_request_properties) {

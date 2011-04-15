@@ -515,7 +515,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. ' name="from" value="' . $from . '" />'
 				. '<label for="to"> and </label>'
 				. '<input id="to" type="text" size="11" maxlength="10" '
-				. 'name="to" value="' . $to . '" />' . "\n";
+				. 'name="to" value="' . $to . '" /></div>' . "\n";
 		}
 
 		if (in_array('datelist', $show)
@@ -572,7 +572,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. '<select id="to" size="0" name="to">'
 				. "\n" . $to_list . '</select>';
 
-			$out .= "</div></form>\n";
+			$out .= "</div>\n";
 		}
 
 		if (in_array('category', $show)) {
@@ -653,23 +653,24 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
 		}
 		
-		$out .= "</div></div>\n";
+		$out .= "</div></div></form>\n";
 
 		return $out;
 	}
 
 	/**
-	 * Produces the prior/next links for the "QuickTable" and "Title" formats
+	 * Produces the prior/next links for use in conjunction with set_limit()
+	 *
+	 * For this navigation to work properly, set_limit()'s "$start" parameter
+	 * must be set to NULL.  For example: <kbd>set_limit(10, null)</kbd>.
 	 *
 	 * NOTE: This must be called after get_rendering().  An empty string will
 	 * be returned if called before get_rendering().
 	 *
-	 * NOTE: will return an empty string if "$limit_start" is not numeric.
-	 *
 	 * @param string $prior_link  the text for the "prior" link.  The value is
-	 *                      passed through htmlspecialchars().
+	 *                            passed through htmlspecialchars().
 	 * @param string $next_link  the text for the "next" link.  The value is
-	 *                      passed through htmlspecialchars().
+	 *                           passed through htmlspecialchars().
 	 *
 	 * @return string  the navigation elements if the $start parameter is
 	 *                 enabled in set_limit() and get_rendering() has been
@@ -1044,7 +1045,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * "Y" means only show events sponsored by your organization.
 	 * "N" means only show events sponsored by other organizations.
-	 * All events are shown if this is empty/unset.
+	 * All events are shown if this is empty/unset/false.
 	 *
 	 * @param mixed $in  + NULL = use value of $_REQUEST['is_own_event']
 	 *                   though set it to FALSE if it is not set or invalid
@@ -1310,7 +1311,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @uses CalendarSolution_List_Calendar::set_from()  to set the "from" date
 	 *       when in Calendar view
-	 * @uses CalendarSolution_List_List::set_from()  to set the "from" date
+	 * @uses CalendarSolution_List::set_from()  to set the "from" date
 	 *       when in List view
 	 * @uses CalendarSolution_List::set_to()  to set the "to" date
 	 * @uses CalendarSolution_List::set_category_id()  to set the category id
@@ -1348,8 +1349,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Should cancelled events be shown or not?
 	 *
-	 * @param bool $in  set it to FALSE to leave out cancelled events
-	 *
+	 * @param bool $in  pass FALSE to leave out cancelled events,
+	 *                  is TRUE by default
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_cancelled  to store the decision
@@ -1361,16 +1362,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Turns the Location field on or off when showing the "Calendar" format
 	 *
-	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
-	 * between Calendar and List views.
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 * @param bool $in  pass FALSE to not show locations, is TRUE by default
 	 *
 	 * @return void
 	 *
-	 * @uses CalendarSolution_List_List::$show_location  to store the decision
+	 * @uses CalendarSolution_List::$show_location  to store the decision
 	 *
 	 * @since Method available since version 3.0
+	 *
+	 * @internal This is in the CalendarSolution_List class to avoid method not
+	 * found errors when users switch between Calendar and List views
 	 */
 	public function set_show_location($in) {
 		$this->show_location = (bool) $in;
@@ -1384,8 +1385,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * first, sorted by time, then events by organizations are shown sorted by
 	 * time.
 	 *
-	 * @param bool $in  set it to TRUE to enable it, is FALSE by default
-	 *
+	 * @param bool $in  pass TRUE to show your own events first,
+	 *                  is FALSE by default
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_own_events_first  to store the decision
@@ -1399,14 +1400,14 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Turns the Summary field on or off when showing the "List" format
 	 *
-	 * NOTE: needs to be in CalendarSolution_List class due to ability switch
-	 * between Calendar and List views.
-	 *
-	 * @param bool $in  set it to FALSE to turn it off, is on by default
+	 * @param bool $in  pass FALSE to not show summaries, is TRUE by default
 	 *
 	 * @return void
 	 *
 	 * @uses CalendarSolution_List::$show_summary  to store the decision
+	 *
+	 * @internal This is in the CalendarSolution_List class to avoid method not
+	 * found errors when users switch between Calendar and List views
 	 */
 	public function set_show_summary($in) {
 		$this->show_summary = (bool) $in;
