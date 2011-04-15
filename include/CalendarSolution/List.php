@@ -515,7 +515,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. ' name="from" value="' . $from . '" />'
 				. '<label for="to"> and </label>'
 				. '<input id="to" type="text" size="11" maxlength="10" '
-				. 'name="to" value="' . $to . '" />' . "\n";
+				. 'name="to" value="' . $to . '" /></div>' . "\n";
 		}
 
 		if (in_array('datelist', $show)
