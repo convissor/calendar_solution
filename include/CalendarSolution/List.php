@@ -572,7 +572,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. '<select id="to" size="0" name="to">'
 				. "\n" . $to_list . '</select>';
 
-			$out .= "</div></form>\n";
+			$out .= "</div>\n";
 		}
 
 		if (in_array('category', $show)) {
@@ -653,7 +653,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
 		}
 		
-		$out .= "</div></div>\n";
+		$out .= "</div></div></form>\n";
 
 		return $out;
 	}
