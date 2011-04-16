@@ -145,6 +145,14 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * Intended to show a limited number of occurrences of a particular Frequent
 	 * Event on pages containing comprehensive information about that Event.
 	 *
+	 * NOTE: This method does NOT automatically check web browsers' requests
+	 * for what data each user is looking for.  When using
+	 * {@link CalendarSolution_List::get_date_navigation()} or
+	 * {@link CalendarSolution_List::get_limit_form()} on the BOTTOM of the
+	 * calendar output, it is necessary to manually execute
+	 * {@link CalendarSolution_List::set_request_properties()} BEFORE calling
+	 * this method.
+	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "table.cs_list_quicktable".  Each event is wrapped by a "tr"
 	 * element, which has multiple class attributes:

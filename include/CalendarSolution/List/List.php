@@ -144,6 +144,10 @@ class CalendarSolution_List_List extends CalendarSolution_List {
 	 * month two months from today.  The date range can be adjusted using
 	 * set_from() and set_to().
 	 *
+	 * This method automatically checks web browsers' requests to determine
+	 * what data each user is looking for.  See
+	 * {@link CalendarSolution_List::set_request_properties()} for specifics.
+	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "table.cs_list_list".  Each event is wrapped by a "tr"
 	 * element, which has multiple class attributes:
