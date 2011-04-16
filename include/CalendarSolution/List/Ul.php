@@ -105,6 +105,14 @@ class CalendarSolution_List_Ul extends CalendarSolution_List {
 	 * Intended to show a limited number of occurrences of Featured Events on
 	 * Home Pages or other Featured Pages.
 	 *
+	 * NOTE: This method does NOT automatically check web browsers' requests
+	 * for what data each user is looking for.  When using
+	 * {@link CalendarSolution_List::get_date_navigation()} or
+	 * {@link CalendarSolution_List::get_limit_form()} on the BOTTOM of the
+	 * calendar output, it is necessary to manually execute
+	 * {@link CalendarSolution_List::set_request_properties()} BEFORE calling
+	 * this method.
+	 *
 	 * Cascading Style Sheet notes:  the list is contained within
 	 * "ul.cs_list_ul".  Each event is wrapped by a "li"
 	 * element, which has multiple class attributes:

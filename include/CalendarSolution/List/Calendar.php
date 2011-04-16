@@ -201,6 +201,10 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * and the last day of the month two months from today.  The date range
 	 * can be adjusted using set_from() and set_to().
 	 *
+	 * This method automatically checks web browsers' requests to determine
+	 * what data each user is looking for.  See
+	 * {@link CalendarSolution_List::set_request_properties()} for specifics.
+	 *
 	 * Cascading Style Sheet notes:  the month is contained within
 	 * "table.cs_list_calendar".  Each event is wrapped by a "div.cs_item"
 	 * which has additional multiple class attributes:

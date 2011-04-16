@@ -361,7 +361,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	/**
 	 * Produces the HTML for navigating to earlier and later events
 	 *
-	 * Inteneded for use with the "Calendar" and "List" formats.
+	 * Inteneded for use with the "Calendar," "List," and "MonthTitle" formats.
 	 *
 	 * NOTE: will return an empty string if "$from" or "$to" are false.
 	 *

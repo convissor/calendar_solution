@@ -81,6 +81,10 @@ class CalendarSolution_List_Icalendar extends CalendarSolution_List {
 	 * month two months from today.  The date range can be adjusted using
 	 * set_from() and set_to().
 	 *
+	 * This method automatically checks web browsers' requests to determine
+	 * what data each user is looking for.  See
+	 * {@link CalendarSolution_List::set_request_properties()} for specifics.
+	 *
 	 * @return string  the text displaying the events
 	 *
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
