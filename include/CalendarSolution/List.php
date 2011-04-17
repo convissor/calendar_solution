@@ -1393,7 +1393,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *
 	 * @since Method available since version 3.0
 	 */
-	public function set_show_own_events_frist($in) {
+	public function set_show_own_events_first($in) {
 		$this->show_own_events_first = (bool) $in;
 	}
 

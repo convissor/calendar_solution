@@ -126,7 +126,7 @@ class CalendarSolution_List_Title extends CalendarSolution_List {
 	 * @see CalendarSolution_List::set_limit()
 	 * @see CalendarSolution_List::get_limit_navigation()
 	 * @see CalendarSolution_List::set_date_format()
-	 * @see CalendarSolution_List::set_show_own_events_frist()
+	 * @see CalendarSolution_List::set_show_own_events_first()
 	 *
 	 * @uses CalendarSolution_List::set_from()  to default the date to today,
 	 *       but only if it has not been called yet

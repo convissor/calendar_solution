@@ -170,7 +170,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 	 * @see CalendarSolution_List::get_limit_navigation()
 	 * @see CalendarSolution_List::set_date_format()
 	 * @see CalendarSolution_List::set_time_format()
-	 * @see CalendarSolution_List::set_show_own_events_frist()
+	 * @see CalendarSolution_List::set_show_own_events_first()
 	 * @see CalendarSolution_List_QuickTable::set_show_time_end()
 	 *
 	 * @uses CalendarSolution_List::set_from()  to default the date to today,
