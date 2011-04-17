@@ -218,7 +218,7 @@ class CalendarSolution_List_Calendar extends CalendarSolution_List {
 	 * @see CalendarSolution_List::get_limit_form()
 	 * @see CalendarSolution_List::get_date_navigation()
 	 * @see CalendarSolution_List::get_change_view()
-	 * @see CalendarSolution_List::set_show_own_events_frist()
+	 * @see CalendarSolution_List::set_show_own_events_first()
 	 * @see CalendarSolution_List_Calendar::set_show_location()
 	 *
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
