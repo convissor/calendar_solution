@@ -19,14 +19,12 @@ table.cs_list_monthtitle td.cs_title {
 
 div.cs_limit_navigation {
  font-size: 0.7em;
- padding-top: 2em;
+ padding: 1em 0 2em 0;
  line-height: 0em;
 }
-
 div.cs_prior {
  text-align: left;
 }
-
 div.cs_next {
  text-align: right;
 }
