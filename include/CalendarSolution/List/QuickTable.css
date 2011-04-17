@@ -10,8 +10,8 @@ table.cs_list_quicktable td {
  vertical-align: top;
 }
 
-td.cs_day,
-td.cs_time {
+table.cs_list_quicktable td.cs_day,
+table.cs_list_quicktable td.cs_time {
  white-space: nowrap;
 }
 
@@ -23,14 +23,12 @@ table.cs_list_quicktable tr.cs_status_C {
 
 div.cs_limit_navigation {
  font-size: 0.7em;
- padding-top: 2em;
+ padding: 1em 0 2em 0;
  line-height: 0em;
 }
-
 div.cs_prior {
  text-align: left;
 }
-
 div.cs_next {
  text-align: right;
 }
