@@ -3,56 +3,62 @@
 /**
  * Calendar Solution's API for WordPress Shortcodes
  *
- * The Shortcodes are:
- * + calendar_solution_calendar: {@link calendar_solution_calendar()}
- * + calendar_solution_list: {@link calendar_solution_list()}
- * + calendar_solution_monthtitle: {@link calendar_solution_monthtitle()}
- * + calendar_solution_quicktable: {@link calendar_solution_quicktable()}
- * + calendar_solution_title: {@link calendar_solution_title()}
- * + calendar_solution_ul: {@link calendar_solution_ul()}
+ * <ul>
+ * <li> calendar_solution_calendar: {@link calendar_solution_calendar()}</li>
+ * <li> calendar_solution_list: {@link calendar_solution_list()}</li>
+ * <li> calendar_solution_monthtitle: {@link calendar_solution_monthtitle()}</li>
+ * <li> calendar_solution_quicktable: {@link calendar_solution_quicktable()}</li>
+ * <li> calendar_solution_title: {@link calendar_solution_title()}</li>
+ * <li> calendar_solution_ul: {@link calendar_solution_ul()}</li>
+ * </ul>
  *
  * The Attributes available for use with these Shortcodes are...
  *
- * Attributes to get data by ID:
- * + category_id: {@link CalendarSolution_List::set_category_id()}
- * + frequent_event_id: {@link CalendarSolution_List::set_frequent_event_id()}
- * + page_id: {@link CalendarSolution_List::set_page_id()}
+ * <ul>
+ * <li> Attributes to get data by ID:  <ul>
+ *   <li> category_id: {@link CalendarSolution_List::set_category_id()}</li>
+ *   <li> frequent_event_id: {@link CalendarSolution_List::set_frequent_event_id()}</li>
+ *   <li> page_id: {@link CalendarSolution_List::set_page_id()}</li>
+ * </ul></li>
  *
- * Attributes to limit the number of results:
- * + limit: {@link CalendarSolution_List::set_limit()}
+ * <li> Attributes to limit the number of results:  <ul>
+ *   <li> limit: {@link CalendarSolution_List::set_limit()}</li>
+ * </ul></li>
  *
- * Attributes to get data a user is seeking:
- * + request_properties: {@link CalendarSolution_List::set_request_properties()}
+ * <li> Attributes to get data a user is seeking:  <ul>
+ *   <li> request_properties: {@link CalendarSolution_List::set_request_properties()}</li>
+ * </ul></li>
  *
- * Attributes for displaying navigation elements:
- * + date_navigation_top / date_navigation_bottom:
- *   {@link CalendarSolution_List::get_date_navigation()}
- * + limit_form_top / limit_form_bottom:
- *   {@link CalendarSolution_List::get_limit_form()}
- * + limit_navigation_bottom:
- *   {@link CalendarSolution_List::get_limit_navigation()}
+ * <li> Attributes for displaying navigation elements:  <ul>
+ *   <li> date_navigation_top / date_navigation_bottom: {@link CalendarSolution_List::get_date_navigation()}</li>
+ *   <li> limit_form_top / limit_form_bottom: {@link CalendarSolution_List::get_limit_form()}</li>
+ *   <li> limit_navigation_bottom: {@link CalendarSolution_List::get_limit_navigation()}</li>
+ * </ul></li>
  *
- * Attributes for formatting data:
- * + date_format: {@link CalendarSolution_List::set_date_format()}
- * + time_format: {@link CalendarSolution_List::set_time_format()}
- * + show_cancelled: {@link CalendarSolution_List::set_show_cancelled()}
- * + is_own_event: {@link CalendarSolution_List::set_is_own_event()}
- * + show_own_events_first: {@link CalendarSolution_List::set_show_own_events_first()}
+ * <li> Attributes for formatting data:  <ul>
+ *   <li> date_format: {@link CalendarSolution_List::set_date_format()}</li>
+ *   <li> time_format: {@link CalendarSolution_List::set_time_format()}</li>
+ *   <li> show_cancelled: {@link CalendarSolution_List::set_show_cancelled()}</li>
+ *   <li> is_own_event: {@link CalendarSolution_List::set_is_own_event()}</li>
+ *   <li> show_own_events_first: {@link CalendarSolution_List::set_show_own_events_first()}</li>
+ * </ul></li>
  *
- * Attributes for limiting data by date (the defaults are sane; use only
- * when necessary):
- * + from: {@link CalendarSolution_List::set_from()}
- * + to: {@link CalendarSolution_List::set_to()}
- * + permit_history_months: {@link CalendarSolution_List::set_permit_history_months()}
- * + permit_future_months: {@link CalendarSolution_List::set_permit_future_months()}
+ * <li> Attributes for limiting data by date (the defaults are sane; use only
+ * when necessary):  <ul>
+ *   <li> from: {@link CalendarSolution_List::set_from()}</li>
+ *   <li> to: {@link CalendarSolution_List::set_to()}</li>
+ *   <li> permit_history_months: {@link CalendarSolution_List::set_permit_history_months()}</li>
+ *   <li> permit_future_months: {@link CalendarSolution_List::set_permit_future_months()}</li>
+ * </ul></li></ul>
  *
- * -------------
+ * <pre>
+ * # Examples
+ * # MonthTitle, date dropdown list on top, date navigation on bottom.
+ * [calendar_solution_monthtitle limit_form_top="datelist" date_navigation_bottom=""]
  *
- * Examples:
- * + <kbd>[calendar_solution_monthtitle limit_form_top="datelist" date_navigation_bottom=""]</kbd>
- * + <kbd>[calendar_solution_quicktable limit="5,null" limit_navigation_bottom=""]</kbd>
- *
- * -------------
+ * # QuickTable, five rows, navigation for more events on the bottom.
+ * [calendar_solution_quicktable limit="5,null" limit_navigation_bottom=""]
+ * </pre>
  *
  * Calendar Solution is a trademark of The Analysis and Solutions Company.
  *
