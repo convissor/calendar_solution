@@ -57,7 +57,7 @@
  * [calendar_solution_monthtitle limit_form_top="datelist" date_navigation_bottom=""]
  *
  * # QuickTable, five rows, navigation for more events on the bottom.
- * [calendar_solution_quicktable limit="5,null" limit_navigation_bottom=""]
+ * [calendar_solution_quicktable frequent_event_id="6" limit="5,null" limit_navigation_bottom=""]
  * </pre>
  *
  * Calendar Solution is a trademark of The Analysis and Solutions Company.
