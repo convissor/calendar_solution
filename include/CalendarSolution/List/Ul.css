@@ -14,7 +14,7 @@ ul.cs_list_ul li span.cs_title {
 div.cs_limit_navigation {
  font-size: 0.7em;
  padding: 1em 0 2em 0;
- line-height: 0em;
+ line-height: 0;
 }
 div.cs_prior {
  text-align: left;

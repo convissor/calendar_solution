@@ -1,26 +1,26 @@
 table.cs_list_monthtitle {
  border: none;
- border-spacing: 0px;
+ border-spacing: 0;
  border-bottom: thin solid black;
 }
 
 table.cs_list_monthtitle td.cs_month {
  border-top: thin solid black;
  font-weight: bold;
- padding: 1em 0em 0.5em 0em;
+ padding: 1em 0 0.5em 0;
 }
 
 table.cs_list_monthtitle td.cs_day,
 table.cs_list_monthtitle td.cs_title {
  border-top: thin solid black;
  vertical-align: top;
- padding: 0.5em 1em 0.5em 0em;
+ padding: 0.5em 1em 0.5em 0;
 }
 
 div.cs_limit_navigation {
  font-size: 0.7em;
  padding: 1em 0 2em 0;
- line-height: 0em;
+ line-height: 0;
 }
 div.cs_prior {
  text-align: left;
