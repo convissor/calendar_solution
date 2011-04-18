@@ -42,7 +42,7 @@ table.cs_list_calendar td {
 }
 
 table.cs_list_calendar div.cs_item {
- margin-top: 0em;
+ margin-top: 0;
  margin-bottom: 0.5em;
 }
 
@@ -124,7 +124,7 @@ div.cs_next {
 }
 
 div.cs_date_navigation {
- line-height: 0em;
+ line-height: 0;
 }
 
 div.cs_prior {
