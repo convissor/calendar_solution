@@ -8,6 +8,8 @@
  * @package CalendarSolution
  */
 
+session_start();
+
 /**
  * Obtain the Calendar Solution's settings and autoload function
  *
