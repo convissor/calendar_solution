@@ -202,7 +202,7 @@ class CalendarSolution_List_QuickTable extends CalendarSolution_List {
 			$this->set_where_sql();
 
 			$cache_key = $this->cache_key . ':' . $this->view . ':'
-				. $this->date_format;
+				. $this->date_format . ':' . $this->time_format;
 
 			$out = $this->cache->get($cache_key);
 			if ($out !== false) {
