@@ -77,6 +77,13 @@ class CalendarSolution {
 	protected $cache_available = false;
 
 	/**
+	 * The name of the token used for protecting our admin forms against
+	 * Cross Site Request Forgeries
+	 * @var string
+	 */
+	protected $csrf_token_name;
+
+	/**
 	 * An associative array of the given item's data
 	 * @var array
 	 */
@@ -624,5 +631,20 @@ class CalendarSolution {
 			}
 		}
 		$this->data['set_from'] = 'post';
+	}
+
+	/**
+	 * Checks the Cross Site Request Forgery token to improve security
+	 *
+	 * @return void
+	 * @throws CalendarSolution_Exception  if the proper CSRF token is missing
+	 */
+	protected function validate_csrf_token() {
+		if (empty($_SESSION[$this->csrf_token_name])
+			|| empty($_POST[$this->csrf_token_name])
+			|| $_SESSION[$this->csrf_token_name] != $_POST[$this->csrf_token_name])
+		{
+			throw new CalendarSolution_Exception('Edits must use our forms');
+		}
 	}
 }

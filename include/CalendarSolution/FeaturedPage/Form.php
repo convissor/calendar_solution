@@ -41,10 +41,32 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 
 
 	/**
+	 * Sets the CSRF token name and calls the main constructor
+	 *
+	 * @param string $dbms  optional override of the database extension setting
+	 *                      in CALENDAR_SOLUTION_DBMS.  Values can be
+	 *                      "mysql", "mysqli", "pgsql", "sqlite", "sqlite3".
+	 *
+	 * @uses CALENDAR_SOLUTION_DBMS  to know which database extension to use
+	 * @uses CalendarSolution::__construct()  for the main instantiation tasks
+	 * @uses CalendarSolution::$csrf_token_name  to hold the token's name
+	 */
+	public function __construct($dbms = CALENDAR_SOLUTION_DBMS) {
+		parent::__construct($dbms);
+		$this->csrf_token_name = 'csrf_token_' . __CLASS__;
+	}
+
+	/**
 	 * Deletes the record specified by $this->data['feature_on_page_id']
+	 *
 	 * @return void
+	 *
+	 * @uses CalendarSolution::validate_csrf_token()  to check the CSRF token
+	 * @throws CalendarSolution_Exception  if the form submission seems like
+	 *         a Cross Site Request Forgery
 	 */
 	public function delete() {
+		$this->validate_csrf_token();
 		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'DELETE FROM cs_feature_on_page
@@ -56,9 +78,15 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 
 	/**
 	 * Inserts the posted data into the database
+	 *
 	 * @return void
+	 *
+	 * @uses CalendarSolution::validate_csrf_token()  to check the CSRF token
+	 * @throws CalendarSolution_Exception  if the form submission seems like
+	 *         a Cross Site Request Forgery
 	 */
 	public function insert() {
+		$this->validate_csrf_token();
 		$this->flush_cache();
 
 //		$this->sql->SQLQueryString = 'BEGIN';
@@ -173,6 +201,11 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 			$out .= '    <input type="submit" name="submit" value="Delete" />' . "\n";
 		}
 
+		$token_value = uniqid(rand(), true);
+		$_SESSION[$this->csrf_token_name] = $token_value;
+		$out .= '    <input type="hidden" name="' . $this->csrf_token_name
+			. '" value="' . $token_value . "\" />\n";
+
 		$out .= '    <input type="hidden" name="feature_on_page_id" value="';
 		$out .=      $this->data['feature_on_page_id'] . "\" />\n";
 		$out .= "   </td>\n";
@@ -189,9 +222,15 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 
 	/**
 	 * Updates the record with the posted data
+	 *
 	 * @return void
+	 *
+	 * @uses CalendarSolution::validate_csrf_token()  to check the CSRF token
+	 * @throws CalendarSolution_Exception  if the form submission seems like
+	 *         a Cross Site Request Forgery
 	 */
 	public function update() {
+		$this->validate_csrf_token();
 		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'UPDATE cs_feature_on_page SET
