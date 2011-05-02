@@ -276,10 +276,23 @@ request in your web browser.  Once you get the message, make
 sure to undo your change to avoid revealing server information
 to the public.
 
-* Integrate your HTML layout into the "calendar/calendar.php"
-and "calendar/calendar-detail.php" files.
 
-* If you want to include lists of particular events inside other
-pages, take a look at the examples inside the following files:
-  + Frequent Events: "calendar/example-quicktable.php"
-  + Featured Events: "calendar/example-title.php"
+DISPLAYING EVENTS
+-----------------
+This package comes with pre-configured web pages for listing events in
+calendar and list formats ("calendar/calendar.php") and displaying full
+information about individual events ("calendar/calendar-detail.php").
+
+While it is possible to use those web pages as is, it is also possible
+to either put your own layout into those scripts or to copy the relevant
+parts of the PHP code into your own web pages.
+
+In addition, the "calendar/" directory includes examples of how to use
+the other output formats:
++ example-monthtitle.php
++ example-quicktable.php
++ example-title.php
++ example-ul.php
+
+All of the Cascading Style Sheets provided are for demonstration purposes.
+Creating and using your own, independent style sheets is encouraged.
