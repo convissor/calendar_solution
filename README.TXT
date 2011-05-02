@@ -9,8 +9,11 @@ Calendar Solution can use MySQL (via PHP's mysql or mysqli extensions),
 PostgreSQL or SQLite (via PHP's sqlite or sqlite3 extensions) as the
 database system.
 
-Caching can be enabled if access to a Memcached instance is available.
-Other cache systems can be used by writing a simple wrapper class.
+Caching can be enabled if access to a Memcached instance is available
+and PHP's memcache PECL extension is installed.  Other cache systems
+can be used by writing a simple wrapper class.
+
+An optional API for WordPress Shortcodes is also provided.
 
 Directory Structure:
 calendar/  = pages to be displayed by web servers

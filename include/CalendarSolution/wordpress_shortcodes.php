@@ -3,6 +3,8 @@
 /**
  * Calendar Solution's API for WordPress Shortcodes
  *
+ * WordPress has Shortcode functionality built in as of version 2.5.
+ *
  * <ul>
  * <li> calendar_solution_calendar: {@link calendar_solution_calendar()}</li>
  * <li> calendar_solution_list: {@link calendar_solution_list()}</li>
@@ -84,7 +86,8 @@ require dirname(__FILE__) . '/../calendar_solution_settings.php';
  */
 
 /**
- * Produces a list of events laid out in a calendar grid format
+ * Shortcode handler for producing a list of events laid out in a calendar
+ * grid format
  *
  * See {@link CalendarSolution_List_Calendar::get_rendering()} for more
  * details regarding this format.
@@ -123,7 +126,8 @@ function calendar_solution_calendar($atts) {
 }
 
 /**
- * Produces a table of events showing significant info about each event
+ * Shortcode handler for producing a table of events showing significant
+ * info about each event
  *
  * See {@link CalendarSolution_List_List::get_rendering()} for more
  * details regarding this format.
@@ -162,7 +166,8 @@ function calendar_solution_list($atts) {
 }
 
 /**
- * Produces a table of events showing their dates and names, grouped by month
+ * Shortcode handler for producing a table of events showing their dates
+ * and names, grouped by month
  *
  * See {@link CalendarSolution_List_MonthTitle::get_rendering()} for more
  * details regarding this format.
@@ -196,7 +201,8 @@ function calendar_solution_monthtitle($atts) {
 }
 
 /**
- * Produces a table of events showing basic info about each entry
+ * Shortcode handler for producing a table of events showing basic info
+ * about each entry
  *
  * See {@link CalendarSolution_List_QuickTable::get_rendering()} for more
  * details regarding this format.
@@ -233,7 +239,8 @@ function calendar_solution_quicktable($atts) {
 }
 
 /**
- * Produces a table of events showing their dates and names
+ * Shortcode handler for producing a table of events showing their dates
+ * and names
  *
  * See {@link CalendarSolution_List_Title::get_rendering()} for more
  * details regarding this format.
@@ -263,7 +270,8 @@ function calendar_solution_title($atts) {
 }
 
 /**
- * Produces an "unordered list" of events showing their dates and names
+ * Shortcode handler for producing an "unordered list" of events showing
+ * their dates and names
  *
  * See {@link CalendarSolution_List_Ul::get_rendering()} for more
  * details regarding this format.

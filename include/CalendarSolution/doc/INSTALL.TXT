@@ -8,7 +8,8 @@ REQUIREMENTS
   + MySQL
   + PostgreSQL
   + SQLite, version 2 or 3
-* The PHP 5.2 or later with the extension for the database system being used:
+* The PHP 5.2 or later with the extension for the database system being
+used:
   + mysql
   + mysqli
   + pgsql
@@ -134,21 +135,22 @@ the environment you are running in.
   + chown -R root:www-data .
   + find . -type d -exec chmod 750 {} \;
   + find . -type f -exec chmod 640 {} \;
-  + chmod 755 include/CalendarSolution/doc/compile_phpdoc.sh
+  + chmod 755 include/CalendarSolution/doc/*.sh
   + chmod 760 include/CalendarSolution/sqlite/calendar_solution*
 
-* Edit the "CALENDAR_SOLUTION_DBMS" and "CALENDAR_SOLUTION_HTTP_HOST" settings
-in "include/calendar_solution_settings.php".
+* Edit the "CALENDAR_SOLUTION_DBMS" and "CALENDAR_SOLUTION_HTTP_HOST"
+settings in "include/calendar_solution_settings.php".
 
-* This package depends on PHP's autoload functionality and ships with such a
-function in "include/calendar_solution_settings.php".  If your system already has
-an autoloader, feel free to integrate the concepts in our autoload function
-into yours and then comment out our call to "spl_autoload_register()".
+* This package depends on PHP's autoload functionality and ships with
+such a function in "include/calendar_solution_settings.php".  If your
+system already has an autoloader, feel free to integrate the concepts
+in our autoload function into yours and then comment out our call to
+"spl_autoload_register()".
 
-* (If using the default SQLite database that comes with the Calendar Solution,
-skip this step.)  Put the database authentication information into the
-SQL Solution user class file matching your database system.  The files are
-in the include/SQLSolution directory:
+* (If using the default SQLite database that comes with the Calendar
+Solution, skip this step.)  Put the database authentication information
+into the SQL Solution user class file matching your database system.
+The files are in the include/SQLSolution directory:
   + MySQLUser.php  (for PHP's mysql extension)
   + MySQLiUser.php  (for PHP's mysqli extension)
   + PostgreSQLUser.php  (for PostgreSQL)
@@ -156,7 +158,7 @@ in the include/SQLSolution directory:
   + SQLite3User.php  (for PHP's sqlite3 extension)
 
 * If you are using SQLite as your database AND you obtained
-the source code using Git, the following step is needed to 
+the source code using Git, the following step is needed to
 prevent future updates from corrupting your database:
   + echo "calendar_solution* merge=ours" >> \
     include/CalendarSolution/sqlite/.gitattributes
@@ -207,15 +209,15 @@ their changes now:
 * Put the "calendar" and "include" directories in a location accessible
 by the web server.  This package assumes both of these directories will
 be put in the same location.  If they are not, the path used in the
-require calendar_solution_settings.php calls in each of the *.php files in
-the "calendar" directory and the require List.php in "calendar/calendar.php"
-must be adjusted.
+require calendar_solution_settings.php calls in each of the *.php files
+in the "calendar" directory and the require List.php in
+"calendar/calendar.php" must be adjusted.
 
 
 CACHING (OPTIONAL)
 ------------------
-* If you want to enable caching, populate the "$GLOBALS['cache_servers']" array
-in "include/calendar_solution_settings.php".
+* If you want to enable caching, populate the "$GLOBALS['cache_servers']"
+array in "include/calendar_solution_settings.php".
 
 If you wish to utilize a different caching engine:
 * Write a class that implements the interface found in
@@ -276,10 +278,39 @@ request in your web browser.  Once you get the message, make
 sure to undo your change to avoid revealing server information
 to the public.
 
-* Integrate your HTML layout into the "calendar/calendar.php"
-and "calendar/calendar-detail.php" files.
 
-* If you want to include lists of particular events inside other
-pages, take a look at the examples inside the following files:
-  + Frequent Events: "calendar/example-quicktable.php"
-  + Featured Events: "calendar/example-title.php"
+DISPLAYING EVENTS
+-----------------
+This package comes with pre-configured web pages for listing events in
+calendar and list formats ("calendar/calendar.php") and displaying full
+information about individual events ("calendar/calendar-detail.php").
+
+While it is possible to use those web pages as is, it is also possible
+to either put your own layout into those scripts or to copy the relevant
+parts of the PHP code into your own web pages.
+
+In addition, the "calendar/" directory includes examples of how to use
+the other output formats:
++ example-monthtitle.php
++ example-quicktable.php
++ example-title.php
++ example-ul.php
+
+All of the Cascading Style Sheets provided are for demonstration purposes.
+Creating and using your own, independent style sheets is encouraged.
+
+
+WORDPRESS SHORTCODE API (OPTIONAL)
+----------------------------------
+WordPress sites can easily use the Calendar Solution via our
+Shortcode API.  To do so:
+
+* Have one of your wp-content files make a PHP include call to our
+"include/wordpress_shortcodes.php" file.
+
+* Use WordPress' "Edit Page" user interface to place the desired
+Shortcode into your page's content.  Here is a sample short code:
+    [calendar_solution_quicktable limit="3"]
+
+A complete list of Shortcodes and attributes is available in the
+"include/wordpress_shortcodes.php" file.
