@@ -135,7 +135,7 @@ the environment you are running in.
   + chown -R root:www-data .
   + find . -type d -exec chmod 750 {} \;
   + find . -type f -exec chmod 640 {} \;
-  + chmod 755 include/CalendarSolution/doc/compile_phpdoc.sh
+  + chmod 755 include/CalendarSolution/doc/*.sh
   + chmod 760 include/CalendarSolution/sqlite/calendar_solution*
 
 * Edit the "CALENDAR_SOLUTION_DBMS" and "CALENDAR_SOLUTION_HTTP_HOST"

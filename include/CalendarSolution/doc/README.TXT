@@ -14,5 +14,5 @@ code can be found by opening ./phpdoc-output/index.html
 in a web browser.  That output is based on the documentation
 block comments found in each PHP script.  The transformation
 from comments to human-readable format was performed by
-running the ./compile_phpdoc.sh script, which utilizes
+running the ./compile_phpdoc_html.sh script, which utilizes
 phpDocumentor.
