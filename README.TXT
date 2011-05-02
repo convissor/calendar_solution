@@ -13,6 +13,8 @@ Caching can be enabled if access to a Memcached instance is available
 and PHP's memcache PECL extension is installed.  Other cache systems
 can be used by writing a simple wrapper class.
 
+An optional API for WordPress Shortcodes is also provided.
+
 Directory Structure:
 calendar/  = pages to be displayed by web servers
 include/   = classes to perform the tasks requested by the pages

@@ -298,3 +298,19 @@ the other output formats:
 
 All of the Cascading Style Sheets provided are for demonstration purposes.
 Creating and using your own, independent style sheets is encouraged.
+
+
+WORDPRESS SHORTCODE API (OPTIONAL)
+----------------------------------
+WordPress sites can easily use the Calendar Solution via our
+Shortcode API.  To do so:
+
+* Have one of your wp-content files make a PHP include call to our
+"include/wordpress_shortcodes.php" file.
+
+* Use WordPress' "Edit Page" user interface to place the desired
+Shortcode into your page's content.  Here is a sample short code:
+    [calendar_solution_quicktable limit="3"]
+
+A complete list of Shortcodes and attributes is available in the
+"include/wordpress_shortcodes.php" file.
