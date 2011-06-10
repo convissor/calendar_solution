@@ -123,6 +123,11 @@
 				</div>
 								<div class="const-title">
 					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#DATE_FORMAT_ICALENDAR" title="details" class="const-name">DATE_FORMAT_ICALENDAR</a> = 					<span class="var-type"> 'Ymd'</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
 					<a href="#DATE_FORMAT_LONG" title="details" class="const-name">DATE_FORMAT_LONG</a> = 					<span class="var-type"> 'D, M jS'</span>
 
 				</div>
@@ -149,6 +154,11 @@
 								<div class="const-title">
 					<img src="../media/images/Constant.png" alt=" " />
 					<a href="#DATE_FORMAT_TIME_24" title="details" class="const-name">DATE_FORMAT_TIME_24</a> = 					<span class="var-type"> 'H:i'</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#DATE_FORMAT_TIME_ICALENDAR" title="details" class="const-name">DATE_FORMAT_TIME_ICALENDAR</a> = 					<span class="var-type"> 'Ymd\THis'</span>
 
 				</div>
 								<div class="const-title">
@@ -205,7 +215,7 @@
 					</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																																								<div class="var-title">
+																																																																																<div class="var-title">
 					<span class="var-type"><a href="../CalendarSolution/CalendarSolution_Cache.html">CalendarSolution_Cache</a></span>
 					<a href="#$cache" title="details" class="var-name">$cache</a>
 				</div>
@@ -214,12 +224,24 @@
 					<a href="#$cache_available" title="details" class="var-name">$cache_available</a>
 				</div>
 																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$csrf_token_name" title="details" class="var-name">$csrf_token_name</a>
+				</div>
+																<div class="var-title">
 					<span class="var-type">array</span>
 					<a href="#$data" title="details" class="var-name">$data</a>
 				</div>
 																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$http_host" title="details" class="var-name">$http_host</a>
+				</div>
+																<div class="var-title">
 					<span class="var-type">SQLSolution_General</span>
 					<a href="#$sql" title="details" class="var-name">$sql</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$uri" title="details" class="var-name">$uri</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">bool</span>
@@ -244,7 +266,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																														
+																																																																																																																																																																														
 				<div class="method-definition">
 											<span class="method-result">CalendarSolution</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -255,6 +277,12 @@
 											<span class="method-result">void</span>
 										<a href="#escape_data_for_html" title="details" class="method-name">escape_data_for_html</a>
 										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#escape_for_icalendar" title="details" class="method-name">escape_for_icalendar</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>)
 									</div>
 														
 				<div class="method-definition">
@@ -300,6 +328,12 @@
 									</div>
 														
 				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#get_event_formatted_icalendar" title="details" class="method-name">get_event_formatted_icalendar</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$event</span>)
+									</div>
+														
+				<div class="method-definition">
 											<span class="method-result">mixed</span>
 										<a href="#get_int_array_from_request" title="details" class="method-name">get_int_array_from_request</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
@@ -340,6 +374,18 @@
 										<a href="#set_data_from_post" title="details" class="method-name">set_data_from_post</a>
 										()
 									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#set_uri" title="details" class="method-name">set_uri</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#validate_csrf_token" title="details" class="method-name">validate_csrf_token</a>
+										()
+									</div>
 											</div>
 		</div>
 	</div>		
@@ -368,7 +414,7 @@
 		<span class="var-title">
 			<span class="var-type"><a href="../CalendarSolution/CalendarSolution_Cache.html">CalendarSolution_Cache</a></span>
 			<span class="var-name">$cache</span>
-						(line <span class="line-number">69</span>)
+						(line <span class="line-number">71</span>)
 		</span>
 	</div>
 
@@ -376,18 +422,9 @@
 <p class="short-description">The cache object</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to cache the output, if possible</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to cache the output, if possible</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> - to cache the output of the default view,
-       if possible</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> - to cache the output of the default view,
-       if possible</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> - to cache the output, if possible</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> - to cache the results, if possible</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a> - to store the Calendar Solution Cache
        object instantiated by the Calendar Solution's constructor</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> - to cache the results, if possible</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to cache the output of the default view,
-       if possible</li>
 			</ul>
 	
 	
@@ -402,7 +439,7 @@
 		<span class="var-title">
 			<span class="var-type">bool</span>
 			<span class="var-name">$cache_available</span>
-			 = <span class="var-default"> false</span>			(line <span class="line-number">75</span>)
+			 = <span class="var-default"> false</span>			(line <span class="line-number">77</span>)
 		</span>
 	</div>
 
@@ -417,14 +454,41 @@
 		
 
 </div>
-<a name="var$data" id="$data"><!-- --></A>
+<a name="var$csrf_token_name" id="$csrf_token_name"><!-- --></A>
 <div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$csrf_token_name</span>
+						(line <span class="line-number">84</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The name of the token used for protecting our admin forms against</p>
+<p class="description"><p>Cross Site Request Forgeries</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FrequentEvent_Form.html#method__construct">CalendarSolution_FrequentEvent_Form::__construct()</a> - to hold the token's name</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FeaturedPage_Form.html#method__construct">CalendarSolution_FeaturedPage_Form::__construct()</a> - to hold the token's name</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Form.html#method__construct">CalendarSolution_Detail_Form::__construct()</a> - to hold the token's name</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Category_Form.html#method__construct">CalendarSolution_Category_Form::__construct()</a> - to hold the token's name</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$data" id="$data"><!-- --></A>
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$data</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">81</span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number">90</span>)
 		</span>
 	</div>
 
@@ -454,6 +518,31 @@
 		
 
 </div>
+<a name="var$http_host" id="$http_host"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$http_host</span>
+						(line <span class="line-number">100</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The HTTP_HOST, set in __construct()</p>
+<p class="description"><p>Defaults to $_SERVER['HTTP_HOST'] and falls back to  CALENDAR_SOLUTION_HTTP_HOST if that's not set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a> - as the UID's domain</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a> - to store the HTTP_HOST string</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
 <a name="var$sql" id="$sql"><!-- --></A>
 <div class="evenrow">
 
@@ -461,7 +550,7 @@
 		<span class="var-title">
 			<span class="var-type">SQLSolution_General</span>
 			<span class="var-name">$sql</span>
-						(line <span class="line-number">86</span>)
+						(line <span class="line-number">105</span>)
 		</span>
 	</div>
 
@@ -477,14 +566,42 @@
 		
 
 </div>
-<a name="var$use_cache" id="$use_cache"><!-- --></A>
+<a name="var$uri" id="$uri"><!-- --></A>
 <div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$uri</span>
+						(line <span class="line-number">112</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data from the REQUEST_URI broken into an associative array containing</p>
+<p class="description"><p>the 'path' as a string and the 'query' broken into a sub-array</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_navigation">CalendarSolution_List::get_limit_navigation()</a> - to know the current URI</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_form">CalendarSolution_List::get_limit_form()</a> - to know the current URI</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_change_view">CalendarSolution_List::get_change_view()</a> - to know the current URI</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#methodset_uri">CalendarSolution::set_uri()</a> - to store the data</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_date_navigation">CalendarSolution_List::get_date_navigation()</a> - to know the current URI</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$use_cache" id="$use_cache"><!-- --></A>
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">bool</span>
 			<span class="var-name">$use_cache</span>
-						(line <span class="line-number">92</span>)
+						(line <span class="line-number">118</span>)
 		</span>
 	</div>
 
@@ -518,25 +635,31 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">113</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">142</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Instantiates the database and cache classes</p>
+<p class="short-description">Instantiates the database and cache classes then sets the $http_host  property</p>
 	<ul class="tags">
 				<li><span class="field">throws:</span> CalendarSolution_Exception if the $dbms parameter or          CALENDAR_SOLUTION_CACHE_CLASS is improper</li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Form.html#method__construct">CalendarSolution_Detail_Form::__construct()</a> - for the main instantiation tasks</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Category_Form.html#method__construct">CalendarSolution_Category_Form::__construct()</a> - for the main instantiation tasks</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FeaturedPage_Form.html#method__construct">CalendarSolution_FeaturedPage_Form::__construct()</a> - for the main instantiation tasks</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#method__construct">CalendarSolution_List::__construct()</a> - to instantiate the database and
        cache classes</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_DBMS">CALENDAR_SOLUTION_DBMS</a> - to know which database extension to use</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_CACHE_CLASS">CALENDAR_SOLUTION_CACHE_CLASS</a> - to know which cache class to use</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FrequentEvent_Form.html#method__construct">CalendarSolution_FrequentEvent_Form::__construct()</a> - for the main instantiation tasks</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_HTTP_HOST">CALENDAR_SOLUTION_HTTP_HOST</a> - in case $_SERVER['HTTP_HOST] is empty</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$http_host">CalendarSolution::$http_host</a> - to store the HTTP_HOST string</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$cache">CalendarSolution::$cache</a> - to store the Calendar Solution Cache
        object instantiated by the Calendar Solution's constructor</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$sql">CalendarSolution::$sql</a> - to store the SQL Solution object
        instantiated by the Calendar Solution's constructor</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_CACHE_CLASS">CALENDAR_SOLUTION_CACHE_CLASS</a> - to know which cache class to use</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_DBMS">CALENDAR_SOLUTION_DBMS</a> - to know which database extension to use</li>
 				<li><span class="field">uses:</span> $GLOBALS['cache_servers'] - to know where the cache servers are</li>
 			</ul>
 	
@@ -559,16 +682,32 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../CalendarSolution/CalendarSolution_Category_Form.html#method__construct">CalendarSolution_Category_Form::__construct()</a>
+								: Sets the CSRF token name and calls the main constructor
+							</li>
+					<li>
+				<a href="../CalendarSolution/CalendarSolution_Detail_Form.html#method__construct">CalendarSolution_Detail_Form::__construct()</a>
+								: Sets the CSRF token name and calls the main constructor
+							</li>
+					<li>
+				<a href="../CalendarSolution/CalendarSolution_FeaturedPage_Form.html#method__construct">CalendarSolution_FeaturedPage_Form::__construct()</a>
+								: Sets the CSRF token name and calls the main constructor
+							</li>
+					<li>
+				<a href="../CalendarSolution/CalendarSolution_FrequentEvent_Form.html#method__construct">CalendarSolution_FrequentEvent_Form::__construct()</a>
+								: Sets the CSRF token name and calls the main constructor
+							</li>
+					<li>
 				<a href="../CalendarSolution/CalendarSolution_List.html#method__construct">CalendarSolution_List::__construct()</a>
 								: Calls the parent constructor and set_uri() then populates the  &quot;$interval_spec&quot; property
 							</li>
 				</ul>
 	</div>
 <a name="methodescape_data_for_html" id="escape_data_for_html"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">escape_data_for_html</span> (line <span class="line-number">168</span>)
+		<span class="method-title">escape_data_for_html</span> (line <span class="line-number">203</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -589,11 +728,44 @@
 		
 			
 	</div>
+<a name="methodescape_for_icalendar" id="escape_for_icalendar"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">escape_for_icalendar</span> (line <span class="line-number">230</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sanitizes the input for iCalendar formats</p>
+<p class="description"><p>The steps are: <ul><li>Break hyperlinks down into anchor text and URI text</li><li>Strip HTML tags</li><li>Escape iCalendar special characters</li><li>Wrap text at 75 characters</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the sanitized data</li>
+				<li><span class="field">since:</span> Method available since version 3.3</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a> - to sanitize the data</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			escape_for_icalendar
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$text</span><span class="var-description">: the string to be escaped</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodflush_cache" id="flush_cache"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">flush_cache</span> (line <span class="line-number">187</span>)
+		<span class="method-title">flush_cache</span> (line <span class="line-number">253</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -618,7 +790,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">format_date</span> (line <span class="line-number">209</span>)
+		<span class="method-title">format_date</span> (line <span class="line-number">275</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -653,7 +825,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_admin_navigation</span> (line <span class="line-number">220</span>)
+		<span class="method-title">get_admin_navigation</span> (line <span class="line-number">286</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -678,7 +850,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_credit</span> (line <span class="line-number">238</span>)
+		<span class="method-title">get_credit</span> (line <span class="line-number">304</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -703,7 +875,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_css</span> (line <span class="line-number">248</span>)
+		<span class="method-title">get_css</span> (line <span class="line-number">314</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -728,7 +900,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_date_from_request</span> (line <span class="line-number">266</span>)
+		<span class="method-title">get_date_from_request</span> (line <span class="line-number">332</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -762,7 +934,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_errors</span> (line <span class="line-number">288</span>)
+		<span class="method-title">get_errors</span> (line <span class="line-number">354</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -784,11 +956,46 @@
 		
 			
 	</div>
-<a name="methodget_int_array_from_request" id="get_int_array_from_request"><!-- --></a>
+<a name="methodget_event_formatted_icalendar" id="get_event_formatted_icalendar"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_int_array_from_request</span> (line <span class="line-number">334</span>)
+		<span class="method-title">get_event_formatted_icalendar</span> (line <span class="line-number">379</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Formats event data for iCalendar output</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the iCalendar formatted event</li>
+				<li><span class="field">since:</span> Method available since version 3.3</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_event_formatted">CalendarSolution_List_Icalendar::get_event_formatted()</a> - for formatting</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Icalendar.html#methodget_rendering">CalendarSolution_Detail_Icalendar::get_rendering()</a> - for formatting</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodescape_for_icalendar">CalendarSolution::escape_for_icalendar()</a> - to sanitize the data</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$http_host">CalendarSolution::$http_host</a> - as the UID's domain</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			get_event_formatted_icalendar
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$event</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$event</span><span class="var-description">: an associative array of a given event</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodget_int_array_from_request" id="get_int_array_from_request"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">get_int_array_from_request</span> (line <span class="line-number">498</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -817,10 +1024,10 @@
 			
 	</div>
 <a name="methodget_int_from_request" id="get_int_from_request"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_int_from_request</span> (line <span class="line-number">310</span>)
+		<span class="method-title">get_int_from_request</span> (line <span class="line-number">474</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -859,10 +1066,10 @@
 			
 	</div>
 <a name="methodget_string_from_request" id="get_string_from_request"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_string_from_request</span> (line <span class="line-number">369</span>)
+		<span class="method-title">get_string_from_request</span> (line <span class="line-number">533</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -891,10 +1098,10 @@
 			
 	</div>
 <a name="methodis_admin" id="is_admin"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">is_admin</span> (line <span class="line-number">386</span>)
+		<span class="method-title">is_admin</span> (line <span class="line-number">550</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -915,10 +1122,10 @@
 			
 	</div>
 <a name="methodis_cache_available" id="is_cache_available"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">is_cache_available</span> (line <span class="line-number">402</span>)
+		<span class="method-title">is_cache_available</span> (line <span class="line-number">566</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -939,10 +1146,10 @@
 			
 	</div>
 <a name="methodset_data_empty" id="set_data_empty"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_data_empty</span> (line <span class="line-number">414</span>)
+		<span class="method-title">set_data_empty</span> (line <span class="line-number">578</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -965,10 +1172,10 @@
 			
 	</div>
 <a name="methodset_data_from_post" id="set_data_from_post"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_data_from_post</span> (line <span class="line-number">441</span>)
+		<span class="method-title">set_data_from_post</span> (line <span class="line-number">605</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -986,6 +1193,70 @@
 		<span class="method-result">void</span>
 		<span class="method-name">
 			set_data_from_post
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodset_uri" id="set_uri"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">set_uri</span> (line <span class="line-number">653</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Breaks up the REQUEST_URI into usable parts</p>
+	<ul class="tags">
+				<li><span class="field">since:</span> Method moved to CalendarSolution class in version 3.3</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#method__construct">CalendarSolution_List::__construct()</a> - to set the &quot;$uri&quot; property</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a> - to store the data</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			set_uri
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodvalidate_csrf_token" id="validate_csrf_token"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">validate_csrf_token</span> (line <span class="line-number">670</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Checks the Cross Site Request Forgery token to improve security</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> CalendarSolution_Exception  if the proper CSRF token is missing</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodupdate">CalendarSolution_FeaturedPage_Form::update()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodinsert">CalendarSolution_FeaturedPage_Form::insert()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methodinsert">CalendarSolution_FrequentEvent_Form::insert()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methodupdate">CalendarSolution_FrequentEvent_Form::update()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methoddelete">CalendarSolution_FeaturedPage_Form::delete()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methoddelete">CalendarSolution_FrequentEvent_Form::delete()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Form.html#methodinsert">CalendarSolution_Detail_Form::insert()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Category_Form.html#methoddelete">CalendarSolution_Category_Form::delete()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Category_Form.html#methodinsert">CalendarSolution_Category_Form::insert()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Category_Form.html#methodupdate">CalendarSolution_Category_Form::update()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Form.html#methoddelete">CalendarSolution_Detail_Form::delete()</a> - to check the CSRF token</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Form.html#methodupdate">CalendarSolution_Detail_Form::update()</a> - to check the CSRF token</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			validate_csrf_token
 		</span>
 				()
 			</div>
@@ -1013,7 +1284,7 @@
 					</div>
 		<div class="info-box-body">
 			<a name="constDATE_FORMAT_FULL" id="DATE_FORMAT_FULL"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
@@ -1021,6 +1292,26 @@
 			<span class="const-name">DATE_FORMAT_FULL</span>
 			 = <span class="const-default"> 'l, F jS, Y'</span>
 			(line <span class="line-number">39</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format for PHP's date() function, to be used by our format_date() method</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></li>
+			</ul>
+	
+	
+</div>
+<a name="constDATE_FORMAT_ICALENDAR" id="DATE_FORMAT_ICALENDAR"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">DATE_FORMAT_ICALENDAR</span>
+			 = <span class="const-default"> 'Ymd'</span>
+			(line <span class="line-number">44</span>)
 		</span>
 	</div>
 
@@ -1120,7 +1411,7 @@
 		<span class="const-title">
 			<span class="const-name">DATE_FORMAT_TIME_12AP</span>
 			 = <span class="const-default"> 'g:i\&amp;\n\b\s\p\;a'</span>
-			(line <span class="line-number">44</span>)
+			(line <span class="line-number">45</span>)
 		</span>
 	</div>
 
@@ -1140,7 +1431,27 @@
 		<span class="const-title">
 			<span class="const-name">DATE_FORMAT_TIME_24</span>
 			 = <span class="const-default"> 'H:i'</span>
-			(line <span class="line-number">45</span>)
+			(line <span class="line-number">46</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format for PHP's date() function, to be used by our format_date() method</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></li>
+			</ul>
+	
+	
+</div>
+<a name="constDATE_FORMAT_TIME_ICALENDAR" id="DATE_FORMAT_TIME_ICALENDAR"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">DATE_FORMAT_TIME_ICALENDAR</span>
+			 = <span class="const-default"> 'Ymd\THis'</span>
+			(line <span class="line-number">47</span>)
 		</span>
 	</div>
 
@@ -1153,14 +1464,14 @@
 	
 </div>
 <a name="constLINK_TO_CALENDAR_URI" id="LINK_TO_CALENDAR_URI"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">LINK_TO_CALENDAR_URI</span>
 			 = <span class="const-default"> 4</span>
-			(line <span class="line-number">54</span>)
+			(line <span class="line-number">56</span>)
 		</span>
 	</div>
 
@@ -1170,14 +1481,14 @@
 	
 </div>
 <a name="constLINK_TO_DETAIL_PAGE" id="LINK_TO_DETAIL_PAGE"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">LINK_TO_DETAIL_PAGE</span>
 			 = <span class="const-default"> 2</span>
-			(line <span class="line-number">52</span>)
+			(line <span class="line-number">54</span>)
 		</span>
 	</div>
 
@@ -1187,14 +1498,14 @@
 	
 </div>
 <a name="constLINK_TO_FREQUENT_EVENT_URI" id="LINK_TO_FREQUENT_EVENT_URI"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">LINK_TO_FREQUENT_EVENT_URI</span>
 			 = <span class="const-default"> 3</span>
-			(line <span class="line-number">53</span>)
+			(line <span class="line-number">55</span>)
 		</span>
 	</div>
 
@@ -1204,14 +1515,14 @@
 	
 </div>
 <a name="constLINK_TO_NONE" id="LINK_TO_NONE"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">LINK_TO_NONE</span>
 			 = <span class="const-default"> 1</span>
-			(line <span class="line-number">51</span>)
+			(line <span class="line-number">53</span>)
 		</span>
 	</div>
 
@@ -1221,14 +1532,14 @@
 	
 </div>
 <a name="constSTATUS_CANCELLED" id="STATUS_CANCELLED"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">STATUS_CANCELLED</span>
 			 = <span class="const-default"> 3</span>
-			(line <span class="line-number">62</span>)
+			(line <span class="line-number">64</span>)
 		</span>
 	</div>
 
@@ -1238,14 +1549,14 @@
 	
 </div>
 <a name="constSTATUS_FULL" id="STATUS_FULL"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">STATUS_FULL</span>
 			 = <span class="const-default"> 2</span>
-			(line <span class="line-number">61</span>)
+			(line <span class="line-number">63</span>)
 		</span>
 	</div>
 
@@ -1255,14 +1566,14 @@
 	
 </div>
 <a name="constSTATUS_OPEN" id="STATUS_OPEN"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="const-header">
 		<img src="../media/images/Variable.png" />
 		<span class="const-title">
 			<span class="const-name">STATUS_OPEN</span>
 			 = <span class="const-default"> 1</span>
-			(line <span class="line-number">60</span>)
+			(line <span class="line-number">62</span>)
 		</span>
 	</div>
 
@@ -1276,7 +1587,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 16 Mar 2011 10:21:39 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 10 Jun 2011 08:46:34 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -65,7 +65,7 @@
 								<tr>
 					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html">CalendarSolution_List_MonthTitle</a></td>
 					<td>
-											The means to output collections of events formatted as a list  of the date and name of each event and is grouped by month
+											The means to output collections of events formatted as a table  of the date and name of each event and is grouped by month
 										</td>
 				</tr>
 								<tr>
@@ -77,19 +77,25 @@
 								<tr>
 					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_Calendar.html">CalendarSolution_List_Calendar</a></td>
 					<td>
-											The means to output collections of events formatted as a calendar with  brief info about each event
+											The means to output collections of events formatted as a calendar grid with  brief info about each event
 										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_QuickTable.html">CalendarSolution_List_QuickTable</a></td>
 					<td>
-											The means to output collections of events formatted as a table with  brief info about each entry
+											The means to output collections of events formatted as a table with  basic info about each entry
 										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_Title.html">CalendarSolution_List_Title</a></td>
 					<td>
-											The means to output collections of events formatted as a list  of the date and name of each event
+											The means to output collections of events formatted as a table  of the date and name of each event
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_List_Icalendar.html">CalendarSolution_List_Icalendar</a></td>
+					<td>
+											The means to output collections of events formatted as a  set of iCalendar VEVENT entries
 										</td>
 				</tr>
 								<tr>
@@ -118,7 +124,7 @@
 					</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																																																																																																																																																																																																																<div class="var-title">
+																																																																																																																																																																																																																																								<div class="var-title">
 					<span class="var-type">string</span>
 					<a href="#$cache_count_key" title="details" class="var-name">$cache_count_key</a>
 				</div>
@@ -200,7 +206,15 @@
 				</div>
 																<div class="var-title">
 					<span class="var-type">bool</span>
+					<a href="#$show_location" title="details" class="var-name">$show_location</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
 					<a href="#$show_own_events_first" title="details" class="var-name">$show_own_events_first</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$show_summary" title="details" class="var-name">$show_summary</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">string</span>
@@ -213,10 +227,6 @@
 																<div class="var-title">
 					<span class="var-type">int</span>
 					<a href="#$total_rows" title="details" class="var-name">$total_rows</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">array</span>
-					<a href="#$uri" title="details" class="var-name">$uri</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">string</span>
@@ -247,7 +257,7 @@
 										<a href="#factory_chosen_view" title="details" class="method-name">factory_chosen_view</a>
 											([<span class="var-type">integer</span>&nbsp;<span class="var-name">$months</span> = <span class="var-default">3</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$dbms</span> = <span class="var-default">CALENDAR_SOLUTION_DBMS</span>])
 									</div>
-																																																																																																																																																																																																																																		
+																																																																																																																																																																																																																																										
 				<div class="method-definition">
 											<span class="method-result">CalendarSolution_List</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -382,7 +392,19 @@
 														
 				<div class="method-definition">
 											<span class="method-result">void</span>
-										<a href="#set_show_own_events_frist" title="details" class="method-name">set_show_own_events_frist</a>
+										<a href="#set_show_location" title="details" class="method-name">set_show_location</a>
+											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$in</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#set_show_own_events_first" title="details" class="method-name">set_show_own_events_first</a>
+											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$in</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#set_show_summary" title="details" class="method-name">set_show_summary</a>
 											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$in</span>)
 									</div>
 														
@@ -396,12 +418,6 @@
 											<span class="method-result">void</span>
 										<a href="#set_to" title="details" class="method-name">set_to</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$in</span> = <span class="var-default">null</span>])
-									</div>
-														
-				<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#set_uri" title="details" class="method-name">set_uri</a>
-										()
 									</div>
 														
 				<div class="method-definition">
@@ -943,14 +959,38 @@
 		
 
 </div>
-<a name="var$show_own_events_first" id="$show_own_events_first"><!-- --></A>
+<a name="var$show_location" id="$show_location"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">bool</span>
+			<span class="var-name">$show_location</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">157</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Should the Location field be shown or not when viewing &quot;Calendar&quot; mode?</p>
+<p class="description"><p>NOTE: needs to be in CalendarSolution_List class due to ability switch  between Calendar and List views.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_location">CalendarSolution_List::set_show_location()</a> - to store the decision</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$show_own_events_first" id="$show_own_events_first"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
 			<span class="var-name">$show_own_events_first</span>
-			 = <span class="var-default"> false</span>			(line <span class="line-number">153</span>)
+			 = <span class="var-default"> false</span>			(line <span class="line-number">163</span>)
 		</span>
 	</div>
 
@@ -958,7 +998,31 @@
 <p class="short-description">Show your own events before events produced by other organizations?</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_frist">CalendarSolution_List::set_show_own_events_frist()</a> - to store the decision</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_first">CalendarSolution_List::set_show_own_events_first()</a> - to store the decision</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$show_summary" id="$show_summary"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$show_summary</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">173</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Should the Summary field be shown or not when viewing &quot;List&quot; mode?</p>
+<p class="description"><p>NOTE: needs to be in CalendarSolution_List class due to ability switch  between Calendar and List views.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_summary">CalendarSolution_List::set_show_summary()</a> - to store the decision</li>
 			</ul>
 	
 	
@@ -973,7 +1037,7 @@
 		<span class="var-title">
 			<span class="var-type">string</span>
 			<span class="var-name">$time_format</span>
-			 = <span class="var-default"> self::DATE_FORMAT_TIME_12AP</span>			(line <span class="line-number">162</span>)
+			 = <span class="var-default"> self::DATE_FORMAT_TIME_12AP</span>			(line <span class="line-number">182</span>)
 		</span>
 	</div>
 
@@ -998,7 +1062,7 @@
 		<span class="var-title">
 			<span class="var-type">DateTimeSolution</span>
 			<span class="var-name">$to</span>
-						(line <span class="line-number">168</span>)
+						(line <span class="line-number">188</span>)
 		</span>
 	</div>
 
@@ -1027,7 +1091,7 @@
 		<span class="var-title">
 			<span class="var-type">int</span>
 			<span class="var-name">$total_rows</span>
-						(line <span class="line-number">174</span>)
+						(line <span class="line-number">194</span>)
 		</span>
 	</div>
 
@@ -1042,42 +1106,14 @@
 		
 
 </div>
-<a name="var$uri" id="$uri"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">array</span>
-			<span class="var-name">$uri</span>
-						(line <span class="line-number">181</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Data from the REQUEST_URI broken into an associative array containing</p>
-<p class="description"><p>the 'path' as a string and the 'query' broken into a sub-array</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_uri">CalendarSolution_List::set_uri()</a> - to store the data</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_navigation">CalendarSolution_List::get_limit_navigation()</a> - to know the current URI</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_date_navigation">CalendarSolution_List::get_date_navigation()</a> - to know the current URI</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_change_view">CalendarSolution_List::get_change_view()</a> - to know the current URI</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_form">CalendarSolution_List::get_limit_form()</a> - to know the current URI</li>
-			</ul>
-	
-	
-		
-		
-
-</div>
 <a name="var$where_sql" id="$where_sql"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">string</span>
 			<span class="var-name">$where_sql</span>
-						(line <span class="line-number">187</span>)
+						(line <span class="line-number">200</span>)
 		</span>
 	</div>
 
@@ -1105,7 +1141,16 @@
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$cache_available">CalendarSolution::$cache_available</a></span><br>
 							</span>
 													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$csrf_token_name">CalendarSolution::$csrf_token_name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$http_host">CalendarSolution::$http_host</a></span><br>
+							</span>
+													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$sql">CalendarSolution::$sql</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a></span><br>
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$use_cache">CalendarSolution::$use_cache</a></span><br>
@@ -1130,10 +1175,10 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodfactory_chosen_view" id="factory_chosen_view"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">static factory_chosen_view</span> (line <span class="line-number">229</span>)
+		<span class="method-title">static factory_chosen_view</span> (line <span class="line-number">242</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1164,22 +1209,22 @@
 			
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">206</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">219</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Calls the parent constructor and set_uri() then populates the  &quot;$interval_spec&quot; property</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_uri">CalendarSolution_List::set_uri()</a> - to set the &quot;$uri&quot; property</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$interval_spec">CalendarSolution_List::$interval_spec</a> - is set based on the
        &quot;$months&quot; parameter; is used later when creating new
        DateIntervalSolution objects</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a> - to instantiate the database and
        cache classes</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodset_uri">CalendarSolution::set_uri()</a> - to set the &quot;$uri&quot; property</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1203,15 +1248,15 @@
 		<div class="notes">Redefinition of:</div>
 		<dl>
 			<dt><a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a></dt>
-						<dd>Instantiates the database and cache classes</dd>
+						<dd>Instantiates the database and cache classes then sets the $http_host  property</dd>
 					</dl>
 			
 	</div>
 <a name="methodget_change_view" id="get_change_view"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_change_view</span> (line <span class="line-number">295</span>)
+		<span class="method-title">get_change_view</span> (line <span class="line-number">308</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1219,16 +1264,16 @@
 	<ul class="tags">
 				<li><span class="field">return:</span> the HTML for switching views</li>
 				<li><span class="field">throws:</span> CalendarSolution_Exception if not in Calendar or List view</li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to determine the
        user's intent</li>
 				<li><span class="field">uses:</span> CalendarSolution_List::$view - to know the current view</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a> - to know the current URI</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to know the curren event</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the current from date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$to">CalendarSolution_List::$to</a> - to know the current to date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$category_id">CalendarSolution_List::$category_id</a> - to know the current category</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to know the curren event</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the current from date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a> - to know the current URI</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1254,10 +1299,10 @@
 			
 	</div>
 <a name="methodget_css_name" id="get_css_name"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_css_name</span> (line <span class="line-number">337</span>)
+		<span class="method-title">get_css_name</span> (line <span class="line-number">350</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1299,18 +1344,18 @@
 				</ul>
 	</div>
 <a name="methodget_date_navigation" id="get_date_navigation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_date_navigation</span> (line <span class="line-number">376</span>)
+		<span class="method-title">get_date_navigation</span> (line <span class="line-number">389</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Produces the HTML for navigating to earlier and later events</p>
-<p class="description"><p>Inteneded for use with the &quot;Calendar&quot; and &quot;List&quot; formats.</p><p>NOTE: will return an empty string if &quot;$from&quot; or &quot;$to&quot; are false.</p></p>
+<p class="description"><p>Inteneded for use with the &quot;Calendar,&quot; &quot;List,&quot; and &quot;MonthTitle&quot; formats.</p><p>NOTE: will return an empty string if &quot;$from&quot; or &quot;$to&quot; are false.</p></p>
 	<ul class="tags">
 				<li><span class="field">return:</span> the navigation section's HTML</li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_permit_future_months">CalendarSolution_List::set_permit_future_months()</a> - to limit how
        far in the future people can go</li>
@@ -1319,17 +1364,17 @@
 				<li><span class="field">uses:</span> CalendarSolution_List::$view - to know the current view</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to determine the
        user's intent</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a> - to know the current URI</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$to">CalendarSolution_List::$to</a> - to know the current to date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_prior_and_next_dates">CalendarSolution_List::set_prior_and_next_dates()</a> - to determine
        dates for the prior and next links</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$to">CalendarSolution_List::$to</a> - to know the current to date</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the current from date</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to know the curren event</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$next_from">CalendarSolution_List::$next_from</a> - for the &quot;next&quot; link's from date</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$next_to">CalendarSolution_List::$next_to</a> - for the &quot;next&quot; link's to date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$prior_to">CalendarSolution_List::$prior_to</a> - for the &quot;prior&quot; link's to date</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$prior_from">CalendarSolution_List::$prior_from</a> - for the &quot;prior&quot; link's from date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to know the curren event</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$category_id">CalendarSolution_List::$category_id</a> - to know the current category</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the current from date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$next_from">CalendarSolution_List::$next_from</a> - for the &quot;next&quot; link's from date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$prior_from">CalendarSolution_List::$prior_from</a> - for the &quot;prior&quot; link's from date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$next_to">CalendarSolution_List::$next_to</a> - for the &quot;next&quot; link's to date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a> - to know the current URI</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1352,28 +1397,30 @@
 			
 	</div>
 <a name="methodget_limit_form" id="get_limit_form"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_limit_form</span> (line <span class="line-number">457</span>)
+		<span class="method-title">get_limit_form</span> (line <span class="line-number">472</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Produces the HTML for the form people can use to pick date ranges  and particular events</p>
-<p class="description"><p>NOTE: &quot;datelist&quot; will not be displayed if $permit_history_date or  $permit_future_date are false.</p></p>
+<p class="description"><p>NOTE: &quot;datelist&quot; will not be displayed if &quot;$from&quot;, &quot;$to&quot;,  &quot;$permit_history_date&quot;, or &quot;$permit_future_date&quot; are false.</p></p>
 	<ul class="tags">
 				<li><span class="field">return:</span> the HTML for the limit form</li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a> - to know the current URI</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$to">CalendarSolution_List::$to</a> - to set the default &quot;datebox&quot; date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$permit_history_date">CalendarSolution_List::$permit_history_date</a> - to determine the
        earliest value in the &quot;datelist&quot; dropdown boxes</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to set the default event</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to set the default &quot;datebox&quot; date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to determine the
+       users intentions</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$permit_future_date">CalendarSolution_List::$permit_future_date</a> - to determine the
        latest value in the &quot;datelist&quot; dropdown boxes</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$category_id">CalendarSolution_List::$category_id</a> - to set the default category</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to set the default event</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to set the default &quot;datebox&quot; date</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a> - to know the current URI</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1393,21 +1440,21 @@
 			
 	</div>
 <a name="methodget_limit_navigation" id="get_limit_navigation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_limit_navigation</span> (line <span class="line-number">643</span>)
+		<span class="method-title">get_limit_navigation</span> (line <span class="line-number">677</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Produces the prior/next links for the &quot;QuickTable&quot; and &quot;Title&quot; formats</p>
-<p class="description"><p>NOTE: This must be called after get_rendering().</p><p>NOTE: will return an empty string if &quot;$limit_start&quot; is not numeric.</p></p>
+<p class="short-description">Produces the prior/next links for use in conjunction with set_limit()</p>
+<p class="description"><p>For this navigation to work properly, set_limit()'s &quot;$start&quot; parameter  must be set to NULL.  For example: <kbd>set_limit(10, null)</kbd>.</p><p>NOTE: This must be called after get_rendering().  An empty string will  be returned if called before get_rendering().</p></p>
 	<ul class="tags">
-				<li><span class="field">return:</span> the navigation elements if the $start parameter is                  enabled in set_limit(), an empty string if not</li>
+				<li><span class="field">return:</span> the navigation elements if the $start parameter is                  enabled in set_limit() and get_rendering() has been                  called, an empty string if not</li>
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_limit">CalendarSolution_List::set_limit()</a></li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a> - to know the current URI</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a> - to know the current URI</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1421,19 +1468,19 @@
 			<ul class="parameters">
 					<li>
 				<span class="var-type">string</span>
-				<span class="var-name">$prior_link</span><span class="var-description">: the text for the &quot;prior&quot; link.  The value is                       passed through htmlspecialchars().</span>			</li>
+				<span class="var-name">$prior_link</span><span class="var-description">: the text for the &quot;prior&quot; link.  The value is                             passed through htmlspecialchars().</span>			</li>
 					<li>
 				<span class="var-type">string</span>
-				<span class="var-name">$next_link</span><span class="var-description">: the text for the &quot;next&quot; link.  The value is                       passed through htmlspecialchars().</span>			</li>
+				<span class="var-name">$next_link</span><span class="var-description">: the text for the &quot;next&quot; link.  The value is                            passed through htmlspecialchars().</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodget_link" id="get_link"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_link</span> (line <span class="line-number">685</span>)
+		<span class="method-title">get_link</span> (line <span class="line-number">719</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1460,17 +1507,17 @@
 			
 	</div>
 <a name="methodget_view" id="get_view"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_view</span> (line <span class="line-number">714</span>)
+		<span class="method-title">get_view</span> (line <span class="line-number">748</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Says which view class is being used</p>
 	<ul class="tags">
 				<li><span class="field">return:</span> the view being used</li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
@@ -1486,10 +1533,10 @@
 			
 	</div>
 <a name="methodinterval_singleton" id="interval_singleton"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">interval_singleton</span> (line <span class="line-number">727</span>)
+		<span class="method-title">interval_singleton</span> (line <span class="line-number">761</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1517,10 +1564,10 @@
 			
 	</div>
 <a name="methodrun_query" id="run_query"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">run_query</span> (line <span class="line-number">755</span>)
+		<span class="method-title">run_query</span> (line <span class="line-number">789</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1528,23 +1575,17 @@
 	<ul class="tags">
 				<li><span class="field">throws:</span> CalendarSolution_Exception if to is later than from</li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> - to obtain non-cached data</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to obtain non-cached data</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to obtain non-cached data</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> - to obtain non-cached data</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to obtain non-cached data</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> - to obtain non-cached data</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_where_sql">CalendarSolution_List::set_where_sql()</a> - to generate the SQL's
-       WHERE clause and needed cache keys</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_key">CalendarSolution_List::$cache_key</a> - to know where the data is stored</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_count_key">CalendarSolution_List::$cache_count_key</a> - to know where the row
-       count is stored</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$data">CalendarSolution_List::$data</a> - to hold the results</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$limit_quantity">CalendarSolution_List::$limit_quantity</a> - to limit the number of
-       rows shown</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$where_sql">CalendarSolution_List::$where_sql</a> - as the query's WHERE clause</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$limit_start">CalendarSolution_List::$limit_start</a> - to determine where to start
        the number of rows to be shown</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_where_sql">CalendarSolution_List::set_where_sql()</a> - to generate the SQL's
+       WHERE clause and needed cache keys</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$limit_quantity">CalendarSolution_List::$limit_quantity</a> - to limit the number of
+       rows shown</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_count_key">CalendarSolution_List::$cache_count_key</a> - to know where the row
+       count is stored</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_key">CalendarSolution_List::$cache_key</a> - to know where the data is stored</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$data">CalendarSolution_List::$data</a> - to hold the results</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$cache">CalendarSolution::$cache</a> - to cache the results, if possible</li>
 			</ul>
 	
@@ -1560,16 +1601,16 @@
 			
 	</div>
 <a name="methodset_category_id" id="set_category_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_category_id</span> (line <span class="line-number">888</span>)
+		<span class="method-title">set_category_id</span> (line <span class="line-number">922</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets the &quot;category_id&quot; property to the appropriate value</p>
 	<ul class="tags">
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to set the category id</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_int_array_from_request">CalendarSolution::get_int_array_from_request()</a> - to determine the
@@ -1594,17 +1635,17 @@
 			
 	</div>
 <a name="methodset_date_format" id="set_date_format"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_date_format</span> (line <span class="line-number">922</span>)
+		<span class="method-title">set_date_format</span> (line <span class="line-number">956</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets the date format to be used by our format_date() method</p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> CalendarSolution_List::$date_format - to store the data</li>
 			</ul>
@@ -1626,10 +1667,10 @@
 			
 	</div>
 <a name="methodset_frequent_event_id" id="set_frequent_event_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_frequent_event_id</span> (line <span class="line-number">940</span>)
+		<span class="method-title">set_frequent_event_id</span> (line <span class="line-number">974</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1662,10 +1703,10 @@
 			
 	</div>
 <a name="methodset_from" id="set_from"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_from</span> (line <span class="line-number">977</span>)
+		<span class="method-title">set_from</span> (line <span class="line-number">1011</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1674,14 +1715,16 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodset_from">CalendarSolution_List_Calendar::set_from()</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodset_from">CalendarSolution_List_Calendar::set_from()</a> - to determine the
+       user's intention and perform the initial setting</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to default the date to today,
        but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to default the date to today,
        but only if it has not been called yet</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodset_from">CalendarSolution_List_Calendar::set_from()</a> - to determine the
-       user's intention and perform the initial setting</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> - to default the date to today,
        but only if it has not been called yet</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to set the &quot;from&quot; date
+       when in List view</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$permit_history_date">CalendarSolution_List::$permit_history_date</a> - for validation</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_date_from_request">CalendarSolution::get_date_from_request()</a> - to determine the
        user's intention</li>
@@ -1713,17 +1756,17 @@
 				</ul>
 	</div>
 <a name="methodset_is_own_event" id="set_is_own_event"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_is_own_event</span> (line <span class="line-number">1022</span>)
+		<span class="method-title">set_is_own_event</span> (line <span class="line-number">1056</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets the &quot;is_own_event&quot; property to the appropriate value</p>
-<p class="description"><p>&quot;Y&quot; means only show events sponsored by your organization.  &quot;N&quot; means only show events sponsored by other organizations.  All events are shown if this is empty/unset.</p></p>
+<p class="description"><p>&quot;Y&quot; means only show events sponsored by your organization.  &quot;N&quot; means only show events sponsored by other organizations.  All events are shown if this is empty/unset/false.</p></p>
 	<ul class="tags">
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to set the own event
        flag</li>
@@ -1749,10 +1792,10 @@
 			
 	</div>
 <a name="methodset_limit" id="set_limit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_limit</span> (line <span class="line-number">1070</span>)
+		<span class="method-title">set_limit</span> (line <span class="line-number">1104</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1760,7 +1803,7 @@
 <p class="description"><p>Intended for use with the &quot;QuickTable&quot; and &quot;Title&quot; formats.</p><p>To have lists show only the first ten events: <kbd>set_limit(10)</kbd></p><p>To have lists show the first ten events and possibly show navigation  to later events: <kbd>set_limit(10, null)</kbd>.  One must also call  <kbd>get_limit_navigation()</kbd> to get the navigation to show up.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_navigation">CalendarSolution_List::get_limit_navigation()</a></li>
-				<li><span class="field">since:</span> $start parameter added in version 3.0.0</li>
+				<li><span class="field">since:</span> $start parameter added in version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$limit_quantity">CalendarSolution_List::$limit_quantity</a> - to store the data</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a> - to determine the
@@ -1788,10 +1831,10 @@
 			
 	</div>
 <a name="methodset_page_id" id="set_page_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_page_id</span> (line <span class="line-number">1106</span>)
+		<span class="method-title">set_page_id</span> (line <span class="line-number">1140</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1820,27 +1863,29 @@
 			
 	</div>
 <a name="methodset_permit_future_months" id="set_permit_future_months"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_permit_future_months</span> (line <span class="line-number">1133</span>)
+		<span class="method-title">set_permit_future_months</span> (line <span class="line-number">1167</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets the furthest date in the future users are allowed to see</p>
 <p class="description"><p>NOTE: if the &quot;to&quot; property is later than this, &quot;to&quot; is reset to this.</p></p>
 	<ul class="tags">
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to limit how
        far ahead people can see, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> - to limit how
        far ahead people can see, but only if it has not been called yet</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> - to limit how
-       far ahead people can see, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to limit how
        far ahead people can see, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> - to limit how
+       far ahead people can see, but only if it has not been called yet</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> - to limit how
+       far ahead people can see, but only if it has not been called yet</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_rendering">CalendarSolution_List_Icalendar::get_rendering()</a> - to limit how
        far ahead people can see, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_prior_and_next_dates">CalendarSolution_List::set_prior_and_next_dates()</a> - to set bounds on
        how far in the future the dates can go</li>
@@ -1871,23 +1916,25 @@
 			
 	</div>
 <a name="methodset_permit_history_months" id="set_permit_history_months"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_permit_history_months</span> (line <span class="line-number">1171</span>)
+		<span class="method-title">set_permit_history_months</span> (line <span class="line-number">1205</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets the furthest date in the past users are allowed to see</p>
 <p class="description"><p>NOTE: if the &quot;from&quot; property is earlier than this, &quot;from&quot; is reset to  this.</p></p>
 	<ul class="tags">
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> - to limit how
        far back people can see, but only if it has not been called yet</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to limit how
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_rendering">CalendarSolution_List_Icalendar::get_rendering()</a> - to limit how
        far back people can see, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> - to limit how
+       far back people can see, but only if it has not been called yet</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to limit how
        far back people can see, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_date_navigation">CalendarSolution_List::get_date_navigation()</a> - to limit how
        far back people can go</li>
@@ -1914,10 +1961,10 @@
 			
 	</div>
 <a name="methodset_prior_and_next_dates" id="set_prior_and_next_dates"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_prior_and_next_dates</span> (line <span class="line-number">1213</span>)
+		<span class="method-title">set_prior_and_next_dates</span> (line <span class="line-number">1247</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1953,37 +2000,41 @@
 			
 	</div>
 <a name="methodset_request_properties" id="set_request_properties"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_request_properties</span> (line <span class="line-number">1284</span>)
+		<span class="method-title">set_request_properties</span> (line <span class="line-number">1318</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets all properties that can be populated with $_REQUEST data, but  does so only for properties that have not been set yet</p>
 	<ul class="tags">
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_change_view">CalendarSolution_List::get_change_view()</a> - to determine the
-       user's intent</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_date_navigation">CalendarSolution_List::get_date_navigation()</a> - to determine the
-       user's intent</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to determine the
+       user's intention, but only if it has not been called yet</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_form">CalendarSolution_List::get_limit_form()</a> - to determine the
+       users intentions</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> - to determine the
+       user's intention, but only if it has not been called yet</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_rendering">CalendarSolution_List_Icalendar::get_rendering()</a> - to determine the
        user's intention, but only if it has not been called yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> - to determine the
        user's intention, but only if it has not been called yet</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to determine the
-       user's intention, but only if it has not been called yet</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_category_id">CalendarSolution_List::set_category_id()</a> - to set the category id</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_date_navigation">CalendarSolution_List::get_date_navigation()</a> - to determine the
+       user's intent</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_change_view">CalendarSolution_List::get_change_view()</a> - to determine the
+       user's intent</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_to">CalendarSolution_List::set_to()</a> - to set the &quot;to&quot; date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_is_own_event">CalendarSolution_List::set_is_own_event()</a> - to set the own event
        flag</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_to">CalendarSolution_List::set_to()</a> - to set the &quot;to&quot; date</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodset_from">CalendarSolution_List_Calendar::set_from()</a> - to set the &quot;from&quot; date
        when in Calendar view</li>
-				<li><span class="field">uses:</span> CalendarSolution_List_List::set_from() - to set the &quot;from&quot; date
-       when in List view</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_frequent_event_id">CalendarSolution_List::set_frequent_event_id()</a> - to set the frequent
        event id</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_category_id">CalendarSolution_List::set_category_id()</a> - to set the category id</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_from">CalendarSolution_List::set_from()</a> - to set the &quot;from&quot; date
+       when in List view</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1998,10 +2049,10 @@
 			
 	</div>
 <a name="methodset_show_cancelled" id="set_show_cancelled"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_show_cancelled</span> (line <span class="line-number">1317</span>)
+		<span class="method-title">set_show_cancelled</span> (line <span class="line-number">1351</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2028,30 +2079,30 @@
 			<ul class="parameters">
 					<li>
 				<span class="var-type">bool</span>
-				<span class="var-name">$in</span><span class="var-description">: set it to FALSE to leave out cancelled events</span>			</li>
+				<span class="var-name">$in</span><span class="var-description">: pass FALSE to leave out cancelled events,                   is TRUE by default</span>			</li>
 				</ul>
 		
 			
 	</div>
-<a name="methodset_show_own_events_frist" id="set_show_own_events_frist"><!-- --></a>
-<div class="oddrow">
+<a name="methodset_show_location" id="set_show_location"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_show_own_events_frist</span> (line <span class="line-number">1335</span>)
+		<span class="method-title">set_show_location</span> (line <span class="line-number">1369</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Show your own events before events produced by other organizations?</p>
-<p class="description"><p>Items are normally sorted by date then start time.  Enabling this option  still sorts items by date, but within each day your events are shown  first, sorted by time, then events by organizations are shown sorted by  time.</p></p>
+<p class="short-description">Turns the Location field on or off when showing the &quot;Calendar&quot; format</p>
 	<ul class="tags">
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$show_own_events_first">CalendarSolution_List::$show_own_events_first</a> - to store the decision</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$show_location">CalendarSolution_List::$show_location</a> - to store the decision</li>
 			</ul>
 	
 	<div class="method-signature">
 		<span class="method-result">void</span>
 		<span class="method-name">
-			set_show_own_events_frist
+			set_show_location
 		</span>
 					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$in</span>)
 			</div>
@@ -2059,23 +2110,85 @@
 			<ul class="parameters">
 					<li>
 				<span class="var-type">bool</span>
-				<span class="var-name">$in</span><span class="var-description">: set it to TRUE to enable it, is FALSE by default</span>			</li>
+				<span class="var-name">$in</span><span class="var-description">: pass FALSE to not show locations, is TRUE by default</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodset_show_own_events_first" id="set_show_own_events_first"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">set_show_own_events_first</span> (line <span class="line-number">1389</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Show your own events before events produced by other organizations?</p>
+<p class="description"><p>Items are normally sorted by date then start time.  Enabling this option  still sorts items by date, but within each day your events are shown  first, sorted by time, then events by organizations are shown sorted by  time.</p></p>
+	<ul class="tags">
+				<li><span class="field">since:</span> Method available since version 3.0</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$show_own_events_first">CalendarSolution_List::$show_own_events_first</a> - to store the decision</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			set_show_own_events_first
+		</span>
+					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$in</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$in</span><span class="var-description">: pass TRUE to show your own events first,                   is FALSE by default</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodset_show_summary" id="set_show_summary"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">set_show_summary</span> (line <span class="line-number">1405</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Turns the Summary field on or off when showing the &quot;List&quot; format</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$show_summary">CalendarSolution_List::$show_summary</a> - to store the decision</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			set_show_summary
+		</span>
+					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$in</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$in</span><span class="var-description">: pass FALSE to not show summaries, is TRUE by default</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodset_time_format" id="set_time_format"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_time_format</span> (line <span class="line-number">1351</span>)
+		<span class="method-title">set_time_format</span> (line <span class="line-number">1421</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Sets the time format to be used by our format_date() method</p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></li>
-				<li><span class="field">since:</span> Method available since version 3.0.0</li>
+				<li><span class="field">since:</span> Method available since version 3.0</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$time_format">CalendarSolution_List::$time_format</a> - to store the data</li>
 			</ul>
@@ -2097,10 +2210,10 @@
 			
 	</div>
 <a name="methodset_to" id="set_to"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_to</span> (line <span class="line-number">1378</span>)
+		<span class="method-title">set_to</span> (line <span class="line-number">1448</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2133,37 +2246,11 @@
 		
 			
 	</div>
-<a name="methodset_uri" id="set_uri"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">set_uri</span> (line <span class="line-number">1423</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Breaks up the REQUEST_URI into usable parts</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#method__construct">CalendarSolution_List::__construct()</a> - to set the &quot;$uri&quot; property</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a> - to store the data</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			set_uri
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
 <a name="methodset_where_sql" id="set_where_sql"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_where_sql</span> (line <span class="line-number">1456</span>)
+		<span class="method-title">set_where_sql</span> (line <span class="line-number">1508</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2171,33 +2258,21 @@
 <p class="description"><p>This has been separated out from run_query() to facilitate cache  lookups by the various get_rendering() methods.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> - to generate the WHERE
-       clause and cache keys</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> - to generate the SQL's
-       WHERE clause and needed cache keys</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> - to generate the WHERE
-       clause and cache keys</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> - to generate the WHERE
-       clause and cache keys</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> - to generate the WHERE
-       clause and cache keys</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> - to generate the WHERE
-       clause and cache keys</li>
-				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> - to generate the WHERE
-       clause and cache keys</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$where_sql">CalendarSolution_List::$where_sql</a> - to hold the WHERE clause</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to limit entries to a
-       particular event if so desired</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$category_id">CalendarSolution_List::$category_id</a> - to limit entries to a
-       particular category if so desired</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_key">CalendarSolution_List::$cache_key</a> - to indicate where the data
-       should be stored</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the start of the date range</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$is_own_event">CalendarSolution_List::$is_own_event</a> - to limit entries to those
-       sponsored by you or those that are not</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$to">CalendarSolution_List::$to</a> - to know the end of the date range</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$where_sql">CalendarSolution_List::$where_sql</a> - to hold the WHERE clause</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$page_id">CalendarSolution_List::$page_id</a> - to limit entries to those that
        are set to be featured on the given page id</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> - to generate the SQL's
+       WHERE clause and needed cache keys</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$is_own_event">CalendarSolution_List::$is_own_event</a> - to limit entries to those
+       sponsored by you or those that are not</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_key">CalendarSolution_List::$cache_key</a> - to indicate where the data
+       should be stored</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$category_id">CalendarSolution_List::$category_id</a> - to limit entries to a
+       particular category if so desired</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$frequent_event_id">CalendarSolution_List::$frequent_event_id</a> - to limit entries to a
+       particular event if so desired</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$from">CalendarSolution_List::$from</a> - to know the start of the date range</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#var$cache_count_key">CalendarSolution_List::$cache_count_key</a> - to indicate where the row
        count should be stored</li>
 			</ul>
@@ -2220,6 +2295,7 @@
 					<blockquote>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodescape_data_for_html">CalendarSolution::escape_data_for_html()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodescape_for_icalendar">CalendarSolution::escape_for_icalendar()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodflush_cache">CalendarSolution::flush_cache()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_admin_navigation">CalendarSolution::get_admin_navigation()</a></span><br>
@@ -2227,6 +2303,7 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_css">CalendarSolution::get_css()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_date_from_request">CalendarSolution::get_date_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_errors">CalendarSolution::get_errors()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_int_array_from_request">CalendarSolution::get_int_array_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_string_from_request">CalendarSolution::get_string_from_request()</a></span><br>
@@ -2234,6 +2311,8 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodis_cache_available">CalendarSolution::is_cache_available()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_data_empty">CalendarSolution::set_data_empty()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_data_from_post">CalendarSolution::set_data_from_post()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_uri">CalendarSolution::set_uri()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodvalidate_csrf_token">CalendarSolution::validate_csrf_token()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -2264,6 +2343,10 @@
 							</span>
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_ICALENDAR">CalendarSolution::DATE_FORMAT_ICALENDAR</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_LONG">CalendarSolution::DATE_FORMAT_LONG</a></span><br>
 							</span>
 													<img src="../media/images/Variable.png" />
@@ -2285,6 +2368,10 @@
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_24">CalendarSolution::DATE_FORMAT_TIME_24</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_ICALENDAR">CalendarSolution::DATE_FORMAT_TIME_ICALENDAR</a></span><br>
 							</span>
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
@@ -2320,7 +2407,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 16 Mar 2011 10:21:41 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 10 Jun 2011 08:46:36 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

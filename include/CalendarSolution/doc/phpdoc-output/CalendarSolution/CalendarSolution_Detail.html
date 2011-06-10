@@ -74,6 +74,12 @@
 											The means to edit a specific event via an HTML form
 										</td>
 				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_Detail_Icalendar.html">CalendarSolution_Detail_Icalendar</a></td>
+					<td>
+											The means to view a specific event in iCalendar format
+										</td>
+				</tr>
 							</table>
 		</div>
 	</div>
@@ -117,7 +123,7 @@
 				<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#set_data_from_query" title="details" class="method-name">set_data_from_query</a>
-											([<span class="var-type">int</span>&nbsp;<span class="var-name">$calendar_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$safe_markup</span> = <span class="var-default">true</span>])
+											([<span class="var-type">int</span>&nbsp;<span class="var-name">$calendar_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$safe_markup</span> = <span class="var-default">true</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$escape_html</span> = <span class="var-default">true</span>])
 									</div>
 											</div>
 		</div>
@@ -151,10 +157,19 @@
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$cache_available">CalendarSolution::$cache_available</a></span><br>
 							</span>
 													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$csrf_token_name">CalendarSolution::$csrf_token_name</a></span><br>
+							</span>
+													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$data">CalendarSolution::$data</a></span><br>
 							</span>
 													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$http_host">CalendarSolution::$http_host</a></span><br>
+							</span>
+													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$sql">CalendarSolution::$sql</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a></span><br>
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$use_cache">CalendarSolution::$use_cache</a></span><br>
@@ -250,13 +265,15 @@
 	<ul class="tags">
 				<li><span class="field">throws:</span> CalendarSolution_Exception on an invalid $calendar_id or if          no matching record is found</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Icalendar.html#methodget_rendering">CalendarSolution_Detail_Icalendar::get_rendering()</a> - to get the info from the
+       database if it hasn't been extracted yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Html.html#methodget_rendering">CalendarSolution_Detail_Html::get_rendering()</a> - to get the info from the
        database if it hasn't been extracted yet</li>
 				<li><span class="field">usedby:</span> <a href="../CalendarSolution/CalendarSolution_Detail_Html.html#methodget_title">CalendarSolution_Detail_Html::get_title()</a> - to get the info from the
        database if it hasn't been extracted yet</li>
-				<li><span class="field">uses:</span> SQLSolution_General::RunQuery() - to access the database</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a> - to determine the
        user's intention</li>
+				<li><span class="field">uses:</span> SQLSolution_General::RunQuery() - to access the database</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -294,7 +311,7 @@
 		<span class="method-name">
 			set_data_from_query
 		</span>
-					([<span class="var-type">int</span>&nbsp;<span class="var-name">$calendar_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$safe_markup</span> = <span class="var-default">true</span>])
+					([<span class="var-type">int</span>&nbsp;<span class="var-name">$calendar_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$safe_markup</span> = <span class="var-default">true</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$escape_html</span> = <span class="var-default">true</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -304,6 +321,9 @@
 					<li>
 				<span class="var-type"></span>
 				<span class="var-name">$safe_markup</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$escape_html</span>			</li>
 				</ul>
 		
 			
@@ -315,6 +335,7 @@
 					<blockquote>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodescape_data_for_html">CalendarSolution::escape_data_for_html()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodescape_for_icalendar">CalendarSolution::escape_for_icalendar()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodflush_cache">CalendarSolution::flush_cache()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_admin_navigation">CalendarSolution::get_admin_navigation()</a></span><br>
@@ -322,6 +343,7 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_css">CalendarSolution::get_css()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_date_from_request">CalendarSolution::get_date_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_errors">CalendarSolution::get_errors()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_int_array_from_request">CalendarSolution::get_int_array_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_string_from_request">CalendarSolution::get_string_from_request()</a></span><br>
@@ -329,6 +351,8 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodis_cache_available">CalendarSolution::is_cache_available()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_data_empty">CalendarSolution::set_data_empty()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_data_from_post">CalendarSolution::set_data_from_post()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_uri">CalendarSolution::set_uri()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodvalidate_csrf_token">CalendarSolution::validate_csrf_token()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -359,6 +383,10 @@
 							</span>
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_ICALENDAR">CalendarSolution::DATE_FORMAT_ICALENDAR</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_LONG">CalendarSolution::DATE_FORMAT_LONG</a></span><br>
 							</span>
 													<img src="../media/images/Variable.png" />
@@ -380,6 +408,10 @@
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_24">CalendarSolution::DATE_FORMAT_TIME_24</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_ICALENDAR">CalendarSolution::DATE_FORMAT_TIME_ICALENDAR</a></span><br>
 							</span>
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
@@ -415,7 +447,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 16 Mar 2011 10:21:40 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 10 Jun 2011 08:46:34 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

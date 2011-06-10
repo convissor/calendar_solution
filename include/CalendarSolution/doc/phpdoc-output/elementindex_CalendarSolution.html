@@ -45,8 +45,8 @@
 						<span class="method-title">__construct</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache_Memcache.html#method__construct">CalendarSolution_Cache_Memcache::__construct()</a> in Memcache.php</div>
-							<div class="index-item-description">Calls memcache's addServer() for each server listed in  $GLOBALS['cache_servers']</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Form.html#method__construct">CalendarSolution_Detail_Form::__construct()</a> in Form.php</div>
+							<div class="index-item-description">Sets the CSRF token name and calls the main constructor</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">__construct</span>
@@ -59,14 +59,42 @@
 						<span class="method-title">__construct</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache_Memcache.html#method__construct">CalendarSolution_Cache_Memcache::__construct()</a> in Memcache.php</div>
+							<div class="index-item-description">Calls memcache's addServer() for each server listed in  $GLOBALS['cache_servers']</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">__construct</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#method__construct">CalendarSolution_FrequentEvent_Form::__construct()</a> in Form.php</div>
+							<div class="index-item-description">Sets the CSRF token name and calls the main constructor</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">__construct</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#method__construct">CalendarSolution_FeaturedPage_Form::__construct()</a> in Form.php</div>
+							<div class="index-item-description">Sets the CSRF token name and calls the main constructor</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">__construct</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Exception.html#method__construct">CalendarSolution_Exception::__construct()</a> in Exception.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">__construct</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#method__construct">CalendarSolution_Category_Form::__construct()</a> in Form.php</div>
+							<div class="index-item-description">Sets the CSRF token name and calls the main constructor</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">__construct</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a> in CalendarSolution.php</div>
-							<div class="index-item-description">Instantiates the database and cache classes</div>
+							<div class="index-item-description">Instantiates the database and cache classes then sets the $http_host  property</div>
 					</dd>
 		</dl>
 	<a name="c"></a>
@@ -133,6 +161,13 @@
 							<div class="index-item-description">The category ids to show events for</div>
 					</dd>
 			<dt class="field">
+						<span class="var-title">$csrf_token_name</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#var$csrf_token_name">CalendarSolution::$csrf_token_name</a> in CalendarSolution.php</div>
+							<div class="index-item-description">The name of the token used for protecting our admin forms against</div>
+					</dd>
+			<dt class="field">
 						<span class="method-title">calculate_months</span>
 					</dt>
 		<dd class="index-item-body">
@@ -164,10 +199,22 @@
 			<div class="index-item-details"><a href="CalendarSolution/_calendar---Admin---category.php.html">category.php</a> in category.php</div>
 					</dd>
 			<dt class="field">
+						<span class="include-title">calendar-detail-icalendar.php</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_calendar---calendar-detail-icalendar.php.html">calendar-detail-icalendar.php</a> in calendar-detail-icalendar.php</div>
+					</dd>
+			<dt class="field">
 						<span class="include-title">calendar-detail.php</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/_calendar---calendar-detail.php.html">calendar-detail.php</a> in calendar-detail.php</div>
+					</dd>
+			<dt class="field">
+						<span class="include-title">calendar-icalendar.php</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_calendar---calendar-icalendar.php.html">calendar-icalendar.php</a> in calendar-icalendar.php</div>
 					</dd>
 			<dt class="field">
 						<span class="include-title">calendar.php</span>
@@ -239,6 +286,13 @@
 							<div class="index-item-description">The means to view a specific event in HTML format</div>
 					</dd>
 			<dt class="field">
+						CalendarSolution_Detail_Icalendar
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Icalendar.html">CalendarSolution_Detail_Icalendar</a> in Icalendar.php</div>
+							<div class="index-item-description">The means to view a specific event in iCalendar format</div>
+					</dd>
+			<dt class="field">
 						CalendarSolution_Exception
 					</dt>
 		<dd class="index-item-body">
@@ -299,7 +353,14 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html">CalendarSolution_List_Calendar</a> in Calendar.php</div>
-							<div class="index-item-description">The means to output collections of events formatted as a calendar with  brief info about each event</div>
+							<div class="index-item-description">The means to output collections of events formatted as a calendar grid with  brief info about each event</div>
+					</dd>
+			<dt class="field">
+						CalendarSolution_List_Icalendar
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html">CalendarSolution_List_Icalendar</a> in Icalendar.php</div>
+							<div class="index-item-description">The means to output collections of events formatted as a  set of iCalendar VEVENT entries</div>
 					</dd>
 			<dt class="field">
 						CalendarSolution_List_List
@@ -313,21 +374,21 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html">CalendarSolution_List_MonthTitle</a> in MonthTitle.php</div>
-							<div class="index-item-description">The means to output collections of events formatted as a list  of the date and name of each event and is grouped by month</div>
+							<div class="index-item-description">The means to output collections of events formatted as a table  of the date and name of each event and is grouped by month</div>
 					</dd>
 			<dt class="field">
 						CalendarSolution_List_QuickTable
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html">CalendarSolution_List_QuickTable</a> in QuickTable.php</div>
-							<div class="index-item-description">The means to output collections of events formatted as a table with  brief info about each entry</div>
+							<div class="index-item-description">The means to output collections of events formatted as a table with  basic info about each entry</div>
 					</dd>
 			<dt class="field">
 						CalendarSolution_List_Title
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html">CalendarSolution_List_Title</a> in Title.php</div>
-							<div class="index-item-description">The means to output collections of events formatted as a list  of the date and name of each event</div>
+							<div class="index-item-description">The means to output collections of events formatted as a table  of the date and name of each event</div>
 					</dd>
 			<dt class="field">
 						CalendarSolution_List_Ul
@@ -344,11 +405,60 @@
 							<div class="index-item-description">The Calendar Solution Cache class to use: &quot;CalendarSolution_Cache_Memcache&quot;</div>
 					</dd>
 			<dt class="field">
+						<span class="method-title">calendar_solution_calendar</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html#functioncalendar_solution_calendar">calendar_solution_calendar()</a> in wordpress_shortcodes.php</div>
+							<div class="index-item-description">Shortcode handler for producing a list of events laid out in a calendar  grid format</div>
+					</dd>
+			<dt class="field">
 						<span class="const-title">CALENDAR_SOLUTION_DBMS</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_DBMS">CALENDAR_SOLUTION_DBMS</a> in calendar_solution_settings.php</div>
 							<div class="index-item-description">The database extension to use: &quot;mysql&quot;, &quot;mysqli&quot;, &quot;pgsql&quot;, &quot;sqlite&quot;, &quot;sqlite3&quot;</div>
+					</dd>
+			<dt class="field">
+						<span class="const-title">CALENDAR_SOLUTION_HTTP_HOST</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---calendar_solution_settings.php.html#defineCALENDAR_SOLUTION_HTTP_HOST">CALENDAR_SOLUTION_HTTP_HOST</a> in calendar_solution_settings.php</div>
+							<div class="index-item-description">The HTTP_HOST string used if $_SERVER['HTTP_HOST'] is empty</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">calendar_solution_list</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html#functioncalendar_solution_list">calendar_solution_list()</a> in wordpress_shortcodes.php</div>
+							<div class="index-item-description">Shortcode handler for producing a table of events showing significant  info about each event</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">calendar_solution_monthtitle</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html#functioncalendar_solution_monthtitle">calendar_solution_monthtitle()</a> in wordpress_shortcodes.php</div>
+							<div class="index-item-description">Shortcode handler for producing a table of events showing their dates  and names, grouped by month</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">calendar_solution_quicktable</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html#functioncalendar_solution_quicktable">calendar_solution_quicktable()</a> in wordpress_shortcodes.php</div>
+							<div class="index-item-description">Shortcode handler for producing a table of events showing basic info  about each entry</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">calendar_solution_title</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html#functioncalendar_solution_title">calendar_solution_title()</a> in wordpress_shortcodes.php</div>
+							<div class="index-item-description">Shortcode handler for producing a table of events showing their dates  and names</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">calendar_solution_ul</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html#functioncalendar_solution_ul">calendar_solution_ul()</a> in wordpress_shortcodes.php</div>
+							<div class="index-item-description">Shortcode handler for producing an &quot;unordered list&quot; of events showing  their dates and names</div>
 					</dd>
 			<dt class="field">
 						<span class="include-title">Cache.php</span>
@@ -406,7 +516,7 @@
 						<span class="var-title">$date_format</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#var$date_format">CalendarSolution_List_Title::$date_format</a> in Title.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#var$date_format">CalendarSolution_List_List::$date_format</a> in List.php</div>
 							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
 					</dd>
 			<dt class="field">
@@ -414,13 +524,6 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#var$date_format">CalendarSolution_List_Ul::$date_format</a> in Ul.php</div>
-							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
-					</dd>
-			<dt class="field">
-						<span class="var-title">$date_format</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#var$date_format">CalendarSolution_List_List::$date_format</a> in List.php</div>
 							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
 					</dd>
 			<dt class="field">
@@ -438,10 +541,24 @@
 							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
 					</dd>
 			<dt class="field">
+						<span class="var-title">$date_format</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#var$date_format">CalendarSolution_List_Title::$date_format</a> in Title.php</div>
+							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
+					</dd>
+			<dt class="field">
 						DATE_FORMAT_FULL
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#constDATE_FORMAT_FULL">CalendarSolution::DATE_FORMAT_FULL</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
+					</dd>
+			<dt class="field">
+						DATE_FORMAT_ICALENDAR
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#constDATE_FORMAT_ICALENDAR">CalendarSolution::DATE_FORMAT_ICALENDAR</a> in CalendarSolution.php</div>
 							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
 					</dd>
 			<dt class="field">
@@ -487,11 +604,18 @@
 							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
 					</dd>
 			<dt class="field">
+						DATE_FORMAT_TIME_ICALENDAR
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_ICALENDAR">CalendarSolution::DATE_FORMAT_TIME_ICALENDAR</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Format for PHP's date() function, to be used by our format_date() method</div>
+					</dd>
+			<dt class="field">
 						<span class="method-title">delete</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methoddelete">CalendarSolution_FrequentEvent_Form::delete()</a> in Form.php</div>
-							<div class="index-item-description">Deletes the record specified by $this-&gt;data['frequent_event_id']</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#methoddelete">CalendarSolution_Category_Form::delete()</a> in Form.php</div>
+							<div class="index-item-description">Deletes the record specified by $this-&gt;data['category_id']</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">delete</span>
@@ -504,8 +628,8 @@
 						<span class="method-title">delete</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#methoddelete">CalendarSolution_Category_Form::delete()</a> in Form.php</div>
-							<div class="index-item-description">Deletes the record specified by $this-&gt;data['category_id']</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methoddelete">CalendarSolution_FrequentEvent_Form::delete()</a> in Form.php</div>
+							<div class="index-item-description">Deletes the record specified by $this-&gt;data['frequent_event_id']</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">delete</span>
@@ -532,14 +656,7 @@
 						<span class="var-title">$errors</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Form.html#var$errors">CalendarSolution_Detail_Form::$errors</a> in Form.php</div>
-							<div class="index-item-description">Errors found by is_valid()</div>
-					</dd>
-			<dt class="field">
-						<span class="var-title">$errors</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#var$errors">CalendarSolution_FrequentEvent_Form::$errors</a> in Form.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#var$errors">CalendarSolution_Category_Form::$errors</a> in Form.php</div>
 							<div class="index-item-description">Errors found by is_valid()</div>
 					</dd>
 			<dt class="field">
@@ -553,7 +670,14 @@
 						<span class="var-title">$errors</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#var$errors">CalendarSolution_Category_Form::$errors</a> in Form.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#var$errors">CalendarSolution_FrequentEvent_Form::$errors</a> in Form.php</div>
+							<div class="index-item-description">Errors found by is_valid()</div>
+					</dd>
+			<dt class="field">
+						<span class="var-title">$errors</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Form.html#var$errors">CalendarSolution_Detail_Form::$errors</a> in Form.php</div>
 							<div class="index-item-description">Errors found by is_valid()</div>
 					</dd>
 			<dt class="field">
@@ -595,6 +719,13 @@
 							<div class="index-item-description">Sanitizes the data in $this-&gt;data via htmlspecialchars()</div>
 					</dd>
 			<dt class="field">
+						<span class="method-title">escape_for_icalendar</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#methodescape_for_icalendar">CalendarSolution::escape_for_icalendar()</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Sanitizes the input for iCalendar formats</div>
+					</dd>
+			<dt class="field">
 						<span class="include-title">Exception.php</span>
 					</dt>
 		<dd class="index-item-body">
@@ -612,14 +743,14 @@
 						<span class="var-title">$fields</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#var$fields">CalendarSolution_Category_Form::$fields</a> in Form.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#var$fields">CalendarSolution_FrequentEvent_Form::$fields</a> in Form.php</div>
 							<div class="index-item-description">The names of fields on the form</div>
 					</dd>
 			<dt class="field">
 						<span class="var-title">$fields</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#var$fields">CalendarSolution_FrequentEvent_Form::$fields</a> in Form.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#var$fields">CalendarSolution_Category_Form::$fields</a> in Form.php</div>
 							<div class="index-item-description">The names of fields on the form</div>
 					</dd>
 			<dt class="field">
@@ -640,14 +771,14 @@
 						<span class="var-title">$fields_bitwise</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#var$fields_bitwise">CalendarSolution_FrequentEvent_Form::$fields_bitwise</a> in Form.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#var$fields_bitwise">CalendarSolution_Category_Form::$fields_bitwise</a> in Form.php</div>
 							<div class="index-item-description">The names of fields on the form that are bitwise in the database</div>
 					</dd>
 			<dt class="field">
 						<span class="var-title">$fields_bitwise</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#var$fields_bitwise">CalendarSolution_Category_Form::$fields_bitwise</a> in Form.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#var$fields_bitwise">CalendarSolution_FrequentEvent_Form::$fields_bitwise</a> in Form.php</div>
 							<div class="index-item-description">The names of fields on the form that are bitwise in the database</div>
 					</dd>
 			<dt class="field">
@@ -719,14 +850,14 @@
 						<span class="method-title">flush</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache.html#methodflush">CalendarSolution_Cache::flush()</a> in Cache.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache_Memcache.html#methodflush">CalendarSolution_Cache_Memcache::flush()</a> in Memcache.php</div>
 							<div class="index-item-description">Flush all data from the cache</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">flush</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache_Memcache.html#methodflush">CalendarSolution_Cache_Memcache::flush()</a> in Memcache.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache.html#methodflush">CalendarSolution_Cache::flush()</a> in Cache.php</div>
 							<div class="index-item-description">Flush all data from the cache</div>
 					</dd>
 			<dt class="field">
@@ -847,35 +978,7 @@
 						<span class="method-title">get_css_name</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_css_name">CalendarSolution_List_QuickTable::get_css_name()</a> in QuickTable.php</div>
-							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_css_name</span>
-					</dt>
-		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Form.html#methodget_css_name">CalendarSolution_Detail_Form::get_css_name()</a> in Form.php</div>
-							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_css_name</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_css_name">CalendarSolution_List_MonthTitle::get_css_name()</a> in MonthTitle.php</div>
-							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_css_name</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_css_name">CalendarSolution_List_Ul::get_css_name()</a> in Ul.php</div>
-							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_css_name</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodget_css_name">CalendarSolution_List::get_css_name()</a> in List.php</div>
 							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
 					</dd>
 			<dt class="field">
@@ -889,7 +992,35 @@
 						<span class="method-title">get_css_name</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_css_name">CalendarSolution_List_Ul::get_css_name()</a> in Ul.php</div>
+							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_css_name</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_css_name">CalendarSolution_List_Title::get_css_name()</a> in Title.php</div>
+							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_css_name</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_css_name">CalendarSolution_List_MonthTitle::get_css_name()</a> in MonthTitle.php</div>
+							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_css_name</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodget_css_name">CalendarSolution_List::get_css_name()</a> in List.php</div>
+							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_css_name</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_css_name">CalendarSolution_List_QuickTable::get_css_name()</a> in QuickTable.php</div>
 							<div class="index-item-description">Provides the path and name of the needed Cascading Style Sheet file</div>
 					</dd>
 			<dt class="field">
@@ -924,37 +1055,19 @@
 						<span class="method-title">get_event_formatted</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_event_formatted">CalendarSolution_FrequentEvent_List::get_event_formatted()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_event_formatted</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_event_formatted">CalendarSolution_List_MonthTitle::get_event_formatted()</a> in MonthTitle.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_event_formatted</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_event_formatted">CalendarSolution_List_Title::get_event_formatted()</a> in Title.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_event_formatted</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_event_formatted">CalendarSolution_List_List::get_event_formatted()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_event_formatted</span>
-					</dt>
-		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_event_formatted">CalendarSolution_List_Ul::get_event_formatted()</a> in Ul.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_event_formatted</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_event_formatted">CalendarSolution_FeaturedPage_List::get_event_formatted()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_event_formatted">CalendarSolution_FrequentEvent_List::get_event_formatted()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_event_formatted</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_event_formatted">CalendarSolution_List_Icalendar::get_event_formatted()</a> in Icalendar.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_event_formatted</span>
@@ -966,13 +1079,44 @@
 						<span class="method-title">get_event_formatted</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_event_formatted">CalendarSolution_List_Calendar::get_event_formatted()</a> in Calendar.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_event_formatted">CalendarSolution_List_List::get_event_formatted()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_event_formatted</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_event_formatted">CalendarSolution_List_MonthTitle::get_event_formatted()</a> in MonthTitle.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_event_formatted</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_List.html#methodget_event_formatted">CalendarSolution_Category_List::get_event_formatted()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_event_formatted</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_event_formatted">CalendarSolution_List_Title::get_event_formatted()</a> in Title.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_event_formatted</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_event_formatted">CalendarSolution_FeaturedPage_List::get_event_formatted()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_event_formatted</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_event_formatted">CalendarSolution_List_Calendar::get_event_formatted()</a> in Calendar.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_event_formatted_icalendar</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Formats event data for iCalendar output</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_int_array_from_request</span>
@@ -1000,7 +1144,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodget_limit_navigation">CalendarSolution_List::get_limit_navigation()</a> in List.php</div>
-							<div class="index-item-description">Produces the prior/next links for the &quot;QuickTable&quot; and &quot;Title&quot; formats</div>
+							<div class="index-item-description">Produces the prior/next links for use in conjunction with set_limit()</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_link</span>
@@ -1013,25 +1157,13 @@
 						<span class="method-title">get_list_close</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_list_close">CalendarSolution_FrequentEvent_List::get_list_close()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_list_close">CalendarSolution_FeaturedPage_List::get_list_close()</a> in List.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_list_close</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_list_close">CalendarSolution_List_List::get_list_close()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_list_close</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_list_close">CalendarSolution_List_Ul::get_list_close()</a> in Ul.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_list_close</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_list_close">CalendarSolution_List_Title::get_list_close()</a> in Title.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_list_close</span>
@@ -1049,7 +1181,25 @@
 						<span class="method-title">get_list_close</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_list_close">CalendarSolution_FeaturedPage_List::get_list_close()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_list_close">CalendarSolution_FrequentEvent_List::get_list_close()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_list_close</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_list_close">CalendarSolution_List_Ul::get_list_close()</a> in Ul.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_list_close</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_list_close">CalendarSolution_List_Icalendar::get_list_close()</a> in Icalendar.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_list_close</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_list_close">CalendarSolution_List_Title::get_list_close()</a> in Title.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_list_close</span>
@@ -1061,19 +1211,7 @@
 						<span class="method-title">get_list_open</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_list_open">CalendarSolution_FeaturedPage_List::get_list_open()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_list_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_list_open">CalendarSolution_List_List::get_list_open()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_list_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_list_open">CalendarSolution_List_Title::get_list_open()</a> in Title.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_list_open">CalendarSolution_List_Ul::get_list_open()</a> in Ul.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_list_open</span>
@@ -1085,13 +1223,7 @@
 						<span class="method-title">get_list_open</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_list_open">CalendarSolution_List_Ul::get_list_open()</a> in Ul.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_list_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_list_open">CalendarSolution_List_QuickTable::get_list_open()</a> in QuickTable.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_list_open">CalendarSolution_List_Title::get_list_open()</a> in Title.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_list_open</span>
@@ -1103,19 +1235,43 @@
 						<span class="method-title">get_list_open</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_list_open">CalendarSolution_FeaturedPage_List::get_list_open()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_list_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_list_open">CalendarSolution_List_QuickTable::get_list_open()</a> in QuickTable.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_list_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_list_open">CalendarSolution_List_List::get_list_open()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_list_open</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_list_open">CalendarSolution_FrequentEvent_List::get_list_open()</a> in List.php</div>
 					</dd>
 			<dt class="field">
-						<span class="method-title">get_month_close</span>
+						<span class="method-title">get_list_open</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_month_close">CalendarSolution_List_Calendar::get_month_close()</a> in Calendar.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_list_open">CalendarSolution_List_Icalendar::get_list_open()</a> in Icalendar.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_month_close</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_month_close">CalendarSolution_List_List::get_month_close()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_month_close</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_month_close">CalendarSolution_List_Calendar::get_month_close()</a> in Calendar.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_month_close</span>
@@ -1163,21 +1319,63 @@
 						<span class="method-title">get_rendering</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> in Calendar.php</div>
+							<div class="index-item-description">Produces a list of events laid out in a calendar grid format</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> in MonthTitle.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a list format, grouped by month</div>
+							<div class="index-item-description">Produces a table of events showing their dates and names, grouped by  month</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_rendering</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#methodget_rendering">CalendarSolution_List_QuickTable::get_rendering()</a> in QuickTable.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a short table format</div>
+							<div class="index-item-description">Produces a table of events showing basic info about each entry</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_rendering</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_rendering">CalendarSolution_FrequentEvent_List::get_rendering()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#methodget_rendering">CalendarSolution_Category_Form::get_rendering()</a> in Form.php</div>
+							<div class="index-item-description">Produces the HTML form for editing an event</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_rendering">CalendarSolution_List_Icalendar::get_rendering()</a> in Icalendar.php</div>
+							<div class="index-item-description">Produces a list of events in iCalendar format</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methodget_rendering">CalendarSolution_FrequentEvent_Form::get_rendering()</a> in Form.php</div>
+							<div class="index-item-description">Produces the HTML form for editing an event</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> in Title.php</div>
+							<div class="index-item-description">Produces a table of events showing their dates and names</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Icalendar.html#methodget_rendering">CalendarSolution_Detail_Icalendar::get_rendering()</a> in Icalendar.php</div>
+							<div class="index-item-description">Produces the HTML to display the event the user wants to see</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_rendering">CalendarSolution_FeaturedPage_List::get_rendering()</a> in List.php</div>
 							<div class="index-item-description">Produces a list of events laid out in a list format</div>
 					</dd>
 			<dt class="field">
@@ -1192,28 +1390,14 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_rendering">CalendarSolution_List_Ul::get_rendering()</a> in Ul.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a short list format</div>
+							<div class="index-item-description">Produces an &quot;unordered list&quot; of events showing their dates and names</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_rendering</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#methodget_rendering">CalendarSolution_Category_Form::get_rendering()</a> in Form.php</div>
-							<div class="index-item-description">Produces the HTML form for editing an event</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_rendering</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodget_rendering">CalendarSolution_FeaturedPage_Form::get_rendering()</a> in Form.php</div>
-							<div class="index-item-description">Produces the HTML form for editing an event</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_rendering</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methodget_rendering">CalendarSolution_FrequentEvent_Form::get_rendering()</a> in Form.php</div>
-							<div class="index-item-description">Produces the HTML form for editing an event</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_rendering">CalendarSolution_FrequentEvent_List::get_rendering()</a> in List.php</div>
+							<div class="index-item-description">Produces a list of events laid out in a list format</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_rendering</span>
@@ -1226,6 +1410,13 @@
 						<span class="method-title">get_rendering</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> in List.php</div>
+							<div class="index-item-description">Produces a table of events showing significant info about each event</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_rendering</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_List.html#methodget_rendering">CalendarSolution_Category_List::get_rendering()</a> in List.php</div>
 							<div class="index-item-description">Produces a list of events laid out in a list format</div>
 					</dd>
@@ -1233,29 +1424,8 @@
 						<span class="method-title">get_rendering</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_rendering">CalendarSolution_List_Title::get_rendering()</a> in Title.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a short list format</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_rendering</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_rendering">CalendarSolution_List_List::get_rendering()</a> in List.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a list format</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_rendering</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_rendering">CalendarSolution_FeaturedPage_List::get_rendering()</a> in List.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a list format</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_rendering</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_rendering">CalendarSolution_List_Calendar::get_rendering()</a> in Calendar.php</div>
-							<div class="index-item-description">Produces a list of events laid out in a calendar grid format</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodget_rendering">CalendarSolution_FeaturedPage_Form::get_rendering()</a> in Form.php</div>
+							<div class="index-item-description">Produces the HTML form for editing an event</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_row_close</span>
@@ -1273,7 +1443,25 @@
 						<span class="method-title">get_row_close</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_row_close">CalendarSolution_List_Icalendar::get_row_close()</a> in Icalendar.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_close</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_row_close">CalendarSolution_List_Title::get_row_close()</a> in Title.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_close</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_row_close">CalendarSolution_List_MonthTitle::get_row_close()</a> in MonthTitle.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_close</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_row_close">CalendarSolution_List_Calendar::get_row_close()</a> in Calendar.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_row_close</span>
@@ -1297,61 +1485,7 @@
 						<span class="method-title">get_row_close</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_row_close">CalendarSolution_List_Calendar::get_row_close()</a> in Calendar.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_close</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_row_close">CalendarSolution_List_MonthTitle::get_row_close()</a> in MonthTitle.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_close</span>
-					</dt>
-		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_row_close">CalendarSolution_List_List::get_row_close()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_List.html#methodget_row_open">CalendarSolution_Category_List::get_row_open()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_row_open">CalendarSolution_List_Calendar::get_row_open()</a> in Calendar.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_row_open">CalendarSolution_List_Title::get_row_open()</a> in Title.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_row_open">CalendarSolution_FrequentEvent_List::get_row_open()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_row_open">CalendarSolution_FeaturedPage_List::get_row_open()</a> in List.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_row_open">CalendarSolution_List_MonthTitle::get_row_open()</a> in MonthTitle.php</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">get_row_open</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_row_open">CalendarSolution_List_List::get_row_open()</a> in List.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_row_open</span>
@@ -1363,7 +1497,55 @@
 						<span class="method-title">get_row_open</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_List.html#methodget_row_open">CalendarSolution_Category_List::get_row_open()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_row_open">CalendarSolution_List_MonthTitle::get_row_open()</a> in MonthTitle.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodget_row_open">CalendarSolution_FrequentEvent_List::get_row_open()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#methodget_row_open">CalendarSolution_List_Ul::get_row_open()</a> in Ul.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#methodget_row_open">CalendarSolution_List_Title::get_row_open()</a> in Title.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodget_row_open">CalendarSolution_List_Calendar::get_row_open()</a> in Calendar.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodget_row_open">CalendarSolution_List_List::get_row_open()</a> in List.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#methodget_row_open">CalendarSolution_List_Icalendar::get_row_open()</a> in Icalendar.php</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">get_row_open</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodget_row_open">CalendarSolution_FeaturedPage_List::get_row_open()</a> in List.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">get_string_from_request</span>
@@ -1395,6 +1577,13 @@
 	</div>
 	<dl>
 			<dt class="field">
+						<span class="var-title">$http_host</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#var$http_host">CalendarSolution::$http_host</a> in CalendarSolution.php</div>
+							<div class="index-item-description">The HTTP_HOST, set in __construct()</div>
+					</dd>
+			<dt class="field">
 						<span class="include-title">Html.php</span>
 					</dt>
 		<dd class="index-item-body">
@@ -1423,18 +1612,16 @@
 							<div class="index-item-description">Only show events sponsored by you (&quot;Y&quot;) or only those sponsored by  another organization (&quot;N&quot;)?</div>
 					</dd>
 			<dt class="field">
-						<span class="method-title">insert</span>
+						<span class="include-title">Icalendar.php</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Form.html#methodinsert">CalendarSolution_Detail_Form::insert()</a> in Form.php</div>
-							<div class="index-item-description">Inserts the posted data into the database</div>
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---Detail---Icalendar.php.html">Icalendar.php</a> in Icalendar.php</div>
 					</dd>
 			<dt class="field">
-						<span class="method-title">insert</span>
+						<span class="include-title">Icalendar.php</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodinsert">CalendarSolution_FeaturedPage_Form::insert()</a> in Form.php</div>
-							<div class="index-item-description">Inserts the posted data into the database</div>
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---List---Icalendar.php.html">Icalendar.php</a> in Icalendar.php</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">insert</span>
@@ -1447,7 +1634,21 @@
 						<span class="method-title">insert</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail_Form.html#methodinsert">CalendarSolution_Detail_Form::insert()</a> in Form.php</div>
+							<div class="index-item-description">Inserts the posted data into the database</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">insert</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methodinsert">CalendarSolution_FrequentEvent_Form::insert()</a> in Form.php</div>
+							<div class="index-item-description">Inserts the posted data into the database</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">insert</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodinsert">CalendarSolution_FeaturedPage_Form::insert()</a> in Form.php</div>
 							<div class="index-item-description">Inserts the posted data into the database</div>
 					</dd>
 			<dt class="field">
@@ -1690,20 +1891,6 @@
 						<span class="method-title">run_query</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> in List.php</div>
-							<div class="index-item-description">Assembles the query string then executes it</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">run_query</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodrun_query">CalendarSolution_FrequentEvent_List::run_query()</a> in List.php</div>
-							<div class="index-item-description">Assembles the query string then executes it</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">run_query</span>
-					</dt>
-		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_List.html#methodrun_query">CalendarSolution_FeaturedPage_List::run_query()</a> in List.php</div>
 							<div class="index-item-description">Assembles the query string then executes it</div>
 					</dd>
@@ -1718,15 +1905,8 @@
 						<span class="method-title">run_query</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail.html#methodrun_query">CalendarSolution_Detail::run_query()</a> in Detail.php</div>
-							<div class="index-item-description">Assembles the query string, executes it and stores the result in  $this-&gt;data</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">run_query</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage.html#methodrun_query">CalendarSolution_FeaturedPage::run_query()</a> in FeaturedPage.php</div>
-							<div class="index-item-description">Assembles the query string, executes it and stores the result in  $this-&gt;data</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> in List.php</div>
+							<div class="index-item-description">Assembles the query string then executes it</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">run_query</span>
@@ -1741,6 +1921,27 @@
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category.html#methodrun_query">CalendarSolution_Category::run_query()</a> in Category.php</div>
 							<div class="index-item-description">Assembles the query string, executes it and stores the result in  $this-&gt;data</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">run_query</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage.html#methodrun_query">CalendarSolution_FeaturedPage::run_query()</a> in FeaturedPage.php</div>
+							<div class="index-item-description">Assembles the query string, executes it and stores the result in  $this-&gt;data</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">run_query</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Detail.html#methodrun_query">CalendarSolution_Detail::run_query()</a> in Detail.php</div>
+							<div class="index-item-description">Assembles the query string, executes it and stores the result in  $this-&gt;data</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">run_query</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_List.html#methodrun_query">CalendarSolution_FrequentEvent_List::run_query()</a> in List.php</div>
+							<div class="index-item-description">Assembles the query string then executes it</div>
 					</dd>
 		</dl>
 	<a name="s"></a>
@@ -1761,7 +1962,7 @@
 						<span class="var-title">$show_location</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#var$show_location">CalendarSolution_List_Calendar::$show_location</a> in Calendar.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$show_location">CalendarSolution_List::$show_location</a> in List.php</div>
 							<div class="index-item-description">Should the Location field be shown or not when viewing &quot;Calendar&quot; mode?</div>
 					</dd>
 			<dt class="field">
@@ -1775,15 +1976,15 @@
 						<span class="var-title">$show_summary</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#var$show_summary">CalendarSolution_List_List::$show_summary</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$show_summary">CalendarSolution_List::$show_summary</a> in List.php</div>
 							<div class="index-item-description">Should the Summary field be shown or not when viewing &quot;List&quot; mode?</div>
 					</dd>
 			<dt class="field">
-						<span class="var-title">$show_summary</span>
+						<span class="var-title">$show_time_end</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#var$show_summary">CalendarSolution_List_QuickTable::$show_summary</a> in QuickTable.php</div>
-							<div class="index-item-description">Should the Summary field be shown or not?</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#var$show_time_end">CalendarSolution_List_QuickTable::$show_time_end</a> in QuickTable.php</div>
+							<div class="index-item-description">Should the End Time field be shown or not?</div>
 					</dd>
 			<dt class="field">
 						<span class="var-title">$sql</span>
@@ -1795,14 +1996,14 @@
 						<span class="method-title">set</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache_Memcache.html#methodset">CalendarSolution_Cache_Memcache::set()</a> in Memcache.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache.html#methodset">CalendarSolution_Cache::set()</a> in Cache.php</div>
 							<div class="index-item-description">Stores data in the cache</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">set</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache.html#methodset">CalendarSolution_Cache::set()</a> in Cache.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Cache_Memcache.html#methodset">CalendarSolution_Cache_Memcache::set()</a> in Memcache.php</div>
 							<div class="index-item-description">Stores data in the cache</div>
 					</dd>
 			<dt class="field">
@@ -1837,7 +2038,7 @@
 						<span class="method-title">set_data_from_query</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category.html#methodset_data_from_query">CalendarSolution_Category::set_data_from_query()</a> in Category.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage.html#methodset_data_from_query">CalendarSolution_FeaturedPage::set_data_from_query()</a> in FeaturedPage.php</div>
 							<div class="index-item-description">Populates $this-&gt;data with a record from the database</div>
 					</dd>
 			<dt class="field">
@@ -1851,7 +2052,7 @@
 						<span class="method-title">set_data_from_query</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage.html#methodset_data_from_query">CalendarSolution_FeaturedPage::set_data_from_query()</a> in FeaturedPage.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category.html#methodset_data_from_query">CalendarSolution_Category::set_data_from_query()</a> in Category.php</div>
 							<div class="index-item-description">Populates $this-&gt;data with a record from the database</div>
 					</dd>
 			<dt class="field">
@@ -1942,22 +2143,29 @@
 						<span class="method-title">set_show_location</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#methodset_show_location">CalendarSolution_List_Calendar::set_show_location()</a> in Calendar.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_show_location">CalendarSolution_List::set_show_location()</a> in List.php</div>
 							<div class="index-item-description">Turns the Location field on or off when showing the &quot;Calendar&quot; format</div>
 					</dd>
 			<dt class="field">
-						<span class="method-title">set_show_own_events_frist</span>
+						<span class="method-title">set_show_own_events_first</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_frist">CalendarSolution_List::set_show_own_events_frist()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_first">CalendarSolution_List::set_show_own_events_first()</a> in List.php</div>
 							<div class="index-item-description">Show your own events before events produced by other organizations?</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">set_show_summary</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_List.html#methodset_show_summary">CalendarSolution_List_List::set_show_summary()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_show_summary">CalendarSolution_List::set_show_summary()</a> in List.php</div>
 							<div class="index-item-description">Turns the Summary field on or off when showing the &quot;List&quot; format</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">set_show_time_end</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#methodset_show_time_end">CalendarSolution_List_QuickTable::set_show_time_end()</a> in QuickTable.php</div>
+							<div class="index-item-description">Should End Time field be shown or not?</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">set_time_format</span>
@@ -1977,7 +2185,7 @@
 						<span class="method-title">set_uri</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#methodset_uri">CalendarSolution_List::set_uri()</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#methodset_uri">CalendarSolution::set_uri()</a> in CalendarSolution.php</div>
 							<div class="index-item-description">Breaks up the REQUEST_URI into usable parts</div>
 					</dd>
 			<dt class="field">
@@ -2069,7 +2277,7 @@
 						<span class="var-title">$uri</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a> in List.php</div>
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a> in CalendarSolution.php</div>
 							<div class="index-item-description">Data from the REQUEST_URI broken into an associative array containing</div>
 					</dd>
 			<dt class="field">
@@ -2096,6 +2304,13 @@
 						<span class="method-title">update</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodupdate">CalendarSolution_FeaturedPage_Form::update()</a> in Form.php</div>
+							<div class="index-item-description">Updates the record with the posted data</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">update</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_Category_Form.html#methodupdate">CalendarSolution_Category_Form::update()</a> in Form.php</div>
 							<div class="index-item-description">Updates the record with the posted data</div>
 					</dd>
@@ -2104,13 +2319,6 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FrequentEvent_Form.html#methodupdate">CalendarSolution_FrequentEvent_Form::update()</a> in Form.php</div>
-							<div class="index-item-description">Updates the record with the posted data</div>
-					</dd>
-			<dt class="field">
-						<span class="method-title">update</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_FeaturedPage_Form.html#methodupdate">CalendarSolution_FeaturedPage_Form::update()</a> in Form.php</div>
 							<div class="index-item-description">Updates the record with the posted data</div>
 					</dd>
 		</dl>
@@ -2125,6 +2333,13 @@
 						<span class="var-title">$view</span>
 					</dt>
 		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#var$view">CalendarSolution_List_QuickTable::$view</a> in QuickTable.php</div>
+							<div class="index-item-description">The type of view this class represents</div>
+					</dd>
+			<dt class="field">
+						<span class="var-title">$view</span>
+					</dt>
+		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Title.html#var$view">CalendarSolution_List_Title::$view</a> in Title.php</div>
 							<div class="index-item-description">The type of view this class represents</div>
 					</dd>
@@ -2133,13 +2348,6 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Ul.html#var$view">CalendarSolution_List_Ul::$view</a> in Ul.php</div>
-							<div class="index-item-description">The type of view this class represents</div>
-					</dd>
-			<dt class="field">
-						<span class="var-title">$view</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_QuickTable.html#var$view">CalendarSolution_List_QuickTable::$view</a> in QuickTable.php</div>
 							<div class="index-item-description">The type of view this class represents</div>
 					</dd>
 			<dt class="field">
@@ -2163,6 +2371,20 @@
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Calendar.html#var$view">CalendarSolution_List_Calendar::$view</a> in Calendar.php</div>
 							<div class="index-item-description">The type of view this class represents</div>
 					</dd>
+			<dt class="field">
+						<span class="var-title">$view</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List_Icalendar.html#var$view">CalendarSolution_List_Icalendar::$view</a> in Icalendar.php</div>
+							<div class="index-item-description">The type of view this class represents</div>
+					</dd>
+			<dt class="field">
+						<span class="method-title">validate_csrf_token</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution.html#methodvalidate_csrf_token">CalendarSolution::validate_csrf_token()</a> in CalendarSolution.php</div>
+							<div class="index-item-description">Checks the Cross Site Request Forgery token to improve security</div>
+					</dd>
 		</dl>
 	<a name="w"></a>
 	<div class="index-letter-section">
@@ -2177,6 +2399,12 @@
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="CalendarSolution/CalendarSolution_List.html#var$where_sql">CalendarSolution_List::$where_sql</a> in List.php</div>
 							<div class="index-item-description">The SQL WHERE clause for the current view</div>
+					</dd>
+			<dt class="field">
+						<span class="include-title">wordpress_shortcodes.php</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="CalendarSolution/_include---CalendarSolution---wordpress_shortcodes.php.html">wordpress_shortcodes.php</a> in wordpress_shortcodes.php</div>
 					</dd>
 		</dl>
 

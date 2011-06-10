@@ -24,17 +24,16 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The means to output collections of events formatted as a list  of the date and name of each event and is grouped by month</p>
-<p class="description"><p>Intended to show all events between today and a specified end date.</p><p>The date limits should be established using set_from() and set_to().</p></p>
+<p class="short-description">The means to output collections of events formatted as a table  of the date and name of each event and is grouped by month</p>
+<p class="description"><p>Intended to show all events in a date range.</p><p>See <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a> for details.</p></p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Daniel Convissor &lt;<a href="mailto:danielc@analysisandsolutions.com">danielc@analysisandsolutions.com</a>&gt;</li>
 				<li><span class="field">copyright:</span> The Analysis and Solutions Company, 2002-2011</li>
-				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List_MonthTitle.html#methodget_rendering">CalendarSolution_List_MonthTitle::get_rendering()</a></li>
-				<li><span class="field">since:</span> Class available since version 3.0.0</li>
+				<li><span class="field">since:</span> Class available since version 3.0</li>
 				<li><span class="field">license:</span> <a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a></li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_include---CalendarSolution---List---MonthTitle.php.html">/include/CalendarSolution/List/MonthTitle.php</a> (line <span class="field">30</span>)
+			Located in <a class="field" href="_include---CalendarSolution---List---MonthTitle.php.html">/include/CalendarSolution/List/MonthTitle.php</a> (line <span class="field">28</span>)
 		</p>
 		
 				
@@ -170,7 +169,7 @@
 		<span class="var-title">
 			<span class="var-type">string</span>
 			<span class="var-name">$date_format</span>
-			 = <span class="var-default"> self::DATE_FORMAT_NAME_NUMBER</span>			(line <span class="line-number">38</span>)
+			 = <span class="var-default"> self::DATE_FORMAT_NAME_NUMBER</span>			(line <span class="line-number">36</span>)
 		</span>
 	</div>
 
@@ -194,7 +193,7 @@
 		<span class="var-title">
 			<span class="var-type">string</span>
 			<span class="var-name">$view</span>
-			 = <span class="var-default"> 'MonthTitle'</span>			(line <span class="line-number">44</span>)
+			 = <span class="var-default"> 'MonthTitle'</span>			(line <span class="line-number">42</span>)
 		</span>
 	</div>
 
@@ -274,7 +273,13 @@
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$show_cancelled">CalendarSolution_List::$show_cancelled</a></span><br>
 							</span>
 													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$show_location">CalendarSolution_List::$show_location</a></span><br>
+							</span>
+													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$show_own_events_first">CalendarSolution_List::$show_own_events_first</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$show_summary">CalendarSolution_List::$show_summary</a></span><br>
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$time_format">CalendarSolution_List::$time_format</a></span><br>
@@ -284,9 +289,6 @@
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$total_rows">CalendarSolution_List::$total_rows</a></span><br>
-							</span>
-													<span class="var-title">
-								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$uri">CalendarSolution_List::$uri</a></span><br>
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution_List.html#var$where_sql">CalendarSolution_List::$where_sql</a></span><br>
@@ -301,7 +303,16 @@
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$cache_available">CalendarSolution::$cache_available</a></span><br>
 							</span>
 													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$csrf_token_name">CalendarSolution::$csrf_token_name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$http_host">CalendarSolution::$http_host</a></span><br>
+							</span>
+													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$sql">CalendarSolution::$sql</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$uri">CalendarSolution::$uri</a></span><br>
 							</span>
 													<span class="var-title">
 								<span class="var-name"><a href="../CalendarSolution/CalendarSolution.html#var$use_cache">CalendarSolution::$use_cache</a></span><br>
@@ -328,7 +339,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_css_name</span> (line <span class="line-number">52</span>)
+		<span class="method-title">get_css_name</span> (line <span class="line-number">50</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -359,7 +370,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_event_formatted</span> (line <span class="line-number">110</span>)
+		<span class="method-title">get_event_formatted</span> (line <span class="line-number">108</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -391,7 +402,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_list_close</span> (line <span class="line-number">66</span>)
+		<span class="method-title">get_list_close</span> (line <span class="line-number">64</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -415,7 +426,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_list_open</span> (line <span class="line-number">59</span>)
+		<span class="method-title">get_list_open</span> (line <span class="line-number">57</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -439,7 +450,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_month_close</span> (line <span class="line-number">85</span>)
+		<span class="method-title">get_month_close</span> (line <span class="line-number">83</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -463,7 +474,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_month_open</span> (line <span class="line-number">73</span>)
+		<span class="method-title">get_month_open</span> (line <span class="line-number">71</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -492,30 +503,25 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_rendering</span> (line <span class="line-number">155</span>)
+		<span class="method-title">get_rendering</span> (line <span class="line-number">164</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Produces a list of events laid out in a list format, grouped by month</p>
-<p class="description"><p>Cascading Style Sheet notes:  the list is contained within  &quot;table.cs_list_monthtitle&quot;.  Each event is wrapped by a &quot;tr&quot;  element, which has multiple class attributes: <ul><li>Row: cs_row_0, cs_row_1</li><li>Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C</li><li>Changed: cs_changed_Y, cs_changed_N</li><li>Organizer: cs_is_own_event_Y, cs_is_own_event_N</li></ul></p></p>
+<p class="short-description">Produces a table of events showing their dates and names, grouped by  month</p>
+<p class="description"><p>Intended to show all events in a date range.</p><p>Defaults to showing all events between today and the last day of the  month two months from today.  The date range can be adjusted using  set_from() and set_to().</p><p>This method automatically checks web browsers' requests to determine  what data each user is looking for.  See  <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> for specifics.</p><p>Cascading Style Sheet notes:  the list is contained within  &quot;table.cs_list_monthtitle&quot;.  Each event is wrapped by a &quot;tr&quot;  element, which has multiple class attributes: <ul><li>Row: cs_row_0, cs_row_1</li><li>Status (Open, Full, Cancelled): cs_status_O, cs_status_F, cs_status_C</li><li>Changed: cs_changed_Y, cs_changed_N</li><li>Organizer: cs_is_own_event_Y, cs_is_own_event_N</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">return:</span> the HTML for displaying the events</li>
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_date_format">CalendarSolution_List::set_date_format()</a></li>
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_date_navigation">CalendarSolution_List::get_date_navigation()</a></li>
-				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_frist">CalendarSolution_List::set_show_own_events_frist()</a></li>
+				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_first">CalendarSolution_List::set_show_own_events_first()</a></li>
 				<li><span class="field">see:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodget_limit_form">CalendarSolution_List::get_limit_form()</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_where_sql">CalendarSolution_List::set_where_sql()</a> - to generate the WHERE
-       clause and cache keys</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a> - to determine the
        user's intention, but only if it has not been called yet</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodrun_query">CalendarSolution_List::run_query()</a> - to obtain non-cached data</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$cache">CalendarSolution::$cache</a> - to cache the output of the default view,
-       if possible</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_permit_future_months">CalendarSolution_List::set_permit_future_months()</a> - to limit how
-       far ahead people can see, but only if it has not been called yet</li>
 				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_permit_history_months">CalendarSolution_List::set_permit_history_months()</a> - to limit how
        far back people can see, but only if it has not been called yet</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_List.html#methodset_permit_future_months">CalendarSolution_List::set_permit_future_months()</a> - to limit how
+       far ahead people can see, but only if it has not been called yet</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -533,7 +539,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_row_close</span> (line <span class="line-number">100</span>)
+		<span class="method-title">get_row_close</span> (line <span class="line-number">98</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -557,7 +563,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get_row_open</span> (line <span class="line-number">93</span>)
+		<span class="method-title">get_row_open</span> (line <span class="line-number">91</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -610,10 +616,11 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_prior_and_next_dates">CalendarSolution_List::set_prior_and_next_dates()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_request_properties">CalendarSolution_List::set_request_properties()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_cancelled">CalendarSolution_List::set_show_cancelled()</a></span><br>
-													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_frist">CalendarSolution_List::set_show_own_events_frist()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_location">CalendarSolution_List::set_show_location()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_own_events_first">CalendarSolution_List::set_show_own_events_first()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_show_summary">CalendarSolution_List::set_show_summary()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_time_format">CalendarSolution_List::set_time_format()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_to">CalendarSolution_List::set_to()</a></span><br>
-													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_uri">CalendarSolution_List::set_uri()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_List.html#methodset_where_sql">CalendarSolution_List::set_where_sql()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
@@ -621,6 +628,7 @@
 					<blockquote>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#method__construct">CalendarSolution::__construct()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodescape_data_for_html">CalendarSolution::escape_data_for_html()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodescape_for_icalendar">CalendarSolution::escape_for_icalendar()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodflush_cache">CalendarSolution::flush_cache()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodformat_date">CalendarSolution::format_date()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_admin_navigation">CalendarSolution::get_admin_navigation()</a></span><br>
@@ -628,6 +636,7 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_css">CalendarSolution::get_css()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_date_from_request">CalendarSolution::get_date_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_errors">CalendarSolution::get_errors()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_int_array_from_request">CalendarSolution::get_int_array_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodget_string_from_request">CalendarSolution::get_string_from_request()</a></span><br>
@@ -635,6 +644,8 @@
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodis_cache_available">CalendarSolution::is_cache_available()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_data_empty">CalendarSolution::set_data_empty()</a></span><br>
 													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_data_from_post">CalendarSolution::set_data_from_post()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodset_uri">CalendarSolution::set_uri()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution.html#methodvalidate_csrf_token">CalendarSolution::validate_csrf_token()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -664,6 +675,10 @@
 							</span>
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_ICALENDAR">CalendarSolution::DATE_FORMAT_ICALENDAR</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_LONG">CalendarSolution::DATE_FORMAT_LONG</a></span><br>
 							</span>
 													<img src="../media/images/Variable.png" />
@@ -685,6 +700,10 @@
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
 								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_24">CalendarSolution::DATE_FORMAT_TIME_24</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../CalendarSolution/CalendarSolution.html#constDATE_FORMAT_TIME_ICALENDAR">CalendarSolution::DATE_FORMAT_TIME_ICALENDAR</a></span><br>
 							</span>
 													<img src="../media/images/Variable.png" />
 							<span class="const-title">
@@ -720,7 +739,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 16 Mar 2011 10:21:42 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 10 Jun 2011 08:46:37 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

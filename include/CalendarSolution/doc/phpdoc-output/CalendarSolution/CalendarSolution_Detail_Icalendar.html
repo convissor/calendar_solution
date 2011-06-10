@@ -3,21 +3,20 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class CalendarSolution_Category</title>
+			<title>Docs For Class CalendarSolution_Detail_Icalendar</title>
 			<link rel="stylesheet" href="../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 		</head>
 		<body>
 			<div class="page-body">			
-<h2 class="class-name">Class CalendarSolution_Category</h2>
+<h2 class="class-name">Class CalendarSolution_Detail_Icalendar</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
 	<div class="info-box-title">Description</div>
 	<div class="nav-bar">
 					<span class="disabled">Description</span> |
-							<a href="#sec-descendents">Descendents</a>
-			|											<a href="#sec-vars">Vars</a>
+													<a href="#sec-vars">Vars</a>
 						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 						
 											<a href="#sec-consts">Constants</a>
@@ -25,58 +24,28 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The parent class for viewing and editing a Category</p>
+<p class="short-description">The means to view a specific event in iCalendar format</p>
+<p class="description"><p>Formatting information came from http://tools.ietf.org/html/rfc5545</p></p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Daniel Convissor &lt;<a href="mailto:danielc@analysisandsolutions.com">danielc@analysisandsolutions.com</a>&gt;</li>
 				<li><span class="field">copyright:</span> The Analysis and Solutions Company, 2002-2011</li>
-				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">since:</span> Class available since version 3.3</li>
 				<li><span class="field">license:</span> <a href="http://www.analysisandsolutions.com/software/license.htm">Simple Public License</a></li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_include---CalendarSolution---Category.php.html">/include/CalendarSolution/Category.php</a> (line <span class="field">20</span>)
+			Located in <a class="field" href="_include---CalendarSolution---Detail---Icalendar.php.html">/include/CalendarSolution/Detail/Icalendar.php</a> (line <span class="field">24</span>)
 		</p>
 		
 				
 		<pre><a href="../CalendarSolution/CalendarSolution.html">CalendarSolution</a>
    |
-   --CalendarSolution_Category</pre>
+   --<a href="../CalendarSolution/CalendarSolution_Detail.html">CalendarSolution_Detail</a>
+      |
+      --CalendarSolution_Detail_Icalendar</pre>
 	
 			</div>
 </div>
 
-	<a name="sec-descendents"></a>
-	<div class="info-box">
-		<div class="info-box-title">Direct descendents</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-			<span class="disabled">Descendents</span>
-			|												<a href="#sec-vars">Vars</a>
-								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-															<a href="#sec-consts">Constants</a>
-							
-					</div>
-		<div class="info-box-body">
-			<table cellpadding="2" cellspacing="0" class="class-table">
-				<tr>
-					<th class="class-table-header">Class</th>
-					<th class="class-table-header">Description</th>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_Category_Form.html">CalendarSolution_Category_Form</a></td>
-					<td>
-											The means to edit a Category via an HTML form
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../CalendarSolution/CalendarSolution_Category_List.html">CalendarSolution_Category_List</a></td>
-					<td>
-											The means to output a list of Categories
-										</td>
-				</tr>
-							</table>
-		</div>
-	</div>
 
 
 
@@ -85,7 +54,6 @@
 		<div class="info-box-title">Method Summary</span></div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 															<a href="#sec-consts">Constants</a>
 							
 															<a href="#sec-vars">Vars</a>
@@ -95,17 +63,11 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																														
+																						
 				<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#run_query" title="details" class="method-name">run_query</a>
-											([<span class="var-type">int</span>&nbsp;<span class="var-name">$category_id</span> = <span class="var-default">null</span>])
-									</div>
-														
-				<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#set_data_from_query" title="details" class="method-name">set_data_from_query</a>
-											([<span class="var-type">int</span>&nbsp;<span class="var-name">$category_id</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$safe_markup</span> = <span class="var-default">true</span>])
+											<span class="method-result">string</span>
+										<a href="#get_rendering" title="details" class="method-name">get_rendering</a>
+											([<span class="var-type">int</span>&nbsp;<span class="var-name">$calendar_id</span> = <span class="var-default">null</span>])
 									</div>
 											</div>
 		</div>
@@ -116,7 +78,6 @@
 		<div class="info-box-title">Variables</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
 						
 			
@@ -166,7 +127,6 @@
 		<div class="info-box-title">Methods</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 															<a href="#sec-vars">Vars</a>
 																			<a href="#sec-consts">Constants</a>
 							
@@ -175,82 +135,49 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="methodrun_query" id="run_query"><!-- --></a>
+<a name="methodget_rendering" id="get_rendering"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">run_query</span> (line <span class="line-number">36</span>)
+		<span class="method-title">get_rendering</span> (line <span class="line-number">37</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Assembles the query string, executes it and stores the result in  $this-&gt;data</p>
+<p class="short-description">Produces the HTML to display the event the user wants to see</p>
 	<ul class="tags">
-				<li><span class="field">throws:</span> CalendarSolution_Exception on an invalid $category_id or if          no matching record is found</li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> SQLSolution_General::RunQuery() - to access the database</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_int_from_request">CalendarSolution::get_int_from_request()</a> - to determine the
-       user's intention</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			run_query
-		</span>
-					([<span class="var-type">int</span>&nbsp;<span class="var-name">$category_id</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$category_id</span><span class="var-description">: the id number of the item to get                                 (defaults to $_REQUEST['category_id'])</span>			</li>
-				</ul>
-		
-			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../CalendarSolution/CalendarSolution_Category_List.html#methodrun_query">CalendarSolution_Category_List::run_query()</a>
-								: Assembles the query string then executes it
-							</li>
-				</ul>
-	</div>
-<a name="methodset_data_from_query" id="set_data_from_query"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">set_data_from_query</span> (line <span class="line-number">70</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Populates $this-&gt;data with a record from the database</p>
-	<ul class="tags">
+				<li><span class="field">return:</span> the complete HTML of the desired event</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#var$data">CalendarSolution::$data</a> - to hold the data</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution_Detail.html#methodrun_query">CalendarSolution_Detail::run_query()</a> - to get the info from the
+       database if it hasn't been extracted yet</li>
+				<li><span class="field">uses:</span> <a href="../CalendarSolution/CalendarSolution.html#methodget_event_formatted_icalendar">CalendarSolution::get_event_formatted_icalendar()</a> - for formatting</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result">string</span>
 		<span class="method-name">
-			set_data_from_query
+			get_rendering
 		</span>
-					([<span class="var-type">int</span>&nbsp;<span class="var-name">$category_id</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$safe_markup</span> = <span class="var-default">true</span>])
+					([<span class="var-type">int</span>&nbsp;<span class="var-name">$calendar_id</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
 				<span class="var-type">int</span>
-				<span class="var-name">$category_id</span><span class="var-description">: the id number of the item to get</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$safe_markup</span><span class="var-description">: should Safe Markup be converted to HTML?</span>			</li>
+				<span class="var-name">$calendar_id</span><span class="var-description">: the id number of the item to get (defaults to                           $_REQUEST['calendar_id'])</span>			</li>
 				</ul>
 		
 			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../CalendarSolution/CalendarSolution_Detail.html">CalendarSolution_Detail</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_Detail.html#methodget_array_from_bitwise">CalendarSolution_Detail::get_array_from_bitwise()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_Detail.html#methodget_bitwise_from_array">CalendarSolution_Detail::get_bitwise_from_array()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_Detail.html#methodrun_query">CalendarSolution_Detail::run_query()</a></span><br>
+													<span class="method-name"><a href="../CalendarSolution/CalendarSolution_Detail.html#methodset_data_from_query">CalendarSolution_Detail::set_data_from_query()</a></span><br>
+											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../CalendarSolution/CalendarSolution.html">CalendarSolution</a></span></p>
 					<blockquote>
@@ -284,7 +211,6 @@
 		<div class="info-box-title">Class Constants</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendants</a> |
 										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
 						
 			
@@ -368,7 +294,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 10 Jun 2011 08:46:34 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 10 Jun 2011 08:46:36 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
