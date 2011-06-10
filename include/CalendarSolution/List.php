@@ -194,13 +194,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $total_rows;
 
 	/**
-	 * Data from the REQUEST_URI broken into an associative array containing
-	 * the 'path' as a string and the 'query' broken into a sub-array
-	 * @var array
-	 */
-	protected $uri;
-
-	/**
 	 * The SQL WHERE clause for the current view
 	 * @var string
 	 */
@@ -221,7 +214,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$interval_spec  is set based on the
 	 *       "$months" parameter; is used later when creating new
 	 *       DateIntervalSolution objects
-	 * @uses CalendarSolution_List::set_uri()  to set the "$uri" property
+	 * @uses CalendarSolution::set_uri()  to set the "$uri" property
 	 */
 	public function __construct($months = 3, $dbms = CALENDAR_SOLUTION_DBMS) {
 		parent::__construct($dbms);
@@ -306,7 +299,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
 	 * @uses CalendarSolution_List::$from  to know the current from date
 	 * @uses CalendarSolution_List::$to  to know the current to date
-	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 * @uses CalendarSolution::$uri  to know the current URI
 	 *
 	 * @throws CalendarSolution_Exception if not in Calendar or List view
 	 *
@@ -389,7 +382,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$prior_to  for the "prior" link's to date
 	 * @uses CalendarSolution_List::$next_from  for the "next" link's from date
 	 * @uses CalendarSolution_List::$next_to  for the "next" link's to date
-	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 * @uses CalendarSolution::$uri  to know the current URI
 	 *
 	 * @since Method available since version 3.0
 	 */
@@ -470,7 +463,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       earliest value in the "datelist" dropdown boxes
 	 * @uses CalendarSolution_List::$permit_future_date  to determine the
 	 *       latest value in the "datelist" dropdown boxes
-	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 * @uses CalendarSolution::$uri  to know the current URI
 	 * @uses CalendarSolution_List::set_request_properties()  to determine the
 	 *       users intentions
 	 *
@@ -677,7 +670,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *                 called, an empty string if not
 	 *
 	 * @see CalendarSolution_List::set_limit()
-	 * @uses CalendarSolution_List::$uri  to know the current URI
+	 * @uses CalendarSolution::$uri  to know the current URI
 	 *
 	 * @since Method available since version 3.0
 	 */
@@ -1487,24 +1480,6 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		if ($this->permit_future_date && $this->to > $this->permit_future_date) {
 			$this->to = $this->permit_future_date;
-		}
-	}
-
-	/**
-	 * Breaks up the REQUEST_URI into usable parts
-	 *
-	 * @return void
-	 *
-	 * @uses CalendarSolution_List::$uri  to store the data
-	 */
-	protected function set_uri() {
-		$this->uri = array('path' => '', 'query' => array());
-		if (!empty($_SERVER['REQUEST_URI'])) {
-			$request = explode('?', $_SERVER['REQUEST_URI']);
-			$this->uri['path'] = empty($request[0]) ? '' : $request[0];
-			if (!empty($request[1])) {
-				parse_str($request[1], $this->uri['query']);
-			}
 		}
 	}
 

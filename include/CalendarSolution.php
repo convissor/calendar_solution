@@ -105,6 +105,13 @@ class CalendarSolution {
 	protected $sql;
 
 	/**
+	 * Data from the REQUEST_URI broken into an associative array containing
+	 * the 'path' as a string and the 'query' broken into a sub-array
+	 * @var array
+	 */
+	protected $uri;
+
+	/**
 	 * Should the current request use caching?
 	 * @var bool
 	 */
@@ -631,6 +638,25 @@ class CalendarSolution {
 			}
 		}
 		$this->data['set_from'] = 'post';
+	}
+
+	/**
+	 * Breaks up the REQUEST_URI into usable parts
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution::$uri  to store the data
+	 * @since Method moved to CalendarSolution class in version 3.3
+	 */
+	protected function set_uri() {
+		$this->uri = array('path' => '', 'query' => array());
+		if (!empty($_SERVER['REQUEST_URI'])) {
+			$request = explode('?', $_SERVER['REQUEST_URI']);
+			$this->uri['path'] = empty($request[0]) ? '' : $request[0];
+			if (!empty($request[1])) {
+				parse_str($request[1], $this->uri['query']);
+			}
+		}
 	}
 
 	/**
