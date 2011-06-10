@@ -8,8 +8,7 @@ REQUIREMENTS
   + MySQL
   + PostgreSQL
   + SQLite, version 2 or 3
-* The PHP 5.2 or later with the extension for the database system being
-used:
+* PHP 5.2 or later with the extension for the database system being used:
   + mysql
   + mysqli
   + pgsql

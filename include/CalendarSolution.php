@@ -105,6 +105,13 @@ class CalendarSolution {
 	protected $sql;
 
 	/**
+	 * Data from the REQUEST_URI broken into an associative array containing
+	 * the 'path' as a string and the 'query' broken into a sub-array
+	 * @var array
+	 */
+	protected $uri;
+
+	/**
 	 * Should the current request use caching?
 	 * @var bool
 	 */
@@ -440,9 +447,11 @@ class CalendarSolution {
 		}
 
 		if (!empty($event['calendar_uri'])) {
-			$out .= 'URL:' . $event['calendar_uri'] . "\r\n";
+			$out .= 'URL:' . $this->escape_for_icalendar(
+				$event['calendar_uri']) . "\r\n";
 		} elseif (!empty($event['frequent_event_uri'])) {
-			$out .= 'URL:' . $event['frequent_event_uri'] . "\r\n";
+			$out .= 'URL:' . $this->escape_for_icalendar(
+				$event['frequent_event_uri']) . "\r\n";
 		}
 
 		if (!empty($event['category'])) {
@@ -634,17 +643,65 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Breaks up the REQUEST_URI into usable parts
+	 *
+	 * @return void
+	 *
+	 * @uses CalendarSolution::$uri  to store the data
+	 * @since Method moved to CalendarSolution class in version 3.3
+	 */
+	protected function set_uri() {
+		$this->uri = array('path' => '', 'query' => array());
+		if (!empty($_SERVER['REQUEST_URI'])) {
+			$request = explode('?', $_SERVER['REQUEST_URI']);
+			$this->uri['path'] = empty($request[0]) ? '' : $request[0];
+			if (!empty($request[1])) {
+				parse_str($request[1], $this->uri['query']);
+			}
+		}
+	}
+
+	/**
 	 * Checks the Cross Site Request Forgery token to improve security
 	 *
 	 * @return void
 	 * @throws CalendarSolution_Exception  if the proper CSRF token is missing
 	 */
 	protected function validate_csrf_token() {
-		if (empty($_SESSION[$this->csrf_token_name])
-			|| empty($_POST[$this->csrf_token_name])
-			|| $_SESSION[$this->csrf_token_name] != $_POST[$this->csrf_token_name])
-		{
-			throw new CalendarSolution_Exception('Edits must use our forms');
+		if (empty($_SESSION[$this->csrf_token_name])) {
+			// Token missing from session...
+
+			$session_name = session_name();
+
+			if (empty($_COOKIE[$session_name])) {
+				// ... and the session ID cookie doesn't exist...
+				if (ini_get('session.use_only_cookies')) {
+					// ... but the session cookie should exist.
+					throw new CalendarSolution_Exception(
+						'Please enable cookies');
+				} else {
+					// ... well, the server isn't forcing session cookies...
+					if (empty($_POST[$session_name])) {
+						// ... and the session ID isn't in the POST, either.
+						throw new CalendarSolution_Exception('Invalid POST');
+					} else {
+						// ... and the session ID is in the POST.
+						throw new CalendarSolution_Exception(
+							'Token missing from post session');
+					}
+				}
+			} else {
+				// ... but session cookie exists.
+				throw new CalendarSolution_Exception(
+					'Token missing from cookie session');
+			}
+		}
+
+		if (empty($_POST[$this->csrf_token_name])) {
+			throw new CalendarSolution_Exception('Token missing from post');
+		}
+		if ($_SESSION[$this->csrf_token_name] != $_POST[$this->csrf_token_name]) {
+			throw new CalendarSolution_Exception('Invalid token');
 		}
 	}
 }
