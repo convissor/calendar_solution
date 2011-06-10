@@ -447,9 +447,11 @@ class CalendarSolution {
 		}
 
 		if (!empty($event['calendar_uri'])) {
-			$out .= 'URL:' . $event['calendar_uri'] . "\r\n";
+			$out .= 'URL:' . $this->escape_for_icalendar(
+				$event['calendar_uri']) . "\r\n";
 		} elseif (!empty($event['frequent_event_uri'])) {
-			$out .= 'URL:' . $event['frequent_event_uri'] . "\r\n";
+			$out .= 'URL:' . $this->escape_for_icalendar(
+				$event['frequent_event_uri']) . "\r\n";
 		}
 
 		if (!empty($event['category'])) {
