@@ -290,6 +290,7 @@ parts of the PHP code into your own web pages.
 
 In addition, the "calendar/" directory includes examples of how to use
 the other output formats:
++ example-detailtable.php
 + example-monthtitle.php
 + example-quicktable.php
 + example-title.php
