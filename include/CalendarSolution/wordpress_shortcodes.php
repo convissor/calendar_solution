@@ -7,6 +7,7 @@
  *
  * <ul>
  * <li> calendar_solution_calendar: {@link calendar_solution_calendar()}</li>
+ * <li> calendar_solution_detailtable: {@link calendar_solution_detailtable()}</li>
  * <li> calendar_solution_list: {@link calendar_solution_list()}</li>
  * <li> calendar_solution_monthtitle: {@link calendar_solution_monthtitle()}</li>
  * <li> calendar_solution_quicktable: {@link calendar_solution_quicktable()}</li>
@@ -114,6 +115,44 @@ function calendar_solution_calendar($atts) {
 		if (!empty($atts['show_location'])) {
 			$atts['show_location'] = calendar_solution_parameter_casting($atts['show_location']);
 			$calendar->set_show_location($atts['show_location']);
+		}
+
+		$out = calendar_solution_navigation_top($calendar, $atts);
+		$out .= $calendar->get_rendering();
+		$out .= calendar_solution_navigation_bottom($calendar, $atts);
+		return $out;
+	} catch (Exception $e) {
+		return 'CALENDAR SOLUTION EXCEPTION: ' . $e->getMessage();
+	}
+}
+
+/**
+ * Shortcode handler for producing a table of events showing details
+ * about each entry
+ *
+ * See {@link CalendarSolution_List_DetailTable::get_rendering()} for more
+ * details regarding this format.
+ *
+ * See {@link wordpress_shortcodes.php} for a list of
+ * attributes that can be used with this shortcode.
+ *
+ * This shortcode has additional optional attributes:
+ * + show_time_end: {@link CalendarSolution_List::set_show_time_end()}
+ *
+ * @param array $atts  the attributes used in the current shortcode call
+ * @return string  the desired HTML
+ *
+ * @since Function available since version 3.4
+ */
+add_shortcode('calendar_solution_detailtable', 'calendar_solution_detailtable');
+function calendar_solution_detailtable($atts) {
+	try {
+		$calendar = new CalendarSolution_List_DetailTable;
+
+		calendar_solution_list_attribute_handler($calendar, $atts);
+		if (array_key_exists('show_time_end', $atts)) {
+			$atts['show_time_end'] = calendar_solution_parameter_casting($atts['show_time_end']);
+			$calendar->set_show_time_end($atts['show_time_end']);
 		}
 
 		$out = calendar_solution_navigation_top($calendar, $atts);

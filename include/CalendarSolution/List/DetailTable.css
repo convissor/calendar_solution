@@ -1,0 +1,34 @@
+table.cs_list_detailtable,
+table.cs_list_detailtable th,
+table.cs_list_detailtable td {
+ border: thin solid black;
+ border-collapse: collapse;
+}
+
+table.cs_list_detailtable td {
+ padding: 0.25em;
+ vertical-align: top;
+}
+
+table.cs_list_detailtable td.cs_day,
+table.cs_list_detailtable td.cs_time {
+ white-space: nowrap;
+}
+
+/* status: O = Open, F = Full, C = Cancelled */
+table.cs_list_detailtable tr.cs_changed_Y,
+table.cs_list_detailtable tr.cs_status_C {
+ background-color: #FFCC66;
+}
+
+div.cs_limit_navigation {
+ font-size: 0.7em;
+ padding: 1em 0 2em 0;
+ line-height: 0;
+}
+div.cs_prior {
+ text-align: left;
+}
+div.cs_next {
+ text-align: right;
+}

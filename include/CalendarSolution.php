@@ -19,6 +19,7 @@
  *
  * @see CalendarSolution_List::factory_chosen_view()
  * @see CalendarSolution_List_Calendar::get_rendering()
+ * @see CalendarSolution_List_DetailTable::get_rendering()
  * @see CalendarSolution_List_List::get_rendering()
  * @see CalendarSolution_List_MonthTitle::get_rendering()
  * @see CalendarSolution_List_QuickTable::get_rendering()
