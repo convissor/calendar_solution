@@ -54,7 +54,7 @@ class DateTimeSolution_Diff extends DateTime {
 	 * @return DateIntervalSolution  the interval object representing the
 	 *                               difference between the two dates
 	 */
-	public function diff(DateTimeSolution $datetime, $absolute = false) {
+	public function diff($datetime, $absolute = false) {
 		$one = new StdClass;
 		$one->y = $this->format('Y');
 		$one->m = $this->format('n');
