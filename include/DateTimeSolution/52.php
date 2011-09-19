@@ -58,7 +58,7 @@ class DateTimeSolution_52 extends DateTimeSolution_Diff {
 	 *
 	 * @return DateTimeSolution
 	 */
-	public function add(DateIntervalSolution $interval) {
+	public function add($interval) {
 		if ($interval->invert) {
 			$absolute = clone $interval;
 			$absolute->invert = 0;
@@ -95,7 +95,7 @@ class DateTimeSolution_52 extends DateTimeSolution_Diff {
 	 *
 	 * @return DateTimeSolution
 	 */
-	public function sub(DateIntervalSolution $interval) {
+	public function sub($interval) {
 		if ($interval->invert) {
 			$absolute = clone $interval;
 			$absolute->invert = 0;
