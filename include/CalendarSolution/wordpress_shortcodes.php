@@ -15,7 +15,9 @@
  * <li> calendar_solution_ul: {@link calendar_solution_ul()}</li>
  * </ul>
  *
- * The Attributes available for use with these Shortcodes are...
+ * The following Attributes are available for use with all Shortcodes.
+ * Some formats have additional Attributes; see the documentation for each
+ * function for more details.
  *
  * <ul>
  * <li> Attributes to get data by ID:  <ul>
