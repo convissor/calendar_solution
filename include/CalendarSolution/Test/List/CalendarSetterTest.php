@@ -84,6 +84,9 @@ class CalendarSolution_Test_List_CalendarSetterTest extends PHPUnit_Framework_Te
 	 * set_prior_and_next_dates()
 	 */
 	public function test_prior_and_next_dates() {
+		// Prevent test from failing in the future.
+		$this->calendar->set_permit_history_months(false);
+
 		$this->calendar->set_from('2011-02-01');
 		$this->calendar->set_to('2011-04-30');
 		$this->calendar->set_prior_and_next_dates();

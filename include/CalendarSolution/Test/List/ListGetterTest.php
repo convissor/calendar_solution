@@ -172,6 +172,9 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_date_navigation() {
+		// Prevent test from failing in the future.
+		$this->calendar->set_permit_history_months(false);
+
 		$this->calendar->set_from('2011-02-01');
 		$this->calendar->set_to('2011-04-30');
 		$actual = $this->calendar->get_date_navigation();
@@ -180,6 +183,9 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_date_navigation_parameters() {
+		// Prevent test from failing in the future.
+		$this->calendar->set_permit_history_months(false);
+
 		$this->calendar->set_from('2011-02-01');
 		$this->calendar->set_to('2011-04-30');
 		$actual = $this->calendar->get_date_navigation('PRIOR', 'NEXT');
@@ -201,6 +207,8 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	public function test_get_date_navigation_future_0() {
 		$this->calendar = new CalendarSolution_Test_List_ListHelper(1);
 		$this->calendar->permit_future_date = new DateTimeSolution('2011-02-28');
+		// Prevent test from failing in the future.
+		$this->calendar->set_permit_history_months(false);
 
 		$this->calendar->set_from('2011-02-01');
 		$this->calendar->set_to('2011-02-28');
@@ -210,6 +218,9 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_date_navigation_uri() {
+		// Prevent test from failing in the future.
+		$this->calendar->set_permit_history_months(false);
+
 		$_SERVER['REQUEST_URI'] = 'p?q=v';
 		$this->calendar->set_uri();
 
@@ -222,6 +233,9 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->assertEquals($expect, $actual);
 	}
 	public function test_get_date_navigation_properties() {
+		// Prevent test from failing in the future.
+		$this->calendar->set_permit_history_months(false);
+
 		$this->calendar->set_category_id(2);
 		$this->calendar->set_frequent_event_id(2);
 
