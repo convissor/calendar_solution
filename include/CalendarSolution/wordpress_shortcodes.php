@@ -81,7 +81,7 @@
  * @internal Uses dirname(__FILE__) because "./" can be stripped by PHP's
  * safety settings and __DIR__ was introduced in PHP 5.3.
  */
-require dirname(__FILE__) . '/../calendar_solution_settings.php';
+require dirname(dirname(__FILE__)) . '/calendar_solution_settings.php';
 
 
 /*
