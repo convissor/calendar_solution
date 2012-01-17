@@ -27,7 +27,7 @@ INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
   VALUES (3, 'Frequent Event URL');
 INSERT INTO cs_list_link_goes_to (list_link_goes_to_id, list_link_goes_to)
-  VALUES (4, 'Calendar URL');
+  VALUES (4, 'Specific URL (above)');
 COMMIT;
 
 CREATE TABLE cs_power_of_two (
