@@ -715,6 +715,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @param array $event  the associative array of the current item
 	 *
 	 * @return string  the hyperlink and/or title
+	 *
+	 * @uses CALENDAR_SOLUTION_LINK_PATH  for pointing links to the
+	 *       calendar-detail.php page in the right direction
 	 */
 	public function get_link($event) {
 		if ($this->is_admin()) {
@@ -722,7 +725,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		} else {
 			switch ($event['list_link_goes_to_id']) {
 				case self::LINK_TO_DETAIL_PAGE:
-					$uri = 'calendar-detail.php?calendar_id=' . $event['calendar_id'];
+					$uri = CALENDAR_SOLUTION_LINK_PATH
+						. 'calendar-detail.php?calendar_id='
+						. $event['calendar_id'];
 					break;
 				case self::LINK_TO_FREQUENT_EVENT_URI:
 					$uri = $event['frequent_event_uri'];

@@ -20,13 +20,24 @@
  */
 define('CALENDAR_SOLUTION_DBMS', '');
 
-
 /**
  * The HTTP_HOST string used if $_SERVER['HTTP_HOST'] is empty
  * @see CalendarSolution::$http_host
  */
 define('CALENDAR_SOLUTION_HTTP_HOST', 'localhost');
 
+/**
+ * The full website path to the directory containing the
+ * calendar-detail.php page
+ *
+ * Needed when embedding calendars into your own web pages.
+ *
+ * If you put the calendar directory in the root directory of your website,
+ * set this to "/calendar/".
+ *
+ * NOTE: Put a trailing slash at the end of this one!
+ */
+define('CALENDAR_SOLUTION_LINK_PATH', '');
 
 /**
  * Cache server connection information, if any
