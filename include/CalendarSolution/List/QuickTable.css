@@ -18,6 +18,7 @@ table.cs_list_quicktable td.cs_time {
 /* status: O = Open, F = Full, C = Cancelled */
 table.cs_list_quicktable tr.cs_changed_Y,
 table.cs_list_quicktable tr.cs_status_C {
+ color: black;
  background-color: #FFCC66;
 }
 
