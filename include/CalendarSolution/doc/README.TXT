@@ -9,6 +9,9 @@ on most web servers.
 * Installation instructions are in the INSTALL.TXT file in
 this directory.
 
+* Upgrading instructions are in the UPGRADE.TXT file in
+this directory.
+
 * Complete documentation about the inner workings of the PHP
 code can be found by opening ./phpdoc-output/index.html
 in a web browser.  That output is based on the documentation
