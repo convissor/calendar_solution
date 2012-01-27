@@ -68,7 +68,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 	/**
 	 * The frequent event id to not show events for
-	 * @var int
+	 * @var array
 	 */
 	protected $frequent_event_id_not;
 
@@ -310,7 +310,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$category_id  to know the current category
 	 * @uses CalendarSolution_List::$category_id_not  to know the current
 	 *       categories to not show
-	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
+	 * @uses CalendarSolution_List::$frequent_event_id  to know the current
+	 *       event
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to know the current
+	 *       event to not show
 	 * @uses CalendarSolution_List::$from  to know the current from date
 	 * @uses CalendarSolution_List::$to  to know the current to date
 	 * @uses CalendarSolution::$uri  to know the current URI
@@ -334,6 +337,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				? null : $this->category_id_not;
 		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
 				? null : $this->frequent_event_id;
+		$uri['query']['frequent_event_id_not'] = empty($this->frequent_event_id_not)
+				? null : $this->frequent_event_id_not;
 		$uri['query']['from'] = empty($this->from)
 				? null : $this->from->format('Y-m-d');
 		$uri['query']['to'] = empty($this->to)
@@ -393,7 +398,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$category_id  to know the current category
 	 * @uses CalendarSolution_List::$category_id_not  to know the current
 	 *       categories to not show
-	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
+	 * @uses CalendarSolution_List::$frequent_event_id  to know the current
+	 *       event
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to know the current
+	 *       events to not show
 	 * @uses CalendarSolution_List::$from  to know the current from date
 	 * @uses CalendarSolution_List::$to  to know the current to date
 	 * @uses CalendarSolution_List::$prior_from  for the "prior" link's from date
@@ -431,6 +439,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				? null : $this->category_id_not;
 		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
 				? null : $this->frequent_event_id;
+		$uri['query']['frequent_event_id_not'] = empty($this->frequent_event_id_not)
+				? null : $this->frequent_event_id_not;
 		$uri['query']['view'] = $this->view;
 
 		$uri['query']['from'] = $this->prior_from->format('Y-m-d');
@@ -1048,6 +1058,46 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Sets the "frequent_event_id_not" property to the appropriate value
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['frequent_event_id_not']
+	 *                   though set it to FALSE if it is not set or invalid
+	 *                   + FALSE = set the value to FALSE
+	 *                   + integer = an integer, falling back to FALSE if
+	 *                   the input is is invalid
+	 *                   + array of integers = if each element is not an integer
+	 *                   then the value will be set to FALSE
+	 * @return void
+	 *
+	 * @uses CalendarSolution::get_int_array_from_request()  to determine the
+	 *       user's intention
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to store the data
+	 *
+	 * @since Method available since version 3.7
+	 */
+	public function set_frequent_event_id_not($in = null) {
+		if ($in === null) {
+			$out = $this->get_int_array_from_request('frequent_event_id_not');
+		} else {
+			if (!is_array($in)) {
+				$in = array($in);
+			}
+			$out = array();
+			foreach ($in as $value) {
+				if (!is_scalar($value)
+					|| !preg_match('/^\d{1,10}$/', $value))
+				{
+					$this->frequent_event_id = false;
+					return;
+				}
+				$out[] = $value;
+			}
+		}
+
+		$this->frequent_event_id_not = $out;
+	}
+
+	/**
 	 * Sets the "from" property
 	 *
 	 * CalendarSolution_List::set_from() defaults to today.
@@ -1403,6 +1453,10 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->set_frequent_event_id();
 		}
 
+		if ($this->frequent_event_id_not === null) {
+			$this->set_frequent_event_id_not();
+		}
+
 		if ($this->is_own_event === null) {
 			$this->set_is_own_event();
 		}
@@ -1571,6 +1625,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       categories if so desired
 	 * @uses CalendarSolution_List::$frequent_event_id  to limit entries to a
 	 *       particular event if so desired
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to leave off
+	 *       particular frequent events if so desired
 	 * @uses CalendarSolution_List::$is_own_event  to limit entries to those
 	 *       sponsored by you or those that are not
 	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
@@ -1612,6 +1668,11 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if ($this->frequent_event_id) {
 			$where[] = "cs_calendar.frequent_event_id = "
 				. (int) $this->frequent_event_id;
+		}
+
+		if ($this->frequent_event_id_not) {
+			$where[] = "cs_calendar.frequent_event_id NOT IN ("
+				. implode(', ', $this->frequent_event_id_not) . ")";
 		}
 
 		if ($this->is_own_event) {
