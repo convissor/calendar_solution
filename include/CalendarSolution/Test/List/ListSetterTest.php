@@ -86,6 +86,56 @@ class CalendarSolution_Test_List_ListSetterTest extends PHPUnit_Framework_TestCa
 	/**#@-*/
 
 	/**#@+
+	 * set_category_id_not()
+	 */
+	public function test_category_id_not_request_good_array() {
+		$_REQUEST = array('category_id_not' => array(2, 3));
+		$this->calendar->set_category_id_not();
+		$this->assertEquals(array(2, 3), $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_input_good_array() {
+		$_REQUEST = array('category_id_not' => array(2, 3));
+		$this->calendar->set_category_id_not(array(4, 5));
+		$this->assertEquals(array(4, 5), $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_request_good_int() {
+		$_REQUEST = array('category_id_not' => 2);
+		$this->calendar->set_category_id_not();
+		$this->assertEquals(array(2), $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_input_good_int() {
+		$_REQUEST = array('category_id_not' => 2);
+		$this->calendar->set_category_id_not(4);
+		$this->assertEquals(array(4), $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_input_false() {
+		$_REQUEST = array('category_id_not' => 2);
+		$this->calendar->set_category_id_not(false);
+		$this->assertEquals(false, $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_request_bad_array() {
+		$_REQUEST = array('category_id_not' => array('some string'));
+		$this->calendar->set_category_id_not();
+		$this->assertEquals(false, $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_input_bad_array() {
+		$_REQUEST = array('category_id_not' => array('some string'));
+		$this->calendar->set_category_id_not(array('some string'));
+		$this->assertEquals(false, $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_request_bad_int() {
+		$_REQUEST = array('category_id_not' => 'some string');
+		$this->calendar->set_category_id_not();
+		$this->assertEquals(false, $this->calendar->category_id_not);
+	}
+	public function test_category_id_not_input_bad_int() {
+		$_REQUEST = array('category_id_not' => 'some string');
+		$this->calendar->set_category_id_not('some string');
+		$this->assertEquals(false, $this->calendar->category_id_not);
+	}
+	/**#@-*/
+
+	/**#@+
 	 * set_frequent_event_id()
 	 */
 	public function test_frequent_event_id_request_good() {

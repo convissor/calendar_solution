@@ -143,6 +143,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 	}
 	public function test_get_change_view_properties() {
 		$this->calendar->set_category_id(2);
+		$this->calendar->set_category_id_not(4);
 		$this->calendar->set_frequent_event_id(2);
 
 		$this->calendar->set_from('2001-01-01');
@@ -151,7 +152,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$actual = $this->calendar->get_change_view();
 		$expect = $this->get_change_view_expected('View the events in ',
 			'calendar', ' format', '2001-01-01', '2001-01-31',
-			'?category_id%5B0%5D=2&amp;frequent_event_id=2&amp;');
+			'?category_id%5B0%5D=2&amp;category_id_not%5B0%5D=4&amp;frequent_event_id=2&amp;');
 		$this->assertEquals($expect, $actual);
 	}
 	/**#@-*/
@@ -237,6 +238,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$this->calendar->set_permit_history_months(false);
 
 		$this->calendar->set_category_id(2);
+		$this->calendar->set_category_id_not(4);
 		$this->calendar->set_frequent_event_id(2);
 
 		$this->calendar->set_from('2011-02-01');
@@ -244,7 +246,7 @@ class CalendarSolution_Test_List_ListGetterTest extends PHPUnit_Framework_TestCa
 		$actual = $this->calendar->get_date_navigation();
 		$expect = $this->get_date_navigation_expected(
 				'2010-11-01', '2011-01-31', '2011-05-01', '2011-07-31',
-				'?category_id%5B0%5D=2&amp;frequent_event_id=2&amp;view=List&amp;');
+				'?category_id%5B0%5D=2&amp;category_id_not%5B0%5D=4&amp;frequent_event_id=2&amp;view=List&amp;');
 		$this->assertEquals($expect, $actual);
 	}
 	/**#@-*/
