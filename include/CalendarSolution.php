@@ -214,6 +214,61 @@ class CalendarSolution {
 	}
 
 	/**
+	 * Turns fancy characters such as "smart quotes" into ASCII equivalents
+	 *
+	 * @param string $in  the data to be sanitize
+	 * @return string  the sanitized data
+	 *
+	 * @since Method available since version 3.7
+	 */
+	protected function convert_fancy_characters($in) {
+		static $search, $replace;
+
+		if (!isset($search)) {
+			$search = array(
+				'/\x96/',
+				'/\x97/',
+				'/\x91/',
+				'/\x92/',
+				'/\x93/',
+				'/\x94/',
+				'/\x85/',
+				'/\x95/',
+				'/\x09/',
+
+				// The order of these is very important.
+				'/\xC2\xBC/',
+				'/\xBC/',
+				'/\xC2\xBD/',
+				'/\xBD/',
+				'/\xC2\xBE/',
+				'/\xBE/',
+			);
+
+			$replace = array(
+				'-',
+				'--',
+				"'",
+				"'",
+				'"',
+				'"',
+				'...',
+				'*',
+				' ',
+
+				'1/4',
+				'1/4',
+				'1/2',
+				'1/2',
+				'3/4',
+				'3/4',
+			);
+		}
+
+		return preg_replace($search, $replace, $in);
+	}
+
+	/**
 	 * Sanitizes the input for iCalendar formats
 	 *
 	 * The steps are:
@@ -608,31 +663,31 @@ class CalendarSolution {
 		foreach ($this->fields as $field) {
 			if (array_key_exists($field, $_POST)) {
 				if (in_array($field, $this->fields_bitwise)) {
+					// Bitwise field.
+					$this->data[$field] = array();
 					if (is_array($_POST[$field])) {
 						foreach ($_POST[$field] as $key => $value) {
-							if (is_scalar($value)) {
-								$this->data[$field][$key] = trim($_POST[$field][$key]);
-								if ($this->data[$field][$key] === '') {
-									$this->data[$field][$key] = null;
-								}
-							} else {
-								$this->data[$field][$key] = null;
+							if (ctype_digit($value)) {
+								$this->data[$field][] = $value;
 							}
 						}
-					} else {
-						$this->data[$field] = array();
 					}
 				} else {
+					// Normal field.
 					if (is_scalar($_POST[$field])) {
 						$this->data[$field] = trim($_POST[$field]);
 						if ($this->data[$field] === '') {
 							$this->data[$field] = null;
+						} else {
+							$this->data[$field] =
+								$this->convert_fancy_characters($this->data[$field]);
 						}
 					} else {
 						$this->data[$field] = null;
 					}
 				}
 			} else {
+				// Field not submitted.
 				if (in_array($field, $this->fields_bitwise)) {
 					$this->data[$field] = array();
 				} else {
