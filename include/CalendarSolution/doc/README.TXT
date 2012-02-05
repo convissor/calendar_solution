@@ -19,3 +19,7 @@ block comments found in each PHP script.  The transformation
 from comments to human-readable format was performed by
 running the ./compile_phpdoc_html.sh script, which utilizes
 phpDocumentor.
+
+* Unit tests are available in the Tests directory.  To run all tests:
+	cd Tests
+	phpunit .
