@@ -64,6 +64,18 @@ class CalendarSolution_Test_WindowsCharacterTest extends PHPUnit_Framework_TestC
 		$actual = $this->calendar->convert_windows_characters("\x97");
 		$this->assertEquals('--', $actual);
 	}
+	public function test_tm() {
+		$actual = $this->calendar->convert_windows_characters("\x99");
+		$this->assertEquals('(tm)', $actual);
+	}
+	public function test_copyright() {
+		$actual = $this->calendar->convert_windows_characters("\xA9");
+		$this->assertEquals('(c)', $actual);
+	}
+	public function test_registered() {
+		$actual = $this->calendar->convert_windows_characters("\xAE");
+		$this->assertEquals('(r)', $actual);
+	}
 	public function test_quarter() {
 		$actual = $this->calendar->convert_windows_characters("\xBC");
 		$this->assertEquals('1/4', $actual);

@@ -238,6 +238,10 @@ class CalendarSolution {
 				'/\x96/',
 				'/\x97/',
 
+				'/\x99/',
+				'/\xA9/',
+				'/\xAE/',
+
 				'/\xBC/',
 				'/\xBD/',
 				'/\xBE/',
@@ -254,6 +258,10 @@ class CalendarSolution {
 				'*',
 				'-',
 				'--',
+
+				'(tm)',
+				'(c)',
+				'(r)',
 
 				'1/4',
 				'1/2',
