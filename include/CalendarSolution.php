@@ -214,53 +214,49 @@ class CalendarSolution {
 	}
 
 	/**
-	 * Turns fancy characters such as "smart quotes" into ASCII equivalents
+	 * Turns "fancy" windows-1252 character set characters into ASCII
+	 * equivalents
 	 *
 	 * @param string $in  the data to be sanitize
 	 * @return string  the sanitized data
 	 *
 	 * @since Method available since version 3.7
 	 */
-	protected function convert_fancy_characters($in) {
+	protected function convert_windows_characters($in) {
 		static $search, $replace;
 
 		if (!isset($search)) {
 			$search = array(
-				'/\x96/',
-				'/\x97/',
+				'/\x09/',
+				'/\x85/',
+
 				'/\x91/',
 				'/\x92/',
 				'/\x93/',
 				'/\x94/',
-				'/\x85/',
 				'/\x95/',
-				'/\x09/',
+				'/\x96/',
+				'/\x97/',
 
-				// The order of these is very important.
-				'/\xC2\xBC/',
 				'/\xBC/',
-				'/\xC2\xBD/',
 				'/\xBD/',
-				'/\xC2\xBE/',
 				'/\xBE/',
 			);
 
 			$replace = array(
+				' ',
+				'...',
+
+				"'",
+				"'",
+				'"',
+				'"',
+				'*',
 				'-',
 				'--',
-				"'",
-				"'",
-				'"',
-				'"',
-				'...',
-				'*',
-				' ',
 
 				'1/4',
-				'1/4',
 				'1/2',
-				'1/2',
-				'3/4',
 				'3/4',
 			);
 		}
@@ -680,7 +676,7 @@ class CalendarSolution {
 							$this->data[$field] = null;
 						} else {
 							$this->data[$field] =
-								$this->convert_fancy_characters($this->data[$field]);
+								$this->convert_windows_characters($this->data[$field]);
 						}
 					} else {
 						$this->data[$field] = null;
