@@ -227,24 +227,24 @@ class CalendarSolution {
 
 		if (!isset($search)) {
 			$search = array(
-				'/\x09/',
-				'/\x85/',
+				"\x09",
+				"\x85",
 
-				'/\x91/',
-				'/\x92/',
-				'/\x93/',
-				'/\x94/',
-				'/\x95/',
-				'/\x96/',
-				'/\x97/',
+				"\x91",
+				"\x92",
+				"\x93",
+				"\x94",
+				"\x95",
+				"\x96",
+				"\x97",
 
-				'/\x99/',
-				'/\xA9/',
-				'/\xAE/',
+				"\x99",
+				"\xA9",
+				"\xAE",
 
-				'/\xBC/',
-				'/\xBD/',
-				'/\xBE/',
+				"\xBC",
+				"\xBD",
+				"\xBE",
 			);
 
 			$replace = array(
@@ -269,7 +269,7 @@ class CalendarSolution {
 			);
 		}
 
-		return preg_replace($search, $replace, $in);
+		return str_replace($search, $replace, $in);
 	}
 
 	/**
