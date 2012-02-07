@@ -5,7 +5,7 @@
  *
  * @package CalendarSolution_Test
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
@@ -14,7 +14,7 @@
  *
  * @package CalendarSolution_Test
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution_Test_List_CalendarHelper extends CalendarSolution_List_Calendar {
