@@ -159,19 +159,17 @@ div.cs_change_view {
  text-align: center;
 }
 
-div.cs_limit_form {
+form.cs_limit {
  margin-top: 0.7em;
- border-style: solid;
- width: 100%;
  border: thin solid black;
  padding: 0.5em;
 }
-div.cs_limit_form {
+form.cs_limit {
  font-size: 0.7em;
 }
-div.cs_limit_form input,
-div.cs_limit_form select,
-div.cs_limit_form option {
+form.cs_limit input,
+form.cs_limit select,
+form.cs_limit option {
  font-size: 1em;
 }
 

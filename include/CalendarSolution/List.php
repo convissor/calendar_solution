@@ -516,8 +516,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$action = htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']));
 
- 		$out = '<form class="cs_limit" method="get" action="' . $action . '">'
-			. '<div class="cs_limit_form">';
+		$out = '<form class="cs_limit" method="get" action="' . $action . '">';
 
 		if (in_array('datebox', $show)) {
 			if ($this->from) {
@@ -675,8 +674,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if (in_array('remove', $show)) {
 			$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
 		}
-		
-		$out .= "</div></div></form>\n";
+
+		$out .= "</div></form>\n";
 
 		return $out;
 	}
