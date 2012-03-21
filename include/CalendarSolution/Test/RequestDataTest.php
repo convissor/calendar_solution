@@ -1,6 +1,14 @@
 <?php /** @package CalendarSolution_Test */
 
 /**
+ * Obtain the Calendar Solution's settings and autoload function
+ *
+ * @internal Uses dirname(__FILE__) because "./" can be stripped by PHP's
+ * safety settings and __DIR__ was introduced in PHP 5.3.
+ */
+require_once dirname(__FILE__) . '/Helper.php';
+
+/**
  * Tests the CalendarSolution class' request data methods
  *
  * Usage:  phpunit RequestDataTest
