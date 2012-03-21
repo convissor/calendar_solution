@@ -10,6 +10,14 @@
  */
 
 /**
+ * Obtain the Calendar Solution's settings and autoload function
+ *
+ * @internal Uses dirname(__FILE__) because "./" can be stripped by PHP's
+ * safety settings and __DIR__ was introduced in PHP 5.3.
+ */
+require dirname(dirname(dirname(__FILE__))) . '/calendar_solution_settings.php';
+
+/**
  * Extend the class to be tested, providing access to protected elements
  *
  * @package CalendarSolution_Test
