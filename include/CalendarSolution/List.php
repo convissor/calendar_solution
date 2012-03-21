@@ -5,7 +5,7 @@
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
@@ -14,7 +14,7 @@
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 abstract class CalendarSolution_List extends CalendarSolution {
@@ -49,6 +49,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	protected $category_id;
 
 	/**
+	 * The category ids to not show events for
+	 * @var array
+	 */
+	protected $category_id_not;
+
+	/**
 	 * The records to be displayed
 	 * @var array
 	 */
@@ -59,6 +65,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @var int
 	 */
 	protected $frequent_event_id;
+
+	/**
+	 * The frequent event id to not show events for
+	 * @var array
+	 */
+	protected $frequent_event_id_not;
 
 	/**
 	 * The start of the date range to show events for in the current request
@@ -296,7 +308,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       user's intent
 	 * @uses CalendarSolution_List::$view  to know the current view
 	 * @uses CalendarSolution_List::$category_id  to know the current category
-	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
+	 * @uses CalendarSolution_List::$category_id_not  to know the current
+	 *       categories to not show
+	 * @uses CalendarSolution_List::$frequent_event_id  to know the current
+	 *       event
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to know the current
+	 *       event to not show
 	 * @uses CalendarSolution_List::$from  to know the current from date
 	 * @uses CalendarSolution_List::$to  to know the current to date
 	 * @uses CalendarSolution::$uri  to know the current URI
@@ -316,8 +333,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$uri['query']['category_id'] = empty($this->category_id)
 				? null : $this->category_id;
+		$uri['query']['category_id_not'] = empty($this->category_id_not)
+				? null : $this->category_id_not;
 		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
 				? null : $this->frequent_event_id;
+		$uri['query']['frequent_event_id_not'] = empty($this->frequent_event_id_not)
+				? null : $this->frequent_event_id_not;
 		$uri['query']['from'] = empty($this->from)
 				? null : $this->from->format('Y-m-d');
 		$uri['query']['to'] = empty($this->to)
@@ -375,7 +396,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 *       far in the future people can go
 	 * @uses CalendarSolution_List::$view  to know the current view
 	 * @uses CalendarSolution_List::$category_id  to know the current category
-	 * @uses CalendarSolution_List::$frequent_event_id  to know the curren event
+	 * @uses CalendarSolution_List::$category_id_not  to know the current
+	 *       categories to not show
+	 * @uses CalendarSolution_List::$frequent_event_id  to know the current
+	 *       event
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to know the current
+	 *       events to not show
 	 * @uses CalendarSolution_List::$from  to know the current from date
 	 * @uses CalendarSolution_List::$to  to know the current to date
 	 * @uses CalendarSolution_List::$prior_from  for the "prior" link's from date
@@ -409,8 +435,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$uri['query']['category_id'] = empty($this->category_id)
 				? null : $this->category_id;
+		$uri['query']['category_id_not'] = empty($this->category_id_not)
+				? null : $this->category_id_not;
 		$uri['query']['frequent_event_id'] = empty($this->frequent_event_id)
 				? null : $this->frequent_event_id;
+		$uri['query']['frequent_event_id_not'] = empty($this->frequent_event_id_not)
+				? null : $this->frequent_event_id_not;
 		$uri['query']['view'] = $this->view;
 
 		$uri['query']['from'] = $this->prior_from->format('Y-m-d');
@@ -486,8 +516,7 @@ abstract class CalendarSolution_List extends CalendarSolution {
 
 		$action = htmlspecialchars($uri['path'] . '?' . http_build_query($uri['query']));
 
- 		$out = '<form class="cs_limit" method="get" action="' . $action . '">'
-			. '<div class="cs_limit_form">';
+		$out = '<form class="cs_limit" method="get" action="' . $action . '">';
 
 		if (in_array('datebox', $show)) {
 			if ($this->from) {
@@ -645,8 +674,8 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		if (in_array('remove', $show)) {
 			$out .= '<input type="submit" name="remove_limit" value="Remove Limits" />';
 		}
-		
-		$out .= "</div></div></form>\n";
+
+		$out .= "</div></form>\n";
 
 		return $out;
 	}
@@ -715,6 +744,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @param array $event  the associative array of the current item
 	 *
 	 * @return string  the hyperlink and/or title
+	 *
+	 * @uses CALENDAR_SOLUTION_LINK_PATH  for pointing links to the
+	 *       calendar-detail.php page in the right direction
 	 */
 	public function get_link($event) {
 		if ($this->is_admin()) {
@@ -722,7 +754,9 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		} else {
 			switch ($event['list_link_goes_to_id']) {
 				case self::LINK_TO_DETAIL_PAGE:
-					$uri = 'calendar-detail.php?calendar_id=' . $event['calendar_id'];
+					$uri = CALENDAR_SOLUTION_LINK_PATH
+						. 'calendar-detail.php?calendar_id='
+						. $event['calendar_id'];
 					break;
 				case self::LINK_TO_FREQUENT_EVENT_URI:
 					$uri = $event['frequent_event_uri'];
@@ -942,6 +976,46 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	}
 
 	/**
+	 * Sets the "category_id_not" property to the appropriate value
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['category_id_not']
+	 *                   though set it to FALSE if it is not set or invalid
+	 *                   + FALSE = set the value to FALSE
+	 *                   + integer = an integer, falling back to FALSE if
+	 *                   the input is is invalid
+	 *                   + array of integers = if each element is not an integer
+	 *                   then the value will be set to FALSE
+	 * @return void
+	 *
+	 * @uses CalendarSolution::get_int_array_from_request()  to determine the
+	 *       user's intention
+	 * @uses CalendarSolution_List::$category_id_not  to store the data
+	 *
+	 * @since Method available since version 3.7
+	 */
+	public function set_category_id_not($in = null) {
+		if ($in === null) {
+			$out = $this->get_int_array_from_request('category_id_not');
+		} else {
+			if (!is_array($in)) {
+				$in = array($in);
+			}
+			$out = array();
+			foreach ($in as $value) {
+				if (!is_scalar($value)
+					|| !preg_match('/^\d{1,10}$/', $value))
+				{
+					$this->category_id = false;
+					return;
+				}
+				$out[] = $value;
+			}
+		}
+
+		$this->category_id_not = $out;
+	}
+
+	/**
 	 * Sets the date format to be used by our format_date() method
 	 *
 	 * @param int $in  the format used by PHP's date() function
@@ -980,6 +1054,46 @@ abstract class CalendarSolution_List extends CalendarSolution {
 		}
 
 		$this->frequent_event_id = $in;
+	}
+
+	/**
+	 * Sets the "frequent_event_id_not" property to the appropriate value
+	 *
+	 * @param mixed $in  + NULL = use value of $_REQUEST['frequent_event_id_not']
+	 *                   though set it to FALSE if it is not set or invalid
+	 *                   + FALSE = set the value to FALSE
+	 *                   + integer = an integer, falling back to FALSE if
+	 *                   the input is is invalid
+	 *                   + array of integers = if each element is not an integer
+	 *                   then the value will be set to FALSE
+	 * @return void
+	 *
+	 * @uses CalendarSolution::get_int_array_from_request()  to determine the
+	 *       user's intention
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to store the data
+	 *
+	 * @since Method available since version 3.7
+	 */
+	public function set_frequent_event_id_not($in = null) {
+		if ($in === null) {
+			$out = $this->get_int_array_from_request('frequent_event_id_not');
+		} else {
+			if (!is_array($in)) {
+				$in = array($in);
+			}
+			$out = array();
+			foreach ($in as $value) {
+				if (!is_scalar($value)
+					|| !preg_match('/^\d{1,10}$/', $value))
+				{
+					$this->frequent_event_id = false;
+					return;
+				}
+				$out[] = $value;
+			}
+		}
+
+		$this->frequent_event_id_not = $out;
 	}
 
 	/**
@@ -1330,8 +1444,16 @@ abstract class CalendarSolution_List extends CalendarSolution {
 			$this->set_category_id();
 		}
 
+		if ($this->category_id_not === null) {
+			$this->set_category_id_not();
+		}
+
 		if ($this->frequent_event_id === null) {
 			$this->set_frequent_event_id();
+		}
+
+		if ($this->frequent_event_id_not === null) {
+			$this->set_frequent_event_id_not();
 		}
 
 		if ($this->is_own_event === null) {
@@ -1498,8 +1620,12 @@ abstract class CalendarSolution_List extends CalendarSolution {
 	 * @uses CalendarSolution_List::$to  to know the end of the date range
 	 * @uses CalendarSolution_List::$category_id  to limit entries to a
 	 *       particular category if so desired
+	 * @uses CalendarSolution_List::$category_id_not  to leave off particular
+	 *       categories if so desired
 	 * @uses CalendarSolution_List::$frequent_event_id  to limit entries to a
 	 *       particular event if so desired
+	 * @uses CalendarSolution_List::$frequent_event_id_not  to leave off
+	 *       particular frequent events if so desired
 	 * @uses CalendarSolution_List::$is_own_event  to limit entries to those
 	 *       sponsored by you or those that are not
 	 * @uses CalendarSolution_List::$page_id  to limit entries to those that
@@ -1533,9 +1659,19 @@ abstract class CalendarSolution_List extends CalendarSolution {
 				. implode(', ', $this->category_id) . ")";
 		}
 
+		if ($this->category_id_not) {
+			$where[] = "cs_calendar.category_id NOT IN ("
+				. implode(', ', $this->category_id_not) . ")";
+		}
+
 		if ($this->frequent_event_id) {
 			$where[] = "cs_calendar.frequent_event_id = "
 				. (int) $this->frequent_event_id;
+		}
+
+		if ($this->frequent_event_id_not) {
+			$where[] = "cs_calendar.frequent_event_id NOT IN ("
+				. implode(', ', $this->frequent_event_id_not) . ")";
 		}
 
 		if ($this->is_own_event) {

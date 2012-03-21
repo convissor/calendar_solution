@@ -7,23 +7,254 @@
  *
  * @package CalendarSolution_Test
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 	/**
+	 * A string to ease finding test entries
+	 */
+	const PREFIX = 'CSTDFT: ';
+
+	/**
+	 * A string to ease finding test entries
+	 */
+	const CALENDAR_URI = 'http://calendar/';
+
+	/**
+	 * A string to ease finding test entries
+	 */
+	const FREQUENT_EVENT_URI = 'http://frequent/';
+
+	/**
 	 * The calendar class to test
 	 * @var CalendarSolution_Test_Detail_FormHelper
 	 */
-	protected $calendar;
+	protected static $calendar;
 
 	/**
-	 * Prepares the environment before running each test
+	 * The calendar id to use for testing
+	 * @var int
 	 */
-	protected function setUp() {
-		$this->calendar = new CalendarSolution_Test_Detail_FormHelper;
+	protected $calendar_id;
+
+	/**
+	 * The category to use for testing
+	 * @var int
+	 */
+	protected static $category;
+
+	/**
+	 * The category id to use for testing
+	 * @var int
+	 */
+	protected static $category_id;
+
+	/**
+	 * The frequent event to use for testing
+	 * @var int
+	 */
+	protected static $frequent_event;
+
+	/**
+	 * The frequent event id to use for testing
+	 * @var int
+	 */
+	protected static $frequent_event_id;
+
+
+	/**
+	 * Prepares the environment before the first test is run
+	 */
+	public static function setUpBeforeClass() {
+		self::$calendar = new CalendarSolution_Test_Detail_FormHelper;
+
+		self::$calendar->sql->SQLQueryString = 'BEGIN';
+		self::$calendar->sql->RunQuery(__FILE__, __LINE__);
+
+		self::$frequent_event = self::PREFIX . 'Frequent Event';
+		self::$calendar->sql->SQLQueryString = "INSERT INTO cs_frequent_event
+			(frequent_event, frequent_event_uri) VALUES
+			('" . self::$frequent_event . "','" . self::FREQUENT_EVENT_URI . "')";
+		self::$calendar->sql->RunQuery(__FILE__, __LINE__);
+		self::$frequent_event_id = self::$calendar->sql->InsertID(__FILE__, __LINE__);
+
+		self::$category = self::PREFIX . 'Category';
+		self::$calendar->sql->SQLQueryString = "INSERT INTO cs_category
+			(category) VALUES ('" . self::$category . "')";
+		self::$calendar->sql->RunQuery(__FILE__, __LINE__);
+		self::$category_id = self::$calendar->sql->InsertID(__FILE__, __LINE__);
 	}
 
+	/**
+	 * Destroys the environment once the final test is done
+	 */
+	public static function tearDownAfterClass() {
+		self::$calendar->sql->SQLQueryString = 'ROLLBACK';
+		self::$calendar->sql->RunQuery(__FILE__, __LINE__);
+		self::$calendar->sql->Disconnect(__FILE__, __LINE__);
+	}
+
+
+	/**
+	 * Sets the CSRF token information in $_SESSION and $_POST
+	 * @return void
+	 */
+	protected function setToken() {
+		$token = uniqid(rand(), true);
+		$_SESSION[self::$calendar->csrf_token_name] = $token;
+		$_POST[self::$calendar->csrf_token_name] = $token;
+	}
+
+	/**
+	 * Compares the data submitted to that found in the database
+	 * @param array $expect_override  specific field values to replace
+	 * @return void
+	 */
+	protected function checkResult($expect_override = array()) {
+		$expect = self::$calendar->data;
+		$expect['calendar_id'] = "$this->calendar_id";
+		$expect['set_from'] = 'query';
+		if (empty($expect['category_id'])) {
+			$expect['category'] = '';
+		} else {
+			$expect['category'] = self::$category;
+		}
+		if (!empty($expect['frequent_event_id'])
+			 && empty($expect['calendar_uri']))
+		{
+			$expect['display_uri'] = self::FREQUENT_EVENT_URI;
+			$expect['frequent_event_uri'] = '<a href="' . $expect['display_uri']
+					. '">' . $expect['display_uri'] . '</a>';
+		} else {
+			$expect['display_uri'] = $expect['calendar_uri'];
+			$expect['calendar_uri'] = '<a href="' . $expect['display_uri']
+					. '">' . $expect['display_uri'] . '</a>';
+		}
+		if (!empty($expect['time_start'])) {
+			$expect['time_start'] .= ':00';
+		}
+		if (!empty($expect['time_end'])) {
+			$expect['time_end'] .= ':00';
+		}
+		$expect['status'] = 'Open';
+		$expect['feature_on_page_id'] = '0';
+		unset($expect['frequency']);
+		unset($expect['span']);
+		unset($expect['week_of_month']);
+		foreach ($expect as $key => $value) {
+			if (is_null($value)) {
+				$expect[$key] = '';
+			}
+		}
+		$expect = array_merge($expect, $expect_override);
+
+		self::$calendar->set_data_from_query($this->calendar_id);
+		$this->assertEquals($expect, self::$calendar->data);
+	}
+
+
+	/**#@+
+	 * insert()
+	 */
+	public function test_insert_minimal() {
+		$_POST = array(
+			'calendar_uri' => self::CALENDAR_URI,
+			'category_id' => '',
+			'changed' => 'N',
+			'date_start' => '2009-09-01',
+			'detail' => '',
+			'feature_on_page_id' => array(),
+			'frequency' => '',
+			'frequent_event_id' => '',
+			'is_own_event' => 'Y',
+			'list_link_goes_to_id' => '2',
+			'location_start' => '',
+			'note' => '',
+			'span' => '',
+			'status_id' => '1',
+			'summary' => '',
+			'time_end' => '',
+			'time_start' => '',
+			'title' => self::PREFIX . __FUNCTION__,
+			'week_of_month' => '',
+		);
+
+		self::$calendar->set_data_from_post();
+		if (!self::$calendar->is_valid(false)) {
+			$this->fail(implode("\n", self::$calendar->errors));
+		}
+		$this->setToken();
+		self::$calendar->insert();
+		$this->calendar_id = self::$calendar->sql->InsertID(__FILE__, __LINE__);
+		$this->checkResult();
+	}
+
+	public function test_insert_full() {
+		$_POST = array(
+			'calendar_uri' => '',
+			'category_id' => self::$category_id,
+			'changed' => 'N',
+			'date_start' => '2009-09-01',
+			'detail' => 'the details',
+			'feature_on_page_id' => array('1'),
+			'frequency' => '',
+			'frequent_event_id' => self::$frequent_event_id,
+			'is_own_event' => 'Y',
+			'list_link_goes_to_id' => '2',
+			'location_start' => 'the location',
+			'note' => 'the note',
+			'span' => '',
+			'status_id' => '1',
+			'summary' => 'the summary',
+			'time_end' => '03:04',
+			'time_start' => '01:02',
+			'title' => self::PREFIX . __FUNCTION__,
+			'week_of_month' => '',
+		);
+
+		self::$calendar->set_data_from_post();
+		if (!self::$calendar->is_valid(false)) {
+			$this->fail(implode("\n", self::$calendar->errors));
+		}
+		$this->setToken();
+		self::$calendar->insert();
+		$this->calendar_id = self::$calendar->sql->InsertID(__FILE__, __LINE__);
+		$expect_override = array(
+			'feature_on_page_id' => 1,
+		);
+		$this->checkResult($expect_override);
+	}
+
+	public function test_insert_fail_date_start() {
+		$_POST = array(
+			'calendar_uri' => self::CALENDAR_URI,
+			'category_id' => '',
+			'changed' => 'N',
+			'date_start' => '',
+			'detail' => '',
+			'feature_on_page_id' => array(),
+			'frequency' => '',
+			'frequent_event_id' => '',
+			'is_own_event' => 'Y',
+			'list_link_goes_to_id' => '2',
+			'location_start' => '',
+			'note' => '',
+			'span' => '',
+			'status_id' => '1',
+			'summary' => '',
+			'time_end' => '',
+			'time_start' => '',
+			'title' => self::PREFIX . __FUNCTION__,
+			'week_of_month' => '',
+		);
+
+		self::$calendar->set_data_from_post();
+		self::$calendar->is_valid(false);
+		$expect = array('Start Date is invalid');
+		$this->assertEquals($expect, self::$calendar->errors);
+	}
+	/**#@-*/
 
 	/**#@+
 	 * get_date_starts() first x of the month
@@ -43,8 +274,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-01',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 
 		$this->assertEquals($expected, $actual);
 	}
@@ -64,8 +295,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-02',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -84,8 +315,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-03',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -104,8 +335,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-04',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -124,8 +355,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-05',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -144,8 +375,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-06',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -164,8 +395,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-07',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 	/**#@-*/
@@ -188,8 +419,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-08',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 
 		$this->assertEquals($expected, $actual);
 	}
@@ -209,8 +440,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-09',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -229,8 +460,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-10',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -249,8 +480,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-11',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -269,8 +500,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-12',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -289,8 +520,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-13',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -309,8 +540,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-14',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 	/**#@-*/
@@ -333,8 +564,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-15',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 
 		$this->assertEquals($expected, $actual);
 	}
@@ -354,8 +585,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-16',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -374,8 +605,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-17',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -394,8 +625,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-18',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -414,8 +645,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-19',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -434,8 +665,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-20',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -454,8 +685,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-21',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 	/**#@-*/
@@ -478,8 +709,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-22',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 
 		$this->assertEquals($expected, $actual);
 	}
@@ -499,8 +730,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-23',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -519,8 +750,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-24',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -539,8 +770,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-25',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -559,8 +790,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-26',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -579,8 +810,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-27',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -599,8 +830,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-28',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 	/**#@-*/
@@ -623,8 +854,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-29',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 
 		$this->assertEquals($expected, $actual);
 	}
@@ -644,8 +875,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-30',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -664,8 +895,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-31',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -684,8 +915,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-25',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -704,8 +935,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-26',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -724,8 +955,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-27',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -744,8 +975,8 @@ class CalendarSolution_Test_Detail_FormTest extends PHPUnit_Framework_TestCase {
 			'2009-12-28',
 		);
 
-		$this->calendar->set_data_from_post();
-		$actual = $this->calendar->get_date_starts();
+		self::$calendar->set_data_from_post();
+		$actual = self::$calendar->get_date_starts();
 		$this->assertEquals($expected, $actual);
 	}
 	/**#@-*/

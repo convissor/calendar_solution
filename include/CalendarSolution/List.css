@@ -3,8 +3,8 @@
  */
 
 table.cs_list_calendar {
- border-top: thin solid #004300;
- border-right: thin solid #004300;
+ border-top: thin solid black;
+ border-right: thin solid black;
  margin-bottom: 0.5em;
  width: 100%;
  border-collapse: collapse;
@@ -13,16 +13,27 @@ table.cs_list_calendar {
 table.cs_list_calendar caption,
 table.cs_list_calendar th,
 table.cs_list_calendar td {
- color: #004300;
- background-color: #FFFFFF;
+ color: black;
+ background-color: white;
+}
+
+.cs_list_calendar a:link,
+.cs_list_calendar a:active {
+ color: blue;
+}
+.cs_list_calendar a:hover,
+.cs_list_calendar a:active,
+.cs_list_calendar a:focus {
+ color: red;
+}
+.cs_list_calendar a:visited {
+ color: purple;
 }
 
 table.cs_list_calendar th,
 table.cs_list_calendar td {
- color: #004300;
- background-color: #FFFFFF;
- border-left: thin solid #004300;
- border-bottom: thin solid #004300;
+ border-left: thin solid black;
+ border-bottom: thin solid black;
  border-collapse: collapse;
  padding-left: 0.3em;
  width: 14%;
@@ -66,18 +77,15 @@ table.cs_list_list {
 }
 
 table.cs_list_list td.cs_month {
- color: #004300;
- background-color: #FFFFFF;
- border-style: solid none none none;
- border-top: thick solid #FFFFFF;
+ color: black;
+ background-color: white;
+ border-top: thick solid black;
  font-size: 130%;
  font-weight: bold;
 }
-
 table.cs_list_list tr.cs_row_0 {
  background-color: #99CCCC;
 }
-
 table.cs_list_list tr.cs_row_1 {
  background-color: #99CC99;
 }
@@ -93,11 +101,23 @@ table.cs_list_list tr.cs_row_1.cs_status_C {
  background-color: #FFCC00;
 }
 
+.cs_list_list a:link,
+.cs_list_list a:active {
+ color: blue;
+}
+.cs_list_list a:hover,
+.cs_list_list a:active,
+.cs_list_list a:focus {
+ color: red;
+}
+.cs_list_list a:visited {
+ color: purple;
+}
+
 table.cs_list_list td {
- color: #004300;
+ color: black;
  font-size: 85%;
- border-style: solid none none none;
- border-top: thin solid #FFFFFF;
+ border-top: thin solid black;
  vertical-align: top;
  padding: 0.2em;
 }
@@ -139,19 +159,17 @@ div.cs_change_view {
  text-align: center;
 }
 
-div.cs_limit_form {
+form.cs_limit {
  margin-top: 0.7em;
- border-style: solid;
- width: 100%;
  border: thin solid black;
  padding: 0.5em;
 }
-div.cs_limit_form {
+form.cs_limit {
  font-size: 0.7em;
 }
-div.cs_limit_form input,
-div.cs_limit_form select,
-div.cs_limit_form option {
+form.cs_limit input,
+form.cs_limit select,
+form.cs_limit option {
  font-size: 1em;
 }
 

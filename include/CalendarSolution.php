@@ -10,7 +10,7 @@
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 
@@ -28,7 +28,7 @@
  *
  * @package CalendarSolution
  * @author Daniel Convissor <danielc@analysisandsolutions.com>
- * @copyright The Analysis and Solutions Company, 2002-2011
+ * @copyright The Analysis and Solutions Company, 2002-2012
  * @license http://www.analysisandsolutions.com/software/license.htm Simple Public License
  */
 class CalendarSolution {
@@ -211,6 +211,65 @@ class CalendarSolution {
 				$this->data[$key] = htmlspecialchars($value);
 			}
 		}
+	}
+
+	/**
+	 * Turns "fancy" windows-1252 character set characters into ASCII
+	 * equivalents
+	 *
+	 * @param string $in  the data to be sanitize
+	 * @return string  the sanitized data
+	 *
+	 * @since Method available since version 3.7
+	 */
+	protected function convert_windows_characters($in) {
+		static $search, $replace;
+
+		if (!isset($search)) {
+			$search = array(
+				"\x09",
+				"\x85",
+
+				"\x91",
+				"\x92",
+				"\x93",
+				"\x94",
+				"\x95",
+				"\x96",
+				"\x97",
+
+				"\x99",
+				"\xA9",
+				"\xAE",
+
+				"\xBC",
+				"\xBD",
+				"\xBE",
+			);
+
+			$replace = array(
+				' ',
+				'...',
+
+				"'",
+				"'",
+				'"',
+				'"',
+				'*',
+				'-',
+				'--',
+
+				'(tm)',
+				'(c)',
+				'(r)',
+
+				'1/4',
+				'1/2',
+				'3/4',
+			);
+		}
+
+		return str_replace($search, $replace, $in);
 	}
 
 	/**
@@ -608,31 +667,31 @@ class CalendarSolution {
 		foreach ($this->fields as $field) {
 			if (array_key_exists($field, $_POST)) {
 				if (in_array($field, $this->fields_bitwise)) {
+					// Bitwise field.
+					$this->data[$field] = array();
 					if (is_array($_POST[$field])) {
 						foreach ($_POST[$field] as $key => $value) {
-							if (is_scalar($value)) {
-								$this->data[$field][$key] = trim($_POST[$field][$key]);
-								if ($this->data[$field][$key] === '') {
-									$this->data[$field][$key] = null;
-								}
-							} else {
-								$this->data[$field][$key] = null;
+							if (ctype_digit($value)) {
+								$this->data[$field][] = $value;
 							}
 						}
-					} else {
-						$this->data[$field] = array();
 					}
 				} else {
+					// Normal field.
 					if (is_scalar($_POST[$field])) {
 						$this->data[$field] = trim($_POST[$field]);
 						if ($this->data[$field] === '') {
 							$this->data[$field] = null;
+						} else {
+							$this->data[$field] =
+								$this->convert_windows_characters($this->data[$field]);
 						}
 					} else {
 						$this->data[$field] = null;
 					}
 				}
 			} else {
+				// Field not submitted.
 				if (in_array($field, $this->fields_bitwise)) {
 					$this->data[$field] = array();
 				} else {
