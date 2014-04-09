@@ -88,13 +88,14 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 */
 	public function delete() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'DELETE FROM cs_calendar
 			WHERE calendar_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['calendar_id']);
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -197,7 +198,6 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 */
 	public function insert() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$feature_bitwise = $this->get_bitwise_from_array($this->data['feature_on_page_id']);
 
@@ -241,6 +241,8 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 				. $this->sql->Escape(__FILE__, __LINE__, $date_start) . ')';
 			$this->sql->RunQuery(__FILE__, __LINE__);
 		}
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -909,7 +911,6 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 	 */
 	public function update() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$feature_bitwise = $this->get_bitwise_from_array($this->data['feature_on_page_id']);
 
@@ -933,5 +934,7 @@ class CalendarSolution_Detail_Form extends CalendarSolution_Detail {
 			WHERE calendar_id = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['calendar_id']);
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+
+		$this->flush_cache();
 	}
 }

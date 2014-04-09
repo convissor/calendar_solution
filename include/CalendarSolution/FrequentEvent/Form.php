@@ -68,13 +68,14 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 */
 	public function delete() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'DELETE FROM cs_frequent_event
 			WHERE frequent_event_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event_id']);
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -88,7 +89,6 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 */
 	public function insert() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'INSERT INTO cs_frequent_event (
 				frequent_event,
@@ -101,6 +101,8 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
 			throw new CalendarSolution_Exception('That Title already exists');
 		}
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -248,7 +250,6 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 	 */
 	public function update() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'UPDATE cs_frequent_event SET
 			frequent_event = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['frequent_event']) . ',
@@ -258,5 +259,7 @@ class CalendarSolution_FrequentEvent_Form extends CalendarSolution_FrequentEvent
 		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
 			throw new CalendarSolution_Exception('That Title already exists');
 		}
+
+		$this->flush_cache();
 	}
 }

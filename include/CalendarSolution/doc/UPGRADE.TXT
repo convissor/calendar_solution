@@ -31,6 +31,8 @@ INSTALL.TXT "Adjust permissions on the files"
 
 
 To 3.7 (from 2.1)
------------------ 
+-----------------
 
-* If running PostgreSQL, table permissions will need updating.  See INSTALL.TXT, "Load the installation SQL script into your database system," "PostgreSQL".
+* If running PostgreSQL, table permissions will need updating.  See
+INSTALL.TXT, "Load the installation SQL script into your database system,"
+"PostgreSQL".

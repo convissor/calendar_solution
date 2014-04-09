@@ -2,7 +2,7 @@
 #
 # Set AuthUserFile to the location of the .htpasswd file.
 #
-# See include/CalendarSolution/doc/INSTALL.txt for more information.
+# See include/CalendarSolution/doc/INSTALL.TXT for more information.
 
 AuthUserFile "/var/www/calendar/Admin/.htpasswd"
 

@@ -67,13 +67,14 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	 */
 	public function delete() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'DELETE FROM cs_category
 			WHERE category_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['category_id']);
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -87,7 +88,6 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	 */
 	public function insert() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'INSERT INTO cs_category (
 				category
@@ -98,6 +98,8 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
 			throw new CalendarSolution_Exception('That Title already exists');
 		}
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -222,7 +224,6 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 	 */
 	public function update() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'UPDATE cs_category SET
 			category = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['category']) . '
@@ -231,5 +232,7 @@ class CalendarSolution_Category_Form extends CalendarSolution_Category {
 		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
 			throw new CalendarSolution_Exception('That Title already exists');
 		}
+
+		$this->flush_cache();
 	}
 }
