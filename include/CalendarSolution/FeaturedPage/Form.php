@@ -67,13 +67,14 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	 */
 	public function delete() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'DELETE FROM cs_feature_on_page
 			WHERE feature_on_page_id = '
 			. $this->sql->Escape(__FILE__, __LINE__, $this->data['feature_on_page_id']);
 
 		$this->sql->RunQuery(__FILE__, __LINE__);
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -87,7 +88,6 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	 */
 	public function insert() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 //		$this->sql->SQLQueryString = 'BEGIN';
 //		$this->sql->RunQuery(__FILE__, __LINE__);
@@ -107,6 +107,8 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
 			throw new CalendarSolution_Exception('That Title already exists');
 		}
+
+		$this->flush_cache();
 	}
 
 	/**
@@ -231,7 +233,6 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 	 */
 	public function update() {
 		$this->validate_csrf_token();
-		$this->flush_cache();
 
 		$this->sql->SQLQueryString = 'UPDATE cs_feature_on_page SET
 			feature_on_page = ' . $this->sql->Escape(__FILE__, __LINE__, $this->data['feature_on_page']) . '
@@ -240,5 +241,7 @@ class CalendarSolution_FeaturedPage_Form extends CalendarSolution_FeaturedPage {
 		if (!$this->sql->RunQuery_NoDuplicates(__FILE__, __LINE__)) {
 			throw new CalendarSolution_Exception('That Title already exists');
 		}
+
+		$this->flush_cache();
 	}
 }
